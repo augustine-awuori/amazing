@@ -1,7 +1,11 @@
-import "./App.css";
+import ListingsPage from "./Pages/ListingsPage";
 
 function App() {
-  return <div></div>;
+  return (
+    <>
+      <ListingsPage />
+    </>
+  );
 }
 
 export default App;
