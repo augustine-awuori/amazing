@@ -6,6 +6,7 @@ import CategoryList from "../components/CategoryList";
 import CategorySelector from "../components/CategorySelector";
 import ColorSwitchMode from "../components/ColorSwitchMode";
 import ListingGrid from "../components/ListingGrid";
+import ListingHeading from "../components/ListingHeading";
 import NavBar from "../components/NavBar";
 
 const ListingsPage = () => {
@@ -31,6 +32,9 @@ const ListingsPage = () => {
       </GridItem>
       <GridItem area="main" paddingX={5}>
         <Box marginY={1} paddingLeft={2}>
+          <Box display={{ md: "none", lg: "block" }}>
+            <ListingHeading selectedCategory={selectedCategory} />
+          </Box>
           <HStack justifyContent="space-between" marginTop={3}>
             <Box display={{ lg: "none" }}>
               <CategorySelector
@@ -41,7 +45,7 @@ const ListingsPage = () => {
             <ColorSwitchMode />
           </HStack>
         </Box>
-        <ListingGrid />
+        <ListingGrid selectedCategory={selectedCategory} />
       </GridItem>
     </Grid>
   );

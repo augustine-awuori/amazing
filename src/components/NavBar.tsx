@@ -62,7 +62,7 @@ export default function WithSubnavigation() {
             fontFamily="heading"
             fontWeight="bold"
             color={useColorModeValue("gray.800", "white")}
-            fontSize={23}
+            fontSize={22}
           >
             Kisii Universe Mart
           </Text>

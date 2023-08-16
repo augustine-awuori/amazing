@@ -5,6 +5,14 @@ export interface Category {
   label: string;
 }
 
-const useCategories = () => useData<Category>("/categories");
+const useCategories = () => {
+  const { data, error, isLoading } = useData<Category>("/categories");
+
+  return {
+    data: [{ _id: "", label: "All Categories" }, ...data],
+    error,
+    isLoading,
+  };
+};
 
 export default useCategories;
