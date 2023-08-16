@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   HStack,
   Heading,
@@ -22,7 +23,7 @@ const GenreList = ({ onSelectedCategory, selectedCategory }: Props) => {
   if (isLoading) return <Spinner />;
 
   return (
-    <>
+    <Box>
       <Heading fontSize="2xl" marginBottom={3}>
         Categories
       </Heading>
@@ -46,7 +47,7 @@ const GenreList = ({ onSelectedCategory, selectedCategory }: Props) => {
           </ListItem>
         ))}
       </List>
-    </>
+    </Box>
   );
 };
 

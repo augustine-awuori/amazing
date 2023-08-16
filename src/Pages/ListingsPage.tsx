@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Box, Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem, HStack } from "@chakra-ui/react";
 
 import { Category } from "../hooks/useCategories";
 import CategoryList from "../components/CategoryList";
 import ColorSwitchMode from "../components/ColorSwitchMode";
 import ListingGrid from "../components/ListingGrid";
 import NavBar from "../components/NavBar";
+import CategorySelector from "../components/CategorySelector";
 
 const ListingsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
@@ -28,7 +29,13 @@ const ListingsPage = () => {
       </GridItem>
       <GridItem area="main" paddingX={5}>
         <Box marginY={1} paddingLeft={2}>
-          <ColorSwitchMode />
+          <HStack justifyContent="space-between">
+            <CategorySelector
+              onSelectCategory={setSelectedCategory}
+              selectedCategory={selectedCategory}
+            />
+            <ColorSwitchMode />
+          </HStack>
         </Box>
         <ListingGrid />
       </GridItem>
