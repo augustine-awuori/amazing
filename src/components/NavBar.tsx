@@ -62,7 +62,7 @@ export default function WithSubnavigation() {
             fontFamily="heading"
             fontWeight="bold"
             color={useColorModeValue("gray.800", "white")}
-            fontSize={25}
+            fontSize={23}
           >
             Kisii Universe Mart
           </Text>
@@ -78,6 +78,15 @@ export default function WithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
+          <Button
+            as="a"
+            fontSize={"sm"}
+            fontWeight={400}
+            variant={"link"}
+            href={"#"}
+          >
+            Logout
+          </Button>
           <Button
             as="a"
             fontSize={"sm"}
@@ -301,10 +310,6 @@ const NAV_ITEMS: Array<NavItem> = [
   },
   {
     label: "About App",
-    href: "#",
-  },
-  {
-    label: "Logout",
     href: "#",
   },
 ];
