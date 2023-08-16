@@ -56,7 +56,8 @@ export default function WithSubnavigation() {
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            fontFamily={"heading"}
+            fontFamily="heading"
+            fontWeight="bold"
             color={useColorModeValue("gray.800", "white")}
           >
             Kisii Universe Mart
