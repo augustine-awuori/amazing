@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Grid, GridItem, HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 
 import { Category } from "../hooks/useCategories";
 import CategoryList from "../components/CategoryList";
@@ -7,30 +7,25 @@ import CategorySelector from "../components/CategorySelector";
 import ColorSwitchMode from "../components/ColorSwitchMode";
 import ListingGrid from "../components/ListingGrid";
 import ListingHeading from "../components/ListingHeading";
-import NavBar from "../components/NavBar";
+import PageContainer from "../components/PageContainer";
 
 const ListingsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
 
+  const Aside = (
+    <Box display={{ base: "none", lg: "block" }}>
+      <CategoryList
+        selectedCategory={selectedCategory}
+        onSelectedCategory={setSelectedCategory}
+      />
+    </Box>
+  );
+
   return (
-    <Grid
-      templateAreas={{ base: `"nav" "main"`, lg: `"nav nav" "aside main"` }}
-      templateColumns={{ base: "1fr", lg: "150px 1fr" }}
-    >
-      <GridItem area="nav">
-        <NavBar />
-      </GridItem>
-      <GridItem area="aside" paddingX={5} marginTop={2}>
-        <Box display={{ base: "none", lg: "block" }}>
-          <CategoryList
-            selectedCategory={selectedCategory}
-            onSelectedCategory={setSelectedCategory}
-          />
-        </Box>
-      </GridItem>
-      <GridItem area="main" paddingX={5}>
+    <PageContainer Aside={Aside}>
+      <>
         <Box marginY={1} paddingLeft={2}>
           <Box display={{ md: "none", lg: "block" }}>
             <ListingHeading selectedCategory={selectedCategory} />
@@ -46,8 +41,8 @@ const ListingsPage = () => {
           </HStack>
         </Box>
         <ListingGrid selectedCategory={selectedCategory} />
-      </GridItem>
-    </Grid>
+      </>
+    </PageContainer>
   );
 };
 
