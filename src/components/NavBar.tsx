@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   useBreakpointValue,
   useDisclosure,
+  useColorMode,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -24,6 +25,7 @@ import {
 } from "@chakra-ui/icons";
 
 export default function WithSubnavigation() {
+  const { colorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -38,6 +40,7 @@ export default function WithSubnavigation() {
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align={"center"}
+        backgroundColor={colorMode === "dark" ? "inherit" : "orange.300"}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -87,8 +90,8 @@ export default function WithSubnavigation() {
             as="a"
             fontSize={"sm"}
             fontWeight={400}
-            variant={"link"}
-            href={"#"}
+            variant="link"
+            href="#"
           >
             Sign Up
           </Button>

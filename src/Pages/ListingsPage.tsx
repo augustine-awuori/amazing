@@ -1,7 +1,8 @@
-import { Grid, GridItem, HStack } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 
-import NavBar from "../components/NavBar";
 import ColorSwitchMode from "../components/ColorSwitchMode";
+import NavBar from "../components/NavBar";
+import ListingGrid from "../components/ListingGrid";
 
 const ListingsPage = () => {
   return (
@@ -14,10 +15,10 @@ const ListingsPage = () => {
       </GridItem>
       <GridItem area="aside"></GridItem>
       <GridItem area="main" paddingX={5}>
-        <HStack justifyContent="space-between" marginTop={3}>
-          <div></div>
+        <Box marginY={1} paddingLeft={2}>
           <ColorSwitchMode />
-        </HStack>
+        </Box>
+        <ListingGrid />
       </GridItem>
     </Grid>
   );
