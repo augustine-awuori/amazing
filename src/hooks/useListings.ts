@@ -3,6 +3,7 @@ import useData from "./useData";
 
 interface Author {
   _id: string;
+  isVerified: boolean;
   name: string;
   username: string;
   avatar?: string;

@@ -11,8 +11,8 @@ import {
 } from "@chakra-ui/react";
 import { GoVerified } from "react-icons/go";
 
-import { Listing } from "../hooks/useListings";
 import { getFirstWord } from "../utilities/stringManipulator";
+import { Listing } from "../hooks/useListings";
 
 interface Props {
   listing: Listing;
@@ -42,7 +42,7 @@ const ListingCard = ({ listing, onClick }: Props) => {
             <Text fontSize={13} marginRight={1}>
               {getFirstWord(author.name)}
             </Text>
-            <GoVerified size={12} color="orange" />
+            {author.isVerified && <GoVerified size={12} color="orange" />}
           </WrapItem>
         </Wrap>
       </CardBody>
