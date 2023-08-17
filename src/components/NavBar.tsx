@@ -83,7 +83,7 @@ export default function WithSubnavigation() {
             fontSize={"sm"}
             fontWeight={400}
             variant={"link"}
-            href={"#"}
+            href="/logout"
           >
             Logout
           </Button>
@@ -92,7 +92,7 @@ export default function WithSubnavigation() {
             fontSize={"sm"}
             fontWeight={400}
             variant={"link"}
-            href={"#"}
+            href="/login"
           >
             Sign In
           </Button>
@@ -101,7 +101,7 @@ export default function WithSubnavigation() {
             fontSize={"sm"}
             fontWeight={400}
             variant="link"
-            href="#"
+            href="/register"
           >
             Sign Up
           </Button>
@@ -284,12 +284,12 @@ const NAV_ITEMS: Array<NavItem> = [
       {
         label: "View All Listings",
         subLabel: "View created listings",
-        href: "#",
+        href: "/",
       },
       {
         label: "Create New Listing",
         subLabel: "Do you have an item you don't need anymore?",
-        href: "#",
+        href: "/listings/new",
       },
     ],
   },
@@ -299,17 +299,17 @@ const NAV_ITEMS: Array<NavItem> = [
       {
         label: "View All Requests",
         subLabel: "View created requests",
-        href: "#",
+        href: "/requests",
       },
       {
         label: "Create New Request",
         subLabel: "Ask for an item that isn't available",
-        href: "#",
+        href: "/requests/new",
       },
     ],
   },
   {
     label: "About App",
-    href: "#",
+    href: "/about-app",
   },
 ];
