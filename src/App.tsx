@@ -1,7 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 
-import ListingsPage from "./Pages/ListingsPage";
 import NavBar from "./components/NavBar";
+import AppRoutes from "./components/Routes";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <GridItem area="nav">
         <NavBar />
       </GridItem>
-      <ListingsPage />
+      <AppRoutes />
     </Grid>
   );
 }
