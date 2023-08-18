@@ -1,18 +1,7 @@
-import {
-  Avatar,
-  Card,
-  CardBody,
-  Heading,
-  Text,
-  Image,
-  Wrap,
-  WrapItem,
-  useColorMode,
-} from "@chakra-ui/react";
-import { GoVerified } from "react-icons/go";
+import { Card, CardBody, Heading, Image, useColorMode } from "@chakra-ui/react";
 
-import { getFirstWord } from "../utilities/stringManipulator";
-import { Listing } from "../hooks/useListings";
+import { Listing } from "../hooks/useListing";
+import UserAvatar from "./UserAvatar";
 
 interface Props {
   listing: Listing;
@@ -21,7 +10,6 @@ interface Props {
 
 const ListingCard = ({ listing, onClick }: Props) => {
   const { colorMode } = useColorMode();
-  const { author } = listing;
 
   return (
     <Card
@@ -34,17 +22,7 @@ const ListingCard = ({ listing, onClick }: Props) => {
         <Heading fontSize="2xl" noOfLines={1}>
           {listing.title}
         </Heading>
-        <Wrap marginTop={2}>
-          <WrapItem>
-            <Avatar size="xs" name={author.name} src={author.avatar} />
-          </WrapItem>
-          <WrapItem>
-            <Text fontSize={13} marginRight={1}>
-              {getFirstWord(author.name)}
-            </Text>
-            {author.isVerified && <GoVerified size={12} color="orange" />}
-          </WrapItem>
-        </Wrap>
+        <UserAvatar user={listing.author} />
       </CardBody>
     </Card>
   );

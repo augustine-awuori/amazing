@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, HStack } from "@chakra-ui/react";
 
 import { Category } from "../hooks/useCategories";
@@ -8,11 +9,19 @@ import ColorSwitchMode from "../components/ColorSwitchMode";
 import ListingGrid from "../components/ListingGrid";
 import ListingHeading from "../components/ListingHeading";
 import PageContainer from "../components/PageContainer";
+import useListing, { Listing } from "../hooks/useListing";
 
 const ListingsPage = () => {
+  const navigate = useNavigate();
+  const { setListing } = useListing();
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
+
+  const navigateToDetails = (listing: Listing) => {
+    setListing(listing);
+    navigate(`/listings/${listing._id}`);
+  };
 
   const Aside = (
     <Box display={{ base: "none", lg: "block" }}>
@@ -40,7 +49,10 @@ const ListingsPage = () => {
             <ColorSwitchMode />
           </HStack>
         </Box>
-        <ListingGrid selectedCategory={selectedCategory} />
+        <ListingGrid
+          onListingClick={navigateToDetails}
+          selectedCategory={selectedCategory}
+        />
       </>
     </PageContainer>
   );

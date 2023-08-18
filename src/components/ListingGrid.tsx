@@ -8,15 +8,12 @@ import useListing, { Listing } from "../hooks/useListings";
 
 interface Props {
   selectedCategory: Category | null;
+  onListingClick: (listing: Listing) => void;
 }
 
-const ListingGrid = ({ selectedCategory }: Props) => {
+const ListingGrid = ({ onListingClick, selectedCategory }: Props) => {
   const { error, isLoading, data: listings } = useListing();
   const skeletons = [1, 2, 3, 4, 5, 6];
-
-  const handleClick = (listing: Listing) => {
-    console.log(listing);
-  };
 
   const filtered = selectedCategory?._id
     ? listings.filter(
@@ -40,7 +37,10 @@ const ListingGrid = ({ selectedCategory }: Props) => {
         ))}
       {filtered.map((listing) => (
         <ListingCardContainer key={listing._id}>
-          <ListingCard listing={listing} onClick={() => handleClick(listing)} />
+          <ListingCard
+            listing={listing}
+            onClick={() => onListingClick(listing)}
+          />
         </ListingCardContainer>
       ))}
     </SimpleGrid>
