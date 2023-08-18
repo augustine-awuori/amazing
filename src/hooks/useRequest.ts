@@ -16,7 +16,7 @@ export interface Request {
 const useRequest = () => {
   const context = useContext(RequestContext);
 
-  const request = context?.request;
+  const request: Request = context?.request;
   const setRequest = context?.setRequest;
 
   return { request, setRequest };

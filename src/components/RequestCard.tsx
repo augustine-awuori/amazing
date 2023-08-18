@@ -1,6 +1,6 @@
 import { Box, Text, useColorMode } from "@chakra-ui/react";
 import { Request } from "../hooks/useRequest";
-import UserAvatar from "./UserAvatar";
+import UserAvatar from "./MediaQuery";
 
 interface Props {
   onClick: (request: Request) => void;

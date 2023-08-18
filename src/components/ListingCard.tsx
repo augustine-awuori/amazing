@@ -1,7 +1,7 @@
 import { Card, CardBody, Heading, Image, useColorMode } from "@chakra-ui/react";
 
 import { Listing } from "../hooks/useListing";
-import UserAvatar from "./UserAvatar";
+import UserAvatar from "./MediaQuery";
 
 interface Props {
   listing: Listing;

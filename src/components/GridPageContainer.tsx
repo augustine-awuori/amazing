@@ -26,23 +26,21 @@ const GridPageContainer = ({
         />
       }
     >
-      <>
-        <Box marginY={1} paddingLeft={2}>
-          <Box display={{ md: "none", lg: "block" }}>
-            <GridHeading selectedCategory={selectedCategory} />
-          </Box>
-          <HStack justifyContent="space-between" marginTop={3}>
-            <Box display={{ lg: "none" }}>
-              <CategorySelector
-                onSelectCategory={onSelectCategory}
-                selectedCategory={selectedCategory}
-              />
-            </Box>
-            <ColorSwitchMode />
-          </HStack>
+      <Box marginY={1} paddingLeft={2}>
+        <Box display={{ md: "none", lg: "block" }}>
+          <GridHeading selectedCategory={selectedCategory} />
         </Box>
-        {children}
-      </>
+        <HStack justifyContent="space-between" marginTop={3}>
+          <Box display={{ lg: "none" }}>
+            <CategorySelector
+              onSelectCategory={onSelectCategory}
+              selectedCategory={selectedCategory}
+            />
+          </Box>
+          <ColorSwitchMode />
+        </HStack>
+      </Box>
+      {children}
     </PageContainer>
   );
 };

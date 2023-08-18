@@ -2,7 +2,7 @@ import { GridItem } from "@chakra-ui/react";
 
 interface Props {
   Aside?: JSX.Element;
-  children: JSX.Element;
+  children: any;
 }
 
 const PageContainer = ({ Aside, children }: Props) => {
