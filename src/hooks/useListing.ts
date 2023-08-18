@@ -9,10 +9,11 @@ export interface Listing {
   author: User;
   category: Category;
   description: string;
-  title: string;
-  subTitle: string;
   images: string[];
   price: number;
+  subTitle: string;
+  timestamp: number;
+  title: string;
 }
 
 const useListing = () => {

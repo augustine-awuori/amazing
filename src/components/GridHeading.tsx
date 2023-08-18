@@ -3,13 +3,14 @@ import { Category } from "../hooks/useCategories";
 
 interface Props {
   count?: number;
+  label?: string;
   selectedCategory: Category | null;
 }
 
-const GameHeading = ({ selectedCategory }: Props) => {
+const GridHeading = ({ label = "Listings", selectedCategory }: Props) => {
   if (!selectedCategory?._id) return null;
 
-  const heading = `${selectedCategory.label}  Listings`;
+  const heading = `${selectedCategory.label}  ${label}`;
 
   return (
     <Heading as="h1" fontSize={22} marginY={5}>
@@ -18,4 +19,4 @@ const GameHeading = ({ selectedCategory }: Props) => {
   );
 };
 
-export default GameHeading;
+export default GridHeading;

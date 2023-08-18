@@ -1,8 +1,9 @@
 export interface User {
   _id: string;
-  name: string;
-  username: string;
   avatar: string;
-  isVerified: boolean;
   isAdmin: boolean;
+  isVerified: boolean;
+  name: string;
+  timestamp: number;
+  username: string;
 }

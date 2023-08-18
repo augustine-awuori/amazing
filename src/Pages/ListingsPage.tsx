@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { Box, HStack } from "@chakra-ui/react";
 
 import { Category } from "../hooks/useCategories";
-import CategoryList from "../components/CategoryList";
+import AsideCategoryList from "../components/AsideCategoryList";
 import CategorySelector from "../components/CategorySelector";
 import ColorSwitchMode from "../components/ColorSwitchMode";
 import ListingGrid from "../components/ListingGrid";
-import ListingHeading from "../components/ListingHeading";
+import ListingHeading from "../components/GridHeading";
 import PageContainer from "../components/PageContainer";
 import useListing, { Listing } from "../hooks/useListing";
 
@@ -23,17 +23,15 @@ const ListingsPage = () => {
     navigate(`/listings/${listing._id}`);
   };
 
-  const Aside = (
-    <Box display={{ base: "none", lg: "block" }}>
-      <CategoryList
-        selectedCategory={selectedCategory}
-        onSelectedCategory={setSelectedCategory}
-      />
-    </Box>
-  );
-
   return (
-    <PageContainer Aside={Aside}>
+    <PageContainer
+      Aside={
+        <AsideCategoryList
+          onSelectCategory={setSelectedCategory}
+          selectedCategory={selectedCategory}
+        />
+      }
+    >
       <>
         <Box marginY={1} paddingLeft={2}>
           <Box display={{ md: "none", lg: "block" }}>

@@ -1,26 +1,26 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
 
 import { Category } from "../hooks/useCategories";
-import { Listing } from "../hooks/useListing";
-import ListingCard from "./ListingCard";
+import { Request } from "../hooks/useRequest";
 import ListingCardContainer from "./ListingCardContainer";
 import ListingCardSkeleton from "./ListingCardSkeleton";
-import useListings from "../hooks/useListings";
+import useRequests from "../hooks/useRequests";
+import RequestCard from "./RequestCard";
 
 interface Props {
   selectedCategory: Category | null;
-  onListingClick: (listing: Listing) => void;
+  onRequestClick: (request: Request) => void;
 }
 
-const ListingGrid = ({ onListingClick, selectedCategory }: Props) => {
-  const { error, isLoading, data: listings } = useListings();
+const ListingGrid = ({ onRequestClick, selectedCategory }: Props) => {
+  const { error, isLoading, data: requests } = useRequests();
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   const filtered = selectedCategory?._id
-    ? listings.filter(
-        (listing) => listing.category._id === selectedCategory?._id
+    ? requests.filter(
+        (request) => request.category._id === selectedCategory?._id
       )
-    : listings;
+    : requests;
 
   if (error) return <Text>{error}</Text>;
 
@@ -36,12 +36,9 @@ const ListingGrid = ({ onListingClick, selectedCategory }: Props) => {
             <ListingCardSkeleton />
           </ListingCardContainer>
         ))}
-      {filtered.map((listing) => (
-        <ListingCardContainer key={listing._id}>
-          <ListingCard
-            listing={listing}
-            onClick={() => onListingClick(listing)}
-          />
+      {filtered.map((request) => (
+        <ListingCardContainer key={request._id}>
+          <RequestCard request={request} onClick={onRequestClick} />
         </ListingCardContainer>
       ))}
     </SimpleGrid>
