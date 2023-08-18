@@ -1,10 +1,11 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 
 import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
+import CardContainer from "./CardContainer";
+import CardSkeleton from "./CardSkeleton";
+import Grid from "./Grid";
 import ListingCard from "./ListingCard";
-import ListingCardContainer from "./ListingCardContainer";
-import ListingCardSkeleton from "./ListingCardSkeleton";
 import useListings from "../hooks/useListings";
 
 interface Props {
@@ -25,26 +26,22 @@ const ListingGrid = ({ onListingClick, selectedCategory }: Props) => {
   if (error) return <Text>{error}</Text>;
 
   return (
-    <SimpleGrid
-      columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-      padding="10px"
-      spacing={6}
-    >
+    <Grid>
       {isLoading &&
         skeletons.map((skeleton) => (
-          <ListingCardContainer key={skeleton}>
-            <ListingCardSkeleton />
-          </ListingCardContainer>
+          <CardContainer key={skeleton}>
+            <CardSkeleton />
+          </CardContainer>
         ))}
       {filtered.map((listing) => (
-        <ListingCardContainer key={listing._id}>
+        <CardContainer key={listing._id}>
           <ListingCard
             listing={listing}
             onClick={() => onListingClick(listing)}
           />
-        </ListingCardContainer>
+        </CardContainer>
       ))}
-    </SimpleGrid>
+    </Grid>
   );
 };
 

@@ -1,11 +1,12 @@
-import { SimpleGrid, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 
 import { Category } from "../hooks/useCategories";
 import { Request } from "../hooks/useRequest";
-import ListingCardContainer from "./ListingCardContainer";
-import ListingCardSkeleton from "./ListingCardSkeleton";
-import useRequests from "../hooks/useRequests";
+import CardContainer from "./CardContainer";
+import CardSkeleton from "./CardSkeleton";
+import Grid from "./Grid";
 import RequestCard from "./RequestCard";
+import useRequests from "../hooks/useRequests";
 
 interface Props {
   selectedCategory: Category | null;
@@ -25,23 +26,19 @@ const ListingGrid = ({ onRequestClick, selectedCategory }: Props) => {
   if (error) return <Text>{error}</Text>;
 
   return (
-    <SimpleGrid
-      columns={{ sm: 1, md: 2, lg: 3, xl: 4 }}
-      padding="10px"
-      spacing={6}
-    >
+    <Grid>
       {isLoading &&
         skeletons.map((skeleton) => (
-          <ListingCardContainer key={skeleton}>
-            <ListingCardSkeleton />
-          </ListingCardContainer>
+          <CardContainer key={skeleton}>
+            <CardSkeleton height="20px" />
+          </CardContainer>
         ))}
       {filtered.map((request) => (
-        <ListingCardContainer key={request._id}>
+        <CardContainer key={request._id}>
           <RequestCard request={request} onClick={onRequestClick} />
-        </ListingCardContainer>
+        </CardContainer>
       ))}
-    </SimpleGrid>
+    </Grid>
   );
 };
 

@@ -5,10 +5,10 @@ interface Props {
   children: ReactNode;
 }
 
-const ListingCardContainer = ({ children }: Props) => (
+const CardContainer = ({ children }: Props) => (
   <Box borderRadius={10} overflow="hidden">
     {children}
   </Box>
 );
 
-export default ListingCardContainer;
+export default CardContainer;

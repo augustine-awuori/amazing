@@ -1,15 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, HStack } from "@chakra-ui/react";
 
 import { Category } from "../hooks/useCategories";
-import AsideCategoryList from "../components/AsideCategoryList";
-import CategorySelector from "../components/CategorySelector";
-import ColorSwitchMode from "../components/ColorSwitchMode";
 import ListingGrid from "../components/ListingGrid";
-import ListingHeading from "../components/GridHeading";
-import PageContainer from "../components/PageContainer";
 import useListing, { Listing } from "../hooks/useListing";
+import GridPageContainer from "../components/GridPageContainer";
 
 const ListingsPage = () => {
   const navigate = useNavigate();
@@ -24,35 +19,15 @@ const ListingsPage = () => {
   };
 
   return (
-    <PageContainer
-      Aside={
-        <AsideCategoryList
-          onSelectCategory={setSelectedCategory}
-          selectedCategory={selectedCategory}
-        />
-      }
+    <GridPageContainer
+      selectedCategory={selectedCategory}
+      onSelectCategory={setSelectedCategory}
     >
-      <>
-        <Box marginY={1} paddingLeft={2}>
-          <Box display={{ md: "none", lg: "block" }}>
-            <ListingHeading selectedCategory={selectedCategory} />
-          </Box>
-          <HStack justifyContent="space-between" marginTop={3}>
-            <Box display={{ lg: "none" }}>
-              <CategorySelector
-                onSelectCategory={setSelectedCategory}
-                selectedCategory={selectedCategory}
-              />
-            </Box>
-            <ColorSwitchMode />
-          </HStack>
-        </Box>
-        <ListingGrid
-          onListingClick={navigateToDetails}
-          selectedCategory={selectedCategory}
-        />
-      </>
-    </PageContainer>
+      <ListingGrid
+        onListingClick={navigateToDetails}
+        selectedCategory={selectedCategory}
+      />
+    </GridPageContainer>
   );
 };
 
