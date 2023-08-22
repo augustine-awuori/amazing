@@ -6,7 +6,7 @@ const tokenKey = "token";
 
 const getJwt = () => localStorage.getItem(tokenKey);
 
-const loginWithJwt = (jwt: string) => localStorage.setItem(tokenKey, jwt);
+const loginWithJwt = (jwt: any) => localStorage.setItem(tokenKey, jwt);
 
 const login = async ({
   username,
@@ -29,7 +29,8 @@ const logout = () => localStorage.removeItem(tokenKey);
 
 const getCurrentUser = () => {
   try {
-    return jwtDecode(getJwt());
+    const jwt = getJwt();
+    if (jwt) return jwtDecode(jwt);
   } catch (error) {
     return null;
   }
