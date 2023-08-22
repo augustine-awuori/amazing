@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { FormControl, FormLabel, Input, Button, Box } from "@chakra-ui/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
 import { ErrorMessage } from "../components/forms";
-import { FormControl, FormLabel, Input, Button, Box } from "@chakra-ui/react";
+import authApi from "../services/auth";
 import PageContainer from "../components/PageContainer";
 
 const schema = z.object({
@@ -24,14 +26,24 @@ const LoginPage = () => {
     register,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-  const doSubmit = (loginInfo: FormData) => {
-    console.log(loginInfo);
+  const doSubmit = async (loginInfo: FormData) => {
+    if (loginFailed) setLoginFailed(false);
+
+    const { data, ok } = await authApi.login(loginInfo);
+    if (!ok) {
+      setError(data.error);
+      return setLoginFailed(true);
+    }
+
+    toast.success("You're now logged in!");
+    window.location = "/";
   };
 
   return (
     <PageContainer>
       <Box my={4} textAlign="left" maxW="500px">
         <form onSubmit={handleSubmit(doSubmit)}>
+          <ErrorMessage error={error} visible={error} />
           <FormControl marginBottom={4}>
             <FormLabel>Username</FormLabel>
             <Input type="text" placeholder="@test" {...register("username")} />

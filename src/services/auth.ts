@@ -1,6 +1,7 @@
 import jwtDecode from "jwt-decode";
 
 import client from "./client";
+import { User } from "../hooks/useUser";
 
 const tokenKey = "token";
 
@@ -30,7 +31,10 @@ const logout = () => localStorage.removeItem(tokenKey);
 const getCurrentUser = () => {
   try {
     const jwt = getJwt();
-    if (jwt) return jwtDecode(jwt);
+    if (jwt) {
+      const user: User | null = jwtDecode(jwt);
+      return user;
+    }
   } catch (error) {
     return null;
   }

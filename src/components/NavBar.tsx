@@ -23,8 +23,14 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+import { User } from "../hooks/useUser";
+import shortener from "../utilities/stringManipulator";
 
-export default function WithSubnavigation() {
+interface Props {
+  user: User | null | undefined;
+}
+
+export default function WithSubnavigation({ user }: Props) {
   const { colorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
 
@@ -79,33 +85,50 @@ export default function WithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
-          <Button
-            as="a"
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href="/logout"
-          >
-            Logout
-          </Button>
-          <Button
-            as="a"
-            fontSize={"sm"}
-            fontWeight={400}
-            variant={"link"}
-            href="/login"
-          >
-            Sign In
-          </Button>
-          <Button
-            as="a"
-            fontSize={"sm"}
-            fontWeight={400}
-            variant="link"
-            href="/register"
-          >
-            Sign Up
-          </Button>
+          {user && (
+            <>
+              <Button
+                as="a"
+                fontSize="sm"
+                fontWeight={400}
+                variant="link"
+                href="/logout"
+              >
+                Logout
+              </Button>
+              <Button
+                as="a"
+                fontSize="sm"
+                fontWeight={400}
+                variant="link"
+                href={`/profile/${user?._id}`}
+              >
+                {shortener.getFirstWord(user?.name)}
+              </Button>
+            </>
+          )}
+          {!user && (
+            <>
+              <Button
+                as="a"
+                fontSize={"sm"}
+                fontWeight={400}
+                variant={"link"}
+                href="/login"
+              >
+                Sign In
+              </Button>
+              <Button
+                as="a"
+                fontSize={"sm"}
+                fontWeight={400}
+                variant="link"
+                href="/register"
+              >
+                Sign Up
+              </Button>
+            </>
+          )}
         </Stack>
       </Flex>
 

@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 
-import NavBar from "./components/NavBar";
 import AppRoutes from "./components/Routes";
+import auth from "./services/auth";
+import NavBar from "./components/NavBar";
 import { User } from "./hooks/useUser";
 
 function App() {
   const [user, setUser] = useState<User | null>();
+
+  useEffect(() => {
+    setUser(auth.getCurrentUser());
+  }, []);
 
   return (
     <Grid
@@ -14,7 +19,7 @@ function App() {
       templateColumns={{ base: "1fr", lg: "150px 1fr" }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar user={user} />
       </GridItem>
       <AppRoutes />
     </Grid>
