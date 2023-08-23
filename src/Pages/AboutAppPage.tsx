@@ -5,7 +5,13 @@ import Paragraph from "../components/Paragraph";
 
 const AboutAppPage = () => (
   <PageContainer>
-    <Text textAlign="center" fontWeight="bold" fontSize="3xl" marginTop={2}>
+    <Text
+      textAlign="center"
+      fontWeight="bold"
+      fontSize="4xl"
+      marginTop={2}
+      marginBottom={5}
+    >
       Introducing the Kisii University Student App – Your Gateway to Seamless
       Campus Connections!
     </Text>
