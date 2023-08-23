@@ -1,8 +1,14 @@
 import { useContext } from "react";
 
+import { Category } from "./useCategories";
 import { User } from "./useUser";
 import RequestContext from "../context/RequestContext";
-import { Category } from "./useCategories";
+
+export interface RequestInfo {
+  category: string;
+  title: string;
+  description: string;
+}
 
 export interface Request {
   _id: string;

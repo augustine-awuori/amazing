@@ -1,10 +1,10 @@
-import { FieldError } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 import ErrorMessage from "./ErrorMessage";
 
 interface Props {
-  error: FieldError | undefined;
+  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
   label: string;
   placeholder?: string;
   name?: string;

@@ -1,8 +1,8 @@
 import { Text } from "@chakra-ui/react";
-import { FieldError } from "react-hook-form";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 
 interface Props {
-  error: any;
+  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
   visible?: FieldError | undefined | string;
 }
 
