@@ -3,7 +3,7 @@ import { FieldError } from "react-hook-form";
 
 interface Props {
   error: any;
-  visible?: FieldError | undefined;
+  visible?: FieldError | undefined | string;
 }
 
 export default function ErrorMessage({ error, visible }: Props) {

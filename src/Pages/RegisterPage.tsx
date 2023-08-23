@@ -6,8 +6,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { authApi, usersApi } from "../services";
-import { ErrorMessage } from "../components/forms";
-import PageContainer from "../components/PageContainer";
+import { ErrorMessage, Form } from "../components/forms";
 
 const schema = z.object({
   name: z.string().min(3),
@@ -41,59 +40,51 @@ const RegisterPage = () => {
   };
 
   return (
-    <PageContainer>
-      <Box my={4} textAlign="left" maxW="500px">
-        <form onSubmit={handleSubmit(doSubmit)}>
-          <ErrorMessage error={error} visible={error} />
-          <FormControl marginBottom={4}>
-            <FormLabel>Name</FormLabel>
-            <Input
-              type="text"
-              placeholder="test@test.com"
-              {...register("name")}
-            />
-            <ErrorMessage error={errors.name?.message} visible={errors.name} />
-          </FormControl>
-          <FormControl marginBottom={4}>
-            <FormLabel>Username</FormLabel>
-            <Input type="text" placeholder="@test" {...register("username")} />
-            <ErrorMessage
-              error={errors.username?.message}
-              visible={errors.username}
-            />
-          </FormControl>
-          <FormControl marginBottom={4}>
-            <FormLabel>WhatsApp Number</FormLabel>
-            <Input
-              type="text"
-              placeholder="+254 ..."
-              {...register("whatsapp")}
-            />
-            <ErrorMessage
-              error={errors.whatsapp?.message}
-              visible={errors.whatsapp}
-            />
-          </FormControl>
-          <FormControl>
-            <FormLabel>Password</FormLabel>
-            <Input
-              type="password"
-              placeholder="********"
-              {...register("password")}
-            />
-            <ErrorMessage
-              error={errors.password?.message}
-              visible={errors.password}
-            />
-          </FormControl>
-          <Box marginTop={5}>
-            <Button width="full" mt={4} type="submit" isLoading={isLoading}>
-              Sign In
-            </Button>
-          </Box>
-        </form>
+    <Form
+      error={error}
+      handleSubmit={handleSubmit}
+      onSubmit={doSubmit}
+      title="Register"
+    >
+      <FormControl marginBottom={4}>
+        <FormLabel>Name</FormLabel>
+        <Input type="text" placeholder="test@test.com" {...register("name")} />
+        <ErrorMessage error={errors.name?.message} visible={errors.name} />
+      </FormControl>
+      <FormControl marginBottom={4}>
+        <FormLabel>Username</FormLabel>
+        <Input type="text" placeholder="@test" {...register("username")} />
+        <ErrorMessage
+          error={errors.username?.message}
+          visible={errors.username}
+        />
+      </FormControl>
+      <FormControl marginBottom={4}>
+        <FormLabel>WhatsApp Number</FormLabel>
+        <Input type="text" placeholder="+254 ..." {...register("whatsapp")} />
+        <ErrorMessage
+          error={errors.whatsapp?.message}
+          visible={errors.whatsapp}
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Password</FormLabel>
+        <Input
+          type="password"
+          placeholder="********"
+          {...register("password")}
+        />
+        <ErrorMessage
+          error={errors.password?.message}
+          visible={errors.password}
+        />
+      </FormControl>
+      <Box marginTop={5}>
+        <Button width="full" mt={4} type="submit" isLoading={isLoading}>
+          Sign In
+        </Button>
       </Box>
-    </PageContainer>
+    </Form>
   );
 };
 
