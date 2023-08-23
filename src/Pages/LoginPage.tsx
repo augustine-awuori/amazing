@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { FormControl, FormLabel, Input, Button, Box } from "@chakra-ui/react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 
-import { ErrorMessage, Form } from "../components/forms";
+import { Form, FormField, SubmitButton } from "../components/forms";
 import authApi from "../services/auth";
-import PageContainer from "../components/PageContainer";
 
 const schema = z.object({
   username: z.string().min(4).max(50),
@@ -33,7 +31,7 @@ const LoginPage = () => {
     const { data, ok } = await authApi.login(loginInfo);
     setLoading(false);
     if (!ok) {
-      setError(data.error);
+      setError(data?.error);
       return setLoginFailed(true);
     }
 
@@ -48,31 +46,14 @@ const LoginPage = () => {
       title="Login"
       error={error}
     >
-      <FormControl marginBottom={4}>
-        <FormLabel>Username</FormLabel>
-        <Input type="text" placeholder="@test" {...register("username")} />
-        <ErrorMessage
-          error={errors.username?.message}
-          visible={errors.username}
-        />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Password</FormLabel>
-        <Input
-          type="password"
-          placeholder="********"
-          {...register("password")}
-        />
-        <ErrorMessage
-          error={errors.password?.message}
-          visible={errors.password}
-        />
-      </FormControl>
-      <Box marginTop={5}>
-        <Button width="full" mt={4} type="submit" isLoading={isLoading}>
-          Sign In
-        </Button>
-      </Box>
+      <FormField error={errors.username} label="Username" register={register} />
+      <FormField
+        label="Password"
+        error={errors.password}
+        register={register}
+        placeholder="******"
+      />
+      <SubmitButton label="Sign In" isLoading={isLoading} />
     </Form>
   );
 };

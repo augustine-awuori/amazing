@@ -1,6 +1,5 @@
 import { Box, Text } from "@chakra-ui/react";
 
-import { User } from "../../hooks/useUser";
 import ErrorMessage from "./ErrorMessage";
 import PageContainer from "../PageContainer";
 

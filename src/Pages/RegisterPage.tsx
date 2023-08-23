@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { Box, Button, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { authApi, usersApi } from "../services";
-import { ErrorMessage, Form } from "../components/forms";
+import { Form, FormField, SubmitButton } from "../components/forms";
 
 const schema = z.object({
   name: z.string().min(3),
@@ -46,44 +45,22 @@ const RegisterPage = () => {
       onSubmit={doSubmit}
       title="Register"
     >
-      <FormControl marginBottom={4}>
-        <FormLabel>Name</FormLabel>
-        <Input type="text" placeholder="test@test.com" {...register("name")} />
-        <ErrorMessage error={errors.name?.message} visible={errors.name} />
-      </FormControl>
-      <FormControl marginBottom={4}>
-        <FormLabel>Username</FormLabel>
-        <Input type="text" placeholder="@test" {...register("username")} />
-        <ErrorMessage
-          error={errors.username?.message}
-          visible={errors.username}
-        />
-      </FormControl>
-      <FormControl marginBottom={4}>
-        <FormLabel>WhatsApp Number</FormLabel>
-        <Input type="text" placeholder="+254 ..." {...register("whatsapp")} />
-        <ErrorMessage
-          error={errors.whatsapp?.message}
-          visible={errors.whatsapp}
-        />
-      </FormControl>
-      <FormControl>
-        <FormLabel>Password</FormLabel>
-        <Input
-          type="password"
-          placeholder="********"
-          {...register("password")}
-        />
-        <ErrorMessage
-          error={errors.password?.message}
-          visible={errors.password}
-        />
-      </FormControl>
-      <Box marginTop={5}>
-        <Button width="full" mt={4} type="submit" isLoading={isLoading}>
-          Sign In
-        </Button>
-      </Box>
+      <FormField error={errors.name} label="Name" register={register} />
+      <FormField error={errors.username} label="Username" register={register} />
+      <FormField
+        error={errors.whatsapp}
+        label="WhatsApp Number"
+        placeholder="+254 ..."
+        register={register}
+        name="whatsapp"
+      />
+      <FormField
+        error={errors.password}
+        label="Password"
+        placeholder="******"
+        register={register}
+      />
+      <SubmitButton label="Sign Up" isLoading={isLoading} />
     </Form>
   );
 };

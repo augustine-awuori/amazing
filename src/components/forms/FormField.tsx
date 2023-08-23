@@ -6,15 +6,25 @@ import ErrorMessage from "./ErrorMessage";
 interface Props {
   error: FieldError | undefined;
   label: string;
-  name: string;
+  placeholder?: string;
+  name?: string;
+  register: any;
 }
 
-const FormTextInput = ({ error, name, label, ...otherProps }: Props) => (
-  <FormControl marginBottom={4}>
-    <FormLabel>{label}</FormLabel>
-    <Input type={name} placeholder={label} {...otherProps} />
-    <ErrorMessage error={error?.message} visible={error} />
-  </FormControl>
-);
+const FormField = ({ error, name, placeholder, label, register }: Props) => {
+  const inputName = name || label.toLowerCase();
 
-export default FormTextInput;
+  return (
+    <FormControl marginBottom={4}>
+      <FormLabel>{label}</FormLabel>
+      <Input
+        type={inputName}
+        placeholder={placeholder || label}
+        {...register(inputName)}
+      />
+      <ErrorMessage error={error?.message} visible={error} />
+    </FormControl>
+  );
+};
+
+export default FormField;
