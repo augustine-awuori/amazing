@@ -1,7 +1,16 @@
-import React from "react";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
-const LogoutPage = () => {
-  return <div>LogoutPage</div>;
-};
+import auth from "../services/auth";
 
-export default LogoutPage;
+export default function LogoutPage() {
+  useEffect(() => {
+    auth.logout();
+
+    toast.success("You're logged out successfully");
+
+    window.location = "/";
+  }, []);
+
+  return null;
+}

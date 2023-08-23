@@ -1,7 +1,7 @@
 import jwtDecode from "jwt-decode";
 
-import client from "./client";
 import { User } from "../hooks/useUser";
+import client from "./client";
 
 const tokenKey = "token";
 

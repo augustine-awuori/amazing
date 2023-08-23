@@ -29,7 +29,9 @@ const LoginPage = () => {
   const doSubmit = async (loginInfo: FormData) => {
     if (loginFailed) setLoginFailed(false);
 
+    setLoading(true);
     const { data, ok } = await authApi.login(loginInfo);
+    setLoading(false);
     if (!ok) {
       setError(data.error);
       return setLoginFailed(true);
@@ -65,7 +67,7 @@ const LoginPage = () => {
             />
           </FormControl>
           <Box marginTop={5}>
-            <Button width="full" mt={4} type="submit">
+            <Button width="full" mt={4} type="submit" isLoading={isLoading}>
               Sign In
             </Button>
           </Box>

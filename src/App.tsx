@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 
+import { User } from "./hooks/useUser";
 import AppRoutes from "./components/Routes";
 import auth from "./services/auth";
 import NavBar from "./components/NavBar";
-import { User } from "./hooks/useUser";
 
 function App() {
   const [user, setUser] = useState<User | null>();
@@ -21,7 +21,7 @@ function App() {
       <GridItem area="nav">
         <NavBar user={user} />
       </GridItem>
-      <AppRoutes />
+      <AppRoutes user={user} />
     </Grid>
   );
 }

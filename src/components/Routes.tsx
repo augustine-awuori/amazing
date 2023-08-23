@@ -2,37 +2,37 @@ import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
-import { Listing } from "../hooks/useListings";
+import { Listing } from "../hooks/useListing";
 import { User } from "../hooks/useUser";
+import AboutAppPage from "../Pages/AboutAppPage";
 import CategoriesContext from "../context/CategoriesContext";
 import ListingContext from "../context/ListingContext";
-import ListingsContext from "../context/ListingsContext";
-import ProfileListingsContext from "../context/ProfileListingsContext";
-import ProfileRequestsContext from "../context/ProfileRequestsContext";
-import ProfileUserContext from "../context/ProfileUserContext";
-import RequestContext from "../context/RequestContext";
-import RequestsContext from "../context/RequestsContext";
-import NotFoundPage from "../Pages/NotFoundPage";
-import ProfilePage from "../Pages/ProfilePage";
-import ProfileRequestsPage from "../Pages/ProfileRequestsPage";
-import ProfileListingsPage from "../Pages/ProfileListingsPage";
-import ProfileEditPage from "../Pages/ProfileEditPage";
-import RegisterPage from "../Pages/RegisterPage";
-import LogoutPage from "../Pages/LogoutPage";
-import LoginPage from "../Pages/LoginPage";
-import AboutAppPage from "../Pages/AboutAppPage";
-import RequestsPage from "../Pages/RequestsPage";
-import RequestEditPage from "../Pages/RequestEditPage";
-import RequestDetailsPage from "../Pages/RequestDetailsPage";
-import ListingsPage from "../Pages/ListingsPage";
-import NotReadyPage from "../Pages/NotReadyPage";
 import ListingDetailsPage from "../Pages/ListingDetailsPage";
+import ListingsContext from "../context/ListingsContext";
+import ListingsPage from "../Pages/ListingsPage";
+import LoginPage from "../Pages/LoginPage";
+import LogoutPage from "../Pages/LogoutPage";
+import NotFoundPage from "../Pages/NotFoundPage";
+import NotReadyPage from "../Pages/NotReadyPage";
+import ProfileEditPage from "../Pages/ProfileEditPage";
+import ProfileListingsContext from "../context/ProfileListingsContext";
+import ProfileListingsPage from "../Pages/ProfileListingsPage";
+import ProfilePage from "../Pages/ProfilePage";
+import ProfileRequestsContext from "../context/ProfileRequestsContext";
+import ProfileRequestsPage from "../Pages/ProfileRequestsPage";
+import ProfileUserContext from "../context/ProfileUserContext";
+import RegisterPage from "../Pages/RegisterPage";
+import RequestContext from "../context/RequestContext";
+import RequestDetailsPage from "../Pages/RequestDetailsPage";
+import RequestEditPage from "../Pages/RequestEditPage";
+import RequestsContext from "../context/RequestsContext";
+import RequestsPage from "../Pages/RequestsPage";
 
 interface Props {
-  user: User | null;
+  user: User | null | undefined;
 }
 
-function AppRoutes() {
+function AppRoutes({ user }: Props) {
   const [listings, setListings] = useState<Listing[]>([]);
   const [listing, setListing] = useState<Listing>();
   const [myListings, setMyListings] = useState<Listing[]>([]);
@@ -75,7 +75,10 @@ function AppRoutes() {
                       <Route path="requests" element={<RequestsPage />} />
                       <Route path="about-app" element={<AboutAppPage />} />
                       <Route path="login" element={<LoginPage />} />
-                      <Route path="logout" element={<LogoutPage />} />
+                      <Route
+                        path="logout"
+                        element={<LogoutPage user={user} />}
+                      />
                       <Route path="register" element={<RegisterPage />} />
                       <Route
                         path="profile/:userId/edit"

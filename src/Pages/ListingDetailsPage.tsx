@@ -31,14 +31,14 @@ const ListingDetailsPage = () => {
   return (
     <PageContainer>
       <AppModal
-        content="You're about to make permanent change to your listing"
+        content="WARNING! Changes made are irreversible"
         isOpen={isModalOpen}
         onModalClose={switchModalVisibility}
         onPrimaryClick={handleEdit}
         onSecondaryClick={handleDelete}
         primaryBtnLabel="Edit Listing"
         secondaryBtnLabel="Delete Listing"
-        title="Listing Edit"
+        title="How'd you like to change your listing?"
       />
       <ImageSlider images={images} />
       <Box maxWidth="80%">
