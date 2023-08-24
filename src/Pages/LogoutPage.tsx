@@ -9,7 +9,7 @@ export default function LogoutPage() {
 
     toast.success("You're logged out successfully");
 
-    window.location = "/";
+    window.location.href = "/";
   }, []);
 
   return null;

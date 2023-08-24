@@ -14,9 +14,7 @@ const ProfileRequestsPage = () => {
   const navigate = useNavigate();
   const { setRequest } = useRequest();
   const params = useParams();
-  const { error, isLoading, requests } = useProfileRequests(
-    params[empty.user.paramsId]
-  );
+  const { requests } = useProfileRequests(params[empty.user.paramsId]);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );

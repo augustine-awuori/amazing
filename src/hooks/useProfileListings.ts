@@ -2,14 +2,21 @@ import { useContext, useEffect, useState } from "react";
 
 import listingsApi from "../services/listings";
 import ProfileListingsContext from "../contexts/ProfileListingsContext";
+import { Listing } from "./useListing";
 
-const useProfileListings = (userId: string) => {
+interface ApiResponse<T> {
+  data: T;
+  ok: boolean;
+  problem: string;
+}
+
+const useProfileListings = (userId: string | undefined) => {
   const context = useContext(ProfileListingsContext);
   const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | undefined>(undefined);
 
-  const profileListings = context?.profileListings || [];
-  const setProfileListings = context?.setProfileListings;
+  const profileListings = context.profileListings || [];
+  const setProfileListings = context.setProfileListings;
 
   useEffect(() => {
     getListings();
@@ -18,10 +25,16 @@ const useProfileListings = (userId: string) => {
   const getListings = async () => {
     if (userId) {
       setLoading(true);
-      const { data, ok, problem } = await listingsApi.getUserListings(userId);
+      const response = (await listingsApi.getUserListings(
+        userId
+      )) as ApiResponse<Listing[]>;
       setLoading(false);
-      if (ok) setProfileListings(data);
-      else setError(data?.error || problem);
+
+      if (response.ok) {
+        setProfileListings?.(response.data);
+      } else {
+        setError(response.problem);
+      }
     }
   };
 

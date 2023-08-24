@@ -12,8 +12,6 @@ const ListingDetailsPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { listing } = useListing();
 
-  const { author, category, description, title, images, price } = listing;
-
   const switchModalVisibility = () => setModalOpen(!isModalOpen);
 
   const handleDelete = () => {
@@ -25,7 +23,7 @@ const ListingDetailsPage = () => {
   };
 
   const navigateToProfile = () => {
-    console.log(author);
+    console.log(listing?.author);
   };
 
   return (
@@ -40,20 +38,20 @@ const ListingDetailsPage = () => {
         secondaryBtnLabel="Delete Listing"
         title="How'd you like to change your listing?"
       />
-      <ImageSlider images={images} />
+      <ImageSlider images={listing?.images} />
       <Box maxWidth="80%">
         <Text fontWeight="bold" fontSize={21} marginBottom={2}>
-          {title}
+          {listing?.title}
         </Text>
         <HStack justifyContent="space-between" marginBottom={2}>
-          <Text color="orange.400">Ksh {figure.addComma(price)}</Text>
+          <Text color="orange.400">Ksh {figure.addComma(listing?.price)}</Text>
           <Text fontStyle="italic" color="orange.400">
-            {category.label}
+            {listing?.category?.label}
           </Text>
         </HStack>
-        <Text>{description}</Text>
+        <Text>{listing?.description}</Text>
         <Box marginY={5} cursor="pointer" onClick={navigateToProfile}>
-          <UserAvatar user={author} size="sm" onClick={console.log} />
+          <UserAvatar user={listing?.author} size="sm" onClick={console.log} />
         </Box>
         <Button onClick={switchModalVisibility}>Edit Listing</Button>
       </Box>

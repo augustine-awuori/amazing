@@ -4,26 +4,24 @@ import MediaQuery from "../components/MediaQuery";
 import PageContainer from "../components/PageContainer";
 
 const RequestDetailsPage = () => {
-  const {
-    request: { author, category, description, title },
-  } = useRequest();
+  const { request } = useRequest();
 
   return (
     <PageContainer>
       <Box marginY={2}>
-        <MediaQuery user={author} size="md" />
+        <MediaQuery user={request?.author} size="md" />
       </Box>
       <Text fontWeight="bold" marginBottom={1}>
-        {title}
+        {request?.title}
       </Text>
-      <Text>{description}</Text>
+      <Text>{request?.description}</Text>
       <Text
         fontStyle="italic"
         fontSize="sm"
         color="orange.400"
         textAlign="center"
       >
-        {category.label}
+        {request?.category.label}
       </Text>
     </PageContainer>
   );

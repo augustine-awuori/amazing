@@ -1,6 +1,17 @@
 import React from "react";
 
-const ListingsContext = React.createContext(null);
+import { Listing } from "../hooks/useListing";
+
+interface ListingsContextValue {
+  listings: Listing[] | undefined;
+  setListings: (listings: Listing[]) => void;
+}
+
+export const ListingsContext = React.createContext<ListingsContextValue>({
+  listings: [],
+  setListings: () => {},
+});
+
 ListingsContext.displayName = "Listings Context";
 
 export default ListingsContext;

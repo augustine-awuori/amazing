@@ -21,7 +21,7 @@ function App() {
       <GridItem area="nav">
         <NavBar user={user} />
       </GridItem>
-      <AppRoutes user={user} />
+      <AppRoutes />
     </Grid>
   );
 }

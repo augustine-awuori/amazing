@@ -20,9 +20,13 @@ const register = ({ avatar, name, username, whatsapp, password }: Props) => {
   data.append("name", name);
   data.append("username", "@" + username);
   data.append("whatsapp", whatsapp);
-  data.append("password", password);
-  if (avatar)
-    data.append("avatar", { name: "avatar", type: "image/jpeg", uri: avatar });
+  if (password) data.append("password", password);
+  if (avatar) {
+    data.append(
+      "avatar",
+      new File([avatar], "avatar.jpg", { type: "image/jpeg" })
+    );
+  }
 
   return client.post(endpoint, data);
 };
@@ -31,7 +35,10 @@ const getUser = (userId: string) => client.get(`${endpoint}/${userId}`);
 
 const getUsers = () => client.get(`${endpoint}`);
 
-const updateUser = (userInfo: Props, onUploadProgress = () => {}) => {
+const updateUser = (
+  userInfo: Props,
+  onUploadProgress: (progress: number) => void = () => {}
+) => {
   const {
     aboutMe,
     avatar,
@@ -52,18 +59,24 @@ const updateUser = (userInfo: Props, onUploadProgress = () => {}) => {
   if (twitter) data.append("twitter", twitter);
   if (youtube) data.append("youtube", youtube);
   data.append("whatsapp", whatsapp);
-  if (avatar)
-    data.append("images", { name: "avatar", type: "image/jpeg", uri: avatar });
-  if (coverPhoto)
-    data.append("images", {
-      name: "coverPhoto",
+  if (avatar) {
+    const avatarFile = new File([avatar], "avatar.jpg", { type: "image/jpeg" });
+    data.append("images", avatarFile);
+  }
+  if (coverPhoto) {
+    const coverPhotoFile = new File([coverPhoto], "coverPhoto.jpg", {
       type: "image/jpeg",
-      uri: coverPhoto,
     });
+    data.append("images", coverPhotoFile);
+  }
 
   return client.patch(endpoint, data, {
-    onUploadProgress: (progress) =>
-      onUploadProgress(progress.loaded / progress.total),
+    onUploadProgress: (progressEvent) => {
+      if (progressEvent.total !== null && progressEvent.total !== undefined) {
+        const progress = (progressEvent.loaded / progressEvent.total) * 100;
+        onUploadProgress(progress);
+      }
+    },
   });
 };
 

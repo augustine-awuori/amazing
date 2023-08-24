@@ -1,14 +1,14 @@
-import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
 
 import ErrorMessage from "./ErrorMessage";
 
 interface Props {
-  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined;
+  error: any | undefined;
   label: string;
   placeholder?: string;
   name?: string;
   register: any;
+  value?: any;
 }
 
 const FormField = ({
@@ -17,6 +17,7 @@ const FormField = ({
   placeholder,
   label,
   register,
+  value,
   ...otherProps
 }: Props) => {
   const inputName = name || label.toLowerCase();
@@ -29,6 +30,7 @@ const FormField = ({
         placeholder={placeholder || label}
         {...register(inputName)}
         {...otherProps}
+        value={value}
       />
       <ErrorMessage error={error?.message} visible={error} />
     </FormControl>

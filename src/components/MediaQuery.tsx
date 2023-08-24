@@ -11,7 +11,7 @@ import { User } from "../hooks/useUser";
 
 interface Props {
   onClick?: () => void;
-  user: User;
+  user: User | undefined;
   size?:
     | ResponsiveValue<
         | (string & {})
@@ -31,13 +31,13 @@ const UserAvatar = ({ user, onClick, size = "xs" }: Props) => {
   return (
     <Wrap marginTop={1} onClick={onClick}>
       <WrapItem>
-        <Avatar size={size} name={user.name} src={user.avatar} />
+        <Avatar size={size} name={user?.name} src={user?.avatar} />
       </WrapItem>
       <WrapItem>
         <Text fontSize={size} marginRight={1}>
-          {getFirstWord(user.name)}
+          {getFirstWord(user?.name)}
         </Text>
-        {user.isVerified && <GoVerified size={12} color="orange" />}
+        {user?.isVerified && <GoVerified size={12} color="orange" />}
       </WrapItem>
     </Wrap>
   );

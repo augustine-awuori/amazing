@@ -28,15 +28,19 @@ const LoginPage = () => {
     if (loginFailed) setLoginFailed(false);
 
     setLoading(true);
-    const { data, ok } = await authApi.login(loginInfo);
+    const response = await authApi.login(loginInfo);
     setLoading(false);
+
+    const { data, ok } = response;
+
     if (!ok) {
-      setError(data?.error);
+      const error = (data as any)?.error;
+      setError(error);
       return setLoginFailed(true);
     }
 
     toast.success("You're now logged in!");
-    window.location = "/";
+    window.location.href = "/";
   };
 
   return (

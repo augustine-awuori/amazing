@@ -1,12 +1,8 @@
 import { Listing } from "./useListing";
 import useData from "./useData";
 
-import listingsApi, { endpoint } from "../services/listings";
+import { endpoint } from "../services/listings";
 
-const useListings = () => {
-  const { data, error, isLoading } = useData<Listing>(endpoint);
-
-  return { data, error, isLoading };
-};
+const useListings = () => useData<Listing>(endpoint);
 
 export default useListings;

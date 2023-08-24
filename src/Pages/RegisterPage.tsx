@@ -31,11 +31,15 @@ const RegisterPage = () => {
     setLoading(true);
     const result = await usersApi.register(info);
     setLoading(false);
-    if (!result.ok) return setError(result.data?.error || result.problem);
+
+    if (!result.ok) {
+      const responseData = result.data as { error?: string };
+      return setError(responseData.error || result.problem);
+    }
 
     toast.success("You're registered successfully!");
     authApi.loginWithJwt(result.headers?.["x-auth-token"]);
-    window.location = "/";
+    window.location.href = "/";
   };
 
   return (

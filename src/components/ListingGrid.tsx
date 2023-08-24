@@ -8,7 +8,7 @@ import Grid from "./Grid";
 import ListingCard from "./ListingCard";
 
 interface Props {
-  error: string;
+  error: string | undefined;
   isLoading: boolean;
   listings: Listing[];
   selectedCategory: Category | null;
