@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 
 import { endpoint } from "../services/requests";
 import { Request } from "./useRequest";
-import RequestsContext from "../context/RequestsContext";
+import RequestsContext from "../contexts/RequestsContext";
 import useData from "./useData";
 
 const useRequests = () => {

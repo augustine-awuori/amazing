@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { Category } from "./useCategories";
 
-import ListingContext from "../context/ListingContext";
+import { Category } from "./useCategories";
 import { User } from "./useUser";
+import ListingContext from "../contexts/ListingContext";
 
 export interface Listing {
   _id: string;

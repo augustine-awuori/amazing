@@ -1,3 +1,4 @@
+import { endpoint } from "../services/categories";
 import useData from "./useData";
 
 export interface Category {
@@ -6,7 +7,7 @@ export interface Category {
 }
 
 const useCategories = () => {
-  const { data, error, isLoading } = useData<Category>("/categories");
+  const { data, error, isLoading } = useData<Category>(endpoint);
 
   return {
     data: [{ _id: "", label: "All Categories" }, ...data],

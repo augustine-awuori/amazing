@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { Category } from "./useCategories";
 import { User } from "./useUser";
-import RequestContext from "../context/RequestContext";
+import RequestContext from "../contexts/RequestContext";
 
 export interface RequestInfo {
   category: string;

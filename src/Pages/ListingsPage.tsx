@@ -2,9 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
+import GridPageContainer from "../components/GridPageContainer";
 import ListingGrid from "../components/ListingGrid";
 import useListing, { Listing } from "../hooks/useListing";
-import GridPageContainer from "../components/GridPageContainer";
 
 const ListingsPage = () => {
   const navigate = useNavigate();
