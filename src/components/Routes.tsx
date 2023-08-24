@@ -35,7 +35,7 @@ interface Props {
 function AppRoutes({ user }: Props) {
   const [listings, setListings] = useState<Listing[]>([]);
   const [listing, setListing] = useState<Listing>();
-  const [myListings, setMyListings] = useState<Listing[]>([]);
+  const [profileListings, setProfileListings] = useState<Listing[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [requests, setRequests] = useState<Request[]>([]);
   const [request, setRequest] = useState<Request>();
@@ -45,7 +45,9 @@ function AppRoutes({ user }: Props) {
   return (
     <ListingsContext.Provider value={{ listings, setListings }}>
       <ListingContext.Provider value={{ listing, setListing }}>
-        <ProfileListingsContext.Provider value={{ myListings, setMyListings }}>
+        <ProfileListingsContext.Provider
+          value={{ profileListings, setProfileListings }}
+        >
           <RequestsContext.Provider value={{ requests, setRequests }}>
             <RequestContext.Provider value={{ request, setRequest }}>
               <ProfileUserContext.Provider

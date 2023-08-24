@@ -12,11 +12,10 @@ const ProfileActivity = ({
   count,
   label,
   onClick,
-}: Props) =>
-  count ? (
-    <Badge m={1} colorScheme={colorScheme} cursor="pointer" onClick={onClick}>
-      {count} {label}
-    </Badge>
-  ) : null;
+}: Props) => (
+  <Badge m={1} colorScheme={colorScheme} cursor="pointer" onClick={onClick}>
+    {count} {label}
+  </Badge>
+);
 
 export default ProfileActivity;

@@ -1,4 +1,5 @@
 import { Box, HStack } from "@chakra-ui/react";
+
 import { Category } from "../hooks/useCategories";
 import AsideCategoryList from "./AsideCategoryList";
 import CategorySelector from "./CategorySelector";
@@ -8,12 +9,14 @@ import PageContainer from "./PageContainer";
 
 interface Props {
   children: JSX.Element;
+  headingPrefix?: string;
   onSelectCategory: (category: Category) => void;
   selectedCategory: Category | null;
 }
 
 const GridPageContainer = ({
   children,
+  headingPrefix,
   onSelectCategory,
   selectedCategory,
 }: Props) => {
@@ -28,7 +31,10 @@ const GridPageContainer = ({
     >
       <Box marginY={1} paddingLeft={2}>
         <Box display={{ md: "none", lg: "block" }}>
-          <GridHeading selectedCategory={selectedCategory} />
+          <GridHeading
+            selectedCategory={selectedCategory}
+            headingPrefix={headingPrefix}
+          />
         </Box>
         <HStack justifyContent="space-between" marginTop={3}>
           <Box display={{ lg: "none" }}>

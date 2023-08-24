@@ -63,6 +63,7 @@ const ProfilePage = () => {
 
   const Aside = (
     <ProfileActivities
+      userId={_id}
       visibility="lg"
       onListingsClick={navigateToListings}
       onRequestsClick={navigateToRequests}
@@ -120,6 +121,7 @@ const ProfilePage = () => {
         <ProfileActivities
           onListingsClick={navigateToListings}
           onRequestsClick={navigateToRequests}
+          userId={_id}
         />
       </Container>
     </PageContainer>

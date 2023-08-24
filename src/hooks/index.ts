@@ -3,6 +3,8 @@ export { default as useData } from "./useData";
 export { default as useForm } from "./useForm";
 export { default as useListing } from "./useListing";
 export { default as useListings } from "./useListings";
+export { default as useProfileListings } from "./useProfileListings";
+export { default as useProfileRequests } from "./useProfileRequests";
 export { default as useProfileUser } from "./useProfileUser";
 export { default as useReload } from "./useReload";
 export { default as useRequest } from "./useRequest";

@@ -6,15 +6,22 @@ import CardContainer from "./CardContainer";
 import CardSkeleton from "./CardSkeleton";
 import Grid from "./Grid";
 import ListingCard from "./ListingCard";
-import useListings from "../hooks/useListings";
 
 interface Props {
+  error: string;
+  isLoading: boolean;
+  listings: Listing[];
   selectedCategory: Category | null;
   onListingClick: (listing: Listing) => void;
 }
 
-const ListingGrid = ({ onListingClick, selectedCategory }: Props) => {
-  const { error, isLoading, data: listings } = useListings();
+const ListingGrid = ({
+  error,
+  isLoading,
+  listings,
+  onListingClick,
+  selectedCategory,
+}: Props) => {
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   const filtered = selectedCategory?._id
