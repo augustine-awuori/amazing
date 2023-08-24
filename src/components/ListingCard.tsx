@@ -1,7 +1,15 @@
-import { Card, CardBody, Heading, Image, useColorMode } from "@chakra-ui/react";
+import {
+  Card,
+  CardBody,
+  Heading,
+  Image,
+  Text,
+  useColorMode,
+} from "@chakra-ui/react";
 
 import { Listing } from "../hooks/useListing";
 import UserAvatar from "./MediaQuery";
+import figure from "../utilities/figure";
 
 interface Props {
   listing: Listing;
@@ -22,6 +30,9 @@ const ListingCard = ({ listing, onClick }: Props) => {
         <Heading fontSize="2xl" noOfLines={1}>
           {listing.title}
         </Heading>
+        <Text color="orange.400" fontSize=".9rem">
+          Ksh {figure.addComma(listing.price)}
+        </Text>
         <UserAvatar user={listing.author} />
       </CardBody>
     </Card>

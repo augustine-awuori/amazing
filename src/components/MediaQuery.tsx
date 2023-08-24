@@ -29,7 +29,7 @@ interface Props {
 
 const UserAvatar = ({ user, onClick, size = "xs" }: Props) => {
   return (
-    <Wrap marginTop={2} onClick={onClick}>
+    <Wrap marginTop={1} onClick={onClick}>
       <WrapItem>
         <Avatar size={size} name={user.name} src={user.avatar} />
       </WrapItem>
