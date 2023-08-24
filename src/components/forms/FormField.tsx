@@ -11,7 +11,14 @@ interface Props {
   register: any;
 }
 
-const FormField = ({ error, name, placeholder, label, register }: Props) => {
+const FormField = ({
+  error,
+  name,
+  placeholder,
+  label,
+  register,
+  ...otherProps
+}: Props) => {
   const inputName = name || label.toLowerCase();
 
   return (
@@ -21,6 +28,7 @@ const FormField = ({ error, name, placeholder, label, register }: Props) => {
         type={inputName}
         placeholder={placeholder || label}
         {...register(inputName)}
+        {...otherProps}
       />
       <ErrorMessage error={error?.message} visible={error} />
     </FormControl>

@@ -12,7 +12,7 @@ interface Props {
   username: string;
   youtube?: string;
   whatsapp: string;
-  password: string;
+  password?: string;
 }
 
 const register = ({ avatar, name, username, whatsapp, password }: Props) => {
