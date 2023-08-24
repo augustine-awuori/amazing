@@ -10,7 +10,7 @@ interface Props {
 export default function RequestCard({ onClick, request }: Props) {
   const { colorMode } = useColorMode();
 
-  const { author, category, description, timestamp, title } = request;
+  const { author, category, description, title } = request;
 
   return (
     <Box

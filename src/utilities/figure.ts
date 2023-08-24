@@ -1,4 +1,6 @@
-function addComma(number: number) {
+function addComma(number: number | undefined) {
+  if (!number) return "";
+
   const numberString = number.toString();
 
   let figures = numberString.split("");

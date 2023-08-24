@@ -38,7 +38,6 @@ const ProfilePage = () => {
   const {
     _id,
     aboutMe,
-    coverPhoto,
     isAdmin,
     isVerified,
     timestamp,

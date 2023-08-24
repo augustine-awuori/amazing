@@ -16,7 +16,7 @@ const settings = {
 };
 
 interface Props {
-  images: string[];
+  images: string[] | undefined;
 }
 
 export default function ImageSlider({ images }: Props) {
@@ -24,6 +24,8 @@ export default function ImageSlider({ images }: Props) {
 
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "10px" });
+
+  if (!images) return null;
 
   return (
     <Box position={"relative"} boxSize="3xl" overflow={"hidden"}>

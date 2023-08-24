@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
+import { Request } from "../hooks/useRequest";
 import { User } from "../hooks/useUser";
 import AboutAppPage from "../Pages/AboutAppPage";
 import CategoriesContext from "../contexts/CategoriesContext";
@@ -28,18 +29,14 @@ import RequestEditPage from "../Pages/RequestEditPage";
 import RequestsContext from "../contexts/RequestsContext";
 import RequestsPage from "../Pages/RequestsPage";
 
-interface Props {
-  user: User | null | undefined;
-}
-
-function AppRoutes({ user }: Props) {
+function AppRoutes() {
   const [listings, setListings] = useState<Listing[]>([]);
-  const [listing, setListing] = useState<Listing>();
+  const [listing, setListing] = useState<Listing | undefined>();
   const [profileListings, setProfileListings] = useState<Listing[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [requests, setRequests] = useState<Request[]>([]);
-  const [request, setRequest] = useState<Request>();
-  const [profileUser, setProfileUser] = useState<User>();
+  const [request, setRequest] = useState<Request | undefined>();
+  const [profileUser, setProfileUser] = useState<User | undefined>();
   const [profileRequests, setProfileRequests] = useState<Request[]>([]);
 
   return (
@@ -77,10 +74,7 @@ function AppRoutes({ user }: Props) {
                       <Route path="requests" element={<RequestsPage />} />
                       <Route path="about-app" element={<AboutAppPage />} />
                       <Route path="login" element={<LoginPage />} />
-                      <Route
-                        path="logout"
-                        element={<LogoutPage user={user} />}
-                      />
+                      <Route path="logout" element={<LogoutPage />} />
                       <Route path="register" element={<RegisterPage />} />
                       <Route
                         path="profile/:userId/edit"

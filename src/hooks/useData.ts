@@ -1,5 +1,7 @@
-import { AxiosRequestConfig, CanceledError } from "axios";
 import { useEffect, useState } from "react";
+import { AxiosRequestConfig, CanceledError } from "axios";
+import { ApiResponse } from "apisauce";
+
 import apiClient from "../services/client";
 
 const useData = <T>(
@@ -21,7 +23,7 @@ const useData = <T>(
           signal: controller.signal,
           ...requestConfig,
         })
-        .then((res) => {
+        .then((res: ApiResponse<any, any>) => {
           setData(res.data);
           setLoading(false);
         })

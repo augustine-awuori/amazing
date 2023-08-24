@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { User } from "../hooks/useUser";
 import { z } from "zod";
 
 import { Form, FormField, SubmitButton } from "../components/forms";
@@ -43,7 +42,8 @@ const ProfileEditPage = () => {
     setLoading(false);
 
     if (!ok) {
-      return setError(data.error || problem);
+      const responseData = data as { error?: string };
+      return setError(responseData.error || problem);
     }
 
     toast.success("Changes saved");
@@ -63,7 +63,6 @@ const ProfileEditPage = () => {
         register={register}
         label="Name"
         value={profileUser?.name}
-        onChange={console.log}
       />
       <FormField
         error={errors.username}
@@ -75,26 +74,25 @@ const ProfileEditPage = () => {
         error={errors.instagram}
         register={register}
         label="Instagram"
-        value={profileUser.otherAccounts?.instagram}
+        value={profileUser?.otherAccounts?.instagram}
       />
       <FormField
         error={errors.twitter}
         register={register}
         label="Twitter"
-        value={profileUser.otherAccounts?.twitter}
+        value={profileUser?.otherAccounts?.twitter}
       />
       <FormField
         error={errors.whatsapp}
         register={register}
         label="WhatsApp"
-        type="tel"
-        value={profileUser.otherAccounts?.whatsapp}
+        value={profileUser?.otherAccounts?.whatsapp}
       />
       <FormField
         error={errors.youtube}
         register={register}
         label="YouTube"
-        value={profileUser.otherAccounts?.youtube}
+        value={profileUser?.otherAccounts?.youtube}
       />
       <SubmitButton label="Save Changes" isLoading={isLoading} />
     </Form>

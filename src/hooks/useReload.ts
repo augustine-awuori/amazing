@@ -15,7 +15,7 @@ export default function useReload(
     if (prevInfo) return;
 
     const id = params[infoStructure.paramsId];
-    if (!id) return (window.location = "/");
+    if (!id) return (window.location.href = "/");
 
     try {
       setLoading(true);
@@ -23,7 +23,7 @@ export default function useReload(
       setLoading(false);
       setData(data);
     } catch (error) {
-      window.location = "/";
+      window.location.href = "/";
     } finally {
       setLoading(false);
     }

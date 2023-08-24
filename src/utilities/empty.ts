@@ -5,7 +5,7 @@ const listing = {
   description: "",
   images: [],
   paramsId: "listingId",
-  price: "",
+  price: undefined,
   timestamp: 0,
   title: "",
 };
