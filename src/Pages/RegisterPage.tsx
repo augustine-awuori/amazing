@@ -57,12 +57,14 @@ const RegisterPage = () => {
         placeholder="+254 ..."
         register={register}
         name="whatsapp"
+        type="number"
       />
       <FormField
         error={errors.password}
         label="Password"
         placeholder="******"
         register={register}
+        type={"password"}
       />
       <SubmitButton label="Sign Up" isLoading={isLoading} />
     </Form>
