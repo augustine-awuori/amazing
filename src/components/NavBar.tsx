@@ -1,19 +1,19 @@
 import {
   Box,
-  Flex,
-  Text,
-  IconButton,
   Button,
-  Stack,
   Collapse,
+  Flex,
   Icon,
+  IconButton,
   Popover,
-  PopoverTrigger,
   PopoverContent,
-  useColorModeValue,
+  PopoverTrigger,
+  Stack,
+  Text,
   useBreakpointValue,
-  useDisclosure,
   useColorMode,
+  useColorModeValue,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -43,7 +43,7 @@ export default function WithSubnavigation({ user }: Props) {
         borderBottom={1}
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
-        align={"center"}
+        align="center"
         backgroundColor={colorMode === "dark" ? "inherit" : "orange.300"}
       >
         <Flex
@@ -56,7 +56,7 @@ export default function WithSubnavigation({ user }: Props) {
             icon={
               isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
             }
-            variant={"ghost"}
+            variant="ghost"
             aria-label={"Toggle Navigation"}
           />
         </Flex>
@@ -66,12 +66,11 @@ export default function WithSubnavigation({ user }: Props) {
             fontFamily="heading"
             fontWeight="bold"
             color={useColorModeValue("gray.800", "white")}
-            fontSize={22}
+            fontSize={17}
             cursor="pointer"
           >
-            Kisii Universe Mart
+            Campus Mart
           </Text>
-
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>

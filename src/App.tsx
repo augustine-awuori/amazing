@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Center, Grid, GridItem } from "@chakra-ui/react";
 
 import { User } from "./hooks/useUser";
 import AppRoutes from "./components/Routes";
@@ -15,8 +15,11 @@ function App() {
 
   return (
     <Grid
-      templateAreas={{ base: `"nav" "main"`, lg: `"nav nav" "aside main"` }}
-      templateColumns={{ base: "1fr", lg: "150px 1fr" }}
+      templateAreas={{
+        base: `"nav""main"`,
+        lg: `"nav nav" "aside main"`,
+      }}
+      templateColumns={{ base: "100%", lg: "150px 1fr" }}
     >
       <GridItem area="nav">
         <NavBar user={user} />
