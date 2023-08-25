@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Center, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 
 import { User } from "./hooks/useUser";
 import AppRoutes from "./components/Routes";
