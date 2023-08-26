@@ -22,7 +22,7 @@ import {
   ChevronRightIcon,
 } from "@chakra-ui/icons";
 import { User } from "../hooks/useUser";
-import shortener from "../utilities/stringManipulator";
+import format from "../utilities/format";
 
 interface Props {
   user: User | null | undefined;
@@ -100,7 +100,7 @@ export default function WithSubnavigation({ user }: Props) {
                 variant="link"
                 href={`/profile/${user?._id}`}
               >
-                {shortener.getFirstWord(user?.name)}
+                {format.getFirstWord(user?.name)}
               </Button>
             </>
           )}

@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { Box, Button, HStack, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import AppModal from "../components/Modal";
 import figure from "../utilities/figure";
 import ImageSlider from "../components/ImageSlider";
 import PageContainer from "../components/PageContainer";
+import useCurrentUser from "../hooks/useCurrentUser";
 import useListing from "../hooks/useListing";
 import UserAvatar from "../components/MediaQuery";
 
 const ListingDetailsPage = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
   const { listing } = useListing();
+  const userId = listing?.author?._id;
+  const isTheAuthor = useCurrentUser(userId);
 
   const switchModalVisibility = () => setModalOpen(!isModalOpen);
 
@@ -23,7 +28,7 @@ const ListingDetailsPage = () => {
   };
 
   const navigateToProfile = () => {
-    console.log(listing?.author);
+    if (userId) navigate(`/profile/${userId}`);
   };
 
   return (
@@ -53,7 +58,9 @@ const ListingDetailsPage = () => {
         <Box marginY={5} cursor="pointer" onClick={navigateToProfile}>
           <UserAvatar user={listing?.author} size="sm" onClick={console.log} />
         </Box>
-        <Button onClick={switchModalVisibility}>Edit Listing</Button>
+        {isTheAuthor && (
+          <Button onClick={switchModalVisibility}>Edit Listing</Button>
+        )}
       </Box>
     </PageContainer>
   );

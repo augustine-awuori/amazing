@@ -5,8 +5,8 @@ import { Category } from "../hooks/useCategories";
 import { endpoint } from "../services/requests";
 import { useProfileRequests } from "../hooks";
 import empty from "../utilities/empty";
+import format from "../utilities/format";
 import GridPageContainer from "../components/GridPageContainer";
-import manipulator from "../utilities/stringManipulator";
 import RequestGrid from "../components/RequestGrid";
 import useRequest, { Request } from "../hooks/useRequest";
 
@@ -26,7 +26,7 @@ const ProfileRequestsPage = () => {
 
   return (
     <GridPageContainer
-      headingPrefix={manipulator.getFirstWord(requests?.[0]?.author?.name)}
+      headingPrefix={format.getFirstWord(requests?.[0]?.author?.name)}
       selectedCategory={selectedCategory}
       onSelectCategory={setSelectedCategory}
     >

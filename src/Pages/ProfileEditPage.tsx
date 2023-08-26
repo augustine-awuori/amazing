@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { Form, FormField, SubmitButton } from "../components/forms";
 import { useForm, useProfileUser } from "../hooks";
+import authService from "../services/auth";
 import usersApi from "../services/users";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 const schema = z.object({
   // avatar: z.string(),
@@ -25,6 +27,12 @@ const ProfileEditPage = () => {
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { profileUser } = useProfileUser();
+  const currentUser = authService.getCurrentUser();
+  const isTheOwner = useCurrentUser(profileUser?._id);
+
+  useEffect(() => {
+    if (!currentUser || !isTheOwner) navigate("/");
+  }, []);
 
   function checkUsername(userInfo: FormData): FormData {
     const info = { ...userInfo };

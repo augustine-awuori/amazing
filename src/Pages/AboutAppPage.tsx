@@ -1,5 +1,6 @@
 import { Text } from "@chakra-ui/react";
 
+import format from "../utilities/format";
 import PageContainer from "../components/PageContainer";
 import Paragraph from "../components/Paragraph";
 
@@ -8,7 +9,7 @@ const AboutAppPage = () => (
     <Text
       textAlign="center"
       fontWeight="bold"
-      fontSize="4xl"
+      fontSize="2xl"
       marginTop={2}
       marginBottom={5}
     >
@@ -34,7 +35,8 @@ const AboutAppPage = () => (
       We acknowledge that our app is a work in progress, and we're dedicated to
       continuously improving it. We invite all students who share our vision to
       join us and contribute in any way, be it through programming skills or
-      valuable insights. Reach out to us on WhatsApp at +254745889801.
+      valuable insights. Reach out to us on WhatsApp at{" "}
+      {format.phoneNumber("254745889801")}
     </Paragraph>
     <Paragraph>
       Let's reshape the future of Kisii University together – where

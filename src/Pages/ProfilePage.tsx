@@ -17,14 +17,16 @@ import { useProfileUser, useReload, useTimestamp } from "../hooks";
 import { usersApi } from "../services";
 import Avatar from "../components/Avatar";
 import empty from "../utilities/empty";
-import manipulator from "../utilities/stringManipulator";
+import format from "../utilities/format";
 import PageContainer from "../components/PageContainer";
 import ProfileActivities from "../components/ProfileActivities";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 const ProfilePage = () => {
   const { profileUser, setProfileUser } = useProfileUser();
   const navigate = useNavigate();
   const { getDate } = useTimestamp();
+  const isTheUser = useCurrentUser(profileUser?._id);
   const { info, isLoading, request } = useReload(
     profileUser,
     empty.user,
@@ -108,14 +110,14 @@ const ProfilePage = () => {
             <Text fontWeight="bold" fontSize="1.5rem">
               Contact Information
             </Text>
-            <Text>
-              Phone: {manipulator.formatPhoneNumber(otherAccounts.whatsapp)}
-            </Text>
+            <Text>Phone: {format.phoneNumber(otherAccounts.whatsapp)}</Text>
           </Stack>
         </SimpleGrid>
-        <Button marginTop={3} onClick={editProfile}>
-          Edit Profile
-        </Button>
+        {isTheUser && (
+          <Button marginTop={3} onClick={editProfile}>
+            Edit Profile
+          </Button>
+        )}
         <Divider my={6} />
         <ProfileActivities
           onListingsClick={navigateToListings}

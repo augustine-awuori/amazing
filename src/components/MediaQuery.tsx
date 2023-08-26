@@ -6,7 +6,7 @@ import {
   ResponsiveValue,
 } from "@chakra-ui/react";
 import { GoVerified } from "react-icons/go";
-import { getFirstWord } from "../utilities/stringManipulator";
+import { getFirstWord } from "../utilities/format";
 import { User } from "../hooks/useUser";
 
 interface Props {

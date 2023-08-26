@@ -6,9 +6,9 @@ import { endpoint } from "../services/listings";
 import { Listing } from "../hooks/useListing";
 import { useListing, useProfileListings } from "../hooks";
 import empty from "../utilities/empty";
+import format from "../utilities/format";
 import GridPageContainer from "../components/GridPageContainer";
 import ListingGrid from "../components/ListingGrid";
-import manipulator from "../utilities/stringManipulator";
 
 const ProfileListingsPage = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const ProfileListingsPage = () => {
 
   return (
     <GridPageContainer
-      headingPrefix={manipulator.getFirstWord(listings?.[0]?.author?.name)}
+      headingPrefix={format.getFirstWord(listings?.[0]?.author?.name)}
       selectedCategory={selectedCategory}
       onSelectCategory={setSelectedCategory}
     >
