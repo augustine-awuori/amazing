@@ -1,4 +1,5 @@
 export { default as useCategories } from "./useCategories";
+export { default as useCurrentUser } from "./useCurrentUser";
 export { default as useData } from "./useData";
 export { default as useForm } from "./useForm";
 export { default as useListing } from "./useListing";

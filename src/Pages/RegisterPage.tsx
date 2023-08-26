@@ -64,7 +64,7 @@ const RegisterPage = () => {
         label="Password"
         placeholder="******"
         register={register}
-        type={"password"}
+        type="password"
       />
       <SubmitButton label="Sign Up" isLoading={isLoading} />
     </Form>

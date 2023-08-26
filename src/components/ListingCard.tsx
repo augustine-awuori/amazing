@@ -1,6 +1,7 @@
 import {
   Card,
   CardBody,
+  HStack,
   Heading,
   Image,
   Text,
@@ -8,8 +9,9 @@ import {
 } from "@chakra-ui/react";
 
 import { Listing } from "../hooks/useListing";
-import UserAvatar from "./MediaQuery";
 import figure from "../utilities/figure";
+import UserAvatar from "./MediaQuery";
+import useTimestamp from "../hooks/useTimestamp";
 
 interface Props {
   listing: Listing;
@@ -18,6 +20,7 @@ interface Props {
 
 const ListingCard = ({ listing, onClick }: Props) => {
   const { colorMode } = useColorMode();
+  const { tempTimestamp } = useTimestamp(listing.timestamp, true);
 
   return (
     <Card
@@ -30,9 +33,12 @@ const ListingCard = ({ listing, onClick }: Props) => {
         <Heading fontSize="2xl" noOfLines={1}>
           {listing.title}
         </Heading>
-        <Text color="orange.400" fontSize=".9rem">
-          Ksh {figure.addComma(listing.price)}
-        </Text>
+        <HStack justifyContent="space-between" alignItems="center">
+          <Text color="orange.400" fontSize=".9rem">
+            Ksh {figure.addComma(listing.price)}
+          </Text>
+          <Text fontSize=".8rem">{tempTimestamp}</Text>
+        </HStack>
         <UserAvatar user={listing.author} />
       </CardBody>
     </Card>

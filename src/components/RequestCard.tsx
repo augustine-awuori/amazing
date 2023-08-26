@@ -1,6 +1,7 @@
 import { Box, Text, useColorMode } from "@chakra-ui/react";
 import { Request } from "../hooks/useRequest";
 import UserAvatar from "./MediaQuery";
+import useTimestamp from "../hooks/useTimestamp";
 
 interface Props {
   onClick: (request: Request) => void;
@@ -9,8 +10,8 @@ interface Props {
 
 export default function RequestCard({ onClick, request }: Props) {
   const { colorMode } = useColorMode();
-
-  const { author, category, description, title } = request;
+  const { author, category, description, timestamp, title } = request;
+  const { tempTimestamp } = useTimestamp(timestamp, true);
 
   return (
     <Box
@@ -21,7 +22,7 @@ export default function RequestCard({ onClick, request }: Props) {
       cursor="pointer"
     >
       <Box marginBottom={1.5}>
-        <UserAvatar user={author} />
+        <UserAvatar user={author} time={tempTimestamp} />
       </Box>
       <Text fontWeight="bold" noOfLines={1}>
         {title}

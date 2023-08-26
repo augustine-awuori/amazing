@@ -52,10 +52,11 @@ const LoginPage = () => {
     >
       <FormField error={errors.username} label="Username" register={register} />
       <FormField
-        label="Password"
         error={errors.password}
-        register={register}
+        label="Password"
         placeholder="******"
+        register={register}
+        type="password"
       />
       <SubmitButton label="Sign In" isLoading={isLoading} />
     </Form>

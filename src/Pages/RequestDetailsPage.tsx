@@ -1,19 +1,24 @@
-import { Box, Text } from "@chakra-ui/react";
-import useRequest from "../hooks/useRequest";
+import { Box, HStack, Text } from "@chakra-ui/react";
+
+import { useRequest, useTimestamp } from "../hooks";
 import MediaQuery from "../components/MediaQuery";
 import PageContainer from "../components/PageContainer";
 
 const RequestDetailsPage = () => {
   const { request } = useRequest();
+  const { tempTimestamp } = useTimestamp(request?.timestamp);
 
   return (
     <PageContainer>
       <Box marginY={2}>
         <MediaQuery user={request?.author} size="md" />
       </Box>
-      <Text fontWeight="bold" marginBottom={1}>
-        {request?.title}
-      </Text>
+      <HStack>
+        <Text fontWeight="bold" marginBottom={1}>
+          {request?.title}
+        </Text>
+        <Text fontStyle="italic">{tempTimestamp}</Text>
+      </HStack>
       <Text>{request?.description}</Text>
       <Text
         fontStyle="italic"
