@@ -9,6 +9,7 @@ import PageContainer from "../components/PageContainer";
 import useCurrentUser from "../hooks/useCurrentUser";
 import useListing from "../hooks/useListing";
 import UserAvatar from "../components/MediaQuery";
+import { useTimestamp } from "../hooks";
 
 const ListingDetailsPage = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const ListingDetailsPage = () => {
   const { listing } = useListing();
   const userId = listing?.author?._id;
   const isTheAuthor = useCurrentUser(userId);
+  const { tempTimestamp } = useTimestamp(listing?.timestamp);
 
   const switchModalVisibility = () => setModalOpen(!isModalOpen);
 
@@ -45,9 +47,14 @@ const ListingDetailsPage = () => {
       />
       <ImageSlider images={listing?.images} />
       <Box maxWidth="80%">
-        <Text fontWeight="bold" fontSize={21} marginBottom={2}>
-          {listing?.title}
-        </Text>
+        <HStack alignItems="center">
+          <Text fontWeight="bold" fontSize={21} marginBottom={2}>
+            {listing?.title}
+          </Text>
+          <Text fontSize=".8rem" fontStyle="italic">
+            {tempTimestamp}
+          </Text>
+        </HStack>
         <HStack justifyContent="space-between" marginBottom={2}>
           <Text color="orange.400">Ksh {figure.addComma(listing?.price)}</Text>
           <Text fontStyle="italic" color="orange.400">

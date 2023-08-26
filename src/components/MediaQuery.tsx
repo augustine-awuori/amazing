@@ -25,9 +25,10 @@ interface Props {
         | "full"
       >
     | undefined;
+  time?: string;
 }
 
-const UserAvatar = ({ user, onClick, size = "xs" }: Props) => {
+const UserAvatar = ({ user, onClick, size = "xs", time }: Props) => {
   return (
     <Wrap marginTop={1} onClick={onClick}>
       <WrapItem>
@@ -39,6 +40,11 @@ const UserAvatar = ({ user, onClick, size = "xs" }: Props) => {
         </Text>
         {user?.isVerified && <GoVerified size={12} color="orange" />}
       </WrapItem>
+      {time && (
+        <WrapItem>
+          <Text fontSize=".8rem">{time}</Text>
+        </WrapItem>
+      )}
     </Wrap>
   );
 };
