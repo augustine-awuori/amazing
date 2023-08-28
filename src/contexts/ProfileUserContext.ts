@@ -7,10 +7,13 @@ interface ProfileUserContextValue {
   setProfileUser: (user: User) => void;
 }
 
-export const ProfileUserContext = React.createContext<ProfileUserContextValue>({
+const defaultValue: ProfileUserContextValue = {
   profileUser: undefined,
   setProfileUser: () => {},
-});
+};
+
+export const ProfileUserContext =
+  React.createContext<ProfileUserContextValue>(defaultValue);
 
 ProfileUserContext.displayName = "Profile User Context";
 

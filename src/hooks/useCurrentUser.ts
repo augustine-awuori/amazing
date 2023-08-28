@@ -8,7 +8,7 @@ const useCurrentUser = (userId: string | undefined) => {
 
   useEffect(() => {
     if (userId) setUser(userId === currentUser?._id);
-  }, [userId]);
+  }, [userId, currentUser?._id]);
 
   return isTheUser;
 };

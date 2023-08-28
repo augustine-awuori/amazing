@@ -12,11 +12,7 @@ interface Props {
 }
 
 export default ({ label, options = [], register }: Props) => (
-  <Select
-    placeholder={`Select ${label}`}
-    {...register(label.toLowerCase())}
-    onChange={console.log}
-  >
+  <Select placeholder={`Select ${label}`} {...register(label.toLowerCase())}>
     {options.map((option, index) => (
       <option value={option._id} key={index}>
         {option.label}
