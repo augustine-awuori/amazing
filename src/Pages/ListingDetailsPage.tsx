@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useCurrentUser, useListing, useTimestamp } from "../hooks";
 import AppModal from "../components/Modal";
 import figure from "../utilities/figure";
+import format from "../utilities/format";
 import ImageSlider from "../components/ImageSlider";
 import PageContainer from "../components/PageContainer";
 import UserAvatar from "../components/MediaQuery";
@@ -65,6 +66,9 @@ const ListingDetailsPage = () => {
             time={tempTimestamp}
           />
         </Box>
+        <Text>
+          {format.phoneNumber(listing?.author?.otherAccounts?.whatsapp)}
+        </Text>
         {isTheAuthor && (
           <Button onClick={switchModalVisibility}>Edit Listing</Button>
         )}
