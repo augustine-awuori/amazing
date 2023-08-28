@@ -72,7 +72,7 @@ export default function WithSubnavigation({ user }: Props) {
             fontSize={17}
             cursor="pointer"
             onClick={() => navigate("/")}
-            mr={2}
+            mr={1}
           >
             Campus Mart
           </Text>
