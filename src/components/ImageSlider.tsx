@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Center, IconButton, useBreakpointValue } from "@chakra-ui/react";
+import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
 
@@ -18,78 +18,56 @@ const settings = {
 interface Props {
   images: string[] | undefined;
 }
+interface ButtonProps {
+  children: JSX.Element;
+  left?: boolean;
+}
 
 export default function ImageSlider({ images }: Props) {
   const [slider, setSlider] = React.useState<Slider | null>(null);
 
-  const top = useBreakpointValue({ base: "50%", md: "50%" });
   const side = useBreakpointValue({ base: "10%", md: "10px" });
+
+  const Button = ({ children, left = false }: ButtonProps) => (
+    <IconButton
+      aria-label={left ? "left-arrow" : "right-arrow"}
+      colorScheme="messenger"
+      borderRadius="full"
+      position="absolute"
+      left={left ? side : undefined}
+      right={left ? undefined : side}
+      bottom={side}
+      zIndex={2}
+      onClick={() => slider?.slickPrev()}
+    >
+      {children}
+    </IconButton>
+  );
 
   if (!images) return null;
 
   return (
-    <Center>
-      <Box
-        position="relative"
-        w="100%"
-        h={{ base: "500px", md: "500px" }} // Adjust the height as needed
-        maxW="500px"
-        overflow="hidden"
-      >
-        {/* CSS files for react-slick */}
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
-        {/* Left Icon */}
-        <IconButton
-          aria-label="left-arrow"
-          colorScheme="messenger"
-          borderRadius="full"
-          position="absolute"
-          left={side}
-          top={top}
-          transform={"translate(0%, -50%)"}
-          zIndex={2}
-          onClick={() => slider?.slickPrev()}
-        >
-          <BiLeftArrowAlt />
-        </IconButton>
-        {/* Right Icon */}
-        <IconButton
-          aria-label="right-arrow"
-          colorScheme="messenger"
-          borderRadius="full"
-          position="absolute"
-          right={side}
-          top={top}
-          transform={"translate(0%, -50%)"}
-          zIndex={2}
-          onClick={() => slider?.slickNext()}
-        >
-          <BiRightArrowAlt />
-        </IconButton>
-        <Slider {...settings} ref={setSlider}>
-          {images.map((url, index) => (
-            <Box
-              key={index}
-              height={"2xl"}
-              position="relative"
-              objectFit="contain"
-              backgroundPosition="center"
-              backgroundRepeat="no-repeat"
-              backgroundSize="contain"
-              backgroundImage={`url(${url})`}
-            />
-          ))}
-        </Slider>
-      </Box>
-    </Center>
+    <Box w="100%" maxW="500px" overflow="hidden" position="relative">
+      <Slider {...settings} ref={setSlider}>
+        {images.map((url, index) => (
+          <Box
+            key={index}
+            height={{ base: "300px", md: "500px" }}
+            position="relative"
+            objectFit="contain"
+            backgroundPosition="center"
+            backgroundRepeat="no-repeat"
+            backgroundSize="contain"
+            backgroundImage={`url(${url})`}
+          />
+        ))}
+      </Slider>
+      <Button left>
+        <BiLeftArrowAlt />
+      </Button>
+      <Button>
+        <BiRightArrowAlt />
+      </Button>
+    </Box>
   );
 }

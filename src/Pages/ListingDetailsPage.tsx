@@ -49,9 +49,6 @@ const ListingDetailsPage = () => {
           <Text fontWeight="bold" fontSize={21} marginBottom={2}>
             {listing?.title}
           </Text>
-          <Text fontSize=".8rem" fontStyle="italic">
-            {tempTimestamp}
-          </Text>
         </HStack>
         <HStack justifyContent="space-between" marginBottom={2}>
           <Text color="orange.400">Ksh {figure.addComma(listing?.price)}</Text>
@@ -61,7 +58,12 @@ const ListingDetailsPage = () => {
         </HStack>
         <Text>{listing?.description}</Text>
         <Box marginY={5} cursor="pointer" onClick={navigateToProfile}>
-          <UserAvatar user={listing?.author} size="sm" onClick={console.log} />
+          <UserAvatar
+            user={listing?.author}
+            size="sm"
+            onClick={console.log}
+            time={tempTimestamp}
+          />
         </Box>
         {isTheAuthor && (
           <Button onClick={switchModalVisibility}>Edit Listing</Button>
