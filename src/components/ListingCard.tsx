@@ -37,9 +37,8 @@ const ListingCard = ({ listing, onClick }: Props) => {
           <Text color="orange.400" fontSize=".9rem">
             Ksh {figure.addComma(listing.price)}
           </Text>
-          <Text fontSize=".8rem">{tempTimestamp}</Text>
         </HStack>
-        <UserAvatar user={listing.author} />
+        <UserAvatar user={listing.author} time={tempTimestamp} />
       </CardBody>
     </Card>
   );

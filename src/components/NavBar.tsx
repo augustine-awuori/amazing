@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -21,6 +22,7 @@ import {
   ChevronDownIcon,
   ChevronRightIcon,
 } from "@chakra-ui/icons";
+
 import { User } from "../hooks/useUser";
 import format from "../utilities/format";
 
@@ -31,6 +33,7 @@ interface Props {
 export default function WithSubnavigation({ user }: Props) {
   const { colorMode } = useColorMode();
   const { isOpen, onToggle } = useDisclosure();
+  const navigate = useNavigate();
 
   return (
     <Box>
@@ -68,6 +71,7 @@ export default function WithSubnavigation({ user }: Props) {
             color={useColorModeValue("gray.800", "white")}
             fontSize={17}
             cursor="pointer"
+            onClick={() => navigate("/")}
           >
             Campus Mart
           </Text>
