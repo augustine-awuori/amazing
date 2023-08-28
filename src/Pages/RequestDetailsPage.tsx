@@ -1,5 +1,4 @@
 import { Box, HStack, Text } from "@chakra-ui/react";
-
 import { useRequest, useTimestamp } from "../hooks";
 import MediaQuery from "../components/MediaQuery";
 import PageContainer from "../components/PageContainer";
