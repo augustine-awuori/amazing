@@ -1,6 +1,6 @@
 export const getFirstWord = (sentence = "") => sentence.split(" ")[0];
 
-export function phoneNumber(phoneNumber: string): string {
+export function phoneNumber(phoneNumber: string | undefined): string {
   if (!phoneNumber) return "";
 
   const numericPhoneNumber = phoneNumber.replace(/\D/g, "");

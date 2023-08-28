@@ -12,7 +12,6 @@ import {
   Stack,
   Text,
   useBreakpointValue,
-  useColorMode,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -25,18 +24,27 @@ import {
 
 import { User } from "../hooks/useUser";
 import format from "../utilities/format";
+import useAppColorMode from "../hooks/useAppColorMode";
 
 interface Props {
   user: User | null | undefined;
 }
 
 export default function WithSubnavigation({ user }: Props) {
-  const { colorMode } = useColorMode();
+  const { color } = useAppColorMode();
   const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
 
   return (
-    <Box>
+    <Box
+      bgColor="inherit"
+      position="fixed"
+      top={0}
+      left={0}
+      right={0}
+      zIndex={1000}
+      bg={color}
+    >
       <Flex
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
@@ -47,7 +55,7 @@ export default function WithSubnavigation({ user }: Props) {
         borderStyle={"solid"}
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align="center"
-        backgroundColor={colorMode === "dark" ? "inherit" : "orange.300"}
+        backgroundColor={color}
       >
         <Flex
           flex={{ base: 1, md: "auto" }}
@@ -192,6 +200,8 @@ const DesktopNav = () => {
 };
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+  const { accentColor } = useAppColorMode();
+
   return (
     <Box
       as="a"
@@ -206,7 +216,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
         <Box>
           <Text
             transition={"all .3s ease"}
-            _groupHover={{ color: "orange.400" }}
+            _groupHover={{ color: accentColor }}
             fontWeight={500}
           >
             {label}
@@ -222,7 +232,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
           align={"center"}
           flex={1}
         >
-          <Icon color={"orange.400"} w={5} h={5} as={ChevronRightIcon} />
+          <Icon color={accentColor} w={5} h={5} as={ChevronRightIcon} />
         </Flex>
       </Stack>
     </Box>
