@@ -15,11 +15,11 @@ interface Props {
   title: string;
   subTitle?: string;
   isOpen: boolean;
-  content: string;
-  primaryBtnLabel: string;
-  secondaryBtnLabel: string;
-  onPrimaryClick: () => void;
-  onSecondaryClick: () => void;
+  content: any;
+  primaryBtnLabel?: string;
+  secondaryBtnLabel?: string;
+  onPrimaryClick?: () => void;
+  onSecondaryClick?: () => void;
   onModalClose: () => void;
 }
 
@@ -38,12 +38,12 @@ function AppModal({
 
   const handlePrimaryClick = () => {
     onClose();
-    onPrimaryClick();
+    if (onPrimaryClick) onPrimaryClick();
   };
 
   const handleSecondaryClick = () => {
     onClose();
-    onSecondaryClick();
+    if (onSecondaryClick) onSecondaryClick();
   };
 
   return (
@@ -61,14 +61,16 @@ function AppModal({
             )}
             {content}
           </ModalBody>
-          <ModalFooter>
-            <Button colorScheme="orange" mr={3} onClick={handlePrimaryClick}>
-              {primaryBtnLabel}
-            </Button>
-            <Button variant="ghost" onClick={handleSecondaryClick}>
-              {secondaryBtnLabel}
-            </Button>
-          </ModalFooter>
+          {primaryBtnLabel && secondaryBtnLabel && (
+            <ModalFooter>
+              <Button colorScheme="orange" mr={3} onClick={handlePrimaryClick}>
+                {primaryBtnLabel}
+              </Button>
+              <Button variant="ghost" onClick={handleSecondaryClick}>
+                {secondaryBtnLabel}
+              </Button>
+            </ModalFooter>
+          )}{" "}
         </ModalContent>
       </Modal>
     </>

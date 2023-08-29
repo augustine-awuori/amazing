@@ -3,10 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
 import { endpoint } from "../services/listings";
-import GridPageContainer from "../components/GridPageContainer";
-import ListingGrid from "../components/ListingGrid";
-import useListing, { Listing } from "../hooks/useListing";
+import { GridPageContainer, ListingGrid } from "../components";
 import { useListings } from "../hooks";
+import useListing, { Listing } from "../hooks/useListing";
 
 const ListingsPage = () => {
   const navigate = useNavigate();

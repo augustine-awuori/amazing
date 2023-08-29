@@ -1,38 +1,35 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { Form, FormField, SubmitButton } from "../components/forms";
-import { useForm, useProfileUser } from "../hooks";
-import authService from "../services/auth";
+import { useCurrentUser, useForm, useProfileUser } from "../hooks";
 import usersApi from "../services/users";
-import useCurrentUser from "../hooks/useCurrentUser";
 
 const schema = z.object({
   // avatar: z.string(),
   instagram: z.string(),
-  name: z.string().min(3).max(30),
+  name: z.string().min(3, "Name must be at least 3 characters").max(30),
   twitter: z.string(),
-  username: z.string().min(3).max(20),
-  whatsapp: z.string().min(12).max(13),
+  username: z.string().min(3, "Username must be at least 3 characters").max(20),
+  whatsapp: z
+    .string()
+    .min(12, "WhatsApp number should be either 12 or 13 characters")
+    .max(13),
   youtube: z.string(),
 });
 
 type FormData = z.infer<typeof schema>;
 
 const ProfileEditPage = () => {
+  const params = useParams();
   const [error, setError] = useState("");
   const { errors, handleSubmit, register, reset } = useForm(schema);
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { profileUser } = useProfileUser();
-  const currentUser = authService.getCurrentUser();
-  const isTheOwner = useCurrentUser(profileUser?._id);
-
-  useEffect(() => {
-    if (!currentUser || !isTheOwner) navigate("/");
-  }, []);
+  const isTheOwner = useCurrentUser(params.userId);
 
   function checkUsername(userInfo: FormData): FormData {
     const info = { ...userInfo };
@@ -43,6 +40,8 @@ const ProfileEditPage = () => {
   }
 
   const doSubmit = async (userInfo: FormData) => {
+    if (!isTheOwner) return navigate("/");
+
     setLoading(true);
     const { ok, data, problem } = await usersApi.updateUser(
       checkUsername(userInfo)

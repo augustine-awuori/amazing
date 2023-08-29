@@ -3,11 +3,11 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { Form, FormField, SubmitButton } from "../components/forms";
+import { Request } from "../hooks/useRequest";
 import { useCategories, useForm } from "../hooks";
 import requestsApi from "../services/requests";
 import Select from "../components/Select";
 import useRequests from "../hooks/useRequests";
-import { Request } from "../hooks/useRequest";
 
 const schema = z.object({
   category: z.string().min(5),
@@ -64,11 +64,7 @@ const RequestEditPage = () => {
         label="Description"
         register={register}
       />
-      <Select
-        label="Category"
-        options={categories.filter((c) => c._id)}
-        register={register}
-      />
+      <Select label="Category" options={categories} register={register} />
       <SubmitButton label="Save Request" isLoading={isLoading} />
     </Form>
   );

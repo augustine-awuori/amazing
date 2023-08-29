@@ -2,21 +2,25 @@ import { useState } from "react";
 import { Box, Button, HStack, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-import { useCurrentUser, useListing, useTimestamp } from "../hooks";
-import AppModal from "../components/Modal";
-import figure from "../utilities/figure";
-import format from "../utilities/format";
-import ImageSlider from "../components/ImageSlider";
-import PageContainer from "../components/PageContainer";
-import UserAvatar from "../components/MediaQuery";
+import { figure, format } from "../utilities";
+import { ListingEditForm } from "../components/forms";
+import { PageContainer, ImageSlider, MediaQuery, Modal } from "../components";
+import {
+  useAppColorMode,
+  useCurrentUser,
+  useListing,
+  useTimestamp,
+} from "../hooks";
 
 const ListingDetailsPage = () => {
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
   const { listing } = useListing();
   const userId = listing?.author?._id;
   const isTheAuthor = useCurrentUser(userId);
   const { tempTimestamp } = useTimestamp(listing?.timestamp);
+  const { accentColor } = useAppColorMode();
 
   const switchModalVisibility = () => setModalOpen(!isModalOpen);
 
@@ -26,15 +30,24 @@ const ListingDetailsPage = () => {
 
   const handleEdit = () => {
     setModalOpen(false);
+    setEditModalOpen(true);
   };
 
   const navigateToProfile = () => {
     if (userId) navigate(`/profile/${userId}`);
   };
 
+  const switchEditModalVisibility = () => setEditModalOpen(!isEditModalOpen);
+
   return (
     <PageContainer>
-      <AppModal
+      <Modal
+        content={<ListingEditForm />}
+        isOpen={isEditModalOpen}
+        title="Edit Listing Info"
+        onModalClose={switchEditModalVisibility}
+      />
+      <Modal
         content="WARNING! Changes made are irreversible"
         isOpen={isModalOpen}
         onModalClose={switchModalVisibility}
@@ -52,25 +65,20 @@ const ListingDetailsPage = () => {
           </Text>
         </HStack>
         <HStack justifyContent="space-between" marginBottom={2}>
-          <Text color="orange.400">Ksh {figure.addComma(listing?.price)}</Text>
-          <Text fontStyle="italic" color="orange.400">
+          <Text color={accentColor}>Ksh {figure.addComma(listing?.price)}</Text>
+          <Text fontStyle="italic" color={accentColor}>
             {listing?.category?.label}
           </Text>
         </HStack>
         <Text>{listing?.description}</Text>
         <Box marginY={5} cursor="pointer" onClick={navigateToProfile}>
-          <UserAvatar
-            user={listing?.author}
-            size="sm"
-            onClick={console.log}
-            time={tempTimestamp}
-          />
+          <MediaQuery user={listing?.author} size="sm" time={tempTimestamp} />
         </Box>
         <Text>
           {format.phoneNumber(listing?.author?.otherAccounts?.whatsapp)}
         </Text>
         {isTheAuthor && (
-          <Button onClick={switchModalVisibility} mt={3}>
+          <Button onClick={switchModalVisibility} my={3}>
             Edit Listing
           </Button>
         )}

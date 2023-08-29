@@ -1,8 +1,8 @@
 import { Category } from "../hooks/useCategories";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import GridPageContainer from "../components/GridPageContainer";
-import RequestGrid from "../components/RequestGrid";
+
+import { GridPageContainer, RequestGrid } from "../components";
 import useRequest, { Request } from "../hooks/useRequest";
 
 const RequestsPage = () => {

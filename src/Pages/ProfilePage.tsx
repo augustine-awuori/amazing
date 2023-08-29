@@ -1,6 +1,7 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
+  Avatar,
   Badge,
   Box,
   Button,
@@ -13,20 +14,24 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { useProfileUser, useReload, useTimestamp } from "../hooks";
-import { usersApi } from "../services";
-import Avatar from "../components/Avatar";
-import empty from "../utilities/empty";
-import format from "../utilities/format";
-import PageContainer from "../components/PageContainer";
-import ProfileActivities from "../components/ProfileActivities";
-import useCurrentUser from "../hooks/useCurrentUser";
+import {
+  useAppColorMode,
+  useCurrentUser,
+  useProfileUser,
+  useReload,
+  useTimestamp,
+} from "../hooks";
+import { empty, format } from "../utilities";
+import { ProfileActivities, PageContainer } from "../components";
+import usersApi from "../services/users";
 
 const ProfilePage = () => {
   const { profileUser, setProfileUser } = useProfileUser();
   const navigate = useNavigate();
   const { getDate } = useTimestamp();
-  const isTheUser = useCurrentUser(profileUser?._id);
+  const params = useParams();
+  const isTheUser = useCurrentUser(params.userId);
+  const { accentColor } = useAppColorMode();
   const { info, isLoading, request } = useReload(
     profileUser,
     empty.user,
@@ -84,7 +89,7 @@ const ProfilePage = () => {
                 <Text fontSize="2xl" fontWeight="bold" mb={0}>
                   {name}
                 </Text>
-                <Text color="orange.400" fontStyle="italic">
+                <Text color={accentColor} fontStyle="italic">
                   {username}
                 </Text>
               </>

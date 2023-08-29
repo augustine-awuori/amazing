@@ -2,13 +2,11 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
+import { empty, format } from "../utilities";
 import { endpoint } from "../services/listings";
+import { GridPageContainer, ListingGrid } from "../components";
 import { Listing } from "../hooks/useListing";
 import { useListing, useProfileListings } from "../hooks";
-import empty from "../utilities/empty";
-import format from "../utilities/format";
-import GridPageContainer from "../components/GridPageContainer";
-import ListingGrid from "../components/ListingGrid";
 
 const ProfileListingsPage = () => {
   const navigate = useNavigate();

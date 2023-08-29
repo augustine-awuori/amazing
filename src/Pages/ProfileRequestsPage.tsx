@@ -2,12 +2,10 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
+import { empty, format } from "../utilities";
 import { endpoint } from "../services/requests";
+import { GridPageContainer, RequestGrid } from "../components";
 import { useProfileRequests } from "../hooks";
-import empty from "../utilities/empty";
-import format from "../utilities/format";
-import GridPageContainer from "../components/GridPageContainer";
-import RequestGrid from "../components/RequestGrid";
 import useRequest, { Request } from "../hooks/useRequest";
 
 const ProfileRequestsPage = () => {
