@@ -1,9 +1,12 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { z } from "zod";
 
+import { Listing, ListingInfo } from "../../hooks/useListing";
 import { useCategories, useForm } from "../../hooks";
 import Form from "./Form";
 import FormField from "./FormField";
+import listingsService from "../../services/listings";
 import Select from "../Select";
 import SubmitButton from "./SubmitButton";
 
@@ -14,7 +17,7 @@ const schema = z.object({
     .max(50),
   price: z
     .string()
-    .min(1, "Price should be between Ksh. 1 and  Ksh 1M")
+    .min(1, "Price should be between Ksh 1 and  Ksh 1M")
     .max(1_000_000),
   description: z.string(),
   category: z.string().min(5),
@@ -22,18 +25,43 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const ListingEditForm = () => {
+interface Props {
+  listing: Listing | undefined;
+}
+
+const ListingEditForm = ({ listing }: Props) => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { errors, handleSubmit, register } = useForm(schema);
   const { data: categories } = useCategories();
 
+  const populate = (listingInfo: FormData): ListingInfo => {
+    const { category, description, price, title } = listingInfo;
+
+    return {
+      _id: listing?._id,
+      authorId: listing?.author._id,
+      categoryId: category,
+      description,
+      price,
+      title,
+    };
+  };
+
   const doSubmit = async (listingInfo: FormData) => {
     if (error) setError("");
-
     setLoading(true);
-    console.log(listingInfo);
+    const response = await listingsService.updateListing(populate(listingInfo));
     setLoading(false);
+
+    const { data, ok, problem } = response;
+    if (!ok) {
+      const error = (data as any)?.error;
+      toast.error(`Listing update failed!`);
+      return setError(error || problem);
+    }
+
+    toast(`Listing updated successfully`);
   };
 
   return (

@@ -29,18 +29,8 @@ const getListings = () => client.get(endpoint);
 const updateListing = (
   listing: ListingInfo,
   onUploadProgress: (progress: number) => void = () => {}
-) => {
-  const { _id, authorId, title, price, description, category } = listing;
-  const data = {
-    _id,
-    authorId,
-    title,
-    price,
-    description,
-    categoryId: category._id,
-  };
-
-  return client.patch(`${endpoint}/${listing._id}`, data, {
+) =>
+  client.patch(`${endpoint}/${listing._id}`, listing, {
     onUploadProgress: (progressEvent) => {
       if (progressEvent.total !== null && progressEvent.total !== undefined) {
         const progress = (progressEvent.loaded / progressEvent.total) * 100;
@@ -48,7 +38,6 @@ const updateListing = (
       }
     },
   });
-};
 
 const deleteListing = (listingId: string) =>
   client.delete(`${endpoint}/${listingId}`);

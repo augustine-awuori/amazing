@@ -5,22 +5,24 @@ import { User } from "./useUser";
 import ListingContext from "../contexts/ListingContext";
 
 export interface ListingBase {
-  _id: string;
-  category: Category;
   description: string;
-  price: number | undefined;
   title: string;
-  subTitle: string;
 }
 
 export interface ListingInfo extends ListingBase {
-  authorId: string;
+  _id: string | undefined;
+  authorId: string | undefined;
+  categoryId: string | undefined;
+  price: number | string;
 }
 
 export interface Listing extends ListingBase {
+  _id: string;
+  category: Category;
   author: User;
   images: string[];
   timestamp: number;
+  price: number | undefined;
 }
 
 const useListing = () => {
