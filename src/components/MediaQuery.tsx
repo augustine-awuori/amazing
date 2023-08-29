@@ -31,6 +31,7 @@ interface Props {
 const UserAvatar = ({ user, onClick, size = "xs", time }: Props) => {
   return (
     <Wrap
+      cursor="pointer"
       marginTop={1}
       onClick={onClick}
       justifyContent="space-between"
