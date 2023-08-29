@@ -8,6 +8,7 @@ interface Props {
   name?: string;
   register: any;
   value?: any;
+  onChange?: (value: string) => void | undefined;
   type?: string;
 }
 
@@ -19,9 +20,14 @@ const FormField = ({
   register,
   value,
   type = "text",
+  onChange,
   ...otherProps
 }: Props) => {
   const inputName = name || label.toLowerCase();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) onChange(e.target.value);
+  };
 
   return (
     <FormControl marginBottom={4}>
@@ -30,6 +36,7 @@ const FormField = ({
         type={type}
         placeholder={placeholder || label}
         {...register(inputName)}
+        onChange={handleChange}
         {...otherProps}
         value={value}
       />

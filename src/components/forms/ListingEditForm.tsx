@@ -34,6 +34,9 @@ const ListingEditForm = ({ listing }: Props) => {
   const [error, setError] = useState("");
   const { errors, handleSubmit, register } = useForm(schema);
   const { data: categories } = useCategories();
+  const [title, setTitle] = useState(listing?.title);
+  const [price, setPrice] = useState(listing?.price);
+  const [description, setDescription] = useState(listing?.description);
 
   const populate = (listingInfo: FormData): ListingInfo => {
     const { category, description, price, title } = listingInfo;
@@ -49,6 +52,8 @@ const ListingEditForm = ({ listing }: Props) => {
   };
 
   const doSubmit = async (listingInfo: FormData) => {
+    if (!listingInfo.category) return setError("Select category");
+
     if (error) setError("");
     setLoading(true);
     const response = await listingsService.updateListing(populate(listingInfo));
@@ -71,17 +76,27 @@ const ListingEditForm = ({ listing }: Props) => {
       error={error}
       usePageContainer={false}
     >
-      <FormField error={errors.title} register={register} label="Title" />
+      <FormField
+        error={errors.title}
+        label="Title"
+        onChange={setTitle}
+        register={register}
+        value={title}
+      />
       <FormField
         error={errors.price}
-        register={register}
         label="Price"
+        onChange={(text) => setPrice(parseInt(text))}
+        register={register}
         type="number"
+        value={price}
       />
       <FormField
         error={errors.description}
-        register={register}
         label="Description"
+        onChange={setDescription}
+        register={register}
+        value={description}
       />
       <Select label="Category" options={categories} register={register} />
       <SubmitButton label="Save" isLoading={isLoading} />
