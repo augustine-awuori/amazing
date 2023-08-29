@@ -4,6 +4,23 @@ import { Route, Routes } from "react-router-dom";
 import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
 import {
+  ListingDetailsPage,
+  NotReadyPage,
+  ListingsPage,
+  RequestDetailsPage,
+  RequestEditPage,
+  RequestsPage,
+  AboutAppPage,
+  LoginPage,
+  LogoutPage,
+  RegisterPage,
+  ProfileEditPage,
+  ProfileListingsPage,
+  ProfileRequestsPage,
+  ProfilePage,
+  NotFoundPage,
+} from "../pages";
+import {
   ListingsContext,
   ListingContext,
   ProfileListingsContext,
@@ -15,21 +32,6 @@ import {
 } from "../contexts";
 import { Request } from "../hooks/useRequest";
 import { User } from "../hooks/useUser";
-import AboutAppPage from "../pages/AboutAppPage";
-import ListingDetailsPage from "../pages/ListingDetailsPage";
-import ListingsPage from "../pages/ListingsPage";
-import LoginPage from "../pages/LoginPage";
-import LogoutPage from "../pages/LogoutPage";
-import NotFoundPage from "../pages/NotFoundPage";
-import NotReadyPage from "../pages/NotReadyPage";
-import ProfileEditPage from "../pages/ProfileEditPage";
-import ProfileListingsPage from "../pages/ProfileListingsPage";
-import ProfilePage from "../pages/ProfilePage";
-import ProfileRequestsPage from "../pages/ProfileRequestsPage";
-import RegisterPage from "../pages/RegisterPage";
-import RequestDetailsPage from "../pages/RequestDetailsPage";
-import RequestEditPage from "../pages/RequestEditPage";
-import RequestsPage from "../pages/RequestsPage";
 
 function AppRoutes() {
   const [listings, setListings] = useState<Listing[]>([]);
