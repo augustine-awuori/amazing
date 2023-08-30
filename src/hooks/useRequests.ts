@@ -24,9 +24,7 @@ const useRequests = () => {
   //   };
 
   const updateRequest = (request: Request) =>
-    setRequests(
-      [...requests].map((r) => (r._id === request._id ? request : r))
-    );
+    setRequests(requests.map((r) => (r._id === request._id ? request : r)));
 
   //   const getRequest = async (requestId: string) =>
   //     await requestsApi.getRequest(requestId);

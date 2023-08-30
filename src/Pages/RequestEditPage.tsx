@@ -1,20 +1,11 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { z } from "zod";
 
 import { Form, FormField, SubmitButton } from "../components/forms";
-import { Request } from "../hooks/useRequest";
+import { FormData, Request, populate, schema } from "../hooks/useRequest";
 import { useCategories, useForm, useRequests } from "../hooks";
 import requestsApi from "../services/requests";
 import Select from "../components/Select";
-
-const schema = z.object({
-  category: z.string().min(5),
-  description: z.string().min(6).max(100),
-  title: z.string().min(4).max(50),
-});
-
-type FormData = z.infer<typeof schema>;
 
 const RequestEditPage = () => {
   const [error, setError] = useState("");
@@ -23,12 +14,12 @@ const RequestEditPage = () => {
   const { data: categories } = useCategories();
   const { addRequest } = useRequests();
 
-  const doSubmit = async (requestInfo: FormData) => {
+  const doSubmit = async (info: FormData) => {
     if (error) setError("");
-    if (!requestInfo.category) setError("Select a request category!");
+    if (!info.category) setError("Select a request category!");
 
     setLoading(true);
-    const response = (await requestsApi.create(requestInfo)) as {
+    const response = (await requestsApi.create(populate(info, undefined))) as {
       data: Request;
       problem: string;
       ok: boolean;
