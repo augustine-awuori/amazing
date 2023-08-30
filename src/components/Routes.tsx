@@ -5,29 +5,33 @@ import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
 import { Request } from "../hooks/useRequest";
 import { User } from "../hooks/useUser";
-import AboutAppPage from "../Pages/AboutAppPage";
-import CategoriesContext from "../contexts/CategoriesContext";
-import ListingContext from "../contexts/ListingContext";
-import ListingDetailsPage from "../Pages/ListingDetailsPage";
-import ListingsContext from "../contexts/ListingsContext";
-import ListingsPage from "../Pages/ListingsPage";
-import LoginPage from "../Pages/LoginPage";
-import LogoutPage from "../Pages/LogoutPage";
-import NotFoundPage from "../Pages/NotFoundPage";
-import NotReadyPage from "../Pages/NotReadyPage";
-import ProfileEditPage from "../Pages/ProfileEditPage";
-import ProfileListingsContext from "../contexts/ProfileListingsContext";
-import ProfileListingsPage from "../Pages/ProfileListingsPage";
-import ProfilePage from "../Pages/ProfilePage";
-import ProfileRequestsContext from "../contexts/ProfileRequestsContext";
-import ProfileRequestsPage from "../Pages/ProfileRequestsPage";
-import ProfileUserContext from "../contexts/ProfileUserContext";
-import RegisterPage from "../Pages/RegisterPage";
-import RequestContext from "../contexts/RequestContext";
-import RequestDetailsPage from "../Pages/RequestDetailsPage";
-import RequestEditPage from "../Pages/RequestEditPage";
-import RequestsContext from "../contexts/RequestsContext";
-import RequestsPage from "../Pages/RequestsPage";
+import {
+  ListingDetailsPage,
+  NotReadyPage,
+  ListingsPage,
+  RequestDetailsPage,
+  RequestEditPage,
+  RequestsPage,
+  AboutAppPage,
+  LoginPage,
+  LogoutPage,
+  RegisterPage,
+  ProfileEditPage,
+  ProfileListingsPage,
+  ProfileRequestsPage,
+  ProfilePage,
+  NotFoundPage,
+} from "../Pages";
+import {
+  ListingsContext,
+  ListingContext,
+  ProfileListingsContext,
+  RequestsContext,
+  RequestContext,
+  ProfileUserContext,
+  ProfileRequestsContext,
+  CategoriesContext,
+} from "../contexts";
 
 function AppRoutes(): React.JSX.Element {
   const [listings, setListings] = useState<Listing[]>([]);
