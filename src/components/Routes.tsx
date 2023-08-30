@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
@@ -33,7 +33,7 @@ import {
 import { Request } from "../hooks/useRequest";
 import { User } from "../hooks/useUser";
 
-function AppRoutes() {
+function AppRoutes(): React.JSX.Element {
   const [listings, setListings] = useState<Listing[]>([]);
   const [listing, setListing] = useState<Listing | undefined>();
   const [profileListings, setProfileListings] = useState<Listing[]>([]);
