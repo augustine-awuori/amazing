@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import { endpoint } from "../services/listings";
 import { Listing } from "./useListing";
-import { ListingsContext } from "../contexts";
+import ListingsContext from "../contexts/ListingsContext";
 import listingsService from "../services/listings";
 import useData from "./useData";
 
