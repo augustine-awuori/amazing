@@ -7,6 +7,7 @@ import {
   useAppColorMode,
   useCurrentUser,
   useRequest,
+  useRequests,
   useTimestamp,
 } from "../hooks";
 import format from "../utilities/format";
@@ -21,12 +22,16 @@ const RequestDetailsPage = () => {
   const isTheAuthor = useCurrentUser(request?.author._id);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const { deleteRequest } = useRequests();
 
   const switchModalVisibility = () => setModalOpen(!isModalOpen);
 
   const navigateToProfile = () => navigate(`/profile/${request?.author._id}`);
 
   const switchEditModalVisibility = () => setEditModalOpen(!isEditModalOpen);
+
+  const switchDeleteModalVisibility = () =>
+    setDeleteModalOpen(!isDeleteModalOpen);
 
   const showEditForm = () => {
     switchModalVisibility();
@@ -35,7 +40,7 @@ const RequestDetailsPage = () => {
 
   const promptDeletion = () => {
     switchModalVisibility();
-    // switchDeleteModalVisibility();
+    switchDeleteModalVisibility();
   };
 
   const cancelModal = () => {
@@ -43,14 +48,10 @@ const RequestDetailsPage = () => {
     navigate(-1);
   };
 
-  const switchDeleteModalVisibility = () =>
-    setDeleteModalOpen(!isDeleteModalOpen);
-
   const handleDelete = () => {
     switchModalVisibility();
     switchDeleteModalVisibility();
-
-    // deleteListing(listing?._id);
+    if (request?._id) deleteRequest(request?._id);
   };
 
   return (

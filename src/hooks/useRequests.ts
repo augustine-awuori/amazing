@@ -3,7 +3,9 @@ import { useContext, useEffect } from "react";
 import { endpoint } from "../services/requests";
 import { Request } from "./useRequest";
 import RequestsContext from "../contexts/RequestsContext";
+import requestsService from "../services/requests";
 import useData from "./useData";
+import { toast } from "react-toastify";
 
 const useRequests = () => {
   const { data, error, isLoading } = useData<Request>(endpoint);
@@ -29,17 +31,19 @@ const useRequests = () => {
   //   const getRequest = async (requestId: string) =>
   //     await requestsApi.getRequest(requestId);
 
-  //   const deleteRequest = async (requestId: string) => {
-  //     const { data, ok, problem } = await requestsApi.deleteRequest(requestId);
-  //     if (!ok)
-  //       return alert(
-  //         "Request Deletion Failed!",
-  //         data?.error || problem,
-  //         "got it"
-  //       );
+  const deleteRequest = async (requestId: string) => {
+    const oldRequests = [...requests];
+    setRequests(requests.filter((r) => r._id !== requestId));
 
-  //     setRequests([...requests].filter((r) => r._id !== requestId));
-  //   };
+    const { data, ok, problem } = (await requestsService.deleteRequest(
+      requestId
+    )) as { data: any; ok: boolean; problem: string };
+
+    if (!ok) {
+      toast.error(data?.error || problem);
+      return setRequests(oldRequests);
+    }
+  };
 
   //   const updateAuthorRequests = (author) => {
   //     const requests = [...data].map((request) => {
@@ -55,7 +59,7 @@ const useRequests = () => {
     addRequest,
     data,
     // count,
-    // deleteRequest,
+    deleteRequest,
     error,
     // getMyRequests,
     // getRequest,
