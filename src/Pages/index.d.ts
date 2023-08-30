@@ -1,81 +1,65 @@
 import React from "react";
 
 declare module "AboutAppPage" {
-  const AboutAppPage: React.FC;
-  export default AboutAppPage;
+  export const AboutAppPage: React.FC;
 }
 
 declare module "ListingDetailsPage" {
-  const ListingDetailsPage: React.FC;
-  export default ListingDetailsPage;
+  export const ListingDetailsPage: React.FC;
 }
 
 declare module "ListingEditPage" {
-  const ListingEditPage: React.FC;
-  export default ListingEditPage;
+  export const ListingEditPage: React.FC;
 }
 
 declare module "ListingsPage" {
-  const ListingsPage: React.FC;
-  export default ListingsPage;
+  export const ListingsPage: React.FC;
 }
 
 declare module "LoginPage" {
-  const LoginPage: React.FC;
-  export default LoginPage;
+  export const LoginPage: React.FC;
 }
 
 declare module "LogoutPage" {
-  const LogoutPage: React.FC;
-  export default LogoutPage;
+  export const LogoutPage: React.FC;
 }
 
 declare module "NotFoundPage" {
-  const NotFoundPage: React.FC;
-  export default NotFoundPage;
+  export const NotFoundPage: React.FC;
 }
 
 declare module "NotReadyPage" {
-  const NotReadyPage: React.FC;
-  export default NotReadyPage;
+  export const NotReadyPage: React.FC;
 }
 
 declare module "ProfileEditPage" {
-  const ProfileEditPage: React.FC;
-  export default ProfileEditPage;
+  export const ProfileEditPage: React.FC;
 }
 
 declare module "ProfileListingsPage" {
-  const ProfileListingsPage: React.FC;
-  export default ProfileListingsPage;
+  export const ProfileListingsPage: React.FC;
 }
 
 declare module "ProfilePage" {
-  const ProfilePage: React.FC;
-  export default ProfilePage;
+  export const ProfilePage: React.FC;
 }
 
 declare module "ProfileRequestsPage" {
-  const ProfileRequestsPage: React.FC;
-  export default ProfileRequestsPage;
+  export const ProfileRequestsPage: React.FC;
 }
 
 declare module "RegisterPage" {
-  const RegisterPage: React.FC;
-  export default RegisterPage;
+  export const RegisterPage: React.FC;
 }
 
 declare module "RequestDetailsPage" {
-  const RequestDetailsPage: React.FC;
-  export default RequestDetailsPage;
+  export const RequestDetailsPage: React.FC;
 }
 
 declare module "RequestEditPage" {
-  const RequestEditPage: React.FC;
-  export default RequestEditPage;
+  export const RequestEditPage: React.FC;
 }
 
 declare module "RequestsPage" {
-  const RequestsPage: React.FC;
-  export default RequestsPage;
+  export const RequestsPage: React.FC;
 }
