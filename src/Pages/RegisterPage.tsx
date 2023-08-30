@@ -1,27 +1,32 @@
 import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { authApi, usersApi } from "../services";
 import { Form, FormField, SubmitButton } from "../components/forms";
+import useForm from "../hooks/useForm";
 
 const schema = z.object({
-  name: z.string().min(3),
-  username: z.string().min(3),
-  whatsapp: z.string().includes("254").min(12).max(13),
-  password: z.string().min(6).max(100),
+  name: z.string().min(3, "Name should be between 3 & 100 characters").max(100),
+  username: z
+    .string()
+    .min(3, "Name should be between 3 & 50 characters")
+    .max(50),
+  whatsapp: z
+    .string()
+    .includes("254")
+    .min(12, "WhatsApp number should either start with +254 or 254")
+    .max(13),
+  password: z
+    .string()
+    .min(6, "Password should be between 6 & 100 characters")
+    .max(100),
 });
 
 type FormData = z.infer<typeof schema>;
 
 const RegisterPage = () => {
-  const {
-    formState: { errors },
-    handleSubmit,
-    register,
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  const { errors, handleSubmit, register } = useForm(schema);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
