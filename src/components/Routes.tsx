@@ -3,35 +3,31 @@ import { Route, Routes } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
-import {
-  ListingDetailsPage,
-  NotReadyPage,
-  ListingsPage,
-  RequestDetailsPage,
-  RequestEditPage,
-  RequestsPage,
-  AboutAppPage,
-  LoginPage,
-  LogoutPage,
-  RegisterPage,
-  ProfileEditPage,
-  ProfileListingsPage,
-  ProfileRequestsPage,
-  ProfilePage,
-  NotFoundPage,
-} from "../pages";
-import {
-  ListingsContext,
-  ListingContext,
-  ProfileListingsContext,
-  RequestsContext,
-  RequestContext,
-  ProfileUserContext,
-  ProfileRequestsContext,
-  CategoriesContext,
-} from "../contexts";
 import { Request } from "../hooks/useRequest";
 import { User } from "../hooks/useUser";
+import AboutAppPage from "../pages/AboutAppPage";
+import CategoriesContext from "../contexts/CategoriesContext";
+import ListingContext from "../contexts/ListingContext";
+import ListingDetailsPage from "../pages/ListingDetailsPage";
+import ListingsContext from "../contexts/ListingsContext";
+import ListingsPage from "../pages/ListingsPage";
+import LoginPage from "../pages/LoginPage";
+import LogoutPage from "../pages/LogoutPage";
+import NotFoundPage from "../pages/NotFoundPage";
+import NotReadyPage from "../pages/NotReadyPage";
+import ProfileEditPage from "../pages/ProfileEditPage";
+import ProfileListingsContext from "../contexts/ProfileListingsContext";
+import ProfileListingsPage from "../pages/ProfileListingsPage";
+import ProfilePage from "../pages/ProfilePage";
+import ProfileRequestsContext from "../contexts/ProfileRequestsContext";
+import ProfileRequestsPage from "../pages/ProfileRequestsPage";
+import ProfileUserContext from "../contexts/ProfileUserContext";
+import RegisterPage from "../pages/RegisterPage";
+import RequestContext from "../contexts/RequestContext";
+import RequestDetailsPage from "../pages/RequestDetailsPage";
+import RequestEditPage from "../pages/RequestEditPage";
+import RequestsContext from "../contexts/RequestsContext";
+import RequestsPage from "../pages/RequestsPage";
 
 function AppRoutes(): React.JSX.Element {
   const [listings, setListings] = useState<Listing[]>([]);
