@@ -5,7 +5,7 @@ import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
 import { Request } from "../hooks/useRequest";
 import { User } from "../hooks/useUser";
-import AboutAppPage from "../pages/AboutAppPage.tsx";
+import AboutAppPage from "../pages/AboutAppPage";
 import CategoriesContext from "../contexts/CategoriesContext";
 import ListingContext from "../contexts/ListingContext";
 import ListingDetailsPage from "../pages/ListingDetailsPage";
