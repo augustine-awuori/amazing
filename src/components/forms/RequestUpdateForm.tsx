@@ -25,7 +25,7 @@ const RequestUpdateForm = ({ onDone, request }: Props) => {
 
   const doSubmit = async (info: FormData) => {
     if (!info.category) return setError("Select category");
-    if (!request?._id || request?.author?._id)
+    if (!request?._id || !request?.author?._id)
       return setError("Error loading request, try again later");
     if (error) setError("");
 
