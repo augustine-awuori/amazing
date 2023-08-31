@@ -24,7 +24,7 @@ const ProfileActivities = ({
       return { lg: "block", base: "none", md: "none", sm: "none" };
     else if (visibility === "md")
       return { lg: "none", base: "none", md: "block", sm: "none" };
-    else return { lg: "none", base: "none", md: "block", sm: "block" };
+    else return { lg: "none", base: "block", md: "block", sm: "block" };
   };
 
   return (

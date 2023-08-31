@@ -11,17 +11,20 @@ import useRequests from "../hooks/useRequests";
 interface Props {
   selectedCategory: Category | null;
   onRequestClick: (request: Request) => void;
+  userId?: string | undefined;
 }
 
-const ListingGrid = ({ onRequestClick, selectedCategory }: Props) => {
+const RequestGrid = ({ onRequestClick, selectedCategory, userId }: Props) => {
   const { error, isLoading, data: requests } = useRequests();
   const skeletons = [1, 2, 3, 4, 5, 6];
 
-  const filtered = selectedCategory?._id
-    ? requests.filter(
-        (request) => request.category._id === selectedCategory?._id
-      )
+  const byUser = userId
+    ? requests.filter((request) => request.author._id === userId)
     : requests;
+
+  const filtered = selectedCategory?._id
+    ? byUser.filter((request) => request.category._id === selectedCategory?._id)
+    : byUser;
 
   if (error) return <Text>{error}</Text>;
 
@@ -42,4 +45,4 @@ const ListingGrid = ({ onRequestClick, selectedCategory }: Props) => {
   );
 };
 
-export default ListingGrid;
+export default RequestGrid;
