@@ -17,4 +17,12 @@ export function phoneNumber(phoneNumber: string | undefined): string {
   return formattedPhoneNumber;
 }
 
-export default { phoneNumber, getFirstWord };
+function removeLeadingSlash(sentence: string) {
+  if (sentence.length === 0) return sentence;
+
+  if (sentence.charAt(0) === "/") return sentence.slice(1);
+
+  return sentence;
+}
+
+export default { phoneNumber, getFirstWord, removeLeadingSlash };

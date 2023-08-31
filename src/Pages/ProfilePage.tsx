@@ -8,6 +8,7 @@ import {
   Container,
   Divider,
   Flex,
+  HStack,
   SimpleGrid,
   SkeletonText,
   Stack,
@@ -21,8 +22,8 @@ import {
   useReload,
   useTimestamp,
 } from "../hooks";
-import { empty, format } from "../utilities";
-import { ProfileActivities, PageContainer } from "../components";
+import { ProfileActivities, PageContainer, PhoneNumber } from "../components";
+import empty from "../utilities/empty";
 import usersApi from "../services/users";
 
 const ProfilePage = () => {
@@ -123,7 +124,10 @@ const ProfilePage = () => {
             <Text fontWeight="bold" fontSize="1.5rem">
               Contact Information
             </Text>
-            <Text>Phone: {format.phoneNumber(otherAccounts.whatsapp)}</Text>
+            <HStack>
+              <Text>Phone:</Text>
+              <PhoneNumber phoneNumber={otherAccounts.whatsapp} />{" "}
+            </HStack>
           </Stack>
         </SimpleGrid>
         {isTheUser && (

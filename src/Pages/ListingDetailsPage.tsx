@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Button, HStack, SkeletonText, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-import { empty, figure, format } from "../utilities";
+import { empty, figure } from "../utilities";
 import { ListingUpdateForm } from "../components/forms";
 import {
   PageContainer,
@@ -11,6 +11,7 @@ import {
   Modal,
   CardSkeleton,
   CardContainer,
+  PhoneNumber,
 } from "../components";
 import {
   useAppColorMode,
@@ -140,9 +141,7 @@ const ListingDetailsPage = () => {
         {isLoading ? (
           <SkeletonText mb={2} />
         ) : (
-          <Text>
-            {format.phoneNumber(info.author?.otherAccounts?.whatsapp)}
-          </Text>
+          <PhoneNumber phoneNumber={info.author?.otherAccounts?.whatsapp} />
         )}
         {isTheAuthor && (
           <Button onClick={switchModalVisibility} my={3}>

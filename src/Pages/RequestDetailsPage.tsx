@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Button, SkeletonText, Text } from "@chakra-ui/react";
 
-import { empty, format } from "../utilities";
-import { MediaQuery, Modal, PageContainer } from "../components";
+import { MediaQuery, Modal, PageContainer, PhoneNumber } from "../components";
 import {
   useAppColorMode,
   useCurrentUser,
@@ -12,6 +11,7 @@ import {
   useRequests,
   useTimestamp,
 } from "../hooks";
+import empty from "../utilities/empty";
 import requestsService from "../services/requests";
 import RequestUpdateForm from "../components/forms/RequestUpdateForm";
 
@@ -117,9 +117,7 @@ const RequestDetailsPage = () => {
           >
             {request?.category.label}
           </Text>
-          <Text>
-            {format.phoneNumber(request?.author?.otherAccounts?.whatsapp)}
-          </Text>
+          <PhoneNumber phoneNumber={request?.author?.otherAccounts?.whatsapp} />
         </>
       )}
       {isTheAuthor && (

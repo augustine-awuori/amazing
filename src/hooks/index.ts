@@ -12,3 +12,4 @@ export { default as useReload } from "./useReload";
 export { default as useRequest } from "./useRequest";
 export { default as useRequests } from "./useRequests";
 export { default as useTimestamp } from "./useTimestamp";
+export { default as useWhatsAppRedirect } from "./useWhatsAppRedirect";
