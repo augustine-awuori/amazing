@@ -23,6 +23,7 @@ const ProfileActivity = ({
       colorScheme={colorScheme}
       cursor="pointer"
       onClick={handleClick}
+      fontSize="1xl"
     >
       {count} {label}
     </Badge>
