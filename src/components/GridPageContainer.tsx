@@ -12,10 +12,12 @@ interface Props {
   headingPrefix?: string;
   onSelectCategory: (category: Category) => void;
   selectedCategory: Category | null;
+  gridHeadingLabel?: string;
 }
 
 const GridPageContainer = ({
   children,
+  gridHeadingLabel,
   headingPrefix,
   onSelectCategory,
   selectedCategory,
@@ -30,10 +32,11 @@ const GridPageContainer = ({
       }
     >
       <Box marginY={1} paddingLeft={2}>
-        <Box display={{ md: "none", lg: "block" }}>
+        <Box>
           <GridHeading
             selectedCategory={selectedCategory}
             headingPrefix={headingPrefix}
+            label={gridHeadingLabel}
           />
         </Box>
         <HStack justifyContent="space-between" marginTop={3}>

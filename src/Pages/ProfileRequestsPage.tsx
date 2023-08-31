@@ -28,6 +28,7 @@ const ProfileRequestsPage = () => {
       headingPrefix={format.getFirstWord(requests?.[0]?.author?.name)}
       selectedCategory={selectedCategory}
       onSelectCategory={setSelectedCategory}
+      gridHeadingLabel="Requests"
     >
       <RequestGrid
         onRequestClick={navigateToDetails}
