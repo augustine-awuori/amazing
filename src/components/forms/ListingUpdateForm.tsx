@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
-import { Listing, ListingInfo } from "../../hooks/useListing";
+import { Listing, ListingInfo, getSchema } from "../../hooks/useListing";
 import { useCategories, useForm, useListings } from "../../hooks";
 import Form from "./Form";
 import FormField from "./FormField";
@@ -10,18 +10,7 @@ import listingsService from "../../services/listings";
 import Select from "../Select";
 import SubmitButton from "./SubmitButton";
 
-const schema = z.object({
-  title: z
-    .string()
-    .min(1, "Title should be between 1 and 50 characters")
-    .max(50),
-  price: z
-    .string()
-    .min(1, "Price should be between Ksh 1 and  Ksh 1M")
-    .max(1_000_000),
-  description: z.string(),
-  category: z.string().min(5),
-});
+const schema = getSchema();
 
 type FormData = z.infer<typeof schema>;
 

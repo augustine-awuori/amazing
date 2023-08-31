@@ -7,7 +7,6 @@ import { Request } from "../hooks/useRequest";
 import { User } from "../hooks/useUser";
 import {
   ListingDetailsPage,
-  NotReadyPage,
   ListingsPage,
   RequestDetailsPage,
   RequestEditPage,
@@ -21,6 +20,7 @@ import {
   ProfileRequestsPage,
   ProfilePage,
   NotFoundPage,
+  ListingEditPage,
 } from "../Pages";
 import {
   ListingsContext,
@@ -31,6 +31,7 @@ import {
   ProfileUserContext,
   ProfileRequestsContext,
   CategoriesContext,
+  ImagesContext,
 } from "../contexts";
 
 function AppRoutes(): React.JSX.Element {
@@ -42,6 +43,7 @@ function AppRoutes(): React.JSX.Element {
   const [request, setRequest] = useState<Request | undefined>();
   const [profileUser, setProfileUser] = useState<User | undefined>();
   const [profileRequests, setProfileRequests] = useState<Request[]>([]);
+  const [images, setImages] = useState<File[]>([]);
 
   return (
     <ListingsContext.Provider value={{ listings, setListings }}>
@@ -60,44 +62,49 @@ function AppRoutes(): React.JSX.Element {
                   <CategoriesContext.Provider
                     value={{ categories, setCategories }}
                   >
-                    <Routes>
-                      <Route
-                        path="listings/:listingId"
-                        element={<ListingDetailsPage />}
-                      />
-                      <Route path="listings/new" element={<NotReadyPage />} />
-                      <Route index element={<ListingsPage />} />
-                      <Route
-                        path="requests/:requestId"
-                        element={<RequestDetailsPage />}
-                      />
-                      <Route
-                        path="requests/new"
-                        element={<RequestEditPage />}
-                      />
-                      <Route path="requests" element={<RequestsPage />} />
-                      <Route path="about-app" element={<AboutAppPage />} />
-                      <Route path="login" element={<LoginPage />} />
-                      <Route path="logout" element={<LogoutPage />} />
-                      <Route path="register" element={<RegisterPage />} />
-                      <Route
-                        path="profile/:userId/edit"
-                        element={<ProfileEditPage />}
-                      />
-                      <Route
-                        path="profile/:userId/listings"
-                        element={<ProfileListingsPage />}
-                      />
-                      <Route
-                        path="/profile/:userId/requests"
-                        element={<ProfileRequestsPage />}
-                      />
-                      <Route
-                        path="/profile/:userId"
-                        element={<ProfilePage />}
-                      />
-                      <Route path="*" element={<NotFoundPage />} />
-                    </Routes>
+                    <ImagesContext.Provider value={{ images, setImages }}>
+                      <Routes>
+                        <Route
+                          path="listings/:listingId"
+                          element={<ListingDetailsPage />}
+                        />
+                        <Route
+                          path="listings/new"
+                          element={<ListingEditPage />}
+                        />
+                        <Route index element={<ListingsPage />} />
+                        <Route
+                          path="requests/:requestId"
+                          element={<RequestDetailsPage />}
+                        />
+                        <Route
+                          path="requests/new"
+                          element={<RequestEditPage />}
+                        />
+                        <Route path="requests" element={<RequestsPage />} />
+                        <Route path="about-app" element={<AboutAppPage />} />
+                        <Route path="login" element={<LoginPage />} />
+                        <Route path="logout" element={<LogoutPage />} />
+                        <Route path="register" element={<RegisterPage />} />
+                        <Route
+                          path="profile/:userId/edit"
+                          element={<ProfileEditPage />}
+                        />
+                        <Route
+                          path="profile/:userId/listings"
+                          element={<ProfileListingsPage />}
+                        />
+                        <Route
+                          path="/profile/:userId/requests"
+                          element={<ProfileRequestsPage />}
+                        />
+                        <Route
+                          path="/profile/:userId"
+                          element={<ProfilePage />}
+                        />
+                        <Route path="*" element={<NotFoundPage />} />
+                      </Routes>
+                    </ImagesContext.Provider>
                   </CategoriesContext.Provider>
                 </ProfileRequestsContext.Provider>
               </ProfileUserContext.Provider>

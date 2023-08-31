@@ -5,7 +5,6 @@ export { default as ListingsPage } from "./ListingsPage";
 export { default as LoginPage } from "./LoginPage";
 export { default as LogoutPage } from "./LogoutPage";
 export { default as NotFoundPage } from "./NotFoundPage";
-export { default as NotReadyPage } from "./NotReadyPage";
 export { default as ProfileEditPage } from "./ProfileEditPage";
 export { default as ProfileListingsPage } from "./ProfileListingsPage";
 export { default as ProfilePage } from "./ProfilePage";

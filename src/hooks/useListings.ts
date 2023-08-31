@@ -36,7 +36,9 @@ const useListings = () => {
     toast.error("Listing deletion failed!");
   };
 
-  return { data, deleteListing, error, isLoading, updateListing };
+  const addListing = (listing: Listing) => setListings([listing, ...data]);
+
+  return { addListing, data, deleteListing, error, isLoading, updateListing };
 };
 
 export default useListings;

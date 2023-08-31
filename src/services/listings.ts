@@ -1,18 +1,20 @@
-import { Listing, ListingInfo } from "../hooks/useListing";
+import { ListingInfo, NewListingInfo } from "../hooks/useListing";
 import client from "./client";
 
 export const endpoint = "/listings";
 
 const addListing = (
-  listing: Listing,
+  listing: NewListingInfo,
   onUploadProgress: (progress: number) => void = () => {}
 ) => {
+  const { category, description, images, price, title } = listing;
+
   const data = new FormData();
-  data.append("title", listing.title);
-  if (listing.price) data.append("price", listing.price.toString());
-  data.append("categoryId", listing.category._id);
-  data.append("description", listing.description);
-  listing.images.forEach((image) => data.append("images", image));
+  data.append("title", title);
+  data.append("price", price.toString());
+  data.append("categoryId", category);
+  data.append("description", description);
+  images.forEach((image) => data.append("images", image));
 
   return client.post(endpoint, data, {
     onUploadProgress: (progressEvent) => {
