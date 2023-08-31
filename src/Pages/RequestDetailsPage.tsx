@@ -1,28 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, SkeletonText, Text } from "@chakra-ui/react";
 
+import { empty, format } from "../utilities";
 import { MediaQuery, Modal, PageContainer } from "../components";
 import {
   useAppColorMode,
   useCurrentUser,
+  useReload,
   useRequest,
   useRequests,
   useTimestamp,
 } from "../hooks";
-import format from "../utilities/format";
+import requestsService from "../services/requests";
 import RequestUpdateForm from "../components/forms/RequestUpdateForm";
 
 const RequestDetailsPage = () => {
   const { accentColor } = useAppColorMode();
   const [isModalOpen, setModalOpen] = useState(false);
-  const { request } = useRequest();
-  const { tempTimestamp } = useTimestamp(request?.timestamp);
+  const { request: requestInfo } = useRequest();
   const navigate = useNavigate();
-  const isTheAuthor = useCurrentUser(request?.author._id);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const { deleteRequest } = useRequests();
+  const {
+    info: request,
+    isLoading,
+    request: getInfoFromServer,
+  } = useReload(requestInfo, empty.request, requestsService.getRequest);
+  const { tempTimestamp } = useTimestamp(request.timestamp);
+  const isTheAuthor = useCurrentUser(request.author._id);
+
+  useEffect(() => {
+    getInfoFromServer();
+  }, []);
 
   const switchModalVisibility = () => setModalOpen(!isModalOpen);
 
@@ -90,21 +101,27 @@ const RequestDetailsPage = () => {
           onClick={navigateToProfile}
         />
       </Box>
-      <Text fontWeight="bold" marginBottom={1}>
-        {request?.title}
-      </Text>
-      <Text>{request?.description}</Text>
-      <Text
-        fontStyle="italic"
-        fontSize="sm"
-        color={accentColor}
-        textAlign="center"
-      >
-        {request?.category.label}
-      </Text>
-      <Text>
-        {format.phoneNumber(request?.author?.otherAccounts?.whatsapp)}
-      </Text>
+      {isLoading ? (
+        <SkeletonText mt={3} />
+      ) : (
+        <>
+          <Text fontWeight="bold" marginBottom={1}>
+            {request?.title}
+          </Text>
+          <Text>{request?.description}</Text>
+          <Text
+            fontStyle="italic"
+            fontSize="sm"
+            color={accentColor}
+            textAlign="center"
+          >
+            {request?.category.label}
+          </Text>
+          <Text>
+            {format.phoneNumber(request?.author?.otherAccounts?.whatsapp)}
+          </Text>
+        </>
+      )}
       {isTheAuthor && (
         <Button onClick={switchModalVisibility} my={3}>
           Edit Listing
