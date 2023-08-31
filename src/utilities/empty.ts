@@ -22,8 +22,7 @@ const request = {
 
 const user = {
   _id: "",
-  aboutMe:
-    "Passionate learner and aspiring enthusiast. Eager to connect, share ideas, and collaborate with fellow students. Avid reader, curious thinker, and open to new experiences. Let's chat and explore the world of knowledge together! ",
+  aboutMe: "",
   name: "",
   otherAccounts: {},
   paramsId: "userId",

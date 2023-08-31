@@ -12,7 +12,8 @@ const ProfileRequestsPage = () => {
   const navigate = useNavigate();
   const { setRequest } = useRequest();
   const params = useParams();
-  const { requests } = useProfileRequests(params[empty.user.paramsId]);
+  const userId = params[empty.user.paramsId];
+  const { requests } = useProfileRequests(userId);
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
   );
@@ -31,6 +32,7 @@ const ProfileRequestsPage = () => {
       <RequestGrid
         onRequestClick={navigateToDetails}
         selectedCategory={selectedCategory}
+        userId={userId}
       />
     </GridPageContainer>
   );

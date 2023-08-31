@@ -67,6 +67,10 @@ const ProfilePage = () => {
     navigate("requests");
   };
 
+  const computedAboutMe =
+    aboutMe ||
+    "Passionate learner and aspiring enthusiast. Eager to connect, share ideas, and collaborate with fellow students. Avid reader, curious thinker, and open to new experiences. Let's chat and explore the world of knowledge together! ";
+
   const Aside = (
     <ProfileActivities
       userId={_id}
@@ -80,10 +84,10 @@ const ProfilePage = () => {
     <PageContainer Aside={Aside}>
       <Container maxW="container.lg" py={8}>
         <Flex direction={{ base: "column", md: "row" }}>
-          <Avatar name={name} src={avatar} />
+          <Avatar name={name} src={avatar} size="2xl" />
           <Box ml={{ md: 8 }}>
             {isLoading ? (
-              <SkeletonText />
+              <SkeletonText mt={3} />
             ) : (
               <>
                 <Text fontSize="2xl" fontWeight="bold" mb={0}>
@@ -109,7 +113,11 @@ const ProfilePage = () => {
             <Text fontWeight="bold" fontSize="1.5rem">
               About Me
             </Text>
-            {isLoading ? <SkeletonText /> : <Text>{aboutMe}</Text>}
+            {isLoading ? (
+              <SkeletonText mt={1} />
+            ) : (
+              <Text>{computedAboutMe}</Text>
+            )}
           </Stack>
           <Stack spacing={2}>
             <Text fontWeight="bold" fontSize="1.5rem">

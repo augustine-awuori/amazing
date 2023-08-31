@@ -12,10 +12,21 @@ const ProfileActivity = ({
   count,
   label,
   onClick,
-}: Props) => (
-  <Badge m={1} colorScheme={colorScheme} cursor="pointer" onClick={onClick}>
-    {count} {label}
-  </Badge>
-);
+}: Props) => {
+  const handleClick = () => {
+    if (count) onClick();
+  };
+
+  return (
+    <Badge
+      m={1}
+      colorScheme={colorScheme}
+      cursor="pointer"
+      onClick={handleClick}
+    >
+      {count} {label}
+    </Badge>
+  );
+};
 
 export default ProfileActivity;
