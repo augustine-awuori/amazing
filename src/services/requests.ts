@@ -4,7 +4,7 @@ import client from "./client";
 export const endpoint = "/requests";
 
 const create = ({ categoryId, description, title }: RequestInfo) =>
-  client.post(endpoint, { title, description, categoryId });
+  client.post(endpoint, { title, description, category: categoryId });
 
 const deleteRequest = (requestId: string) =>
   client.delete(`${endpoint}/${requestId}`);
