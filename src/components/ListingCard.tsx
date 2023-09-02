@@ -20,7 +20,10 @@ const ListingCard = ({ listing, onClick }: Props) => {
       cursor="pointer"
       onClick={onClick}
     >
-      <Image src={listing.images[0]} />
+      <Image
+        src={listing.images[0]}
+        style={{ maxHeight: "150px", objectFit: "cover" }}
+      />
       <CardBody backgroundColor={isDarkMode ? "inherit" : "#f8f4f4"}>
         <Heading fontSize="2xl" noOfLines={1}>
           {listing.title}
