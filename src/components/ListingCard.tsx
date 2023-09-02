@@ -22,7 +22,7 @@ const ListingCard = ({ listing, onClick }: Props) => {
     >
       <Image
         src={listing.images[0]}
-        style={{ maxHeight: "200px", objectFit: "cover" }}
+        style={{ maxHeight: "230px", objectFit: "cover" }}
       />
       <CardBody backgroundColor={isDarkMode ? "inherit" : "#f8f4f4"}>
         <Heading fontSize="2xl" noOfLines={1}>
