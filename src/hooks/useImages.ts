@@ -20,7 +20,15 @@ const useImages = (imagesLimit: number) => {
       })
     );
 
-  return { addImages, images, imagesCount: images.length, removeImage };
+  const removeAllImages = () => context?.setImages([]);
+
+  return {
+    addImages,
+    images,
+    imagesCount: images.length,
+    removeImage,
+    removeAllImages,
+  };
 };
 
 export default useImages;

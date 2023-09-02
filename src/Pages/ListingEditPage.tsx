@@ -20,9 +20,9 @@ const MAX_IMAGES = 3;
 const ListingEditPage = () => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const { errors, handleSubmit, register } = useForm(schema);
+  const { errors, handleSubmit, register, reset } = useForm(schema);
   const user = auth.getCurrentUser();
-  const { imagesCount, images } = useImages(MAX_IMAGES);
+  const { imagesCount, images, removeAllImages } = useImages(MAX_IMAGES);
   const { addListing } = useListings();
 
   const doSubmit = async (info: FormData) => {
@@ -42,6 +42,8 @@ const ListingEditPage = () => {
 
     toast.success("Listing created successfully");
     addListing(data as Listing);
+    reset();
+    removeAllImages();
   };
 
   if (!user) return <Navigate to="/login" replace />;
