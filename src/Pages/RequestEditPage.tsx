@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Form, FormField, SubmitButton } from "../components/forms";
@@ -13,6 +14,7 @@ const RequestEditPage = () => {
   const [isLoading, setLoading] = useState(false);
   const { data: categories } = useCategories();
   const { addRequest } = useRequests();
+  const navigate = useNavigate();
 
   const doSubmit = async (info: FormData) => {
     if (error) setError("");
@@ -38,6 +40,7 @@ const RequestEditPage = () => {
       addRequest(response.data);
       toast("Request created successfully!");
       reset();
+      navigate("/");
     }
   };
 
