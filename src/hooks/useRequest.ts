@@ -6,8 +6,8 @@ import { User } from "./useUser";
 import RequestContext from "../contexts/RequestContext";
 
 export interface RequestInfo {
-  authorId: string | undefined;
-  categoryId: string;
+  author: string | undefined;
+  category: string;
   title: string;
   description: string;
 }
@@ -36,8 +36,8 @@ export const populate = (
   const { category, description, title } = info;
 
   return {
-    authorId: request?.author?._id,
-    categoryId: category,
+    author: request?.author?._id,
+    category,
     description,
     title,
   };

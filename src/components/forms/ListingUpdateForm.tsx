@@ -34,8 +34,8 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
 
     return {
       _id: listing?._id,
-      authorId: listing?.author._id,
-      categoryId: category,
+      author: listing?.author._id,
+      category,
       description,
       price,
       title,

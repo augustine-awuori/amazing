@@ -40,12 +40,12 @@ const RequestUpdateForm = ({ onDone, request }: Props) => {
 
     if (!ok) {
       const error = (data as any)?.error;
-      toast.error(`Listing update failed!`);
+      toast.error(`Request update failed!`);
       return setError(error || problem);
     }
 
     updateRequest(data as Request);
-    toast(`Listing updated successfully`);
+    toast(`Request updated successfully`);
     onDone();
   };
 

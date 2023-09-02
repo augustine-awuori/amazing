@@ -20,8 +20,8 @@ export interface NewListingInfo {
 
 export interface ListingInfo extends ListingBase {
   _id: string | undefined;
-  authorId: string | undefined;
-  categoryId: string | undefined;
+  author: string | undefined;
+  category: string | undefined;
   price: number | string;
 }
 

@@ -12,7 +12,7 @@ const addListing = (
   const data = new FormData();
   data.append("title", title);
   data.append("price", price.toString());
-  data.append("categoryId", category);
+  data.append("category", category);
   data.append("description", description);
   images.forEach((image) => data.append("images", image));
 
@@ -23,6 +23,7 @@ const addListing = (
         onUploadProgress(progress);
       }
     },
+    headers: { "Content-Type": "multipart/form-data" },
   });
 };
 
