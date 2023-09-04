@@ -3,14 +3,13 @@ import { Box, Button, HStack, SkeletonText, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import { empty, figure } from "../utilities";
-import { ListingUpdateForm } from "../components/forms";
 import {
-  PageContainer,
+  CardContainer,
+  CardSkeleton,
   ImageSlider,
   MediaQuery,
   Modal,
-  CardSkeleton,
-  CardContainer,
+  PageContainer,
   PhoneNumber,
 } from "../components";
 import {
@@ -21,6 +20,7 @@ import {
   useReload,
   useTimestamp,
 } from "../hooks";
+import ListingUpdateForm from "../components/forms/ListingUpdateForm";
 import listingsService from "../services/listings";
 
 const ListingDetailsPage = () => {

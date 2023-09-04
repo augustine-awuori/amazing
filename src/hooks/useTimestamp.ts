@@ -24,10 +24,10 @@ export default (timestamp?: number, withoutSuffix?: boolean) => {
         .replace("in", "");
 
     if (tempTimestamp.includes("a minute"))
-      return tempTimestamp.replace("a minute", "1 min");
+      return tempTimestamp.replace("a minute", "1 m");
 
     if (tempTimestamp.includes("minutes"))
-      return tempTimestamp.replace("minutes", "min");
+      return tempTimestamp.replace("minutes", "m");
 
     if (tempTimestamp.includes("an hour"))
       return tempTimestamp.replace("an hour", "1 h");
@@ -36,10 +36,10 @@ export default (timestamp?: number, withoutSuffix?: boolean) => {
       return tempTimestamp.replace("hours", "h");
 
     if (tempTimestamp.includes("a month"))
-      return tempTimestamp.replace("a month", "1 mon");
+      return tempTimestamp.replace("a month", "1 mo");
 
     if (tempTimestamp.includes("months"))
-      return tempTimestamp.replace("months", "mon");
+      return tempTimestamp.replace("months", "mo");
 
     if (tempTimestamp.includes("a year"))
       return tempTimestamp.replace("a year", "1 y");

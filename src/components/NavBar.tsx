@@ -35,6 +35,8 @@ export default function WithSubnavigation({ user }: Props) {
   const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
 
+  const MenuIcon = isOpen ? CloseIcon : HamburgerIcon;
+
   return (
     <Box
       bgColor="inherit"
@@ -48,11 +50,11 @@ export default function WithSubnavigation({ user }: Props) {
       <Flex
         bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
-        minH={"60px"}
+        minH="60px"
         py={{ base: 2 }}
         px={{ base: 4 }}
         borderBottom={1}
-        borderStyle={"solid"}
+        borderStyle="solid"
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align="center"
         backgroundColor={color}
@@ -64,11 +66,9 @@ export default function WithSubnavigation({ user }: Props) {
         >
           <IconButton
             onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
+            icon={<MenuIcon w={3} h={3} />}
             variant="ghost"
-            aria-label={"Toggle Navigation"}
+            aria-label="Toggle Navigation"
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>

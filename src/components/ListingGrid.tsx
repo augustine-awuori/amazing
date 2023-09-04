@@ -37,7 +37,7 @@ const ListingGrid = ({
 
   const paginated: Listing[] = paginate(filtered, currentPage, pageSize);
 
-  if (error) return <Text>{error}</Text>;
+  if (error) return <Text color="tomato">{error}</Text>;
 
   return (
     <>
