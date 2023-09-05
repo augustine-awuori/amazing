@@ -29,6 +29,8 @@ const ProfileListingsPage = () => {
       headingPrefix={format.getFirstWord(listings?.[0]?.author?.name)}
       selectedCategory={selectedCategory}
       onSelectCategory={setSelectedCategory}
+      pl={10}
+      pr={0}
     >
       <ListingGrid
         error={error}

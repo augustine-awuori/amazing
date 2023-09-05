@@ -4,16 +4,24 @@ interface Props {
   Aside?: JSX.Element;
   children: any;
   paddingTop?: number;
+  pl?: string | number;
+  pr?: string | number;
 }
 
-const PageContainer = ({ Aside, children, paddingTop = 20 }: Props) => (
+const PageContainer = ({
+  Aside,
+  children,
+  pl = 5,
+  pr = 5,
+  paddingTop = 20,
+}: Props) => (
   <>
     {Aside && (
       <GridItem area="aside" paddingX={5} marginTop={2} pt={paddingTop}>
         {Aside}
       </GridItem>
     )}
-    <GridItem area="main" paddingX={5} pt={paddingTop}>
+    <GridItem area="main" pl={pl} pr={pr} pt={paddingTop}>
       {children}
     </GridItem>
   </>

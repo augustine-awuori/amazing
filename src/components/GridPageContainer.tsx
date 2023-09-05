@@ -9,10 +9,12 @@ import PageContainer from "./PageContainer";
 
 interface Props {
   children: JSX.Element;
+  gridHeadingLabel?: string;
   headingPrefix?: string;
   onSelectCategory: (category: Category) => void;
+  pl?: string | number;
+  pr?: string | number;
   selectedCategory: Category | null;
-  gridHeadingLabel?: string;
 }
 
 const GridPageContainer = ({
@@ -20,6 +22,8 @@ const GridPageContainer = ({
   gridHeadingLabel,
   headingPrefix,
   onSelectCategory,
+  pl = 5,
+  pr = 5,
   selectedCategory,
 }: Props) => {
   return (
@@ -30,8 +34,10 @@ const GridPageContainer = ({
           selectedCategory={selectedCategory}
         />
       }
+      pl={pl}
+      pr={pr}
     >
-      <Box marginY={1} paddingLeft={2}>
+      <Box marginY={1}>
         <Box>
           <GridHeading
             selectedCategory={selectedCategory}
