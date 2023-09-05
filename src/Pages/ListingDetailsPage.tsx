@@ -10,7 +10,7 @@ import {
   MediaQuery,
   Modal,
   PageContainer,
-  PhoneNumber,
+  StartChatBtn,
 } from "../components";
 import {
   useAppColorMode,
@@ -146,7 +146,7 @@ const ListingDetailsPage = () => {
         {isLoading ? (
           <SkeletonText mb={2} />
         ) : (
-          <PhoneNumber phoneNumber={info.author?.otherAccounts?.whatsapp} />
+          <StartChatBtn phoneNumber={info.author?.otherAccounts?.whatsapp} />
         )}
         {isTheAuthor && (
           <Button onClick={switchModalVisibility} my={3}>

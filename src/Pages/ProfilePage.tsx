@@ -10,6 +10,7 @@ import {
   Flex,
   HStack,
   SimpleGrid,
+  SkeletonCircle,
   SkeletonText,
   Stack,
   Text,
@@ -22,7 +23,7 @@ import {
   useReload,
   useTimestamp,
 } from "../hooks";
-import { ProfileActivities, PageContainer, PhoneNumber } from "../components";
+import { ProfileActivities, PageContainer, StartChatBtn } from "../components";
 import empty from "../utilities/empty";
 import usersApi from "../services/users";
 
@@ -122,11 +123,14 @@ const ProfilePage = () => {
           </Stack>
           <Stack spacing={2}>
             <Text fontWeight="bold" fontSize="1.5rem">
-              Contact Information
+              Contact Me
             </Text>
             <HStack>
-              <Text>Phone:</Text>
-              <PhoneNumber phoneNumber={otherAccounts.whatsapp} />{" "}
+              {isLoading ? (
+                <SkeletonCircle />
+              ) : (
+                <StartChatBtn phoneNumber={otherAccounts.whatsapp} />
+              )}
             </HStack>
           </Stack>
         </SimpleGrid>
