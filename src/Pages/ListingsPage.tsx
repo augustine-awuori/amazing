@@ -27,6 +27,8 @@ const ListingsPage = () => {
     <GridPageContainer
       selectedCategory={selectedCategory}
       onSelectCategory={setSelectedCategory}
+      pl={10}
+      pr={0}
     >
       <>
         <ListingGrid

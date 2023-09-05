@@ -15,6 +15,7 @@ import {
 import {
   useAppColorMode,
   useCurrentUser,
+  useLayout,
   useListing,
   useListings,
   useReload,
@@ -39,9 +40,13 @@ const ListingDetailsPage = () => {
   );
   const userId = info.author._id;
   const isTheAuthor = useCurrentUser(userId);
+  const { changeColumnToScreenWidth, revertColumn } = useLayout();
 
   useEffect(() => {
     request();
+    changeColumnToScreenWidth();
+
+    return () => revertColumn();
   }, []);
 
   const switchModalVisibility = () => setModalOpen(!isModalOpen);
