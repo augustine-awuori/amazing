@@ -12,7 +12,7 @@ const useWhatsAppRedirect = (phoneNumber: string | number) => {
 
   useEffect(() => {
     setUrl(
-      `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${appBaseUrl}${link} `
+      `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${appBaseUrl}${link} .`
     );
   }, [phoneNumber, link]);
 

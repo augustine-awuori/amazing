@@ -6,7 +6,7 @@ import { Category } from "../hooks/useCategories";
 import { endpoint } from "../services/listings";
 import { GridPageContainer, ListingGrid } from "../components";
 import { useListings } from "../hooks";
-import Pagination from "../components/common/Pagination";
+import { Pagination, ScrollToTopBtn } from "../components/common";
 import useListing, { Listing } from "../hooks/useListing";
 
 const ListingsPage = () => {
@@ -24,30 +24,33 @@ const ListingsPage = () => {
   };
 
   return (
-    <GridPageContainer
-      selectedCategory={selectedCategory}
-      onSelectCategory={setSelectedCategory}
-      pl={10}
-      pr={0}
-    >
-      <>
-        <ListingGrid
-          error={error}
-          isLoading={isLoading}
-          listings={data}
-          onListingClick={navigateToDetails}
-          selectedCategory={selectedCategory}
-        />
-        <Box mt={5}>
-          <Pagination
-            currentPage={currentPage}
-            itemsCount={data.length}
-            onPageChange={setCurrentPage}
-            pageSize={6}
+    <>
+      <ScrollToTopBtn />
+      <GridPageContainer
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+        pl={10}
+        pr={0}
+      >
+        <>
+          <ListingGrid
+            error={error}
+            isLoading={isLoading}
+            listings={data}
+            onListingClick={navigateToDetails}
+            selectedCategory={selectedCategory}
           />
-        </Box>
-      </>
-    </GridPageContainer>
+          <Box mt={5}>
+            <Pagination
+              currentPage={currentPage}
+              itemsCount={data.length}
+              onPageChange={setCurrentPage}
+              pageSize={6}
+            />
+          </Box>
+        </>
+      </GridPageContainer>
+    </>
   );
 };
 

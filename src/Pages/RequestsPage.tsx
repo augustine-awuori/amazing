@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { GridPageContainer, RequestGrid } from "../components";
+import ScrollToTopBtn from "../components/common/ScrollToTopBtn";
 import useRequest, { Request } from "../hooks/useRequest";
 
 const RequestsPage = () => {
@@ -18,17 +19,20 @@ const RequestsPage = () => {
   };
 
   return (
-    <GridPageContainer
-      onSelectCategory={setSelectedCategory}
-      selectedCategory={selectedCategory}
-      pl={10}
-      pr={0}
-    >
-      <RequestGrid
-        onRequestClick={navigateToDetails}
+    <>
+      <ScrollToTopBtn />
+      <GridPageContainer
+        onSelectCategory={setSelectedCategory}
         selectedCategory={selectedCategory}
-      />
-    </GridPageContainer>
+        pl={10}
+        pr={0}
+      >
+        <RequestGrid
+          onRequestClick={navigateToDetails}
+          selectedCategory={selectedCategory}
+        />
+      </GridPageContainer>
+    </>
   );
 };
 
