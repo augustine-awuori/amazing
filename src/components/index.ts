@@ -16,7 +16,7 @@ export { default as Modal } from "./Modal";
 export { default as NavBar } from "./NavBar";
 export { default as PageContainer } from "./PageContainer";
 export { default as Paragraph } from "./Paragraph";
-export { default as PhoneNumber } from "./PhoneNumber";
+export { default as StartChatBtn } from "./StartChatBtn";
 export { default as ProfileActivities } from "./ProfileActivities";
 export { default as ProfileActivity } from "./ProfileActivity";
 export { default as RequestCard } from "./RequestCard";
