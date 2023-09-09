@@ -117,7 +117,7 @@ const ListingDetailsPage = () => {
       ) : (
         <ImageSlider images={info.images} />
       )}
-      <Box maxWidth="80%">
+      <Box maxW="500px">
         <HStack alignItems="center">
           {isLoading ? (
             <SkeletonText mb={2} fontSize={21} />
