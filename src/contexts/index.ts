@@ -8,3 +8,5 @@ export { default as ProfileRequestsContext } from "./ProfileRequestsContext";
 export { default as ProfileUserContext } from "./ProfileUserContext";
 export { default as RequestContext } from "./RequestContext";
 export { default as RequestsContext } from "./RequestsContext";
+export { default as ShopContext } from "./ShopContext";
+export { default as ShopsContext } from "./ShopsContext";

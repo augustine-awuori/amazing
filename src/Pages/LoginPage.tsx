@@ -2,7 +2,7 @@ import { useState } from "react";
 import { z } from "zod";
 import { toast } from "react-toastify";
 
-import { Form, FormField, SubmitButton } from "../components/forms";
+import { Form, FormField, SubmitButton } from "../components/form";
 import authApi from "../services/auth";
 import useForm from "../hooks/useForm";
 

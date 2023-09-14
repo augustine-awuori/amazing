@@ -1,0 +1,39 @@
+import ShopTypeSelector, { ShopTypeSelectorProps } from "./Selector";
+import GridPageContainer from "../../grid/PageContainer";
+import TypeList from "./List";
+
+interface Props extends ShopTypeSelectorProps {
+  children: any;
+  gridHeadingLabel?: string;
+  headingPrefix?: string;
+  pl?: string | number;
+  pr?: string | number;
+}
+
+const CategoriesGridPageContainer = ({
+  children,
+  onSelectType,
+  selectedType,
+  ...otherProps
+}: Props) => {
+  const Aside = (
+    <TypeList onSelectType={onSelectType} selectedType={selectedType} />
+  );
+
+  const Selector = (
+    <ShopTypeSelector onSelectType={onSelectType} selectedType={selectedType} />
+  );
+
+  return (
+    <GridPageContainer
+      {...otherProps}
+      Aside={Aside}
+      Selector={Selector}
+      selectedItem={selectedType}
+    >
+      {children}
+    </GridPageContainer>
+  );
+};
+
+export default CategoriesGridPageContainer;

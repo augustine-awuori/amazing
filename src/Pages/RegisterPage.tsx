@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { authApi, usersApi } from "../services";
-import { Form, FormField, SubmitButton } from "../components/forms";
+import { Form, FormField, SubmitButton } from "../components/form";
 import useForm from "../hooks/useForm";
 
 const schema = z.object({

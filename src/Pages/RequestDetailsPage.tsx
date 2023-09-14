@@ -13,7 +13,7 @@ import {
 } from "../hooks";
 import empty from "../utilities/empty";
 import requestsService from "../services/requests";
-import RequestUpdateForm from "../components/forms/RequestUpdateForm";
+import RequestUpdateForm from "../components/form/RequestUpdateForm";
 
 const RequestDetailsPage = () => {
   const { accentColor } = useAppColorMode();

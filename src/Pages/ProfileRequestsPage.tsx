@@ -25,10 +25,10 @@ const ProfileRequestsPage = () => {
 
   return (
     <GridPageContainer
-      headingPrefix={format.getFirstWord(requests?.[0]?.author?.name)}
-      selectedCategory={selectedCategory}
-      onSelectCategory={setSelectedCategory}
       gridHeadingLabel="Requests"
+      headingPrefix={format.getFirstWord(requests?.[0]?.author?.name)}
+      onSelectCategory={setSelectedCategory}
+      selectedItem={selectedCategory}
     >
       <RequestGrid
         onRequestClick={navigateToDetails}

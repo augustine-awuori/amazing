@@ -3,12 +3,12 @@ import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
-import { Form, FormField, SubmitButton } from "../components/forms";
+import { Form, FormField, SubmitButton } from "../components/form";
 import { Listing, getSchema } from "../hooks/useListing";
 import { useForm, useImages, useListings } from "../hooks";
 import auth from "../services/auth";
-import CategorySelect from "../components/CategorySelect";
-import ImageInputList from "../components/ImageInputList";
+import CategorySelect from "../components/listings/category/Select";
+import ImageInputList from "../components/common/ImageInputList";
 import listingsService from "../services/listings";
 
 const schema = getSchema(true);
