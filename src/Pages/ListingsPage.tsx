@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
+import { endpoint } from "../services/listings";
 import {
   ListingCategoriesGridPageContainer as GridPageContainer,
   ListingGrid,
@@ -20,7 +21,7 @@ const ListingsPage = () => {
 
   const navigateToDetails = (listing: Listing) => {
     setListing(listing);
-    navigate(listing._id);
+    navigate(`${endpoint}/${listing._id}`);
   };
 
   return (
