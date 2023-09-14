@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { Form, FormField, SubmitButton } from "../components/forms";
+import { Form, FormField, SubmitButton } from "../components/form";
 import { FormData, Request, populate, schema } from "../hooks/useRequest";
 import { useCategories, useForm, useRequests } from "../hooks";
 import requestsApi from "../services/requests";
-import Select from "../components/Select";
+import Select from "../components/common/Select";
 
 const RequestEditPage = () => {
   const [error, setError] = useState("");

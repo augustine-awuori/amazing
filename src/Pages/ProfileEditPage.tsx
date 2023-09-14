@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
-import { Form, FormField, SubmitButton } from "../components/forms";
+import { Form, FormField, SubmitButton } from "../components/form";
 import { useCurrentUser, useForm, useProfileUser } from "../hooks";
 import usersApi from "../services/users";
 

@@ -15,13 +15,12 @@ import {
 import {
   useAppColorMode,
   useCurrentUser,
-  useLayout,
   useListing,
   useListings,
   useReload,
   useTimestamp,
 } from "../hooks";
-import ListingUpdateForm from "../components/forms/ListingUpdateForm";
+import ListingUpdateForm from "../components/form/ListingUpdateForm";
 import listingsService from "../services/listings";
 
 const ListingDetailsPage = () => {
@@ -40,13 +39,9 @@ const ListingDetailsPage = () => {
   );
   const userId = info.author._id;
   const isTheAuthor = useCurrentUser(userId);
-  const { changeColumnToScreenWidth, revertColumn } = useLayout();
 
   useEffect(() => {
     request();
-    changeColumnToScreenWidth();
-
-    return () => revertColumn();
   }, []);
 
   const switchModalVisibility = () => setModalOpen(!isModalOpen);

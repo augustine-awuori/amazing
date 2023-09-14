@@ -13,3 +13,6 @@ export { default as RegisterPage } from "./RegisterPage";
 export { default as RequestDetailsPage } from "./RequestDetailsPage";
 export { default as RequestEditPage } from "./RequestEditPage";
 export { default as RequestsPage } from "./RequestsPage";
+export { default as ShopDetailsPage } from "./ShopDetailsPage";
+export { default as ShopEditPage } from "./ShopEditPage";
+export { default as ShopsPage } from "./ShopsPage";

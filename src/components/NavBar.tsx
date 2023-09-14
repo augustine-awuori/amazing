@@ -318,12 +318,12 @@ const NAV_ITEMS: Array<NavItem> = [
     label: "Listings",
     children: [
       {
-        label: "View All Listings",
-        subLabel: "View created listings",
+        label: "View Listings",
+        subLabel: "View all created listings",
         href: "/",
       },
       {
-        label: "Create New Listing",
+        label: "Create a new listing",
         subLabel: "Do you have an item you don't need anymore?",
         href: "/listings/new",
       },
@@ -333,14 +333,29 @@ const NAV_ITEMS: Array<NavItem> = [
     label: "Requests",
     children: [
       {
-        label: "View All Requests",
-        subLabel: "View created requests",
+        label: "View Requests",
+        subLabel: "View all created requests",
         href: "/requests",
       },
       {
-        label: "Create New Request",
+        label: "Create a new request",
         subLabel: "Ask for an item that isn't available",
         href: "/requests/new",
+      },
+    ],
+  },
+  {
+    label: "Shops",
+    children: [
+      {
+        label: "View Shops",
+        subLabel: "View all online shops",
+        href: "/shops",
+      },
+      {
+        label: "Create your online shop",
+        subLabel: "Increase your visibility online",
+        href: "/shops/new",
       },
     ],
   },

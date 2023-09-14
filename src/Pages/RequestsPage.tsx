@@ -23,7 +23,7 @@ const RequestsPage = () => {
       <ScrollToTopBtn />
       <GridPageContainer
         onSelectCategory={setSelectedCategory}
-        selectedCategory={selectedCategory}
+        selectedItem={selectedCategory}
         pl={10}
         pr={0}
       >

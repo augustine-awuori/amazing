@@ -1,10 +1,8 @@
+import { Item } from "../components/common/Selector";
 import { endpoint } from "../services/categories";
 import useData from "./useData";
 
-export interface Category {
-  _id: string;
-  label: string;
-}
+export interface Category extends Item {}
 
 const useCategories = () => {
   const { data, error, isLoading } = useData<Category>(endpoint);
