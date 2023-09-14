@@ -81,18 +81,10 @@ const types: Type[] = [
 ];
 
 const useShops = () => {
-  const { data, error, isLoading } = useData<Shop>(endpoint);
-  const { setShops, shops } = useContext(ShopsContext);
+  const { error, isLoading } = useData<Shop>(endpoint);
+  const { setShops } = useContext(ShopsContext);
 
-  const hasShop = (shops: Shop[]) => shops.length;
-
-  const getShops = () => {
-    if (hasShop(shops)) return shops;
-    if (hasShop(data)) return data;
-    return fakeShops;
-  };
-
-  return { shops: getShops(), error, isLoading, setShops, types };
+  return { shops: fakeShops, error, isLoading, setShops, types };
 };
 
 export default useShops;
