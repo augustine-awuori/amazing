@@ -6,8 +6,6 @@ interface Props extends ShopTypeSelectorProps {
   children: any;
   gridHeadingLabel?: string;
   headingPrefix?: string;
-  pl?: string | number;
-  pr?: string | number;
 }
 
 const CategoriesGridPageContainer = ({

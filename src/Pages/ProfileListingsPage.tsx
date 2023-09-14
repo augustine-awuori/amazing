@@ -28,8 +28,6 @@ const ProfileListingsPage = () => {
     <GridPageContainer
       headingPrefix={format.getFirstWord(listings?.[0]?.author?.name)}
       onSelectCategory={setSelectedCategory}
-      pl={10}
-      pr={0}
       selectedItem={selectedCategory}
     >
       <ListingGrid
