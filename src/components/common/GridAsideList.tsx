@@ -44,7 +44,7 @@ const AsideList = ({
                 variant="link"
                 whiteSpace="normal"
               >
-                {item.label}
+                {item?.label}
               </Button>
             </HStack>
           </ListItem>

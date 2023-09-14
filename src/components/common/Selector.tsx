@@ -26,7 +26,7 @@ const Selector = ({
     <MenuList>
       {data.map((item) => (
         <MenuItem key={item._id} onClick={() => onSelectItem(item)}>
-          {item.label}
+          {item?.label}
         </MenuItem>
       ))}
     </MenuList>
