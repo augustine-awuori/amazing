@@ -17,7 +17,7 @@ const ShopPageHeader = ({
   shopName,
 }: Props) => (
   <HStack justifyContent="space-between">
-    <Heading as="h1" mb={4} size="xl">
+    <Heading as="h1" mb={4} size="sm">
       {shopName} ({productsCount})
     </Heading>
     <Box>
