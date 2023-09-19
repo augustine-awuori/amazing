@@ -115,7 +115,7 @@ const BagTable = ({ data }: { data: BagProduct[] }) => {
         primaryBtnLabel="Yes, Remove"
         secondaryBtnLabel="Abort"
       />
-      <Box whiteSpace="nowrap">
+      <Box whiteSpace="nowrap" overflowX="auto">
         <Table w="100%">
           <Thead>
             <Tr>
