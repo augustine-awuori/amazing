@@ -1,10 +1,11 @@
 import { useContext } from "react";
+import { toast } from "react-toastify";
 
-import { endpoint } from "../services/shops";
-import { Shop, Type } from "./useShop";
+import { DataError } from "../services/client";
+import { NewShop, Shop, Type } from "./useShop";
 import { User } from "./useUser";
+import service from "../services/shops";
 import ShopsContext from "../contexts/ShopsContext";
-import useData from "./useData";
 
 import pic from "../assets/pic.png";
 
@@ -31,7 +32,7 @@ const fakeShops: Shop[] = [
     _id: "3",
     author,
     image: pic,
-    name: "Barber Shop",
+    name: "Book Store",
     type: { _id: "b", label: "Beauty" },
   },
   {
@@ -81,10 +82,38 @@ const types: Type[] = [
 ];
 
 const useShops = () => {
-  const { error, isLoading } = useData<Shop>(endpoint);
-  const { setShops } = useContext(ShopsContext);
+  // const { data, error, isLoading } = useData<Shop>(endpoint);
+  const { setShops, shops } = useContext(ShopsContext);
 
-  return { shops: fakeShops, error, isLoading, setShops, types };
+  const hasShop = (shops: Shop[]) => shops.length;
+
+  const getShops = () => {
+    if (hasShop(shops)) return shops;
+    // if (hasShop(data)) return data;
+    return fakeShops;
+  };
+
+  const create = async (info: NewShop) => {
+    const { data, ok, problem } = await service.create(info);
+    const error = (data as DataError)?.error || problem || "";
+
+    if (!ok) toast.error(`Failed! ${error}`);
+    else {
+      setShops([data as Shop, ...shops]);
+      toast.success("Shop created successfully!");
+    }
+
+    return { ok, error };
+  };
+
+  return {
+    create,
+    shops: getShops(),
+    error: "",
+    isLoading: false,
+    setShops,
+    types,
+  };
 };
 
 export default useShops;

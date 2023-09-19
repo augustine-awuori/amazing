@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/icons";
 
 import { User } from "../hooks/useUser";
-import format from "../utilities/format";
+import format from "../utils/format";
 import useAppColorMode from "../hooks/useAppColorMode";
 
 interface Props {

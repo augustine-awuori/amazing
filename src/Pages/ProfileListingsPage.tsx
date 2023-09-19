@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
-import { empty, format } from "../utilities";
+import { empty, format } from "../utils";
 import { endpoint } from "../services/listings";
 import { GridPageContainer, ListingGrid } from "../components";
 import { Listing } from "../hooks/useListing";

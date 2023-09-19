@@ -7,7 +7,7 @@ interface Props {
 }
 
 const StartChatBtn = ({ phoneNumber }: Props) => {
-  const { accentColor } = useAppColorMode();
+  const { accentColor, concAccentColor } = useAppColorMode();
   const { url } = useWhatsAppRedirect(phoneNumber);
 
   const handleStartChatClick = () => {
@@ -26,6 +26,7 @@ const StartChatBtn = ({ phoneNumber }: Props) => {
       maxW="500px"
       w="100%"
       my={5}
+      _hover={{ backgroundColor: concAccentColor }}
     >
       Start Chat
     </Button>

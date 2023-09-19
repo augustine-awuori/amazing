@@ -7,12 +7,20 @@ export interface Type {
   label: string;
 }
 
-export interface Shop {
+interface Common {
+  name: string;
+}
+
+export interface Shop extends Common {
   _id: string;
   author: User;
   image: string;
-  name: string;
   type: Type;
+}
+
+export interface NewShop extends Common {
+  image: File;
+  type: string;
 }
 
 const useShop = () => useContext(ShopContext);

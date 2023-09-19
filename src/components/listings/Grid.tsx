@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 
-import { CardContainer, CardSkeleton } from "../card";
 import { Category } from "../../hooks/useCategories";
 import { Listing } from "../../hooks/useListing";
-import { paginate } from "../../utilities/paginate";
-import ErrorMessage from "../form/ErrorMessage";
+import { paginate } from "../../utils/paginate";
 import Grid from "../grid";
 import ListingCard from "./Card";
 import Pagination from "../common/Pagination";
+import ErrorMessage from "../form/ErrorMessage";
+import { CardContainer, CardSkeleton } from "../card";
 
 interface Props {
   error: string | undefined;
@@ -48,14 +48,18 @@ const ListingGrid = ({
               <CardSkeleton />
             </CardContainer>
           ))}
-        {paginated.map((listing) => (
-          <CardContainer key={listing._id}>
-            <ListingCard
-              listing={listing}
-              onClick={() => onListingClick(listing)}
-            />
-          </CardContainer>
-        ))}
+        {paginated.length ? (
+          paginated.map((listing) => (
+            <CardContainer key={listing._id}>
+              <ListingCard
+                listing={listing}
+                onClick={() => onListingClick(listing)}
+              />
+            </CardContainer>
+          ))
+        ) : (
+          <Heading>Listings not found</Heading>
+        )}
       </Grid>
       <Box mt={5}>
         <Pagination

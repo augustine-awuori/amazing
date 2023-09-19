@@ -4,7 +4,7 @@ import { Listing } from "../../hooks/useListing";
 import { useTimestamp, useAppColorMode } from "../../hooks";
 import Body from "../card/Body";
 import Card from "../card/index.tsx";
-import figure from "../../utilities/figure";
+import figure from "../../utils/figure.ts";
 import Heading from "../card/Heading";
 import Image from "../card/Image";
 import UserAvatar from "../common/MediaQuery.tsx";

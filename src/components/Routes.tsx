@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
+import { Bag, ProductsIds } from "../contexts/BagContext";
 import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
+import { Product } from "./shops/ProductCard";
 import { Request } from "../hooks/useRequest";
 import { Shop } from "hooks/useShop";
+import { ShopProduct } from "../contexts/BagsContext";
 import { User } from "../hooks/useUser";
 import {
   ListingDetailsPage,
@@ -23,8 +26,9 @@ import {
   NotFoundPage,
   ListingEditPage,
   ShopsPage,
-  ShopDetailsPage,
+  ShopPage,
   ShopEditPage,
+  ShoppingBagPage,
 } from "../Pages";
 import {
   ListingsContext,
@@ -38,6 +42,8 @@ import {
   ImagesContext,
   ShopsContext,
   ShopContext,
+  BagsContext,
+  BagContext,
 } from "../contexts";
 
 function AppRoutes() {
@@ -52,6 +58,14 @@ function AppRoutes() {
   const [images, setImages] = useState<File[]>([]);
   const [shops, setShops] = useState<Shop[]>([]);
   const [shop, setShop] = useState<Shop | null>(null);
+  const [bags, setBags] = useState<ShopProduct[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [productsIds, setProductsIds] = useState<ProductsIds>({});
+
+  const handleBag = (bag: Bag) => {
+    setProducts(bag.products);
+    setProductsIds(bag.ids);
+  };
 
   return (
     <ListingsContext.Provider value={{ listings, setListings }}>
@@ -72,61 +86,82 @@ function AppRoutes() {
                   >
                     <ShopsContext.Provider value={{ shops, setShops }}>
                       <ShopContext.Provider value={{ shop, setShop }}>
-                        <ImagesContext.Provider value={{ images, setImages }}>
-                          <Routes>
-                            <Route
-                              path="listings/:listingId"
-                              element={<ListingDetailsPage />}
-                            />
-                            <Route
-                              path="listings/new"
-                              element={<ListingEditPage />}
-                            />
-                            <Route index element={<ListingsPage />} />
-                            <Route
-                              path="requests/:requestId"
-                              element={<RequestDetailsPage />}
-                            />
-                            <Route
-                              path="requests/new"
-                              element={<RequestEditPage />}
-                            />
-                            <Route path="requests" element={<RequestsPage />} />
-                            <Route
-                              path="about-app"
-                              element={<AboutAppPage />}
-                            />
-                            <Route path="login" element={<LoginPage />} />
-                            <Route path="logout" element={<LogoutPage />} />
-                            <Route path="register" element={<RegisterPage />} />
-                            <Route
-                              path="profile/:userId/edit"
-                              element={<ProfileEditPage />}
-                            />
-                            <Route
-                              path="profile/:userId/listings"
-                              element={<ProfileListingsPage />}
-                            />
-                            <Route
-                              path="/profile/:userId/requests"
-                              element={<ProfileRequestsPage />}
-                            />
-                            <Route
-                              path="/profile/:userId"
-                              element={<ProfilePage />}
-                            />
-                            <Route
-                              path="/shops/new"
-                              element={<ShopEditPage />}
-                            />
-                            <Route
-                              path="/shops/:shopId"
-                              element={<ShopDetailsPage />}
-                            />
-                            <Route path="/shops" element={<ShopsPage />} />
-                            <Route path="*" element={<NotFoundPage />} />
-                          </Routes>
-                        </ImagesContext.Provider>
+                        <BagsContext.Provider value={{ bags, setBags }}>
+                          <BagContext.Provider
+                            value={{
+                              bag: { products, ids: productsIds },
+                              setBag: handleBag,
+                            }}
+                          >
+                            <ImagesContext.Provider
+                              value={{ images, setImages }}
+                            >
+                              <Routes>
+                                <Route
+                                  path="listings/:listingId"
+                                  element={<ListingDetailsPage />}
+                                />
+                                <Route
+                                  path="listings/new"
+                                  element={<ListingEditPage />}
+                                />
+                                <Route index element={<ListingsPage />} />
+                                <Route
+                                  path="requests/:requestId"
+                                  element={<RequestDetailsPage />}
+                                />
+                                <Route
+                                  path="requests/new"
+                                  element={<RequestEditPage />}
+                                />
+                                <Route
+                                  path="requests"
+                                  element={<RequestsPage />}
+                                />
+                                <Route
+                                  path="about-app"
+                                  element={<AboutAppPage />}
+                                />
+                                <Route path="login" element={<LoginPage />} />
+                                <Route path="logout" element={<LogoutPage />} />
+                                <Route
+                                  path="register"
+                                  element={<RegisterPage />}
+                                />
+                                <Route
+                                  path="profile/:userId/edit"
+                                  element={<ProfileEditPage />}
+                                />
+                                <Route
+                                  path="profile/:userId/listings"
+                                  element={<ProfileListingsPage />}
+                                />
+                                <Route
+                                  path="/profile/:userId/requests"
+                                  element={<ProfileRequestsPage />}
+                                />
+                                <Route
+                                  path="/profile/:userId"
+                                  element={<ProfilePage />}
+                                />
+                                <Route
+                                  path="/shops/new"
+                                  element={<ShopEditPage />}
+                                />
+                                <Route
+                                  path="/shops/:shopId/my-bag"
+                                  element={<ShoppingBagPage />}
+                                />
+                                <Route
+                                  path="/shops/:shopId"
+                                  element={<ShopPage />}
+                                />
+                                <Route path="/shops" element={<ShopsPage />} />
+                                <Route path="*" element={<NotFoundPage />} />
+                              </Routes>
+                            </ImagesContext.Provider>
+                          </BagContext.Provider>
+                        </BagsContext.Provider>
                       </ShopContext.Provider>
                     </ShopsContext.Provider>
                   </CategoriesContext.Provider>

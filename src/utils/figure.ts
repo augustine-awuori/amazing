@@ -12,4 +12,8 @@ function addComma(number: number | undefined) {
   return figures.join("");
 }
 
-export default { addComma };
+function roundToTwoDecimalPlaces(num: number): number {
+  return parseFloat(num.toFixed(2));
+}
+
+export default { addComma, roundToTwoDecimalPlaces };

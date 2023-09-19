@@ -24,7 +24,7 @@ import {
   useTimestamp,
 } from "../hooks";
 import { ProfileActivities, PageContainer, StartChatBtn } from "../components";
-import empty from "../utilities/empty";
+import empty from "../utils/empty";
 import usersApi from "../services/users";
 
 const ProfilePage = () => {

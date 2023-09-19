@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import { appBaseUrl } from "../services/client";
-import format from "../utilities/format";
+import format from "../utils/format";
 
 const useWhatsAppRedirect = (phoneNumber: string | number) => {
   const [url, setUrl] = useState("");

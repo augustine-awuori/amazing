@@ -47,33 +47,31 @@ function AppModal({
   };
 
   return (
-    <>
-      <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onModalClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{title}</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            {subTitle && (
-              <Text fontWeight="bold" mb="1rem">
-                {subTitle}
-              </Text>
-            )}
-            {content}
-          </ModalBody>
-          {primaryBtnLabel && secondaryBtnLabel && (
-            <ModalFooter>
-              <Button colorScheme="orange" mr={3} onClick={handlePrimaryClick}>
-                {primaryBtnLabel}
-              </Button>
-              <Button variant="ghost" onClick={handleSecondaryClick}>
-                {secondaryBtnLabel}
-              </Button>
-            </ModalFooter>
+    <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onModalClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>{title}</ModalHeader>
+        <ModalCloseButton />
+        <ModalBody>
+          {subTitle && (
+            <Text fontWeight="bold" mb="1rem">
+              {subTitle}
+            </Text>
           )}
-        </ModalContent>
-      </Modal>
-    </>
+          {content}
+        </ModalBody>
+        {primaryBtnLabel && secondaryBtnLabel && (
+          <ModalFooter>
+            <Button colorScheme="orange" mr={3} onClick={handlePrimaryClick}>
+              {primaryBtnLabel}
+            </Button>
+            <Button variant="ghost" onClick={handleSecondaryClick}>
+              {secondaryBtnLabel}
+            </Button>
+          </ModalFooter>
+        )}
+      </ModalContent>
+    </Modal>
   );
 }
 

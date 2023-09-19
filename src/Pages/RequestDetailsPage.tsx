@@ -11,7 +11,7 @@ import {
   useRequests,
   useTimestamp,
 } from "../hooks";
-import empty from "../utilities/empty";
+import empty from "../utils/empty";
 import requestsService from "../services/requests";
 import RequestUpdateForm from "../components/form/RequestUpdateForm";
 

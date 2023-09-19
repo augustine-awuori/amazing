@@ -19,7 +19,7 @@ const PageContainer = ({ Aside, children, paddingTop = 20 }: Props) => (
         {Aside}
       </GridItem>
     )}
-    <GridItem area="main" p={5} pt={paddingTop}>
+    <GridItem area="main" px={5} pt={paddingTop}>
       {children}
     </GridItem>
   </>

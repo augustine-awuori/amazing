@@ -1,5 +1,6 @@
 export { default as Avatar } from "./Avatar";
 export { default as ColorSwitchMode } from "./ColorSwitchMode";
+export { default as DismissableInfo } from "./DismissableInfo";
 export { default as GridAsideList } from "./GridAsideList";
 export { default as ImageInputList } from "./ImageInputList";
 export { default as ImagePicker } from "./ImagePicker";

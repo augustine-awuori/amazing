@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
-import { endpoint } from "../services/listings";
 import {
   ListingCategoriesGridPageContainer as GridPageContainer,
   ListingGrid,
 } from "../components";
+import { endpoint } from "../services/listings";
 import { ScrollToTopBtn } from "../components/common";
 import useListing, { Listing } from "../hooks/useListing";
 import useListings from "../hooks/useListings";

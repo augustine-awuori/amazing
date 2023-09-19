@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Box } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 
 import { CardContainer, CardSkeleton } from "../card";
-import { paginate } from "../../utilities/paginate";
+import { paginate } from "../../utils/paginate";
 import { Shop, Type } from "../../hooks/useShop";
 import ErrorMessage from "../form/ErrorMessage";
 import Grid from "../grid";
@@ -45,11 +45,15 @@ const ShopsGrid = ({
               <CardSkeleton />
             </CardContainer>
           ))}
-        {paginated.map((shop) => (
-          <CardContainer key={shop._id}>
-            <ShopCard shop={shop} onClick={() => onShopClick(shop)} />
-          </CardContainer>
-        ))}
+        {paginated.length ? (
+          paginated.map((shop) => (
+            <CardContainer key={shop._id}>
+              <ShopCard shop={shop} onClick={() => onShopClick(shop)} />
+            </CardContainer>
+          ))
+        ) : (
+          <Heading>Shops not found!</Heading>
+        )}
       </Grid>
       <Box mt={5}>
         <Pagination

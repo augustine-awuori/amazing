@@ -5,9 +5,9 @@ import {
   Text,
   ResponsiveValue,
 } from "@chakra-ui/react";
-import { GoVerified } from "react-icons/go";
-import { getFirstWord } from "../../utilities/format";
+import { getFirstWord } from "../../utils/format";
 import { User } from "../../hooks/useUser";
+import VerifiedIcon from "./VerifiedIcon";
 
 interface Props {
   onClick?: () => void;
@@ -43,7 +43,7 @@ const UserAvatar = ({ user, onClick, size = "xs", time }: Props) => {
       </WrapItem>
       <WrapItem display="flex" alignItems="center">
         <Text marginRight={1}>{getFirstWord(user?.name)}</Text>
-        {user?.isVerified && <GoVerified size={10} color="orange" />}
+        <VerifiedIcon verified={user?.isVerified} />
       </WrapItem>
       <WrapItem marginLeft="auto">
         {time && <Text fontSize=".85rem">{time}</Text>}

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Form, FormField, SubmitButton } from "../components/form";
 import { FormData, Request, populate, schema } from "../hooks/useRequest";
 import { useCategories, useForm, useRequests } from "../hooks";
+import auth from "../services/auth";
 import requestsApi from "../services/requests";
 import Select from "../components/common/Select";
 
@@ -15,6 +16,7 @@ const RequestEditPage = () => {
   const { data: categories } = useCategories();
   const { addRequest } = useRequests();
   const navigate = useNavigate();
+  const user = auth.getCurrentUser();
 
   const doSubmit = async (info: FormData) => {
     if (error) setError("");
@@ -43,6 +45,8 @@ const RequestEditPage = () => {
       navigate("/");
     }
   };
+
+  if (!user) return <Navigate to="/login" replace />;
 
   return (
     <Form

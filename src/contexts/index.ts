@@ -1,6 +1,7 @@
+export { default as BagContext } from "./BagContext";
+export { default as BagsContext } from "./BagsContext";
 export { default as CategoriesContext } from "./CategoriesContext";
 export { default as ImagesContext } from "./ImagesContext";
-export { default as LayoutContext } from "./LayoutContext";
 export { default as ListingContext } from "./ListingContext";
 export { default as ListingsContext } from "./ListingsContext";
 export { default as ProfileListingsContext } from "./ProfileListingsContext";

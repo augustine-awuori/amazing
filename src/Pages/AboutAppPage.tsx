@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 
 import { PageContainer, Paragraph } from "../components";
-import format from "../utilities/format";
+import format from "../utils/format";
 
 const AboutAppPage = () => (
   <PageContainer>
