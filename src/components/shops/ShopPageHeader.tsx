@@ -32,9 +32,11 @@ const ShopPageHeader = ({
           {bagCount}
         </Badge>
       </Button>
-      <Button rightIcon={<AiFillPlusCircle />} onClick={onAddProduct}>
-        Add Product
-      </Button>
+      {false && (
+        <Button rightIcon={<AiFillPlusCircle />} onClick={onAddProduct}>
+          Add Product
+        </Button>
+      )}
     </Box>
   </HStack>
 );
