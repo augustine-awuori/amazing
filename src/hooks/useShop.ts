@@ -1,11 +1,8 @@
 import { useContext } from "react";
+
+import { Type } from "./useTypes";
 import { User } from "./useUser";
 import ShopContext from "../contexts/ShopContext";
-
-export interface Type {
-  _id: string;
-  label: string;
-}
 
 interface Common {
   name: string;

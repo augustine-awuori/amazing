@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { toast } from "react-toastify";
 
 import { DataError } from "../services/client";
-import { NewShop, Shop, Type } from "./useShop";
+import { NewShop, Shop } from "./useShop";
 import { User } from "./useUser";
 import service from "../services/shops";
 import ShopsContext from "../contexts/ShopsContext";
@@ -15,7 +15,7 @@ const author: User = {
   isAdmin: false,
   isVerified: true,
   name: "Baby",
-  otherAccounts: { whatsapp: "254712345678" },
+  otherAccounts: { whatsapp: "254745889801" },
   timestamp: 34223,
   username: "@softbaby",
 };
@@ -72,15 +72,6 @@ const fakeShops: Shop[] = [
   },
 ];
 
-const types: Type[] = [
-  { _id: "", label: "All Types" },
-  { _id: "a", label: "Bakery" },
-  { _id: "b", label: "Beauty" },
-  { _id: "c", label: "Butchery" },
-  { _id: "d", label: "Cookery" },
-  { _id: "e", label: "Mechanic" },
-];
-
 const useShops = () => {
   // const { data, error, isLoading } = useData<Shop>(endpoint);
   const { setShops, shops } = useContext(ShopsContext);
@@ -112,7 +103,6 @@ const useShops = () => {
     error: "",
     isLoading: false,
     setShops,
-    types,
   };
 };
 
