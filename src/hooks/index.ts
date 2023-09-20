@@ -17,4 +17,5 @@ export { default as useRequests } from "./useRequests";
 export { default as useShop } from "./useShop";
 export { default as useShops } from "./useShops";
 export { default as useTimestamp } from "./useTimestamp";
+export { default as useTypes } from "./useTypes";
 export { default as useWhatsAppRedirect } from "./useWhatsAppRedirect";

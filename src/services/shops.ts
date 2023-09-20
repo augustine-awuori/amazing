@@ -10,7 +10,9 @@ const create = ({ image, name, type }: NewShop) => {
   data.append("name", name);
   data.append("type", type);
 
-  return client.post("/shops", data);
+  return client.post("/shops", data, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 };
 
 export default { create };

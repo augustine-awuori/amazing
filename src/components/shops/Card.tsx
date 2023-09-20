@@ -3,6 +3,7 @@ import { HStack, Text } from "@chakra-ui/react";
 import { Shop } from "../../hooks/useShop";
 import Body from "../card/Body";
 import Card from "../card/index.tsx";
+import format from "../../utils/format";
 import Heading from "../card/Heading";
 import Image from "../card/Image";
 import UserAvatar from "../common/MediaQuery.tsx";
@@ -26,7 +27,7 @@ const ShopCard = ({ onClick, shop }: Props) => {
         <HStack mt={1}>
           <UserAvatar user={author} />
           <Text color={accentColor} fontSize=".9rem">
-            {type?.label}
+            {format.truncate(type?.label)}
           </Text>
         </HStack>
       </Body>

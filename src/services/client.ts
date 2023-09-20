@@ -4,10 +4,6 @@ import auth from "./auth";
 
 export const appBaseUrl = "https://kisiiuniversemart.digital/";
 
-export interface DataError {
-  error?: string;
-}
-
 const apiClient = create({
   baseURL: "https://dry-wave-89045-4354397f63ac.herokuapp.com/api",
 });

@@ -3,7 +3,8 @@ import { Box, Heading } from "@chakra-ui/react";
 
 import { CardContainer, CardSkeleton } from "../card";
 import { paginate } from "../../utils/paginate";
-import { Shop, Type } from "../../hooks/useShop";
+import { Shop } from "../../hooks/useShop";
+import { Type } from "../../hooks/useTypes";
 import ErrorMessage from "../form/ErrorMessage";
 import Grid from "../grid";
 import Pagination from "../common/Pagination";

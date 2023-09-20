@@ -18,6 +18,7 @@ export interface Shop extends Common {
 export interface NewShop extends Common {
   image: File;
   type: string;
+  name: string;
 }
 
 const useShop = () => useContext(ShopContext);

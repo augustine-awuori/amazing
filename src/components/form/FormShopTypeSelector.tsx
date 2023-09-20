@@ -8,7 +8,7 @@ interface Props {
 const FormShopTypeSelector = ({ register }: Props) => {
   const { types } = useTypes();
 
-  return <Select label="Shop Type" options={types} register={register} />;
+  return <Select label="Type" options={types} register={register} />;
 };
 
 export default FormShopTypeSelector;

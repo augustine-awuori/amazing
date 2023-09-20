@@ -6,7 +6,8 @@ import {
   ShopsGrid,
   ShopsTypesGridPageContainer,
 } from "../components";
-import useShop, { Shop, Type } from "../hooks/useShop";
+import { Type } from "../hooks/useTypes";
+import useShop, { Shop } from "../hooks/useShop";
 import useShops from "../hooks/useShops";
 
 const ShopsPage = () => {

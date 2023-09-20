@@ -1,6 +1,5 @@
 import { Selector } from "../../common";
-import { Type } from "../../../hooks/useShop";
-import useShops from "../../../hooks/useShops";
+import useTypes, { Type } from "../../../hooks/useTypes";
 
 export interface ShopTypeSelectorProps {
   onSelectType: (type: Type) => void;
@@ -11,7 +10,7 @@ const ShopTypeSelector = ({
   onSelectType,
   selectedType,
 }: ShopTypeSelectorProps) => {
-  const { types } = useShops();
+  const { types } = useTypes();
 
   return (
     <Selector

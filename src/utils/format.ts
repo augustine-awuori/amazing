@@ -25,4 +25,15 @@ function removeLeadingSlash(sentence: string) {
   return sentence;
 }
 
-export default { phoneNumber, getFirstWord, removeLeadingSlash };
+function truncateString(str: string): string {
+  if (str.length <= 9) return str;
+
+  return str.slice(0, 9) + "…";
+}
+
+export default {
+  phoneNumber,
+  getFirstWord,
+  removeLeadingSlash,
+  truncate: truncateString,
+};

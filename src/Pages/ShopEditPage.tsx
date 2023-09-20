@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { z } from "zod";
 
 import {
@@ -14,7 +13,7 @@ import { useForm, useImages, useShops } from "../hooks";
 import auth from "../services/auth";
 
 const schema = z.object({
-  name: z.string().min(3).max(50),
+  name: z.string().min(3, "Name should be between 3 & 50 chars").max(50),
   type: z.string().min(2),
 });
 
@@ -32,10 +31,7 @@ const ShopEditPage = () => {
 
   const doSubmit = async (info: FormData) => {
     if (error) setError("");
-    if (!imagesCount) {
-      toast.error("Form is incomplete");
-      return setError("Please select an image");
-    }
+    if (!imagesCount) return setError("Please select an image");
 
     setLoading(true);
     const res = await shops.create({ ...info, image: images[0] });
@@ -56,7 +52,7 @@ const ShopEditPage = () => {
       title="New Shop"
     >
       <ImageInputList imagesLimit={MAX_IMAGES} />
-      <FormField error={errors.price} label="Name" register={register} />
+      <FormField error={errors.name} label="Name" register={register} />
       <Selector register={register} />
       <SubmitButton label="Create" isLoading={isLoading} />
     </Form>
