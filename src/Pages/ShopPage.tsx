@@ -10,46 +10,24 @@ import {
   StartChatBtn,
 } from "../components";
 import { paginate } from "../utils/paginate";
-import { useBag, useShop } from "../hooks";
+import { useBag, useProducts, useShop } from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
-import Grid from "../components/grid";
+import { NewProductForm } from "../components/form";
 import { ShopPageHeader as Header } from "../components/shops";
-import pic1 from "../assets/book1.png";
-import pic2 from "../assets/book2.png";
+import Grid from "../components/grid";
 import ProductCard, { Product } from "../components/shops/ProductCard";
-
-const x: Product[] = [
-  {
-    _id: "1",
-    name: "The Richest Man In Babylon",
-    price: 19.99,
-    image: pic2,
-    quantity: 0,
-  },
-  {
-    _id: "2",
-    name: "More Important Than Money",
-    price: 10.99,
-    image: pic1,
-    quantity: 0,
-  },
-  {
-    _id: "3",
-    name: "The Richest Man In Babylon Version 2",
-    price: 29.99,
-    image: pic2,
-    quantity: 0,
-  },
-];
 
 const PAGE_SIZE = 6;
 
 const ShopPage = () => {
   const [showProductForm, setShowProductForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [products, setProducts] = useState(x);
-  const { shop } = useShop();
   const { bag, setBag } = useBag();
+  const { shop } = useShop();
+  const { isLoading, products, productsCount, setProducts } = useProducts(
+    shop?._id
+  );
+
   const navigate = useNavigate();
 
   const skeletons = [1, 2, 3, 4, 5, 6];
@@ -106,7 +84,7 @@ const ShopPage = () => {
 
   const handleQuantityInc = (productId: string) => {
     setProducts(
-      [...products].map((p) => {
+      products.map((p) => {
         if (p._id === productId) {
           p.quantity += 1;
 
@@ -134,27 +112,25 @@ const ShopPage = () => {
 
   return (
     <>
-      <Modal
-        isOpen={showProductForm}
-        onModalClose={() => setShowProductForm(false)}
-        title="New Product"
-        content={<></>}
-        primaryBtnLabel="Save Product"
-        onPrimaryClick={() => {}}
-        secondaryBtnLabel="Cancel"
-        onSecondaryClick={() => setShowProductForm(false)}
-      />
+      {shop?._id && (
+        <Modal
+          isOpen={showProductForm}
+          onModalClose={() => setShowProductForm(false)}
+          content={<NewProductForm shopId={shop._id} />}
+        />
+      )}
       <PageContainer>
         <ScrollToTopBtn />
         <Header
+          authorId={shop?.author?._id}
           bagCount={bag.products.length}
           onAddProduct={() => setShowProductForm(true)}
           onBagView={navigateToViewBag}
-          productsCount={x.length}
+          productsCount={productsCount}
           shopName={shop?.name}
         />
         <Grid>
-          {false &&
+          {isLoading &&
             skeletons.map((skeleton) => (
               <CardContainer key={skeleton}>
                 <CardSkeleton />
@@ -174,7 +150,7 @@ const ShopPage = () => {
           )}
         </Grid>
         <Pagination
-          itemsCount={x.length}
+          itemsCount={productsCount}
           onPageChange={setCurrentPage}
           currentPage={currentPage}
           pageSize={PAGE_SIZE}

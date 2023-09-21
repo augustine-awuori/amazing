@@ -34,16 +34,7 @@ export interface Listing extends ListingBase {
   price: number | undefined;
 }
 
-const useListing = () => {
-  const context = useContext(ListingContext);
-
-  const listing = context?.listing;
-  const setListing = context?.setListing;
-
-  return { listing, setListing };
-};
-
-const update = {
+export const schema = z.object({
   title: z
     .string()
     .min(1, "Title should be between 1 and 50 characters")
@@ -54,14 +45,15 @@ const update = {
     .max(1_000_000),
   description: z.string(),
   category: z.string().min(5),
-};
+});
 
-const edit = {
-  ...update,
-  // avatar: z.array(z.any()).min(1, "Please select at least one image").max(3),
-};
+const useListing = () => {
+  const context = useContext(ListingContext);
 
-export const getSchema = (forEdit?: boolean) =>
-  z.object(forEdit ? edit : update);
+  const listing = context?.listing;
+  const setListing = context?.setListing;
+
+  return { listing, setListing };
+};
 
 export default useListing;

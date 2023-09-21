@@ -4,14 +4,12 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { Form, FormField, SubmitButton } from "../components/form";
-import { Listing, getSchema } from "../hooks/useListing";
+import { Listing, schema } from "../hooks/useListing";
 import { useForm, useImages, useListings } from "../hooks";
 import auth from "../services/auth";
 import CategorySelect from "../components/listings/category/Select";
 import ImageInputList from "../components/common/ImageInputList";
-import listingsService from "../services/listings";
-
-const schema = getSchema(true);
+import service from "../services/listings";
 
 type FormData = z.infer<typeof schema>;
 
@@ -27,15 +25,11 @@ const ListingEditPage = () => {
 
   const doSubmit = async (info: FormData) => {
     if (error) setError("");
-    if (!imagesCount) {
-      const errorMessage = "Please select at least one image";
-      toast.error(errorMessage);
-      return setError(errorMessage);
-    }
+    if (!imagesCount) return setError("Please select at least one image");
 
     setLoading(true);
     const listing = { ...info, images };
-    const { data, ok, problem } = await listingsService.addListing(listing);
+    const { data, ok, problem } = await service.addListing(listing);
     setLoading(false);
 
     if (!ok) return setError((data as any)?.error || problem);

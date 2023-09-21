@@ -12,7 +12,7 @@ import {
 import { Text } from "@chakra-ui/react";
 
 interface Props {
-  title: string;
+  title?: string;
   subTitle?: string;
   isOpen: boolean;
   content: any;
@@ -50,7 +50,7 @@ function AppModal({
     <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onModalClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{title}</ModalHeader>
+        {title && <ModalHeader>{title}</ModalHeader>}
         <ModalCloseButton />
         <ModalBody>
           {subTitle && (
@@ -62,7 +62,12 @@ function AppModal({
         </ModalBody>
         {primaryBtnLabel && secondaryBtnLabel && (
           <ModalFooter>
-            <Button colorScheme="orange" mr={3} onClick={handlePrimaryClick}>
+            <Button
+              colorScheme="orange"
+              mr={3}
+              onClick={handlePrimaryClick}
+              type="submit"
+            >
               {primaryBtnLabel}
             </Button>
             <Button variant="ghost" onClick={handleSecondaryClick}>

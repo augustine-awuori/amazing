@@ -2,15 +2,13 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
-import { Listing, ListingInfo, getSchema } from "../../hooks/useListing";
+import { Listing, ListingInfo, schema } from "../../hooks/useListing";
 import { useCategories, useForm, useListings } from "../../hooks";
 import Form from "./Form";
 import FormField from "./FormField";
 import listingsService from "../../services/listings";
 import Select from "../common/Select";
 import SubmitButton from "./SubmitButton";
-
-const schema = getSchema();
 
 type FormData = z.infer<typeof schema>;
 

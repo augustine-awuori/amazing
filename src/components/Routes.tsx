@@ -44,6 +44,7 @@ import {
   ShopContext,
   BagsContext,
   BagContext,
+  ProductsContext,
 } from "../contexts";
 
 function AppRoutes() {
@@ -59,11 +60,12 @@ function AppRoutes() {
   const [shops, setShops] = useState<Shop[]>([]);
   const [shop, setShop] = useState<Shop | null>(null);
   const [bags, setBags] = useState<ShopProduct[]>([]);
+  const [bagProducts, setBagProducts] = useState<Product[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
   const [productsIds, setProductsIds] = useState<ProductsIds>({});
 
   const handleBag = (bag: Bag) => {
-    setProducts(bag.products);
+    setBagProducts(bag.products);
     setProductsIds(bag.ids);
   };
 
@@ -89,76 +91,86 @@ function AppRoutes() {
                         <BagsContext.Provider value={{ bags, setBags }}>
                           <BagContext.Provider
                             value={{
-                              bag: { products, ids: productsIds },
+                              bag: { products: bagProducts, ids: productsIds },
                               setBag: handleBag,
                             }}
                           >
                             <ImagesContext.Provider
                               value={{ images, setImages }}
                             >
-                              <Routes>
-                                <Route
-                                  path="listings/:listingId"
-                                  element={<ListingDetailsPage />}
-                                />
-                                <Route
-                                  path="listings/new"
-                                  element={<ListingEditPage />}
-                                />
-                                <Route index element={<ListingsPage />} />
-                                <Route
-                                  path="requests/:requestId"
-                                  element={<RequestDetailsPage />}
-                                />
-                                <Route
-                                  path="requests/new"
-                                  element={<RequestEditPage />}
-                                />
-                                <Route
-                                  path="requests"
-                                  element={<RequestsPage />}
-                                />
-                                <Route
-                                  path="about-app"
-                                  element={<AboutAppPage />}
-                                />
-                                <Route path="login" element={<LoginPage />} />
-                                <Route path="logout" element={<LogoutPage />} />
-                                <Route
-                                  path="register"
-                                  element={<RegisterPage />}
-                                />
-                                <Route
-                                  path="profile/:userId/edit"
-                                  element={<ProfileEditPage />}
-                                />
-                                <Route
-                                  path="profile/:userId/listings"
-                                  element={<ProfileListingsPage />}
-                                />
-                                <Route
-                                  path="/profile/:userId/requests"
-                                  element={<ProfileRequestsPage />}
-                                />
-                                <Route
-                                  path="/profile/:userId"
-                                  element={<ProfilePage />}
-                                />
-                                <Route
-                                  path="/shops/new"
-                                  element={<ShopEditPage />}
-                                />
-                                <Route
-                                  path="/shops/:shopId/my-bag"
-                                  element={<ShoppingBagPage />}
-                                />
-                                <Route
-                                  path="/shops/:shopId"
-                                  element={<ShopPage />}
-                                />
-                                <Route path="/shops" element={<ShopsPage />} />
-                                <Route path="*" element={<NotFoundPage />} />
-                              </Routes>
+                              <ProductsContext.Provider
+                                value={{ products, setProducts }}
+                              >
+                                <Routes>
+                                  <Route
+                                    path="listings/:listingId"
+                                    element={<ListingDetailsPage />}
+                                  />
+                                  <Route
+                                    path="listings/new"
+                                    element={<ListingEditPage />}
+                                  />
+                                  <Route index element={<ListingsPage />} />
+                                  <Route
+                                    path="requests/:requestId"
+                                    element={<RequestDetailsPage />}
+                                  />
+                                  <Route
+                                    path="requests/new"
+                                    element={<RequestEditPage />}
+                                  />
+                                  <Route
+                                    path="requests"
+                                    element={<RequestsPage />}
+                                  />
+                                  <Route
+                                    path="about-app"
+                                    element={<AboutAppPage />}
+                                  />
+                                  <Route path="login" element={<LoginPage />} />
+                                  <Route
+                                    path="logout"
+                                    element={<LogoutPage />}
+                                  />
+                                  <Route
+                                    path="register"
+                                    element={<RegisterPage />}
+                                  />
+                                  <Route
+                                    path="profile/:userId/edit"
+                                    element={<ProfileEditPage />}
+                                  />
+                                  <Route
+                                    path="profile/:userId/listings"
+                                    element={<ProfileListingsPage />}
+                                  />
+                                  <Route
+                                    path="/profile/:userId/requests"
+                                    element={<ProfileRequestsPage />}
+                                  />
+                                  <Route
+                                    path="/profile/:userId"
+                                    element={<ProfilePage />}
+                                  />
+                                  <Route
+                                    path="/shops/new"
+                                    element={<ShopEditPage />}
+                                  />
+                                  <Route
+                                    path="/shops/:shopId/my-bag"
+                                    element={<ShoppingBagPage />}
+                                  />
+                                  <Route
+                                    path="/shops/:shopId"
+                                    element={<ShopPage />}
+                                  />
+                                  <Route
+                                    path="/shops"
+                                    element={<ShopsPage />}
+                                  />
+                                  <Route path="*" element={<NotFoundPage />} />
+                                </Routes>
+                              </ProductsContext.Provider>
                             </ImagesContext.Provider>
                           </BagContext.Provider>
                         </BagsContext.Provider>
