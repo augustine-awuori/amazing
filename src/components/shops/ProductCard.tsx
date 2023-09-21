@@ -31,7 +31,7 @@ const ProductCard: React.FC<Props> = ({
       overflow="hidden"
       position="relative"
     >
-      <Image src={image} alt={name} />
+      <Image src={image} alt={name} w="100%" />
       <Box p="4">
         <Text fontWeight="bold" fontSize="lg">
           {name}

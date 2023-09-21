@@ -53,7 +53,7 @@ const ShopsGrid = ({
             </CardContainer>
           ))
         ) : (
-          <Heading>Shops not found!</Heading>
+          <Heading>{isLoading ? "" : "Shops not found!"}</Heading>
         )}
       </Grid>
       <Box mt={5}>

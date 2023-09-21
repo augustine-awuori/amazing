@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Footer = ({ children, name, owner, verified }: Props) => (
-  <Box mt={8} p={4} bg="gray.700" borderRadius="md">
+  <Box mt={8} p={4} bg="gray.600" borderRadius="md">
     <Flex justify="space-between" align="center">
       <Box>
         <HStack align="center">

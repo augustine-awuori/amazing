@@ -20,8 +20,6 @@ const useProducts = (shopId: string | undefined) => {
   const { data, error, isLoading } = useData<Product>(`${endpoint}/${shopId}`);
   const { products, setProducts } = useContext(ProductsContext);
 
-  const productsOutput = error ? [] : data;
-
   useEffect(() => {
     if (!error) setProducts(data);
   }, [shopId]);
@@ -32,7 +30,7 @@ const useProducts = (shopId: string | undefined) => {
     let error = "";
     if (ok) {
       setProducts([newProduct as Product, ...products]);
-      toast("Product has been successfully saved");
+      toast("Product has been saved successfully");
     } else {
       error = (newProduct as any)?.error || problem;
       toast("Product not saved!");
@@ -44,8 +42,8 @@ const useProducts = (shopId: string | undefined) => {
   return {
     create,
     isLoading,
-    products: productsOutput,
-    productsCount: productsOutput.length,
+    products: error || isLoading ? [] : data,
+    productsCount: data?.length || 0,
     setProducts,
   };
 };

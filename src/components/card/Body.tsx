@@ -10,7 +10,7 @@ const Body = ({ children }: Props) => {
   const { isDarkMode } = useAppColorMode();
 
   return (
-    <CardBody backgroundColor={isDarkMode ? "inherit" : "#f8f4f4"}>
+    <CardBody backgroundColor={isDarkMode ? "inherit" : "gray.200"}>
       {children}
     </CardBody>
   );
