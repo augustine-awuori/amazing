@@ -1,20 +1,8 @@
 import { useState } from "react";
-import {
-  Box,
-  Button,
-  Heading,
-  Table,
-  Tbody,
-  Td,
-  Tfoot,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Box, Table, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 
-import { Modal } from "../../components";
+import { Button, Heading, Modal, Text } from "../../components";
 import figure from "../../utils/figure";
-import Text from "../../components/Text";
 
 export interface BagProduct {
   _id: string;

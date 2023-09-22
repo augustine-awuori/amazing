@@ -1,6 +1,7 @@
-import { Box, HStack, Heading, Button, Badge } from "@chakra-ui/react";
+import { Box, HStack, Badge } from "@chakra-ui/react";
 import { AiOutlineShopping, AiFillPlusCircle } from "react-icons/ai";
 
+import { Button, Heading } from "../../components";
 import useCurrentUser from "../../hooks/useCurrentUser";
 
 interface Props {

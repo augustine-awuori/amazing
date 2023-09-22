@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 import { CardContainer, CardSkeleton } from "../card";
 import { Category } from "../../hooks/useCategories";
 import { paginate } from "../../utils/paginate";
 import { Request } from "../../hooks/useRequest";
 import Grid from "../grid";
+import Heading from "../../components/Heading";
 import Pagination from "../common/Pagination";
 import RequestCard from "./Card";
 import Text from "../../components/Text";

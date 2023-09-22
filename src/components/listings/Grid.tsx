@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
+import { CardContainer, CardSkeleton } from "../card";
 import { Category } from "../../hooks/useCategories";
 import { Listing } from "../../hooks/useListing";
 import { paginate } from "../../utils/paginate";
+import ErrorMessage from "../form/ErrorMessage";
 import Grid from "../grid";
+import Heading from "../../components/Heading";
 import ListingCard from "./Card";
 import Pagination from "../common/Pagination";
-import ErrorMessage from "../form/ErrorMessage";
-import { CardContainer, CardSkeleton } from "../card";
 
 interface Props {
   error: string | undefined;

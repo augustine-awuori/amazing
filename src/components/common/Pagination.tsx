@@ -1,6 +1,8 @@
-import { Button, HStack } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import _ from "lodash";
+
+import Button from "../Button";
 
 interface Props {
   itemsCount: number;

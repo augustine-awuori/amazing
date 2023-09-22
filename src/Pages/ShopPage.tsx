@@ -1,33 +1,37 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Heading } from "@chakra-ui/react";
 
 import {
   CardContainer,
   CardSkeleton,
   Footer,
+  Heading,
   PageContainer,
   StartChatBtn,
 } from "../components";
 import { paginate } from "../utils/paginate";
-import { useBag, useProducts, useShop } from "../hooks";
+import { useBag, useCurrentUser, useProducts, useShop } from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
-import { NewProductForm } from "../components/form";
-import { ShopPageHeader as Header } from "../components/shops";
+import { NewProductForm, ProductUpdateForm } from "../components/forms";
 import Grid from "../components/grid";
+import Header from "../components/shops/ShopPageHeader";
 import ProductCard, { Product } from "../components/shops/ProductCard";
 
 const PAGE_SIZE = 6;
 
 const ShopPage = () => {
   const [showProductForm, setShowProductForm] = useState(false);
+  const [showProductEditForm, setShowProductEditForm] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const { bag, setBag } = useBag();
   const navigate = useNavigate();
   const { shop } = useShop();
+  const [product, setProduct] = useState<Product>();
   const { isLoading, products, productsCount, setProducts } = useProducts(
     shop?._id
   );
+  const authorId = shop?.author?._id;
+  const isTheAuthor = useCurrentUser(authorId);
 
   const skeletons = [1, 2, 3, 4, 5, 6];
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
@@ -108,21 +112,43 @@ const ShopPage = () => {
     );
   };
 
+  const switchShowProductForm = () => setShowProductForm(!showProductForm);
+
+  const switchShowProductEditForm = () =>
+    setShowProductEditForm(!showProductEditForm);
+
+  const handleEdit = (product: Product) => {
+    setProduct(product);
+    setShowProductEditForm(true);
+  };
+
   return (
     <>
       {shop?._id && (
         <Modal
           isOpen={showProductForm}
-          onModalClose={() => setShowProductForm(false)}
-          content={<NewProductForm shopId={shop._id} />}
+          onModalClose={switchShowProductForm}
+          content={
+            <NewProductForm onDone={switchShowProductForm} shopId={shop._id} />
+          }
         />
       )}
+      <Modal
+        isOpen={showProductEditForm}
+        content={
+          <ProductUpdateForm
+            product={product}
+            onDone={switchShowProductEditForm}
+          />
+        }
+        onModalClose={switchShowProductEditForm}
+      />
       <PageContainer>
         <ScrollToTopBtn />
         <Header
-          authorId={shop?.author?._id}
+          authorId={authorId}
           bagCount={bag.products.length}
-          onAddProduct={() => setShowProductForm(true)}
+          onAddProduct={switchShowProductForm}
           onBagView={navigateToViewBag}
           productsCount={productsCount}
           shopName={shop?.name}
@@ -139,8 +165,10 @@ const ShopPage = () => {
               <ProductCard
                 data={product}
                 key={index}
+                onEdit={() => handleEdit(product)}
                 onQuantityDecrease={handleQuantityDec}
                 onQuantityIncrease={handleQuantityInc}
+                showButton={!isTheAuthor}
               />
             ))
           ) : (

@@ -1,6 +1,5 @@
-import { Heading } from "@chakra-ui/react";
-
 import { Item } from "../common/Selector";
+import Heading from "../Heading";
 
 interface Props {
   count?: number;

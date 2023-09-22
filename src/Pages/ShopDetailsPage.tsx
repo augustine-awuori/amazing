@@ -1,5 +1,5 @@
-import { Heading } from "@chakra-ui/react";
 import { PageContainer } from "../components";
+import Heading from "../components/Heading";
 import useShop from "../hooks/useShop";
 
 const ShopDetailsPage = () => {

@@ -1,13 +1,6 @@
-import {
-  Box,
-  Button,
-  Heading,
-  HStack,
-  List,
-  ListItem,
-  Spinner,
-} from "@chakra-ui/react";
+import { Box, HStack, List, ListItem, Spinner } from "@chakra-ui/react";
 
+import { Button, Heading } from "../../components";
 import { Item } from "./Selector";
 
 interface Props {

@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import Heading from "../../components/Heading";
 
 interface Props {
   children: any;

@@ -3,10 +3,10 @@ import { toast } from "react-toastify";
 
 import { useCategories, useForm, useRequests } from "../../hooks";
 import { Request, schema, populate, FormData } from "../../hooks/useRequest";
-import FormField from "./FormField";
-import SubmitButton from "./SubmitButton";
+import FormField from "../form/FormField";
+import SubmitButton from "../form/SubmitButton";
 import requestsService from "../../services/requests";
-import Form from "./Form";
+import Form from "../form/Form";
 import Select from "../common/Select";
 
 interface Props {

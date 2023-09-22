@@ -1,4 +1,6 @@
-import { Box, Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+
+import Button from "../Button";
 
 interface Props {
   isLoading: boolean;

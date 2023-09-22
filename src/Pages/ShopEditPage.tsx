@@ -2,15 +2,11 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { z } from "zod";
 
-import {
-  Form,
-  FormField,
-  ShopTypeSelector as Selector,
-  SubmitButton,
-} from "../components/form";
+import { Form, FormField, SubmitButton } from "../components/form";
 import { ImageInputList } from "../components/common";
 import { useForm, useImages, useShops } from "../hooks";
 import auth from "../services/auth";
+import Selector from "../components/forms/FormShopTypeSelector";
 
 const schema = z.object({
   name: z.string().min(3, "Name should be between 3 & 50 chars").max(50),

@@ -1,5 +1,7 @@
-import { Button, ButtonProps } from "@chakra-ui/react";
+import { ButtonProps } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
+
+import Button from "../Button";
 
 interface Props extends ButtonProps {
   Element?: JSX.Element;
@@ -13,7 +15,6 @@ const NavButton = ({ Element, label, to, ...otherProps }: Props) => (
       {...otherProps}
       as="a"
       fontSize="sm"
-      fontFamily="andika"
       fontWeight={400}
       variant="link"
     >

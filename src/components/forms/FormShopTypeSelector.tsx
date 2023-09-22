@@ -1,4 +1,4 @@
-import Select from "../../components/common/Select";
+import Select from "../common/Select";
 import useTypes from "../../hooks/useTypes";
 
 interface Props {

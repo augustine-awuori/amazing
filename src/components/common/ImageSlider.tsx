@@ -35,6 +35,7 @@ export default function ImageSlider({ images }: Props) {
       borderRadius="full"
       position="absolute"
       left={left ? side : undefined}
+      fontFamily="andika"
       right={left ? undefined : side}
       bottom={side}
       zIndex={2}

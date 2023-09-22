@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Heading } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 import { CardContainer, CardSkeleton } from "../card";
 import { paginate } from "../../utils/paginate";
@@ -7,6 +7,7 @@ import { Shop } from "../../hooks/useShop";
 import { Type } from "../../hooks/useTypes";
 import ErrorMessage from "../form/ErrorMessage";
 import Grid from "../grid";
+import Heading from "../../components/Heading";
 import Pagination from "../common/Pagination";
 import ShopCard from "./Card";
 

@@ -4,7 +4,6 @@ import {
   Avatar,
   Badge,
   Box,
-  Button,
   Container,
   Divider,
   Flex,
@@ -22,7 +21,12 @@ import {
   useReload,
   useTimestamp,
 } from "../hooks";
-import { ProfileActivities, PageContainer, StartChatBtn } from "../components";
+import {
+  Button,
+  ProfileActivities,
+  PageContainer,
+  StartChatBtn,
+} from "../components";
 import empty from "../utils/empty";
 import Text from "../components/Text";
 import usersApi from "../services/users";

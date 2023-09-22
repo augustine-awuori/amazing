@@ -1,6 +1,5 @@
 import {
   useDisclosure,
-  Button,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -10,7 +9,7 @@ import {
   ModalFooter,
 } from "@chakra-ui/react";
 
-import Text from "../../components/Text";
+import { Button, Text } from "../../components";
 
 interface Props {
   title?: string;

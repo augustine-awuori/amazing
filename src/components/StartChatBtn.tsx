@@ -1,6 +1,5 @@
-import { Button } from "@chakra-ui/react";
-
 import { useAppColorMode, useWhatsAppRedirect } from "../hooks";
+import Button from "./Button";
 
 interface Props {
   phoneNumber: string;
@@ -20,8 +19,6 @@ const StartChatBtn = ({ phoneNumber }: Props) => {
       color="#fff"
       onClick={handleStartChatClick}
       as="a"
-      href={url}
-      target="_blank"
       rel="noopener noreferrer"
       maxW="500px"
       w="100%"

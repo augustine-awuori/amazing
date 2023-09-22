@@ -1,7 +1,8 @@
-import { Badge, Button } from "@chakra-ui/react";
+import { Badge } from "@chakra-ui/react";
 import { AiOutlineShopping } from "react-icons/ai";
 
 import { useAppColorMode } from "../../hooks";
+import Button from "../../components/Button";
 
 export interface ProductCardBtnFuncs {
   onQuantityDecrease: (id: string) => void;

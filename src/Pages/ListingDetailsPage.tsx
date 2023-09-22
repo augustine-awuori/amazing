@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Box, Button, HStack, SkeletonText } from "@chakra-ui/react";
+import { Box, HStack, SkeletonText } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import { empty, figure } from "../utils";
 import {
+  Button,
   CardContainer,
   CardSkeleton,
   ImageSlider,
@@ -11,6 +12,7 @@ import {
   Modal,
   PageContainer,
   StartChatBtn,
+  Text,
 } from "../components";
 import {
   useAppColorMode,
@@ -20,9 +22,8 @@ import {
   useReload,
   useTimestamp,
 } from "../hooks";
-import ListingUpdateForm from "../components/form/ListingUpdateForm";
-import listingsService from "../services/listings";
-import Text from "../components/Text";
+import ListingUpdateForm from "../components/forms/ListingUpdateForm";
+import service from "../services/listings";
 
 const ListingDetailsPage = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const ListingDetailsPage = () => {
   const { info, isLoading, request } = useReload(
     listing,
     empty.listing,
-    listingsService.getListing
+    service.getListing
   );
   const userId = info.author._id;
   const isTheAuthor = useCurrentUser(userId);

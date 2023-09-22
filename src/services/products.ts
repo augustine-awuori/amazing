@@ -23,4 +23,7 @@ const create = ({ author, image, name, price, shop }: NewProduct) => {
   });
 };
 
-export default { create };
+const update = (info: { name: string; price: string }, productId: string) =>
+  client.patch(`${endpoint}/${productId}`, info);
+
+export default { create, update };

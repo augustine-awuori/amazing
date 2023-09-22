@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { z } from "zod";
 
-import { ImageInputList } from "../../components/common";
+import { ImageInputList } from "../common";
 import { useForm, useImages, useProducts } from "../../hooks";
 import authApi from "../../services/auth";
-import Form from "./Form";
-import FormField from "./FormField";
-import SubmitButton from "./SubmitButton";
+import Form from "../form/Form";
+import FormField from "../form/FormField";
+import SubmitButton from "../form/SubmitButton";
 
-const schema = z.object({
+export const schema = z.object({
   name: z.string().min(1, "Name should be between 1 and 50 characters").max(50),
   price: z
     .string()
@@ -17,15 +17,16 @@ const schema = z.object({
     .max(1_000_000),
 });
 
-type FormData = z.infer<typeof schema>;
+export type FormData = z.infer<typeof schema>;
 
 const IMAGES_COUNT = 1;
 
 interface Props {
+  onDone: () => void;
   shopId: string;
 }
 
-const NewProductForm = ({ shopId }: Props) => {
+const NewProductForm = ({ onDone, shopId }: Props) => {
   const { errors, handleSubmit, register, reset } = useForm(schema);
   const { imagesCount, images, removeAllImages } = useImages(IMAGES_COUNT);
   const [isLoading, setLoading] = useState(false);
@@ -49,6 +50,7 @@ const NewProductForm = ({ shopId }: Props) => {
     setLoading(false);
     if (!ok) return setError(message);
 
+    onDone();
     removeAllImages();
     reset();
   };

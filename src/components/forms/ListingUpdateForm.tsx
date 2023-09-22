@@ -4,11 +4,11 @@ import { z } from "zod";
 
 import { Listing, ListingInfo, schema } from "../../hooks/useListing";
 import { useCategories, useForm, useListings } from "../../hooks";
-import Form from "./Form";
-import FormField from "./FormField";
+import Form from "../form/Form";
+import FormField from "../form/FormField";
 import listingsService from "../../services/listings";
 import Select from "../common/Select";
-import SubmitButton from "./SubmitButton";
+import SubmitButton from "../form/SubmitButton";
 
 type FormData = z.infer<typeof schema>;
 

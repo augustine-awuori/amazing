@@ -1,4 +1,5 @@
 export { default as Avatar } from "./common/Avatar";
+export { default as Button } from "./Button";
 export { default as CardContainer } from "./card/Container";
 export { default as CardImage } from "./card/Image";
 export { default as CardSkeleton } from "./card/Skeleton";
@@ -9,6 +10,7 @@ export { default as Footer } from "./Footer";
 export { default as Grid } from "./grid";
 export { default as GridHeading } from "./grid/Heading";
 export { default as GridPageContainer } from "./grid/PageContainer";
+export { default as Heading } from "./Heading";
 export { default as ImageSlider } from "./common/ImageSlider";
 export { default as ListingCard } from "./listings/Card";
 export { default as ListingCategoriesGridPageContainer } from "./listings/category/GridPageContainer";

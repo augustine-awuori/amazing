@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Button, HStack, Heading, IconButton } from "@chakra-ui/react";
+import { HStack, IconButton } from "@chakra-ui/react";
 import { FaChevronLeft, FaPaperPlane } from "react-icons/fa";
 
+import { Button, Heading, PageContainer } from "../components";
 import BagTable from "../components/shops/BagTable";
 import DismissableInfo from "../components/common/DismissableInfo";
-import PageContainer from "../components/PageContainer";
 import useBag from "../hooks/useBag";
 
 const message =
