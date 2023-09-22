@@ -20,7 +20,7 @@ const Selector = ({
   selectedItem,
 }: Props) => (
   <Menu>
-    <MenuButton as={Button} rightIcon={<BsChevronDown />}>
+    <MenuButton as={Button} rightIcon={<BsChevronDown />} fontFamily="andika">
       {selectedItem?.label || name}
     </MenuButton>
     <MenuList>
