@@ -31,8 +31,9 @@ const FormField = ({
 
   return (
     <FormControl marginBottom={4}>
-      <FormLabel>{label}</FormLabel>
+      <FormLabel fontFamily="andika">{label}</FormLabel>
       <Input
+        fontFamily="andika"
         type={type}
         placeholder={placeholder || label}
         {...register(inputName)}
