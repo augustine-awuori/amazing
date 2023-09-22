@@ -6,7 +6,6 @@ import {
   Table,
   Tbody,
   Td,
-  Text,
   Tfoot,
   Th,
   Thead,
@@ -15,6 +14,7 @@ import {
 
 import { Modal } from "../../components";
 import figure from "../../utils/figure";
+import Text from "../../components/Text";
 
 export interface BagProduct {
   _id: string;

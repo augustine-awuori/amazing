@@ -1,7 +1,8 @@
-import { Box, Flex, Image, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Flex, Image, useColorModeValue } from "@chakra-ui/react";
 
 import { useAppColorMode } from "../../hooks";
 import Button, { ProductCardBtnFuncs } from "./ProductCardButton";
+import Text from "../../components/Text";
 
 export interface Product {
   _id: string;

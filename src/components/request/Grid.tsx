@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Heading, Text } from "@chakra-ui/react";
+import { Box, Heading } from "@chakra-ui/react";
 
 import { CardContainer, CardSkeleton } from "../card";
 import { Category } from "../../hooks/useCategories";
@@ -8,6 +8,7 @@ import { Request } from "../../hooks/useRequest";
 import Grid from "../grid";
 import Pagination from "../common/Pagination";
 import RequestCard from "./Card";
+import Text from "../../components/Text";
 import useRequests from "../../hooks/useRequests";
 
 interface Props {

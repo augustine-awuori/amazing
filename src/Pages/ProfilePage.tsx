@@ -13,7 +13,6 @@ import {
   SkeletonCircle,
   SkeletonText,
   Stack,
-  Text,
 } from "@chakra-ui/react";
 
 import {
@@ -25,6 +24,7 @@ import {
 } from "../hooks";
 import { ProfileActivities, PageContainer, StartChatBtn } from "../components";
 import empty from "../utils/empty";
+import Text from "../components/Text";
 import usersApi from "../services/users";
 
 const ProfilePage = () => {

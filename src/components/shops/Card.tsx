@@ -1,4 +1,4 @@
-import { HStack, Text } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 
 import { Shop } from "../../hooks/useShop";
 import Body from "../card/Body";
@@ -6,6 +6,7 @@ import Card from "../card/index.tsx";
 import format from "../../utils/format";
 import Heading from "../card/Heading";
 import Image from "../card/Image";
+import Text from "../../components/Text";
 import UserAvatar from "../common/MediaQuery.tsx";
 import useAppColorMode from "../../hooks/useAppColorMode";
 

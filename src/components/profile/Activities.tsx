@@ -1,7 +1,8 @@
-import { Box, Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Center, Flex } from "@chakra-ui/react";
 
 import { useProfileListings, useProfileRequests } from "../../hooks";
 import ProfileActivity from "./Activity";
+import Text from "../../components/Text";
 
 interface Props {
   onListingsClick: () => void;

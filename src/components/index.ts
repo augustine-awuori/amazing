@@ -30,6 +30,7 @@ export { default as ShopsGrid } from "./shops/Grid";
 export { default as ShopsTypesGridPageContainer } from "./shops/types/GridPageContainer";
 export { default as ShopTypeSelector } from "./shops/types/Selector";
 export { default as StartChatBtn } from "./StartChatBtn";
-export { default as VerifiedIcon } from "./common/VerifiedIcon";
+export { default as Text } from "./Text";
 export { default as TextInput } from "./common/TextInput";
 export { default as TypeList } from "./shops/types/List";
+export { default as VerifiedIcon } from "./common/VerifiedIcon";

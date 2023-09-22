@@ -1,7 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 import { Request } from "../../hooks/useRequest";
 import { useAppColorMode, useTimestamp } from "../../hooks";
+import Text from "../../components/Text";
 import UserAvatar from "../common/MediaQuery";
 
 interface Props {

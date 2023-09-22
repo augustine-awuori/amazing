@@ -9,7 +9,8 @@ import {
   ModalBody,
   ModalFooter,
 } from "@chakra-ui/react";
-import { Text } from "@chakra-ui/react";
+
+import Text from "../../components/Text";
 
 interface Props {
   title?: string;

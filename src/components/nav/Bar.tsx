@@ -5,7 +5,6 @@ import {
   Flex,
   IconButton,
   Stack,
-  Text,
   useBreakpointValue,
   useColorModeValue,
   useDisclosure,
@@ -17,6 +16,7 @@ import DesktopNav from "./Desktop";
 import format from "../../utils/format";
 import MobileNav from "./Mobile";
 import NavButton from "./Button";
+import Text from "../../components/Text";
 import useAppColorMode from "../../hooks/useAppColorMode";
 
 interface Props {
@@ -67,7 +67,6 @@ export default function WithSubNav({ user }: Props) {
           <NavLink to="/">
             <Text
               textAlign={useBreakpointValue({ base: "center", md: "left" })}
-              fontFamily="andika"
               fontWeight="bold"
               color={useColorModeValue("gray.800", "white")}
               fontSize={17}

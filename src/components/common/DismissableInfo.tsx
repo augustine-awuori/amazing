@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
+
+import Text from "../../components/Text";
 
 interface DismissableInfoProps {
   message: string;

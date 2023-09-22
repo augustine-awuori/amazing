@@ -1,5 +1,6 @@
-import { Box, Flex, HStack, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack } from "@chakra-ui/react";
 
+import Text from "../components/Text";
 import VerifiedIcon from "./common/VerifiedIcon";
 
 interface Props {

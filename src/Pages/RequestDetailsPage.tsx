@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, SkeletonText, Text } from "@chakra-ui/react";
+import { Box, Button, SkeletonText } from "@chakra-ui/react";
 
 import { MediaQuery, Modal, PageContainer, StartChatBtn } from "../components";
 import {
@@ -14,6 +14,7 @@ import {
 import empty from "../utils/empty";
 import requestsService from "../services/requests";
 import RequestUpdateForm from "../components/form/RequestUpdateForm";
+import Text from "../components/Text";
 
 const RequestDetailsPage = () => {
   const { accentColor } = useAppColorMode();

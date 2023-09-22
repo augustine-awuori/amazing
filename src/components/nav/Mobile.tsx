@@ -2,7 +2,6 @@ import {
   Box,
   useDisclosure,
   Stack,
-  Text,
   useColorModeValue,
   Icon,
   Collapse,
@@ -10,6 +9,7 @@ import {
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 import { NavItem, NAV_ITEMS } from "../../data/navItems";
+import Text from "../../components/Text";
 
 const MobileNavItem = ({ label, children, href }: NavItem) => {
   const { isOpen, onToggle } = useDisclosure();

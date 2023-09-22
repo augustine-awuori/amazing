@@ -1,7 +1,8 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
 import ErrorMessage from "./ErrorMessage";
 import PageContainer from "../PageContainer";
+import Text from "../../components/Text";
 
 interface Props {
   children: any;

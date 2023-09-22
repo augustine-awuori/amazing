@@ -1,14 +1,8 @@
 import { ChevronRightIcon } from "@chakra-ui/icons";
-import {
-  Box,
-  useColorModeValue,
-  Stack,
-  Text,
-  Flex,
-  Icon,
-} from "@chakra-ui/react";
+import { Box, useColorModeValue, Stack, Flex, Icon } from "@chakra-ui/react";
 
 import { NavItem } from "../../data/navItems";
+import Text from "../../components/Text";
 import useAppColorMode from "../../hooks/useAppColorMode";
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {

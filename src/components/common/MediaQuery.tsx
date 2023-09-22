@@ -1,13 +1,9 @@
-import {
-  Avatar,
-  Wrap,
-  WrapItem,
-  Text,
-  ResponsiveValue,
-} from "@chakra-ui/react";
+import { Avatar, Wrap, WrapItem, ResponsiveValue } from "@chakra-ui/react";
 import { getFirstWord } from "../../utils/format";
 import { User } from "../../hooks/useUser";
 import VerifiedIcon from "./VerifiedIcon";
+
+import Text from "../../components/Text";
 
 interface Props {
   onClick?: () => void;

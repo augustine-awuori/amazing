@@ -1,5 +1,6 @@
-import { Text } from "@chakra-ui/react";
 import { FieldError } from "react-hook-form";
+
+import Text from "../../components/Text";
 
 interface Props {
   error: any | undefined;

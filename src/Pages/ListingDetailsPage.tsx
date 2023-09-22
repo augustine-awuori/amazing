@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Button, HStack, SkeletonText, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, SkeletonText } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import { empty, figure } from "../utils";
@@ -22,6 +22,7 @@ import {
 } from "../hooks";
 import ListingUpdateForm from "../components/form/ListingUpdateForm";
 import listingsService from "../services/listings";
+import Text from "../components/Text";
 
 const ListingDetailsPage = () => {
   const navigate = useNavigate();

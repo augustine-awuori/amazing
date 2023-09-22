@@ -12,6 +12,7 @@ const NavButton = ({ label, to, ...otherProps }: Props) => (
       {...otherProps}
       as="a"
       fontSize="sm"
+      fontFamily="andika"
       fontWeight={400}
       variant="link"
     >

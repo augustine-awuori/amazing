@@ -25,6 +25,7 @@ const DesktopNav = () => {
                 as="a"
                 p={2}
                 href={navItem.href ?? "#"}
+                fontFamily="andika"
                 fontSize="sm"
                 fontWeight={500}
                 color={linkColor}

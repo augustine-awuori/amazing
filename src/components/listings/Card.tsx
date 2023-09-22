@@ -1,4 +1,4 @@
-import { HStack, Text } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 
 import { Listing } from "../../hooks/useListing";
 import { useTimestamp, useAppColorMode } from "../../hooks";
@@ -7,6 +7,7 @@ import Card from "../card/index.tsx";
 import figure from "../../utils/figure.ts";
 import Heading from "../card/Heading";
 import Image from "../card/Image";
+import Text from "../../components/Text";
 import UserAvatar from "../common/MediaQuery.tsx";
 
 interface Props {
