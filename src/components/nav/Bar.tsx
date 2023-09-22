@@ -12,8 +12,8 @@ import {
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
 
 import { User } from "../../hooks/useUser";
+import Avatar from "../../components/common/Avatar";
 import DesktopNav from "./Desktop";
-import format from "../../utils/format";
 import MobileNav from "./Mobile";
 import NavButton from "./Button";
 import Text from "../../components/Text";
@@ -91,8 +91,8 @@ export default function WithSubNav({ user }: Props) {
             <>
               <NavButton to="/logout" label="Logout" />
               <NavButton
+                Element={<Avatar name={user?.name} size="xs" src="" />}
                 to={`/profile/${user?._id}`}
-                label={format.getFirstWord(user?.name)}
               />
             </>
           ) : (
