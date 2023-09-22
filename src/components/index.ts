@@ -15,7 +15,7 @@ export { default as ListingCategoriesGridPageContainer } from "./listings/catego
 export { default as ListingGrid } from "./listings/Grid";
 export { default as MediaQuery } from "./common/MediaQuery";
 export { default as Modal } from "./common/Modal";
-export { default as NavBar } from "./NavBar";
+export { default as NavBar } from "./nav/Bar";
 export { default as PageContainer } from "./PageContainer";
 export { default as Paragraph } from "./common/Paragraph";
 export { default as ProfileActivities } from "./profile/Activities";
