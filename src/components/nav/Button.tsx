@@ -2,11 +2,12 @@ import { Button, ButtonProps } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
 interface Props extends ButtonProps {
-  label: string;
+  Element?: JSX.Element;
+  label?: string;
   to: string;
 }
 
-const NavButton = ({ label, to, ...otherProps }: Props) => (
+const NavButton = ({ Element, label, to, ...otherProps }: Props) => (
   <NavLink to={to}>
     <Button
       {...otherProps}
@@ -16,7 +17,7 @@ const NavButton = ({ label, to, ...otherProps }: Props) => (
       fontWeight={400}
       variant="link"
     >
-      {label}
+      {label || Element}
     </Button>
   </NavLink>
 );

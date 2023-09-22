@@ -38,6 +38,7 @@ const AsideList = ({
             <HStack>
               <Button
                 fontSize="lg"
+                fontFamily="andika"
                 fontWeight={item._id === selectedItem?._id ? "bold" : "normal"}
                 onClick={() => onSelectItem(item)}
                 textAlign="left"

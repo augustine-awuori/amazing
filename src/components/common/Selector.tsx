@@ -25,7 +25,11 @@ const Selector = ({
     </MenuButton>
     <MenuList>
       {data.map((item) => (
-        <MenuItem key={item._id} onClick={() => onSelectItem(item)}>
+        <MenuItem
+          key={item._id}
+          fontFamily="andika"
+          onClick={() => onSelectItem(item)}
+        >
           {item.label}
         </MenuItem>
       ))}
