@@ -4,15 +4,16 @@ import { HStack, IconButton } from "@chakra-ui/react";
 import { FaChevronLeft, FaPaperPlane } from "react-icons/fa";
 
 import { Button, Heading, PageContainer } from "../components";
+import { useBag, useShop } from "../hooks";
 import BagTable from "../components/shops/BagTable";
 import DismissableInfo from "../components/common/DismissableInfo";
-import useBag from "../hooks/useBag";
 
 const message =
   "When you place an order, the shop owner will contact you to arrange delivery and payment.";
 
 const ShoppingBagPage = () => {
   const { bag } = useBag();
+  const { shop } = useShop();
   const navigate = useNavigate();
 
   const products = [...bag.products];
@@ -34,10 +35,10 @@ const ShoppingBagPage = () => {
           onClick={() => navigate(-1)}
         />
         <Heading mb={3} ml={1}>
-          {"Book Store - Shopping Bag"}
+          {`${shop?.name} - Shopping Bag`}
         </Heading>
       </HStack>
-      <BagTable data={products.map((p) => ({ ...p, deleted: false }))} />
+      <BagTable />
       {products.length ? (
         <Button mt={7} rightIcon={<FaPaperPlane />} onClick={handleSendRequest}>
           Send Order

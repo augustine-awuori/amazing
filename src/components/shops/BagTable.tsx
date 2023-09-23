@@ -1,25 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Table, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 
 import { Button, Heading, Modal, Text } from "../../components";
-import figure from "../../utils/figure";
+import { figure, mapToProduct } from "../../utils";
+import { Product } from "./product/Card";
+import useBag from "../../hooks/useBag";
 
-export interface BagProduct {
-  _id: string;
+export interface BagProduct extends Product {
   deleted: boolean;
-  name: string;
-  price: number;
-  quantity: number;
 }
 
-const BagTable = ({ data }: { data: BagProduct[] }) => {
-  const [products, setProducts] = useState(data);
+const BagTable = () => {
+  const [products, setProducts] = useState<BagProduct[]>([]);
   const [modalOpen, setModalVisibility] = useState(false);
+  const [productId, setProductId] = useState("");
+  const { bag, setBag } = useBag();
 
-  const handleRemovalRequest = (name: string) => {
+  useEffect(() => {
+    setProducts(bag.products.map((p) => ({ ...p, deleted: false })));
+  }, [products.length]);
+
+  const getBagProducts = (products: BagProduct[]): Product[] =>
+    products.map(mapToProduct);
+
+  const handleRemovalRequest = (id: string) => {
     setProducts(
       products.map((p) => {
-        if (p.name === name) {
+        if (p._id === id) {
           p.deleted = true;
         }
 
@@ -30,34 +37,48 @@ const BagTable = ({ data }: { data: BagProduct[] }) => {
     setModalVisibility(true);
   };
 
-  const handleReduce = (name: string, deleted: boolean) =>
-    setProducts(
-      products.map((p) => {
-        if (p.name === name) {
-          deleted ? handleRemovalRequest(name) : (p.quantity -= 1);
-        }
+  const handleReduce = (id: string, deleted: boolean) => {
+    const updated = products.map((p) => {
+      if (p._id === id) {
+        deleted ? handleRemovalRequest(id) : (p.quantity -= 1);
+      }
 
-        return p;
-      })
-    );
+      return p;
+    });
 
-  const handleIncrease = (name: string) =>
-    setProducts(
-      products.map((p) => {
-        if (p.name === name) {
-          p.quantity += 1;
-        }
-
-        return p;
-      })
-    );
-
-  const handleRemoval = () => {
-    setModalVisibility(false);
-    setProducts(products.filter((p) => !p.deleted));
+    setProducts(updated);
+    setBag({
+      ids: bag.ids,
+      products: getBagProducts(updated),
+    });
   };
 
-  const handleAbort = () => {
+  const handleIncrease = (id: string) => {
+    const updated = products.map((p) => {
+      if (p._id === id) {
+        p.quantity += 1;
+      }
+
+      return p;
+    });
+
+    setProducts(updated);
+    setBag({
+      ids: bag.ids,
+      products: getBagProducts(updated),
+    });
+  };
+
+  const handleRemoval = () => {
+    const ids = { ...bag.ids };
+    delete ids[productId];
+
+    setModalVisibility(false);
+    setProducts(products.filter((p) => !p.deleted));
+    setBag({ ids, products: bag.products.filter((p) => p._id !== productId) });
+  };
+
+  const handleAbort = (): void => {
     setProducts(
       products.map((p) => {
         if (p.deleted) p.deleted = false;
@@ -70,12 +91,12 @@ const BagTable = ({ data }: { data: BagProduct[] }) => {
   };
 
   const getGrandTotal = () => {
-    const total = products.reduce(
+    const grandTotal = products.reduce(
       (total, { price, quantity }) => total + quantity * price,
       0
     );
 
-    return figure.roundToTwoDecimalPlaces(total);
+    return figure.roundToTwoDecimalPlaces(grandTotal);
   };
 
   if (!products.length)
@@ -117,7 +138,7 @@ const BagTable = ({ data }: { data: BagProduct[] }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {products.map(({ name, price, quantity }, index) => (
+            {products.map(({ _id, name, price, quantity }, index) => (
               <Tr key={index}>
                 <Td>
                   <Text isTruncated maxW="150px">
@@ -130,13 +151,22 @@ const BagTable = ({ data }: { data: BagProduct[] }) => {
                 <Td p={0}>
                   <Button
                     size="sm"
-                    onClick={() => handleReduce(name, quantity === 1)}
+                    onClick={() => {
+                      setProductId(_id);
+                      handleReduce(_id, quantity === 1);
+                    }}
                   >
                     -
                   </Button>
                 </Td>
                 <Td p={0}>
-                  <Button size="sm" onClick={() => handleIncrease(name)}>
+                  <Button
+                    size="sm"
+                    onClick={() => {
+                      setProductId(_id);
+                      handleIncrease(_id);
+                    }}
+                  >
                     +
                   </Button>
                 </Td>
@@ -145,7 +175,10 @@ const BagTable = ({ data }: { data: BagProduct[] }) => {
                     bgColor="tomato"
                     _hover={{ bgColor: "red.500" }}
                     size="sm"
-                    onClick={() => handleRemovalRequest(name)}
+                    onClick={() => {
+                      setProductId(_id);
+                      handleRemovalRequest(_id);
+                    }}
                   >
                     x
                   </Button>
