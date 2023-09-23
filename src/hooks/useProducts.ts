@@ -15,6 +15,7 @@ const output = {
   productsCount: 0,
   setProducts: () => {},
   update: () => ({ error: "", ok: false }),
+  deleteProductBy: () => ({ error: "", ok: false }),
 };
 
 const useProducts = (shopId: string | undefined) => {
@@ -58,8 +59,24 @@ const useProducts = (shopId: string | undefined) => {
     return { error, ok };
   };
 
+  const deleteProductBy = async (productId: string) => {
+    const old = [...products];
+    setProducts(old.filter((p) => p._id !== productId));
+
+    const { data, ok, problem } = await service.deleteProductBy(productId);
+    let error = "";
+    if (!ok) {
+      setProducts(old);
+      toast.error("Product deletion terminated unsuccessfully!");
+      error = (data as any)?.error || problem;
+    } else toast("Product deleted succesfully!");
+
+    return { ok, error };
+  };
+
   return {
     create,
+    deleteProductBy,
     isLoading,
     products: error || isLoading ? [] : data,
     productsCount: data?.length || 0,

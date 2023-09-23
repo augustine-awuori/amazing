@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { z } from "zod";
 
+import { Button, Modal, Text } from "../../components";
 import { Form, FormField, SubmitButton } from "../../components/form";
-import { FormData, schema } from "./NewProductForm";
+import { schema } from "./NewProductForm";
 import { Product } from "../shops/product/Card";
 import { useForm, useProducts, useShop } from "../../hooks";
+
+type FormData = z.infer<typeof schema>;
 
 interface Props {
   product: Product | undefined;
@@ -18,6 +22,7 @@ const ProductUpdateForm = ({ onDone, product }: Props) => {
   const { errors, handleSubmit, register, reset } = useForm(schema);
   const { shop } = useShop();
   const service = useProducts(shop?._id);
+  const [showModal, setShowModal] = useState(false);
 
   const doSubmit = async (info: FormData) => {
     if (error) setError("");
@@ -32,31 +37,63 @@ const ProductUpdateForm = ({ onDone, product }: Props) => {
     onDone();
   };
 
+  const handleDelete = async () => {
+    onDone();
+    setShowModal(false);
+
+    if (!product) return;
+    const { ok, error } = await service.deleteProductBy(product._id);
+    if (!ok) setError(error);
+  };
+
   return (
-    <Form
-      error={error}
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      title="Update Product"
-      usePageContainer={false}
-    >
-      <FormField
-        error={errors.name}
-        label="Name"
-        onChange={setName}
-        register={register}
-        value={name}
+    <>
+      <Modal
+        isOpen={showModal}
+        title="Product Deletion Request"
+        content={`Are you sure you want to delete "${name}" product permanently?`}
+        onModalClose={() => setShowModal(false)}
+        primaryBtnLabel="Confirm"
+        secondaryBtnLabel="Cancel"
+        onPrimaryClick={handleDelete}
+        onSecondaryClick={() => setShowModal(false)}
       />
-      <FormField
-        error={errors.price}
-        label="Price"
-        onChange={(text) => setPrice(parseInt(text))}
-        register={register}
-        type="number"
-        value={price}
-      />
-      <SubmitButton label="Update" isLoading={isLoading} />
-    </Form>
+      <Form
+        error={error}
+        handleSubmit={handleSubmit}
+        onSubmit={doSubmit}
+        title="Update Product"
+        usePageContainer={false}
+      >
+        <FormField
+          error={errors.name}
+          label="Name"
+          onChange={setName}
+          register={register}
+          value={name}
+        />
+        <FormField
+          error={errors.price}
+          label="Price"
+          onChange={(text) => setPrice(parseInt(text))}
+          register={register}
+          type="number"
+          value={price}
+        />
+        <SubmitButton label="Update" isLoading={isLoading} />
+        <Text textAlign="center" my={2}>
+          or
+        </Text>
+        <Button
+          w="100%"
+          bgColor="red.200"
+          _hover={{ bgColor: "red.300" }}
+          onClick={() => setShowModal(true)}
+        >
+          Delete
+        </Button>
+      </Form>
+    </>
   );
 };
 

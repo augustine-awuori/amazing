@@ -1,13 +1,17 @@
-import { FormData } from "../components/forms/NewProductForm";
 import client from "./client";
 
-export interface NewProduct extends FormData {
+export interface NewProduct {
   author: string;
+  description: string;
+  name: string;
+  price: string;
   image: File;
   shop: string;
 }
 
 export const endpoint = "/products";
+
+const getProductURL = (productId: string) => `${endpoint}/${productId}`;
 
 const create = ({
   author,
@@ -31,6 +35,9 @@ const create = ({
 };
 
 const update = (info: { name: string; price: string }, productId: string) =>
-  client.patch(`${endpoint}/${productId}`, info);
+  client.patch(getProductURL(productId), info);
 
-export default { create, update };
+const deleteProductBy = (productId: string) =>
+  client.delete(getProductURL(productId));
+
+export default { create, deleteProductBy, update };

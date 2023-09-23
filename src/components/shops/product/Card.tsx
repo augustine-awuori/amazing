@@ -40,10 +40,9 @@ const ProductCard: React.FC<Props> = ({
       cursor="pointer"
       overflow="hidden"
       position="relative"
-      onClick={onClick}
     >
       <Box position="relative">
-        <Image src={image} alt={name} w="100%" />
+        <Image src={image} alt={name} w="100%" onClick={onClick} />
         {!showButton && (
           <Flex position="absolute" top={0} right={0} p="2" onClick={onEdit}>
             <Icon as={EditIcon} boxSize={6} color="white" />

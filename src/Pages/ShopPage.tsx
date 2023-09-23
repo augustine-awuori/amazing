@@ -22,7 +22,7 @@ const PAGE_SIZE = 6;
 
 const ShopPage = () => {
   const [showProductForm, setShowProductForm] = useState(false);
-  const [showProductEditForm, setShowProductEditForm] = useState(false);
+  const [showProductUpdateForm, setShowProductEditForm] = useState(false);
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const { bag, setBag } = useBag();
@@ -116,8 +116,8 @@ const ShopPage = () => {
 
   const switchShowProductForm = () => setShowProductForm(!showProductForm);
 
-  const switchShowProductEditForm = () =>
-    setShowProductEditForm(!showProductEditForm);
+  const switchShowProductUpdateForm = () =>
+    setShowProductEditForm(!showProductUpdateForm);
 
   const switchShowProductDetails = () =>
     setShowProductDetails(!showProductDetails);
@@ -144,14 +144,14 @@ const ShopPage = () => {
         />
       )}
       <Modal
-        isOpen={showProductEditForm}
+        isOpen={showProductUpdateForm}
         content={
           <ProductUpdateForm
             product={product}
-            onDone={switchShowProductEditForm}
+            onDone={switchShowProductUpdateForm}
           />
         }
-        onModalClose={switchShowProductEditForm}
+        onModalClose={switchShowProductUpdateForm}
       />
       {product && (
         <Modal
