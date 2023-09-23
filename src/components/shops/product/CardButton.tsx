@@ -32,6 +32,7 @@ const ProductCardButton = ({
           fontSize="sm"
           px={4}
           py={2}
+          mx={5}
         >
           {quantity}
         </Badge>

@@ -1,5 +1,4 @@
 import { Box } from "@chakra-ui/react";
-
 import { ProductCardBtnProps } from "./CardButton";
 import Button from "./CardButton";
 import Text from "../../../components/Text";
@@ -19,11 +18,11 @@ const ProductDetails = ({
   const { accentColor } = useAppColorMode();
 
   return (
-    <Box>
-      <Text color={accentColor} fontWeight="extrabold" fontSize="md" mb={1}>
+    <Box py={3}>
+      <Text color={accentColor} fontWeight="extrabold" fontSize="lg" mb={3}>
         {name}
       </Text>
-      <Text>{description}</Text>
+      <Text mb={3}>{description}</Text>
       <Button {...otherProps} />
     </Box>
   );
