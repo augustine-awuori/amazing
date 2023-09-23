@@ -15,6 +15,7 @@ export const schema = z.object({
     .string()
     .min(1, "Price should be between Ksh 1 and  Ksh 1M")
     .max(1_000_000),
+  description: z.string(),
 });
 
 export type FormData = z.infer<typeof schema>;
@@ -72,6 +73,11 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
         label="Price"
         register={register}
         type="number"
+      />
+      <FormField
+        error={errors.description}
+        label="Description"
+        register={register}
       />
       <SubmitButton label="Save" isLoading={isLoading} />
     </Form>

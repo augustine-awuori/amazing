@@ -1,13 +1,14 @@
 import { Box, Flex, Image, useColorModeValue, Icon } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons"; // Assuming you're using Chakra UI Icons library
 
-import { useAppColorMode } from "../../hooks";
-import Button, { ProductCardBtnFuncs } from "./ProductCardButton";
-import figure from "../../utils/figure";
-import Text from "../../components/Text";
+import { useAppColorMode } from "../../../hooks";
+import Button, { ProductCardBtnFuncs } from "./CardButton";
+import figure from "../../../utils/figure";
+import Text from "../../Text";
 
 export interface Product {
   _id: string;
+  description: string;
   name: string;
   price: number;
   quantity: number;
@@ -16,12 +17,14 @@ export interface Product {
 
 interface Props extends ProductCardBtnFuncs {
   data: Product;
+  onClick: () => void;
   onEdit: () => void;
   showButton: boolean;
 }
 
 const ProductCard: React.FC<Props> = ({
   data: { _id, image, name, price, quantity },
+  onClick,
   onEdit,
   onQuantityDecrease,
   onQuantityIncrease,
@@ -37,6 +40,7 @@ const ProductCard: React.FC<Props> = ({
       cursor="pointer"
       overflow="hidden"
       position="relative"
+      onClick={onClick}
     >
       <Box position="relative">
         <Image src={image} alt={name} w="100%" />

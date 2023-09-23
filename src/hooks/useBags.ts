@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
 import BagsContext, { ShopProduct } from "../contexts/BagsContext";
-import { Product } from "../components/shops/ProductCard";
+import { Product } from "../components/shops/product/Card";
 
 const useBag = () => {
   const { bags: bag, setBags: setBag } = useContext(BagsContext);

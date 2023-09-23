@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import { endpoint, NewProduct } from "../services/products";
 import { FormData } from "../components/forms/NewProductForm";
-import { Product } from "../components/shops/ProductCard";
+import { Product } from "../components/shops/product/Card";
 import ProductsContext from "../contexts/ProductsContext";
 import service from "../services/products";
 import useData from "./useData";

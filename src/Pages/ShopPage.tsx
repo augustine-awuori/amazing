@@ -15,13 +15,15 @@ import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
 import Grid from "../components/grid";
 import Header from "../components/shops/ShopPageHeader";
-import ProductCard, { Product } from "../components/shops/ProductCard";
+import ProductCard, { Product } from "../components/shops/product/Card";
+import ProductDetails from "../components/shops/product/Details";
 
 const PAGE_SIZE = 6;
 
 const ShopPage = () => {
   const [showProductForm, setShowProductForm] = useState(false);
   const [showProductEditForm, setShowProductEditForm] = useState(false);
+  const [showProductDetails, setShowProductDetails] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const { bag, setBag } = useBag();
   const navigate = useNavigate();
@@ -117,9 +119,17 @@ const ShopPage = () => {
   const switchShowProductEditForm = () =>
     setShowProductEditForm(!showProductEditForm);
 
+  const switchShowProductDetails = () =>
+    setShowProductDetails(!showProductDetails);
+
   const handleEdit = (product: Product) => {
     setProduct(product);
     setShowProductEditForm(true);
+  };
+
+  const handleProductClick = (product: Product) => {
+    setProduct(product);
+    switchShowProductDetails();
   };
 
   return (
@@ -143,6 +153,21 @@ const ShopPage = () => {
         }
         onModalClose={switchShowProductEditForm}
       />
+      {product && (
+        <Modal
+          isOpen={showProductDetails}
+          content={
+            <ProductDetails
+              info={product}
+              onQuantityDecrease={handleQuantityDec}
+              onQuantityIncrease={handleQuantityInc}
+              productId={product._id}
+              quantity={product.quantity}
+            />
+          }
+          onModalClose={switchShowProductDetails}
+        />
+      )}
       <PageContainer>
         <ScrollToTopBtn />
         <Header
@@ -165,6 +190,7 @@ const ShopPage = () => {
               <ProductCard
                 data={product}
                 key={index}
+                onClick={() => handleProductClick(product)}
                 onEdit={() => handleEdit(product)}
                 onQuantityDecrease={handleQuantityDec}
                 onQuantityIncrease={handleQuantityInc}

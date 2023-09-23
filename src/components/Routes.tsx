@@ -4,7 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { Bag, ProductsIds } from "../contexts/BagContext";
 import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
-import { Product } from "./shops/ProductCard";
+import { Product } from "./shops/product/Card";
 import { Request } from "../hooks/useRequest";
 import { Shop } from "hooks/useShop";
 import { ShopProduct } from "../contexts/BagsContext";

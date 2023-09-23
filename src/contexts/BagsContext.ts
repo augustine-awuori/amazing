@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Product } from "../components/shops/ProductCard";
+import { Product } from "../components/shops/product/Card";
 
 export type ShopProduct = { [shopId: string]: Product[] };
 
