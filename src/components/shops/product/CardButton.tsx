@@ -42,9 +42,10 @@ const ProductCardButton = ({
 
   return (
     <Button
-      w="100%"
       _hover={{ bgColor: accentColor }}
+      backdropBlur="md"
       onClick={() => onQuantityIncrease(productId)}
+      w="100%"
     >
       Add to Bag <AiOutlineShopping />
     </Button>

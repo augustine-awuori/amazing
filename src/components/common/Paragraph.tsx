@@ -1,12 +1,12 @@
+import { TextProps } from "@chakra-ui/react";
+
 import Text from "../../components/Text";
 
-interface Props {
-  children: any;
-}
-
-const Paragraph = ({ children }: Props) => (
+const Paragraph = ({ children, ...otherProps }: TextProps) => (
   <>
-    <Text marginTop={3}>{children} </Text>
+    <Text marginTop={3} {...otherProps} fontSize="1.1rem">
+      {children}
+    </Text>
     <br />
   </>
 );
