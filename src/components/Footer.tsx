@@ -6,7 +6,7 @@ import useAppColorMode from "../hooks/useAppColorMode";
 import VerifiedIcon from "./common/VerifiedIcon";
 
 interface Props {
-  children?: JSX.Element;
+  children?: JSX.Element | string;
   name: string | undefined;
   owner?: string | undefined;
   verified?: boolean;
