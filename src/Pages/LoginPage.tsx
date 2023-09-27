@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Form, FormField, SubmitButton } from "../components/form";
 import authApi from "../services/auth";
 import useForm from "../hooks/useForm";
+import { DataError } from "services/client";
 
 const schema = z.object({
   username: z
@@ -35,8 +36,8 @@ const LoginPage = () => {
     const { data, ok } = response;
 
     if (!ok) {
-      const error = (data as any)?.error;
-      setError(error);
+      const error = (data as DataError)?.error;
+      if (error) setError(error);
       return setLoginFailed(true);
     }
 

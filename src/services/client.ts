@@ -14,4 +14,8 @@ apiClient.addAsyncRequestTransform(async (request) => {
   if (authToken && request.headers) request.headers["x-auth-token"] = authToken;
 });
 
+export interface DataError {
+  error?: "";
+}
+
 export default apiClient;

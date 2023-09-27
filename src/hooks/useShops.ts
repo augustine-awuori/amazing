@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 
+import { DataError } from "../services/client";
 import { NewShop, Shop } from "./useShop";
 import service, { endpoint } from "../services/shops";
 import ShopsContext from "../contexts/ShopsContext";
@@ -12,13 +13,13 @@ const useShops = () => {
 
   useEffect(() => {
     if (!error) setShops(data);
-  }, []);
+  }, [data, error, setShops]);
 
   const getShops = () => (error ? [] : data);
 
   const create = async (info: NewShop) => {
     const { data, ok, problem } = await service.create(info);
-    const error = (data as any)?.error || problem;
+    const error = (data as DataError)?.error || problem;
 
     if (!ok) toast.error(`Failed! ${error}`);
     else {

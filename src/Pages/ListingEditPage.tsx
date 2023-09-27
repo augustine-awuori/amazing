@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
+import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import { Listing, schema } from "../hooks/useListing";
 import { useForm, useImages, useListings } from "../hooks";
@@ -22,6 +23,7 @@ const ListingEditPage = () => {
   const user = auth.getCurrentUser();
   const { imagesCount, images, removeAllImages } = useImages(MAX_IMAGES);
   const { addListing } = useListings();
+  const navigate = useNavigate();
 
   const doSubmit = async (info: FormData) => {
     if (error) setError("");
@@ -32,11 +34,12 @@ const ListingEditPage = () => {
     const { data, ok, problem } = await service.addListing(listing);
     setLoading(false);
 
-    if (!ok) return setError((data as any)?.error || problem);
+    if (!ok) return setError((data as DataError)?.error || problem);
 
     toast.success("Listing created successfully");
     addListing(data as Listing);
     reset();
+    navigate("/");
     removeAllImages();
   };
 

@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 
+import { DataError } from "../services/client";
 import { endpoint, NewProduct } from "../services/products";
 import { FormData } from "../components/forms/NewProductForm";
 import { Product } from "../components/shops/product/Card";
@@ -8,24 +9,15 @@ import ProductsContext from "../contexts/ProductsContext";
 import service from "../services/products";
 import useData from "./useData";
 
-const output = {
-  create: () => ({ error: "App Error", ok: false }),
-  isLoading: false,
-  products: [],
-  productsCount: 0,
-  setProducts: () => {},
-  update: () => ({ error: "", ok: false }),
-  deleteProductBy: () => ({ error: "", ok: false }),
-};
-
 const useProducts = (shopId: string | undefined) => {
-  if (!shopId) return output;
   const { data, error, isLoading } = useData<Product>(`${endpoint}/${shopId}`);
   const { products, setProducts } = useContext(ProductsContext);
 
   useEffect(() => {
-    if (!error) setProducts(data);
-  }, [shopId, products.length]);
+    if (products.length === data?.length) return;
+
+    if (!error && shopId) setProducts(data);
+  }, [shopId, products.length, data, setProducts, error]);
 
   const create = async (product: NewProduct) => {
     const { data: newProduct, ok, problem } = await service.create(product);
@@ -35,7 +27,7 @@ const useProducts = (shopId: string | undefined) => {
       setProducts([newProduct as Product, ...products]);
       toast("Product has been saved successfully");
     } else {
-      error = (newProduct as any)?.error || problem;
+      error = (newProduct as DataError)?.error || problem;
       toast("Product not saved!");
     }
 
@@ -52,7 +44,7 @@ const useProducts = (shopId: string | undefined) => {
       );
       toast("Product updated successfully");
     } else {
-      error = (data as any)?.error || problem;
+      error = (data as DataError)?.error || problem;
       toast.error("Product update failed!");
     }
 
@@ -68,7 +60,7 @@ const useProducts = (shopId: string | undefined) => {
     if (!ok) {
       setProducts(old);
       toast.error("Product deletion terminated unsuccessfully!");
-      error = (data as any)?.error || problem;
+      error = (data as DataError)?.error || problem;
     } else toast("Product deleted succesfully!");
 
     return { ok, error };

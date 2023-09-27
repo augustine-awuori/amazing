@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
+import { DataError } from "../../services/client";
 import { Listing, ListingInfo, schema } from "../../hooks/useListing";
 import { useCategories, useForm, useListings } from "../../hooks";
 import Form from "../form/Form";
@@ -51,7 +52,7 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
     setLoading(false);
 
     if (!ok) {
-      const error = (data as any)?.error;
+      const error = (data as DataError)?.error;
       toast.error(`Listing update failed!`);
       return setError(error || problem);
     }

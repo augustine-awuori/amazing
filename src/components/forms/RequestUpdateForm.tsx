@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-import { useCategories, useForm, useRequests } from "../../hooks";
+import { DataError } from "../../services/client";
 import { Request, schema, populate, FormData } from "../../hooks/useRequest";
+import { useCategories, useForm, useRequests } from "../../hooks";
 import FormField from "../form/FormField";
 import SubmitButton from "../form/SubmitButton";
 import requestsService from "../../services/requests";
@@ -39,7 +40,7 @@ const RequestUpdateForm = ({ onDone, request }: Props) => {
     setLoading(false);
 
     if (!ok) {
-      const error = (data as any)?.error;
+      const error = (data as DataError)?.error;
       toast.error(`Request update failed!`);
       return setError(error || problem);
     }
