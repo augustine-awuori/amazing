@@ -19,7 +19,7 @@ const useShops = () => {
 
   const create = async (info: NewShop) => {
     const { data, ok, problem } = await service.create(info);
-    const error = (data as DataError)?.error || problem;
+    const error = (data as DataError)?.error || problem || "UNKNOWN_ERROR";
 
     if (!ok) toast.error(`Failed! ${error}`);
     else {

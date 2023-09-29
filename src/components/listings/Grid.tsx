@@ -7,7 +7,7 @@ import { Listing } from "../../hooks/useListing";
 import { paginate } from "../../utils/paginate";
 import ErrorMessage from "../form/ErrorMessage";
 import Grid from "../grid";
-import Heading from "../../components/Heading";
+import Info from "../../components/Info";
 import ListingCard from "./Card";
 import Pagination from "../common/Pagination";
 
@@ -59,7 +59,7 @@ const ListingGrid = ({
             </CardContainer>
           ))
         ) : (
-          <Heading>Listings not found</Heading>
+          <Info show={!isLoading} />
         )}
       </Grid>
       <Box mt={5}>

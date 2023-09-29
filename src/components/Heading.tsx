@@ -1,11 +1,14 @@
 import { Heading, HeadingProps } from "@chakra-ui/react";
 
-interface Props extends HeadingProps {}
+interface Props extends HeadingProps {
+  show?: boolean;
+}
 
-const AppHeading = ({ children, ...otherProps }: Props) => (
-  <Heading {...otherProps} fontFamily="andika">
-    {children}
-  </Heading>
-);
+const AppHeading = ({ children, show = true, ...otherProps }: Props) =>
+  show ? (
+    <Heading {...otherProps} fontFamily="andika">
+      {children}
+    </Heading>
+  ) : null;
 
 export default AppHeading;

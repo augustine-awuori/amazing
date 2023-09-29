@@ -11,6 +11,7 @@ export { default as Grid } from "./grid";
 export { default as GridHeading } from "./grid/Heading";
 export { default as GridPageContainer } from "./grid/PageContainer";
 export { default as Heading } from "./Heading";
+export { default as Info } from "./Info";
 export { default as ImageSlider } from "./common/ImageSlider";
 export { default as ListingCard } from "./listings/Card";
 export { default as ListingCategoriesGridPageContainer } from "./listings/category/GridPageContainer";

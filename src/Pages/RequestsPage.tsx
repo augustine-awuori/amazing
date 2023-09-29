@@ -24,6 +24,7 @@ const RequestsPage = () => {
       <GridPageContainer
         onSelectCategory={setSelectedCategory}
         selectedItem={selectedCategory}
+        gridHeadingLabel="Showing Requests"
       >
         <RequestGrid
           onRequestClick={navigateToDetails}

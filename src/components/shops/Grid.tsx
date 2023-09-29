@@ -7,7 +7,7 @@ import { Shop } from "../../hooks/useShop";
 import { Type } from "../../hooks/useTypes";
 import ErrorMessage from "../form/ErrorMessage";
 import Grid from "../grid";
-import Heading from "../../components/Heading";
+import Info from "../../components/Info";
 import Pagination from "../common/Pagination";
 import ShopCard from "./Card";
 
@@ -54,7 +54,7 @@ const ShopsGrid = ({
             </CardContainer>
           ))
         ) : (
-          <Heading>{isLoading ? "" : "Shops not found!"}</Heading>
+          <Info show={!isLoading} />
         )}
       </Grid>
       <Box mt={5}>

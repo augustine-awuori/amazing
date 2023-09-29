@@ -13,11 +13,9 @@ const GridHeading = ({
   headingPrefix = "",
   selectedItem,
 }: Props) => {
-  if (!selectedItem?._id) return null;
+  const prefix = selectedItem?.label ? headingPrefix + "'s" : headingPrefix;
 
-  const heading = `${headingPrefix ? headingPrefix + "'s" : ""} ${
-    selectedItem.label
-  }  ${label}`;
+  const heading = `${prefix} ${selectedItem?.label || ""}  ${label}`;
 
   return (
     <Heading as="h1" fontSize={22} marginY={5}>

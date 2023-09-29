@@ -27,7 +27,7 @@ const ShopsPage = () => {
       <ShopsTypesGridPageContainer
         onSelectType={setSelectedType}
         selectedType={selectedType}
-        gridHeadingLabel="Shops"
+        gridHeadingLabel="Showing Shops"
       >
         <ShopsGrid
           error={error}

@@ -5,11 +5,10 @@ import { CardContainer, CardSkeleton } from "../card";
 import { Category } from "../../hooks/useCategories";
 import { paginate } from "../../utils/paginate";
 import { Request } from "../../hooks/useRequest";
+import { Info, Text } from "../../components";
 import Grid from "../grid";
-import Heading from "../../components/Heading";
 import Pagination from "../common/Pagination";
 import RequestCard from "./Card";
-import Text from "../../components/Text";
 import useRequests from "../../hooks/useRequests";
 
 interface Props {
@@ -52,7 +51,7 @@ const RequestGrid = ({ onRequestClick, selectedCategory, userId }: Props) => {
             </CardContainer>
           ))
         ) : (
-          <Heading>Requests not found!</Heading>
+          <Info show={!isLoading} />
         )}
       </Grid>
       <Box mt={5}>

@@ -30,6 +30,7 @@ const ListingsPage = () => {
       <GridPageContainer
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
+        headingPrefix={"Showing " + data?.length || ""}
       >
         <ListingGrid
           error={error}
