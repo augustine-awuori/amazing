@@ -1,4 +1,13 @@
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputRightElement,
+  IconButton,
+} from "@chakra-ui/react";
+import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
 import { FormRegister } from "../../hooks/useForm";
 import ErrorMessage, { AppFieldError } from "./ErrorMessage";
@@ -25,24 +34,41 @@ const FormField = ({
   onChange,
   ...otherProps
 }: Props) => {
+  const [isPasswordVisible, setPasswordVisibility] = useState(false);
+
   const inputName = name || label.toLowerCase();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (onChange) onChange(e.target.value);
   };
 
+  const togglePasswordVisibility = () =>
+    setPasswordVisibility(!isPasswordVisible);
+
   return (
     <FormControl marginBottom={4}>
       <FormLabel fontFamily="andika">{label}</FormLabel>
-      <Input
-        fontFamily="andika"
-        type={type}
-        placeholder={placeholder || label}
-        {...register(inputName)}
-        onChange={handleChange}
-        {...otherProps}
-        value={value}
-      />
+      <InputGroup>
+        <Input
+          fontFamily="andika"
+          type={isPasswordVisible ? "text" : type}
+          placeholder={placeholder || label}
+          {...register(inputName)}
+          onChange={handleChange}
+          {...otherProps}
+          value={value}
+        />
+        {type === "password" && (
+          <InputRightElement>
+            <IconButton
+              size="sm"
+              aria-label={isPasswordVisible ? "Hide Password" : "Show Password"}
+              icon={isPasswordVisible ? <FaEyeSlash /> : <FaEye />}
+              onClick={togglePasswordVisibility}
+            />
+          </InputRightElement>
+        )}
+      </InputGroup>
       <ErrorMessage error={error?.message} visible={error} />
     </FormControl>
   );
