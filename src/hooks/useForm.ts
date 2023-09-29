@@ -1,8 +1,10 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { FieldValues, useForm, UseFormRegister } from "react-hook-form";
+import { z, AnyZodObject } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export default (schema: any) => {
+export type FormRegister = UseFormRegister<FieldValues>;
+
+export default (schema: AnyZodObject) => {
   type FormData = z.infer<typeof schema>;
 
   const form = useForm<FormData>({ resolver: zodResolver(schema) });

@@ -1,22 +1,31 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import {
   CardContainer,
   CardSkeleton,
   Footer,
-  Heading,
+  Info,
   PageContainer,
   StartChatBtn,
 } from "../components";
 import { paginate } from "../utils/paginate";
-import { useBag, useCurrentUser, useProducts, useShop } from "../hooks";
+import {
+  useBag,
+  useCurrentUser,
+  useProducts,
+  useReload,
+  useShop,
+} from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
+import { Shop } from "../hooks/useShop";
+import empty from "../utils/empty";
 import Grid from "../components/grid";
 import Header from "../components/shops/ShopPageHeader";
 import ProductCard, { Product } from "../components/shops/product/Card";
 import ProductDetails from "../components/shops/product/Details";
+import service from "../services/shops";
 
 const PAGE_SIZE = 6;
 
@@ -26,14 +35,25 @@ const ShopPage = () => {
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const { bag, setBag } = useBag();
-  const navigate = useNavigate();
-  const { shop } = useShop();
+  const { shop: shopInfo } = useShop();
   const [product, setProduct] = useState<Product>();
+  const navigate = useNavigate();
+  const params = useParams();
+  const { info: shop, request } = useReload<Shop>(
+    shopInfo,
+    empty.shop,
+    service.getShop
+  );
   const { isLoading, products, productsCount, setProducts } = useProducts(
-    shop?._id
+    params.shopId
   );
   const authorId = shop?.author?._id;
   const isTheAuthor = useCurrentUser(authorId);
+
+  useEffect(() => {
+    request();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [products.length]);
 
   const skeletons = [1, 2, 3, 4, 5, 6];
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
@@ -198,7 +218,7 @@ const ShopPage = () => {
               />
             ))
           ) : (
-            <Heading>Products not found</Heading>
+            <Info show={!isLoading} />
           )}
         </Grid>
         <Pagination

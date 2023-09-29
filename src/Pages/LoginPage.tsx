@@ -2,10 +2,10 @@ import { useState } from "react";
 import { z } from "zod";
 import { toast } from "react-toastify";
 
+import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import authApi from "../services/auth";
 import useForm from "../hooks/useForm";
-import { DataError } from "services/client";
 
 const schema = z.object({
   username: z

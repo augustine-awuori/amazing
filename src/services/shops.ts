@@ -15,4 +15,6 @@ const create = ({ image, name, type }: NewShop) => {
   });
 };
 
-export default { create };
+const getShop = (shopId: string) => client.get(`${endpoint}/${shopId}`);
+
+export default { create, getShop };

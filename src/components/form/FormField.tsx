@@ -1,13 +1,15 @@
 import { FormControl, FormLabel, Input } from "@chakra-ui/react";
-import ErrorMessage from "./ErrorMessage";
+
+import { FormRegister } from "../../hooks/useForm";
+import ErrorMessage, { AppFieldError } from "./ErrorMessage";
 
 interface Props {
-  error: any | undefined;
+  error: AppFieldError | undefined;
   label: string;
   placeholder?: string;
   name?: string;
-  register: any;
-  value?: any;
+  register: FormRegister;
+  value?: string | number | readonly string[] | undefined;
   onChange?: (value: string) => void | undefined;
   type?: string;
 }

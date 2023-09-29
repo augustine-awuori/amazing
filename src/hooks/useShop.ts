@@ -1,7 +1,10 @@
 import { useContext } from "react";
+import { toast } from "react-toastify";
 
+import { DataError } from "../services/client";
 import { Type } from "./useTypes";
 import { User } from "./useUser";
+import service from "../services/shops";
 import ShopContext from "../contexts/ShopContext";
 
 interface Common {
@@ -21,6 +24,23 @@ export interface NewShop extends Common {
   name: string;
 }
 
-const useShop = () => useContext(ShopContext);
+const useShop = () => {
+  const { setShop, shop } = useContext(ShopContext);
+
+  const getShop = async (shopId: string) => {
+    const { data, ok, problem } = await service.getShop(shopId);
+
+    if (ok) return data as Shop;
+
+    toast.error(`${problem}: ${(data as DataError)?.error}`);
+  };
+
+  const resetShop = async (shopId: string) => {
+    const shop = await getShop(shopId);
+    if (shop) setShop(shop);
+  };
+
+  return { getShop, resetShop, setShop, shop };
+};
 
 export default useShop;

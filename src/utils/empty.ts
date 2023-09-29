@@ -1,18 +1,31 @@
+import { User } from "../hooks/useUser";
+
+const author: User = {
+  _id: "",
+  avatar: "",
+  isAdmin: false,
+  isVerified: false,
+  name: "",
+  otherAccounts: { whatsapp: "+254745889801" },
+  timestamp: 452045,
+  username: "",
+};
+
 const listing = {
   _id: "",
-  author: { _id: "", name: "", username: "" },
+  author,
   category: { _id: "", label: "" },
   description: "",
-  images: [],
+  images: ["", ""],
   paramsId: "listingId",
-  price: undefined,
+  price: 102,
   timestamp: 0,
   title: "",
 };
 
 const request = {
   _id: "",
-  author: { _id: "", name: "", username: "" },
+  author,
   category: { _id: "", label: "" },
   description: "",
   paramsId: "requestId",
@@ -20,16 +33,13 @@ const request = {
   title: "",
 };
 
-const user = {
+const shop = {
   _id: "",
-  aboutMe: "",
+  author,
+  image: "",
   name: "",
-  otherAccounts: {},
-  paramsId: "userId",
-  timestamp: 0,
-  username: "",
-  isAdmin: false,
-  isVerified: false,
+  paramsId: "shopId",
+  type: { _id: "", label: "" },
 };
 
-export default { listing, request, user };
+export default { listing, request, shop, user: author };

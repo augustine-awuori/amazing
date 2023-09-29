@@ -4,6 +4,7 @@ import { Box, SkeletonText } from "@chakra-ui/react";
 
 import { Button, Text } from "../components";
 import { MediaQuery, Modal, PageContainer, StartChatBtn } from "../components";
+import { Request } from "../hooks/useRequest";
 import {
   useAppColorMode,
   useCurrentUser,
@@ -28,12 +29,17 @@ const RequestDetailsPage = () => {
     info: request,
     isLoading,
     request: getInfoFromServer,
-  } = useReload(requestInfo, empty.request, requestsService.getRequest);
+  } = useReload<Request>(
+    requestInfo,
+    empty.request,
+    requestsService.getRequest
+  );
   const { tempTimestamp } = useTimestamp(request.timestamp);
   const isTheAuthor = useCurrentUser(request.author._id);
 
   useEffect(() => {
     getInfoFromServer();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const switchModalVisibility = () => setModalOpen(!isModalOpen);

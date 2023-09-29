@@ -91,7 +91,9 @@ export default function WithSubNav({ user }: Props) {
             <>
               <NavButton to="/logout" label="Logout" />
               <NavButton
-                Element={<Avatar name={user?.name} size="xs" src="" />}
+                Element={
+                  <Avatar name={user.name} size="xs" src={user.avatar} />
+                }
                 to={`/profile/${user?._id}`}
               />
             </>

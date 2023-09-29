@@ -3,10 +3,10 @@ import func from "../utils/funcs";
 import Button from "./Button";
 
 interface Props {
-  phoneNumber: string;
+  phoneNumber: string | undefined;
 }
 
-const StartChatBtn = ({ phoneNumber }: Props) => {
+const StartChatBtn = ({ phoneNumber = "+254796720289" }: Props) => {
   const { accentColor, concAccentColor } = useAppColorMode();
   const { url } = useWhatsAppRedirect(phoneNumber);
 

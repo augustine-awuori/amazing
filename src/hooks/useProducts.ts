@@ -66,12 +66,18 @@ const useProducts = (shopId: string | undefined) => {
     return { ok, error };
   };
 
+  const getProducts = () => {
+    if (error || (data as DataError)?.error || isLoading) return [];
+
+    return data;
+  };
+
   return {
     create,
     deleteProductBy,
     isLoading,
-    products: error || isLoading ? [] : data,
-    productsCount: data?.length || 0,
+    products: getProducts(),
+    productsCount: getProducts().length,
     setProducts,
     update,
   };

@@ -2,12 +2,16 @@ import { useState } from "react";
 import { ApiResponse } from "apisauce";
 import { useParams } from "react-router-dom";
 
-export default function useReload(
-  prevInfo: any,
-  infoStructure: any,
-  apiFunc: (id: string) => Promise<ApiResponse<any, any>>
+interface InfoStructure {
+  paramsId: string;
+}
+
+export default function useReload<T>(
+  prevInfo: T | undefined | null,
+  infoStructure: InfoStructure & T,
+  apiFunc: (id: string) => Promise<ApiResponse<unknown, unknown>>
 ) {
-  const [data, setData] = useState();
+  const [data, setData] = useState<T>();
   const [isLoading, setLoading] = useState(false);
   const params = useParams();
 
@@ -21,7 +25,7 @@ export default function useReload(
       setLoading(true);
       const { data } = await apiFunc(id);
       setLoading(false);
-      setData(data);
+      setData(data as T);
     } catch (error) {
       window.location.href = "/";
     } finally {
@@ -29,7 +33,7 @@ export default function useReload(
     }
   };
 
-  const info = prevInfo || data || infoStructure;
+  const info: T = prevInfo || data || infoStructure;
 
   return { info, isLoading, request };
 }

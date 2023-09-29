@@ -13,7 +13,8 @@ const useShops = () => {
 
   useEffect(() => {
     if (!error) setShops(data);
-  }, [data, error, setShops]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const getShops = () => (error ? [] : data);
 

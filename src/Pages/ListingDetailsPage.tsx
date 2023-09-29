@@ -22,6 +22,7 @@ import {
   useReload,
   useTimestamp,
 } from "../hooks";
+import { Listing } from "../hooks/useListing";
 import ListingUpdateForm from "../components/forms/ListingUpdateForm";
 import service from "../services/listings";
 
@@ -34,7 +35,7 @@ const ListingDetailsPage = () => {
   const { tempTimestamp } = useTimestamp(listing?.timestamp);
   const { accentColor } = useAppColorMode();
   const { deleteListing } = useListings();
-  const { info, isLoading, request } = useReload(
+  const { info, isLoading, request } = useReload<Listing>(
     listing,
     empty.listing,
     service.getListing
@@ -44,6 +45,7 @@ const ListingDetailsPage = () => {
 
   useEffect(() => {
     request();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const switchModalVisibility = () => setModalOpen(!isModalOpen);
