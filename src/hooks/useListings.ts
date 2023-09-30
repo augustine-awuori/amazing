@@ -13,6 +13,7 @@ const useListings = () => {
 
   useEffect(() => {
     setListings(data);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const updateListing = (listing: Listing) =>

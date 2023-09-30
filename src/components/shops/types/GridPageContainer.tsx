@@ -1,9 +1,11 @@
+import React from "react";
+
 import ShopTypeSelector, { ShopTypeSelectorProps } from "./Selector";
 import GridPageContainer from "../../grid/PageContainer";
 import TypeList from "./List";
 
 interface Props extends ShopTypeSelectorProps {
-  children: any;
+  children: React.ReactNode;
   gridHeadingLabel?: string;
   headingPrefix?: string;
 }

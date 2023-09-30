@@ -1,8 +1,9 @@
+import React from "react";
 import { GridItem } from "@chakra-ui/react";
 
 interface Props {
   Aside?: JSX.Element;
-  children: any;
+  children: React.ReactNode;
   paddingTop?: number;
 }
 

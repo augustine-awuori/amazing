@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
-import { AxiosRequestConfig, CanceledError } from "axios";
+import { DependencyList, useEffect, useState } from "react";
+import { AxiosRequestConfig } from "axios";
+import CanceledError from "axios";
+
 import { ApiResponse } from "apisauce";
 
 import apiClient from "../services/client";
@@ -7,37 +9,35 @@ import apiClient from "../services/client";
 const useData = <T>(
   endpoint: string,
   requestConfig?: AxiosRequestConfig,
-  deps?: any[]
+  deps?: DependencyList
 ) => {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
-  useEffect(
-    () => {
-      const controller = new AbortController();
+  useEffect(() => {
+    const controller = new AbortController();
 
-      setLoading(true);
-      apiClient
-        .get(endpoint, {
-          signal: controller.signal,
-          ...requestConfig,
-        })
-        .then((res: ApiResponse<any, any>) => {
-          setData(res.data);
+    setLoading(true);
+    apiClient
+      .get(endpoint, {
+        signal: controller.signal,
+        ...requestConfig,
+      })
+      .then((res: ApiResponse<unknown, unknown>) => {
+        setData(res.data as T[]);
+        setLoading(false);
+      })
+      .catch((err) => {
+        if (!(err instanceof CanceledError)) {
+          setError(err.message);
           setLoading(false);
-        })
-        .catch((err) => {
-          if (!(err instanceof CanceledError)) {
-            setError(err.message);
-            setLoading(false);
-          }
-        });
+        }
+      });
 
-      return () => controller.abort();
-    },
-    deps ? [...deps] : []
-  );
+    return () => controller.abort();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 
   return { data: data || [], error, isLoading };
 };

@@ -10,7 +10,7 @@ interface Props {
   user: User | undefined;
   size?:
     | ResponsiveValue<
-        | (string & {})
+        | (string & object)
         | "sm"
         | "md"
         | "lg"

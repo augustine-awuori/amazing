@@ -13,9 +13,9 @@ export type AppFieldError =
 
 interface Props {
   error: AppFieldError | string | undefined;
-  visible?: AppFieldError;
+  visible?: AppFieldError | string | undefined;
 }
 
 export default function ErrorMessage({ error, visible }: Props) {
-  return visible ? <Text color="tomato">{error}</Text> : null;
+  return visible ? <Text color="tomato">{error?.toString()}</Text> : null;
 }

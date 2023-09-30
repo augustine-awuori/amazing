@@ -1,9 +1,10 @@
+import React from "react";
 import { CardBody } from "@chakra-ui/react";
 
 import useAppColorMode from "../../hooks/useAppColorMode";
 
 interface Props {
-  children: any;
+  children: React.ReactNode;
 }
 
 const Body = ({ children }: Props) => {

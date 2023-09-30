@@ -18,6 +18,7 @@ const BagTable = () => {
 
   useEffect(() => {
     setProducts(bag.products.map((p) => ({ ...p, deleted: false })));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products.length]);
 
   const getBagProducts = (products: BagProduct[]): Product[] =>

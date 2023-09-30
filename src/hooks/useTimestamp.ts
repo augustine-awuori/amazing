@@ -15,6 +15,7 @@ export default (timestamp?: number, withoutSuffix?: boolean) => {
       }
     }, 60_000);
     return () => clearInterval(undefined);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timestamp]);
 
   function format(tempTimestamp = "") {

@@ -1,8 +1,9 @@
+import { FormRegister } from "../../../hooks/useForm";
 import { useCategories } from "../../../hooks";
 import Select from "../../common/Select";
 
 interface Props {
-  register: any;
+  register: FormRegister;
 }
 
 const CategorySelect = ({ register }: Props) => {

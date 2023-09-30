@@ -20,6 +20,7 @@ const useProfileRequests = (userId: string | undefined) => {
 
   useEffect(() => {
     getRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   const getRequests = async () => {

@@ -1,13 +1,16 @@
+import React from "react";
 import { Box } from "@chakra-ui/react";
 
+import { FormHandleSubmit } from "../../hooks/useForm";
 import ErrorMessage from "./ErrorMessage";
 import PageContainer from "../PageContainer";
 import Text from "../../components/Text";
 
 interface Props {
-  children: any;
+  children: React.ReactNode;
   error?: string;
-  handleSubmit: any;
+  handleSubmit: FormHandleSubmit;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (values: any) => void;
   title?: string;
   usePageContainer?: boolean;

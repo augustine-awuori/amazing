@@ -3,7 +3,7 @@ function addComma(number: number | undefined) {
 
   const numberString = number.toString();
 
-  let figures = numberString.split("");
+  const figures = numberString.split("");
 
   for (let i = figures.length - 3; i > 0; i -= 3) {
     figures.splice(i, 0, ", ");

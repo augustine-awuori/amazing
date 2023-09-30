@@ -1,3 +1,4 @@
+import React from "react";
 import {
   useDisclosure,
   Modal,
@@ -15,7 +16,7 @@ interface Props {
   title?: string;
   subTitle?: string;
   isOpen: boolean;
-  content: any;
+  content: React.ReactNode;
   primaryBtnLabel?: string;
   secondaryBtnLabel?: string;
   onPrimaryClick?: () => void;

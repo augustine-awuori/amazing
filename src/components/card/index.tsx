@@ -1,7 +1,8 @@
+import React from "react";
 import { Card } from "@chakra-ui/react";
 
 interface Props {
-  children: any;
+  children: React.ReactNode;
   onClick: () => void;
 }
 
