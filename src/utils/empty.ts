@@ -43,4 +43,9 @@ const shop = {
   type: { _id: "", label: "" },
 };
 
-export default { listing, request, shop, user: { ...author, paramsId: "" } };
+export default {
+  listing,
+  request,
+  shop,
+  user: { ...author, paramsId: "userId" },
+};
