@@ -145,7 +145,10 @@ const ListingDetailsPage = () => {
         {isLoading ? (
           <SkeletonText mb={2} />
         ) : (
-          <StartChatBtn phoneNumber={info.author?.otherAccounts?.whatsapp} />
+          <StartChatBtn
+            phoneNumber={info.author?.otherAccounts?.whatsapp}
+            imageUrl={info.images[0]}
+          />
         )}
         {isTheAuthor && (
           <Button onClick={switchModalVisibility} my={3}>
