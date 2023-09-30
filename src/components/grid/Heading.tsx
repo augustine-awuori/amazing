@@ -18,7 +18,7 @@ const GridHeading = ({
   const heading = `${prefix} ${selectedItem?.label || ""}  ${label}`;
 
   return (
-    <Heading as="h1" fontSize={22} marginY={5}>
+    <Heading as="h1" fontSize={22} marginY={5} mt={0} pt={0}>
       {heading}
     </Heading>
   );
