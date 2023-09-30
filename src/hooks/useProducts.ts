@@ -17,7 +17,8 @@ const useProducts = (shopId: string | undefined) => {
     if (products.length === data?.length) return;
 
     if (!error && shopId) setProducts(data);
-  }, [shopId, products.length, data, setProducts, error]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shopId, products.length]);
 
   const create = async (product: NewProduct) => {
     const { data: newProduct, ok, problem } = await service.create(product);

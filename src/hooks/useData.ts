@@ -1,4 +1,4 @@
-import { DependencyList, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AxiosRequestConfig } from "axios";
 import CanceledError from "axios";
 
@@ -6,11 +6,7 @@ import { ApiResponse } from "apisauce";
 
 import apiClient from "../services/client";
 
-const useData = <T>(
-  endpoint: string,
-  requestConfig?: AxiosRequestConfig,
-  deps?: DependencyList
-) => {
+const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig) => {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -37,7 +33,7 @@ const useData = <T>(
 
     return () => controller.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
+  }, []);
 
   return { data: data || [], error, isLoading };
 };
