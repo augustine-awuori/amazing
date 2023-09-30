@@ -1,5 +1,5 @@
 import { Box, Flex, Image, useColorModeValue, Icon } from "@chakra-ui/react";
-import { EditIcon } from "@chakra-ui/icons"; // Assuming you're using Chakra UI Icons library
+import { EditIcon } from "@chakra-ui/icons";
 
 import { useAppColorMode } from "../../../hooks";
 import Button, { ProductCardBtnFuncs } from "./CardButton";

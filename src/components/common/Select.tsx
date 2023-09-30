@@ -1,14 +1,15 @@
 import { Select } from "@chakra-ui/react";
 
+import { FormRegister } from "../../hooks/useForm";
 import { Item } from "./Selector";
 
 interface Props {
   label: string;
   options: Item[];
-  register: any;
+  register: FormRegister;
 }
 
-export default ({ label, options = [], register }: Props) => (
+const AppSelect = ({ label, options = [], register }: Props) => (
   <Select
     placeholder={`Select ${label}`}
     {...register(label.toLowerCase())}
@@ -23,3 +24,5 @@ export default ({ label, options = [], register }: Props) => (
       ))}
   </Select>
 );
+
+export default AppSelect;

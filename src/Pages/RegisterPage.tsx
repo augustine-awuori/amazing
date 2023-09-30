@@ -43,7 +43,8 @@ const RegisterPage = () => {
     }
 
     toast.success("You're registered successfully!");
-    authApi.loginWithJwt(result.headers?.["x-auth-token"]);
+    const jwt = result.headers?.["x-auth-token"];
+    if (jwt) authApi.loginWithJwt(jwt);
     window.location.href = "/";
   };
 

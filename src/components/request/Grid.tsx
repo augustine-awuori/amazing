@@ -31,7 +31,7 @@ const RequestGrid = ({ onRequestClick, selectedCategory, userId }: Props) => {
     ? byUser.filter((request) => request.category._id === selectedCategory?._id)
     : byUser;
 
-  const paginated: Request[] = paginate(filtered, currentPage, pageSize);
+  const paginated = paginate<Request>(filtered, currentPage, pageSize);
 
   if (error) return <Text>{error}</Text>;
 

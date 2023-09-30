@@ -1,5 +1,6 @@
 export interface User {
   _id: string;
+  aboutMe: string;
   avatar: string;
   isAdmin: boolean;
   isVerified: boolean;

@@ -2,6 +2,7 @@ import { User } from "../hooks/useUser";
 
 const author: User = {
   _id: "",
+  aboutMe: "",
   avatar: "",
   isAdmin: false,
   isVerified: false,
@@ -42,4 +43,4 @@ const shop = {
   type: { _id: "", label: "" },
 };
 
-export default { listing, request, shop, user: author };
+export default { listing, request, shop, user: { ...author, paramsId: "" } };

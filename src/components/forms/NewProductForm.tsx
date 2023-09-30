@@ -9,6 +9,7 @@ import Form from "../form/Form";
 import FormField from "../form/FormField";
 import SubmitButton from "../form/SubmitButton";
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const schema = z.object({
   name: z.string().min(1, "Name should be between 1 and 50 characters").max(50),
   price: z

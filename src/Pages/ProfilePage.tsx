@@ -27,6 +27,7 @@ import {
   PageContainer,
   StartChatBtn,
 } from "../components";
+import { User } from "../hooks/useUser";
 import empty from "../utils/empty";
 import Text from "../components/Text";
 import usersApi from "../services/users";
@@ -38,7 +39,7 @@ const ProfilePage = () => {
   const params = useParams();
   const isTheUser = useCurrentUser(params.userId);
   const { accentColor } = useAppColorMode();
-  const { info, isLoading, request } = useReload(
+  const { info, isLoading, request } = useReload<User>(
     profileUser,
     empty.user,
     usersApi.getUser
@@ -46,6 +47,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     request();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const {

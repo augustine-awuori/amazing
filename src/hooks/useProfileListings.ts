@@ -20,6 +20,7 @@ const useProfileListings = (userId: string | undefined) => {
 
   useEffect(() => {
     getListings();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   const getListings = async () => {

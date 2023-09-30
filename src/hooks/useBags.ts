@@ -7,7 +7,7 @@ const useBag = () => {
   const { bags: bag, setBags: setBag } = useContext(BagsContext);
 
   const findShop = (shopId: string) =>
-    bag.find((shop) => shop.hasOwnProperty(shopId));
+    bag.find((shop) => Object.prototype.hasOwnProperty.call(shop, shopId));
 
   const getShopProducts = (shop: ShopProduct, shopId: string) => shop[shopId];
 

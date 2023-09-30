@@ -11,7 +11,7 @@ interface Props {
     | ResponsiveValue<
         | number
         | "px"
-        | (string & {})
+        | (string & object)
         | "sm"
         | "md"
         | "lg"
@@ -26,6 +26,8 @@ interface Props {
         | "-moz-max-content"
         | "-moz-min-content"
         | "container.xl"
+        | "200px"
+        | string
       >
     | undefined;
 }

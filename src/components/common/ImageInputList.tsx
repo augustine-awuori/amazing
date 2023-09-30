@@ -12,7 +12,7 @@ const ImageInputList = ({ imagesLimit }: Props) => {
   const { addImages, imagesCount, removeImage } = useImages(imagesLimit);
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
-  const addNewFiles = (oldItems: any[], newItems: any[]) =>
+  const addNewFiles = (oldItems: string[], newItems: string[]) =>
     [...oldItems, ...newItems].slice(0, imagesLimit);
 
   const handleFileChange = (

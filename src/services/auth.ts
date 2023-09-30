@@ -7,7 +7,7 @@ const tokenKey = "token";
 
 const getJwt = () => localStorage.getItem(tokenKey);
 
-const loginWithJwt = (jwt: any) => localStorage.setItem(tokenKey, jwt);
+const loginWithJwt = (jwt: string) => localStorage.setItem(tokenKey, jwt);
 
 const login = async ({
   username,
@@ -21,7 +21,7 @@ const login = async ({
     password,
   });
 
-  if (ok) loginWithJwt(data);
+  if (ok) loginWithJwt(data as string);
 
   return { data, ok };
 };

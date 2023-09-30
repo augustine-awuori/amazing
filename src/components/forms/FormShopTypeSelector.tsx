@@ -1,8 +1,9 @@
+import { FormRegister } from "../../hooks/useForm";
 import Select from "../common/Select";
 import useTypes from "../../hooks/useTypes";
 
 interface Props {
-  register: any;
+  register: FormRegister;
 }
 
 const FormShopTypeSelector = ({ register }: Props) => {
