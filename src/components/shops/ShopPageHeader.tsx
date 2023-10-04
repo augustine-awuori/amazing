@@ -1,5 +1,9 @@
 import { Box, HStack, Badge } from "@chakra-ui/react";
-import { AiOutlineShopping, AiFillPlusCircle } from "react-icons/ai";
+import {
+  AiOutlineShopping,
+  AiFillPlusCircle,
+  AiFillSetting,
+} from "react-icons/ai";
 
 import { Button, Heading } from "../../components";
 import useCurrentUser from "../../hooks/useCurrentUser";
@@ -9,6 +13,7 @@ interface Props {
   bagCount: number;
   onAddProduct: () => void;
   onBagView: () => void;
+  onShowSettings: () => void;
   productsCount: number;
   shopName: string | undefined;
 }
@@ -18,6 +23,7 @@ const ShopPageHeader = ({
   bagCount,
   onAddProduct,
   onBagView,
+  onShowSettings,
   productsCount,
   shopName,
 }: Props) => {
@@ -30,9 +36,18 @@ const ShopPageHeader = ({
       </Heading>
       <Box>
         {isTheAuthor ? (
-          <Button rightIcon={<AiFillPlusCircle />} onClick={onAddProduct}>
-            Add Product
-          </Button>
+          <>
+            <Button
+              rightIcon={<AiFillSetting />}
+              onClick={onShowSettings}
+              mr={3}
+            >
+              Settings
+            </Button>
+            <Button rightIcon={<AiFillPlusCircle />} onClick={onAddProduct}>
+              Add Product
+            </Button>
+          </>
         ) : (
           <Button
             leftIcon={<AiOutlineShopping />}

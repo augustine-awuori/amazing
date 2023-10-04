@@ -1,3 +1,6 @@
+import { Listing } from "../hooks/useListing";
+import { Request } from "../hooks/useRequest";
+import { Shop } from "../hooks/useShop";
 import { User } from "../hooks/useUser";
 
 const author: User = {
@@ -12,40 +15,38 @@ const author: User = {
   username: "",
 };
 
-const listing = {
+const listing: Listing = {
   _id: "",
   author,
   category: { _id: "", label: "" },
   description: "",
   images: ["", ""],
-  paramsId: "listingId",
   price: 102,
   timestamp: 0,
   title: "",
 };
 
-const request = {
+const request: Request = {
   _id: "",
   author,
   category: { _id: "", label: "" },
   description: "",
-  paramsId: "requestId",
   timestamp: 0,
   title: "",
 };
 
-const shop = {
+const shop: Shop = {
   _id: "",
   author,
   image: "",
   name: "",
-  paramsId: "shopId",
+  location: "",
   type: { _id: "", label: "" },
 };
 
 export default {
-  listing,
-  request,
-  shop,
+  listing: { ...listing, paramsId: "listingId" },
+  request: { ...request, paramsId: "requestId" },
+  shop: { ...shop, paramsId: "shopId" },
   user: { ...author, paramsId: "userId" },
 };

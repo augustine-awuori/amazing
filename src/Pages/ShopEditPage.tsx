@@ -2,7 +2,12 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { z } from "zod";
 
-import { Form, FormField, SubmitButton } from "../components/form";
+import {
+  Form,
+  FormField,
+  FormTextAreaField,
+  SubmitButton,
+} from "../components/form";
 import { ImageInputList } from "../components/common";
 import { useForm, useImages, useShops } from "../hooks";
 import auth from "../services/auth";
@@ -10,6 +15,10 @@ import Selector from "../components/forms/FormShopTypeSelector";
 
 const schema = z.object({
   name: z.string().min(3, "Name should be between 3 & 50 chars").max(50),
+  location: z
+    .string()
+    .min(3, "Location description should be btn 3 & 255 chars")
+    .max(255),
   type: z.string().min(2),
 });
 
@@ -49,7 +58,13 @@ const ShopEditPage = () => {
     >
       <ImageInputList imagesLimit={MAX_IMAGES} />
       <FormField error={errors.name} label="Name" register={register} />
-      <Selector register={register} />
+      <Selector mb={2} register={register} />
+      <FormTextAreaField
+        error={errors.location}
+        label="Location"
+        placeholder="Describe your shop location"
+        register={register}
+      />
       <SubmitButton label="Create" isLoading={isLoading} />
     </Form>
   );

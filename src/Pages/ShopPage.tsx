@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { HStack } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
+import { FaLocationArrow } from "react-icons/fa";
 
 import {
   CardContainer,
@@ -8,6 +10,7 @@ import {
   Info,
   PageContainer,
   StartChatBtn,
+  Text,
 } from "../components";
 import { paginate } from "../utils/paginate";
 import {
@@ -33,6 +36,7 @@ const ShopPage = () => {
   const [showProductForm, setShowProductForm] = useState(false);
   const [showProductUpdateForm, setShowProductEditForm] = useState(false);
   const [showProductDetails, setShowProductDetails] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const { bag, setBag } = useBag();
   const { shop: shopInfo } = useShop();
@@ -142,6 +146,8 @@ const ShopPage = () => {
   const switchShowProductDetails = () =>
     setShowProductDetails(!showProductDetails);
 
+  const switchShowSettings = () => setShowSettings(!showSettings);
+
   const handleEdit = (product: Product) => {
     setProduct(product);
     setShowProductEditForm(true);
@@ -151,6 +157,13 @@ const ShopPage = () => {
     setProduct(product);
     switchShowProductDetails();
   };
+
+  const FooterInfo = (
+    <HStack>
+      <FaLocationArrow />
+      <Text color="whiteAlpha.500">{shop.location || "Main Campus Area"}</Text>
+    </HStack>
+  );
 
   return (
     <>
@@ -188,6 +201,12 @@ const ShopPage = () => {
           onModalClose={switchShowProductDetails}
         />
       )}
+      <Modal
+        title="Shop Settings"
+        isOpen={showSettings}
+        content=""
+        onModalClose={switchShowSettings}
+      />
       <PageContainer>
         <ScrollToTopBtn />
         <Header
@@ -195,6 +214,7 @@ const ShopPage = () => {
           bagCount={bag.products.length}
           onAddProduct={switchShowProductForm}
           onBagView={navigateToViewBag}
+          onShowSettings={switchShowSettings}
           productsCount={productsCount}
           shopName={shop?.name}
         />
@@ -228,6 +248,7 @@ const ShopPage = () => {
           pageSize={PAGE_SIZE}
         />
         <Footer
+          Info={FooterInfo}
           name={`${shop?.name} Shop`}
           owner={`Shop Owner: ${shop?.author.name}`}
           verified={shop?.author?.isVerified}

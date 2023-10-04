@@ -1,7 +1,7 @@
 import { Button, ButtonProps } from "@chakra-ui/react";
 
 const AppButton = ({ children, ...otherProps }: ButtonProps) => (
-  <Button {...otherProps} fontFamily="andika">
+  <Button {...otherProps} cursor="pointer" fontFamily="andika">
     {children}
   </Button>
 );

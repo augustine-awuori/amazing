@@ -1,16 +1,17 @@
-import { Select } from "@chakra-ui/react";
+import { Select, SelectProps } from "@chakra-ui/react";
 
 import { FormRegister } from "../../hooks/useForm";
 import { Item } from "./Selector";
 
-interface Props {
+interface Props extends SelectProps {
   label: string;
   options: Item[];
   register: FormRegister;
 }
 
-const AppSelect = ({ label, options = [], register }: Props) => (
+const AppSelect = ({ label, options = [], register, ...otherProps }: Props) => (
   <Select
+    {...otherProps}
     placeholder={`Select ${label}`}
     {...register(label.toLowerCase())}
     mt={3}
