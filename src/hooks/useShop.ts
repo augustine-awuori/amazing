@@ -15,6 +15,7 @@ export interface Shop extends Common {
   _id: string;
   author: User;
   image: string;
+  location: string;
   type: Type;
 }
 
@@ -40,7 +41,7 @@ const useShop = () => {
     if (shop) setShop(shop);
   };
 
-  return { getShop, resetShop, setShop, shop };
+  return { resetShop, setShop, shop };
 };
 
 export default useShop;

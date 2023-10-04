@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { HStack } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
+import { FaLocationArrow } from "react-icons/fa";
 
 import {
   CardContainer,
@@ -8,6 +10,7 @@ import {
   Info,
   PageContainer,
   StartChatBtn,
+  Text,
 } from "../components";
 import { paginate } from "../utils/paginate";
 import {
@@ -19,10 +22,10 @@ import {
 } from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
+import { Settings, ShopPageHeader as Header } from "../components/shops";
 import { Shop } from "../hooks/useShop";
 import empty from "../utils/empty";
 import Grid from "../components/grid";
-import Header from "../components/shops/ShopPageHeader";
 import ProductCard, { Product } from "../components/shops/product/Card";
 import ProductDetails from "../components/shops/product/Details";
 import service from "../services/shops";
@@ -33,9 +36,10 @@ const ShopPage = () => {
   const [showProductForm, setShowProductForm] = useState(false);
   const [showProductUpdateForm, setShowProductEditForm] = useState(false);
   const [showProductDetails, setShowProductDetails] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const { bag, setBag } = useBag();
-  const { shop: shopInfo } = useShop();
+  const { setShop, shop: shopInfo } = useShop();
   const [product, setProduct] = useState<Product>();
   const navigate = useNavigate();
   const params = useParams();
@@ -52,8 +56,9 @@ const ShopPage = () => {
 
   useEffect(() => {
     request();
+    setShop(shop);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products.length]);
+  }, [products.length, shop?._id]);
 
   const skeletons = [1, 2, 3, 4, 5, 6];
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
@@ -88,7 +93,7 @@ const ShopPage = () => {
     setBag({ ids, products: updated });
   };
 
-  const unMarkRemovedProducts = (product: Product) => {
+  const unmarkRemovedProducts = (product: Product) => {
     const ids = { ...bag.ids };
 
     if (!product.quantity) {
@@ -107,31 +112,31 @@ const ShopPage = () => {
   };
 
   const handleQuantityInc = (productId: string) => {
-    setProducts(
-      products.map((p) => {
-        if (p._id === productId) {
-          p.quantity += 1;
+    const updated = products.map((p) => {
+      if (p._id === productId) {
+        p.quantity += 1;
 
-          markAddedProducts(p);
-        }
+        markAddedProducts(p);
+      }
 
-        return p;
-      })
-    );
+      return p;
+    });
+
+    setProducts(updated);
   };
 
   const handleQuantityDec = (productId: string) => {
-    setProducts(
-      [...products].map((p) => {
-        if (p._id === productId) {
-          p.quantity -= 1;
+    const updated = [...products].map((p) => {
+      if (p._id === productId) {
+        p.quantity -= 1;
 
-          unMarkRemovedProducts(p);
-        }
+        unmarkRemovedProducts(p);
+      }
 
-        return p;
-      })
-    );
+      return p;
+    });
+
+    setProducts(updated);
   };
 
   const switchShowProductForm = () => setShowProductForm(!showProductForm);
@@ -142,6 +147,8 @@ const ShopPage = () => {
   const switchShowProductDetails = () =>
     setShowProductDetails(!showProductDetails);
 
+  const switchShowSettings = () => setShowSettings(!showSettings);
+
   const handleEdit = (product: Product) => {
     setProduct(product);
     setShowProductEditForm(true);
@@ -151,6 +158,13 @@ const ShopPage = () => {
     setProduct(product);
     switchShowProductDetails();
   };
+
+  const FooterInfo = (
+    <HStack>
+      <FaLocationArrow />
+      <Text color="whiteAlpha.500">{shop.location || "Main Campus Area"}</Text>
+    </HStack>
+  );
 
   return (
     <>
@@ -188,13 +202,19 @@ const ShopPage = () => {
           onModalClose={switchShowProductDetails}
         />
       )}
+      <Modal
+        title="Shop Settings"
+        isOpen={showSettings}
+        content={<Settings />}
+        onModalClose={switchShowSettings}
+      />
       <PageContainer>
         <ScrollToTopBtn />
         <Header
-          authorId={authorId}
           bagCount={bag.products.length}
           onAddProduct={switchShowProductForm}
           onBagView={navigateToViewBag}
+          onShowSettings={switchShowSettings}
           productsCount={productsCount}
           shopName={shop?.name}
         />
@@ -227,13 +247,16 @@ const ShopPage = () => {
           currentPage={currentPage}
           pageSize={PAGE_SIZE}
         />
-        <Footer
-          name={`${shop?.name} Shop`}
-          owner={`Shop Owner: ${shop?.author.name}`}
-          verified={shop?.author?.isVerified}
-        >
-          {phoneNumber && <StartChatBtn phoneNumber={phoneNumber} />}
-        </Footer>
+        {shop && (
+          <Footer
+            Info={FooterInfo}
+            name={`${shop?.name} Shop`}
+            owner={`Shop Owner: ${shop?.author.name}`}
+            verified={shop?.author?.isVerified}
+          >
+            {phoneNumber && <StartChatBtn phoneNumber={phoneNumber} />}
+          </Footer>
+        )}
       </PageContainer>
     </>
   );

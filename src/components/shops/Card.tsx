@@ -1,4 +1,5 @@
 import { HStack } from "@chakra-ui/react";
+import { FaLocationArrow } from "react-icons/fa";
 
 import { Shop } from "../../hooks/useShop";
 import Body from "../card/Body";
@@ -18,7 +19,7 @@ interface Props {
 const ShopCard = ({ onClick, shop }: Props) => {
   const { accentColor } = useAppColorMode();
 
-  const { author, image, name, type } = shop;
+  const { author, image, name, location, type } = shop;
 
   return (
     <Card onClick={onClick}>
@@ -31,6 +32,14 @@ const ShopCard = ({ onClick, shop }: Props) => {
             {format.truncate(type?.label)}
           </Text>
         </HStack>
+        {location && (
+          <HStack>
+            <FaLocationArrow />
+            <Text color="green.400" fontSize="sm" noOfLines={1}>
+              {location}
+            </Text>
+          </HStack>
+        )}
       </Body>
     </Card>
   );

@@ -1,23 +1,31 @@
 import {
   Box,
-  useColorModeValue,
-  Stack,
   Popover,
-  PopoverTrigger,
   PopoverContent,
+  PopoverTrigger,
+  Stack,
+  useColorModeValue,
 } from "@chakra-ui/react";
 
-import { NAV_ITEMS } from "../../data/navItems";
-import DesktopSubNav from "./DesktopSub";
+import DesktopSubNav from "../../components/nav/DesktopSub";
 
-const DesktopNav = () => {
+const Settings = () => {
   const linkColor = useColorModeValue("gray.600", "gray.200");
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
+  const items = [
+    { label: "Edit Shop", href: "", children: [{ label: "Edit your shop" }] },
+    {
+      label: "Delete Shop",
+      href: "",
+      children: [{ label: "Delete your shop" }],
+    },
+  ];
+
   return (
-    <Stack direction="row" spacing={4}>
-      {NAV_ITEMS.map((navItem) => (
+    <>
+      {items.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger="hover" placement="bottom-start">
             <PopoverTrigger>
@@ -54,8 +62,8 @@ const DesktopNav = () => {
           </Popover>
         </Box>
       ))}
-    </Stack>
+    </>
   );
 };
 
-export default DesktopNav;
+export default Settings;

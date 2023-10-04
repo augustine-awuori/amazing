@@ -24,12 +24,27 @@ type FormData = z.infer<typeof schema>;
 
 const ProfileEditPage = () => {
   const params = useParams();
+  const userId = params.userId;
   const [error, setError] = useState("");
   const { errors, handleSubmit, register, reset } = useForm(schema);
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { profileUser } = useProfileUser();
-  const isTheOwner = useCurrentUser(params.userId);
+  const isTheOwner = useCurrentUser(userId);
+  const [name, setName] = useState(profileUser?.name || "");
+  const [username, setUsername] = useState(profileUser?.username || "");
+  const [instagram, setInstagram] = useState(
+    profileUser?.otherAccounts.instagram || ""
+  );
+  const [twitter, setTwitter] = useState(
+    profileUser?.otherAccounts.twitter || ""
+  );
+  const [whatsApp, setWhatsApp] = useState(
+    profileUser?.otherAccounts.whatsapp || ""
+  );
+  const [youtube, setYouTube] = useState(
+    profileUser?.otherAccounts.youtube || ""
+  );
 
   function checkUsername(userInfo: FormData): FormData {
     const info = { ...userInfo };
@@ -42,9 +57,12 @@ const ProfileEditPage = () => {
   const doSubmit = async (userInfo: FormData) => {
     if (!isTheOwner) return navigate("/");
 
+    if (!userId) return setError("App error");
+
     setLoading(true);
-    const { ok, data, problem } = await usersApi.updateUser(
-      checkUsername(userInfo)
+    const { ok, data, problem } = await usersApi.updateUserInfo(
+      checkUsername(userInfo),
+      userId
     );
     setLoading(false);
 
@@ -67,39 +85,45 @@ const ProfileEditPage = () => {
     >
       <FormField
         error={errors.name}
-        register={register}
         label="Name"
-        value={profileUser?.name}
+        onChange={setName}
+        register={register}
+        value={name}
       />
       <FormField
         error={errors.username}
-        register={register}
         label="Username"
-        value={profileUser?.username}
+        onChange={setUsername}
+        register={register}
+        value={username}
       />
       <FormField
         error={errors.instagram}
-        register={register}
         label="Instagram"
-        value={profileUser?.otherAccounts?.instagram}
+        onChange={setInstagram}
+        register={register}
+        value={instagram}
       />
       <FormField
         error={errors.twitter}
-        register={register}
         label="Twitter"
-        value={profileUser?.otherAccounts?.twitter}
+        onChange={setTwitter}
+        register={register}
+        value={twitter}
       />
       <FormField
         error={errors.whatsapp}
-        register={register}
         label="WhatsApp"
-        value={profileUser?.otherAccounts?.whatsapp}
+        onChange={setWhatsApp}
+        register={register}
+        value={whatsApp}
       />
       <FormField
         error={errors.youtube}
-        register={register}
         label="YouTube"
-        value={profileUser?.otherAccounts?.youtube}
+        onChange={setYouTube}
+        register={register}
+        value={youtube}
       />
       <SubmitButton label="Save Changes" isLoading={isLoading} />
     </Form>

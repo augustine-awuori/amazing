@@ -197,6 +197,7 @@ const BagTable = () => {
               </Td>
               <Td />
               <Td />
+              <Td />
             </Tr>
           </Tfoot>
         </Table>

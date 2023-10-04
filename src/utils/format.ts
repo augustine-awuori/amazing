@@ -5,9 +5,7 @@ export function phoneNumber(phoneNumber: string | undefined): string {
 
   const numericPhoneNumber = phoneNumber.replace(/\D/g, "");
 
-  if (numericPhoneNumber.length < 10) {
-    return numericPhoneNumber; // Return as is
-  }
+  if (numericPhoneNumber.length < 10) return numericPhoneNumber;
 
   const formattedPhoneNumber = `(${numericPhoneNumber.slice(
     0,
@@ -25,8 +23,8 @@ function removeLeadingSlash(sentence: string) {
   return sentence;
 }
 
-function truncateString(str: string): string {
-  if (str.length <= 9) return str;
+function truncate(str: string): string {
+  if (str.length <= 5) return str;
 
   return str.slice(0, 9) + "…";
 }
@@ -35,5 +33,5 @@ export default {
   phoneNumber,
   getFirstWord,
   removeLeadingSlash,
-  truncate: truncateString,
+  truncate,
 };
