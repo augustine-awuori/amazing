@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { authApi, usersApi } from "../services";
+import { authTokenKey, DataError, Headers } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import useForm from "../hooks/useForm";
 
@@ -15,7 +16,7 @@ const schema = z.object({
   whatsapp: z
     .string()
     .includes("254")
-    .min(12, "WhatsApp number should either start with +254 or 254")
+    .min(12, "WhatsApp number doesn't include 254 or is less")
     .max(13),
   password: z
     .string()
@@ -26,25 +27,33 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const RegisterPage = () => {
-  const { errors, handleSubmit, register } = useForm(schema);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const { errors, handleSubmit, register } = useForm(schema);
 
-  const doSubmit = async (info: FormData) => {
+  const registerUser = async (info: FormData) => {
     if (error) setError("");
 
     setLoading(true);
-    const result = await usersApi.register(info);
+    const response = await usersApi.register(info);
     setLoading(false);
 
-    if (!result.ok) {
-      const responseData = result.data as { error?: string };
-      return setError(responseData.error || result.problem);
-    }
+    return response;
+  };
 
-    toast.success("You're registered successfully!");
-    const jwt = result.headers?.["x-auth-token"];
+  const loginWithJwt = (headers: Headers | undefined) => {
+    const jwt = headers?.[authTokenKey];
+
     if (jwt) authApi.loginWithJwt(jwt);
+  };
+
+  const doSubmit = async (info: FormData) => {
+    const { data, headers, ok, problem } = await registerUser(info);
+
+    if (!ok) return setError((data as DataError).error || problem);
+
+    toast("You're now a member!");
+    loginWithJwt(headers);
     window.location.href = "/";
   };
 
@@ -60,7 +69,7 @@ const RegisterPage = () => {
       <FormField
         error={errors.whatsapp}
         label="WhatsApp Number"
-        placeholder="+254 ..."
+        placeholder="254"
         register={register}
         name="whatsapp"
         type="number"

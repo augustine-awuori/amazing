@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
@@ -24,7 +24,7 @@ interface ButtonProps {
 }
 
 export default function ImageSlider({ images }: Props) {
-  const [slider, setSlider] = React.useState<Slider | null>(null);
+  const [slider, setSlider] = useState<Slider | null>(null);
 
   const side = useBreakpointValue({ base: "10%", md: "10px" });
 

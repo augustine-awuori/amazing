@@ -32,7 +32,7 @@ const ShopPageHeader = ({
   return (
     <HStack justifyContent="space-between" alignItems="center">
       <Heading as="h1" mb={4} size="md">
-        {shopName} {showIconsOnly ? null : "Products"} ({productsCount})
+        {shopName}'s Products ({productsCount})
       </Heading>
       <Box>
         {isTheAuthor ? (

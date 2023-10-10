@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 
 import { Shop } from "../hooks/useShop";
 
@@ -7,7 +7,7 @@ interface ShopsContextValue {
   setShops: (shops: Shop[]) => void;
 }
 
-const ShopsContext = React.createContext<ShopsContextValue>({
+const ShopsContext = createContext<ShopsContextValue>({
   shops: [],
   setShops: () => {},
 });

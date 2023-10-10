@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 
 import { Category } from "../hooks/useCategories";
 
@@ -7,7 +7,7 @@ interface CategoriesContextValue {
   setCategories: (categories: Category[]) => void;
 }
 
-export const CategoriesContext = React.createContext<CategoriesContextValue>({
+export const CategoriesContext = createContext<CategoriesContextValue>({
   categories: undefined,
   setCategories: () => {},
 });

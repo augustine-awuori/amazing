@@ -1,11 +1,11 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import CategoryList from "./List";
 import CategorySelector, { CategorySelectorProps } from "./Selector";
 import GridPageContainer from "../../grid/PageContainer";
 
 interface Props extends CategorySelectorProps {
-  children: React.ReactNode;
+  children: ReactNode;
   gridHeadingLabel?: string;
   headingPrefix?: string;
 }

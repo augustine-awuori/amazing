@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import { FC, useState } from "react";
 import { Box } from "@chakra-ui/react";
 
 import { Button, Text } from "../../components";
 
-interface DismissableInfoProps {
-  message: string;
+interface Props {
+  info: string;
 }
 
-const DismissableInfo: React.FC<DismissableInfoProps> = ({ message }) => {
+const DismissableInfo: FC<Props> = ({ info }) => {
   const [dismissed, setDismissed] = useState(false);
 
   const handleDismiss = () => setDismissed(true);
@@ -24,7 +24,7 @@ const DismissableInfo: React.FC<DismissableInfoProps> = ({ message }) => {
       alignItems="center"
       borderRadius={5}
     >
-      <Text flex="1">{message}</Text>
+      <Text flex="1">{info}</Text>
       <Button onClick={handleDismiss} colorScheme="black">
         Cancel
       </Button>

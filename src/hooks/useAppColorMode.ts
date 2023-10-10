@@ -4,13 +4,10 @@ const useAppColorMode = () => {
   const { colorMode } = useColorMode();
 
   const isDarkMode = colorMode === "dark";
-
   const accentColor = "orange.400";
 
-  const concAccentColor = "orange.500";
-
   return {
-    concAccentColor,
+    concAccentColor: "orange.500",
     color: isDarkMode ? "gray.800" : accentColor,
     isDarkMode,
     accentColor,

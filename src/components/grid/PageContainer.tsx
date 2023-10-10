@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 
 import { Item } from "../common/Selector";
@@ -9,7 +9,7 @@ import PageContainer from "../PageContainer";
 
 interface Props {
   Aside?: JSX.Element;
-  children: React.ReactNode;
+  children: ReactNode;
   gridHeadingLabel?: string;
   headingPrefix?: string;
   onSelectCategory?: (item: Item) => void;

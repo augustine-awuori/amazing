@@ -1,13 +1,13 @@
-import React from "react";
+import { ReactNode } from "react";
 import { Box } from "@chakra-ui/react";
 
 import { FormHandleSubmit } from "../../hooks/useForm";
 import ErrorMessage from "./ErrorMessage";
 import PageContainer from "../PageContainer";
-import Text from "../../components/Text";
+import Text from "../Text";
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
   error?: string;
   handleSubmit: FormHandleSubmit;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

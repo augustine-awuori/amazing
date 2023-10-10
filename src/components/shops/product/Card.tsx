@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { Box, Flex, Image, useColorModeValue, Icon } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 
@@ -22,7 +23,7 @@ interface Props extends ProductCardBtnFuncs {
   showButton: boolean;
 }
 
-const ProductCard: React.FC<Props> = ({
+const ProductCard: FC<Props> = ({
   data: { _id, image, name, price, quantity },
   onClick,
   onEdit,

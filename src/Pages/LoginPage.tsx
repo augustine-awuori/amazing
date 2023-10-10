@@ -21,28 +21,32 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const LoginPage = () => {
-  const [loginFailed, setLoginFailed] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
+  const [loginFailed, setLoginFailed] = useState(false);
   const { errors, handleSubmit, register } = useForm(schema);
 
-  const doSubmit = async (info: FormData) => {
+  const login = async (info: FormData) => {
     if (loginFailed) setLoginFailed(false);
 
     setLoading(true);
     const response = await authApi.login(info);
     setLoading(false);
 
-    const { data, ok } = response;
+    return response;
+  };
 
-    if (!ok) {
-      const error = (data as DataError)?.error;
-      if (error) setError(error);
-      return setLoginFailed(true);
+  const doSubmit = async (info: FormData) => {
+    const { data, ok, problem } = await login(info);
+
+    if (ok) {
+      toast.success("You're now logged in!");
+      return (window.location.href = "/"); //TODO: Check where user came from for redirect
     }
 
-    toast.success("You're now logged in!");
-    window.location.href = "/";
+    const error = (data as DataError)?.error || problem;
+    if (error) setError(error);
+    setLoginFailed(true);
   };
 
   return (

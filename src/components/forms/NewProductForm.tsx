@@ -2,12 +2,10 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 import { z } from "zod";
 
-import { ImageInputList } from "../common";
+import { Form, FormField, SubmitButton } from "../form";
 import { useForm, useImages, useProducts } from "../../hooks";
 import authApi from "../../services/auth";
-import Form from "../form/Form";
-import FormField from "../form/FormField";
-import SubmitButton from "../form/SubmitButton";
+import ImageInputList from "../common/ImageInputList";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const schema = z.object({

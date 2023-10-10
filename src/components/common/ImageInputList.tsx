@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Box, FormControl, Flex, Image } from "@chakra-ui/react";
 
 import ImagePicker from "./ImagePicker";
@@ -15,9 +15,7 @@ const ImageInputList = ({ imagesLimit }: Props) => {
   const addNewFiles = (oldItems: string[], newItems: string[]) =>
     [...oldItems, ...newItems].slice(0, imagesLimit);
 
-  const handleFileChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const files = event.target.files;
 
     if (files) {

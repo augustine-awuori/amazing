@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 
 import { Product } from "../components/shops/product/Card";
 
@@ -11,7 +11,7 @@ interface BagContextValue {
   setBag: (bag: Bag) => void;
 }
 
-const BagContext = React.createContext<BagContextValue>({
+const BagContext = createContext<BagContextValue>({
   bag: { products: [], ids: {} },
   setBag: () => {},
 });

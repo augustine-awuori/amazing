@@ -5,7 +5,7 @@ import { z } from "zod";
 import {
   Form,
   FormField,
-  FormTextAreaField,
+  TextAreaField as LocationField,
   SubmitButton,
 } from "../components/form";
 import { ImageInputList } from "../components/common";
@@ -59,7 +59,7 @@ const ShopEditPage = () => {
       <ImageInputList imagesLimit={MAX_IMAGES} />
       <FormField error={errors.name} label="Name" register={register} />
       <Selector mb={2} register={register} />
-      <FormTextAreaField
+      <LocationField
         error={errors.location}
         label="Location"
         placeholder="Describe your shop location"

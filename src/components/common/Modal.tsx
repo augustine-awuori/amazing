@@ -1,13 +1,13 @@
-import React from "react";
+import { ReactNode } from "react";
 import {
-  useDisclosure,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
   ModalBody,
+  ModalCloseButton,
+  ModalContent,
   ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { Button, Text } from "../../components";
@@ -16,7 +16,7 @@ interface Props {
   title?: string;
   subTitle?: string;
   isOpen: boolean;
-  content: React.ReactNode;
+  content: ReactNode;
   primaryBtnLabel?: string;
   secondaryBtnLabel?: string;
   onPrimaryClick?: () => void;

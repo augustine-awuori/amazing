@@ -9,21 +9,20 @@ const getJwt = () => localStorage.getItem(tokenKey);
 
 const loginWithJwt = (jwt: string) => localStorage.setItem(tokenKey, jwt);
 
-const login = async ({
-  username,
-  password,
-}: {
+interface LoginInfo {
   password: string;
   username: string;
-}) => {
-  const { data, ok } = await client.post("/auth", {
+}
+
+const login = async ({ username, password }: LoginInfo) => {
+  const { data, ok, problem } = await client.post("/auth", {
     username: "@" + username,
     password,
   });
 
   if (ok) loginWithJwt(data as string);
 
-  return { data, ok };
+  return { data, ok, problem };
 };
 
 const logout = () => localStorage.removeItem(tokenKey);

@@ -1,6 +1,6 @@
 import { useAppColorMode, useWhatsAppRedirect } from "../hooks";
-import func from "../utils/funcs";
 import Button from "./Button";
+import util from "../utils/funcs";
 
 interface Props {
   imageUrl?: string;
@@ -11,7 +11,7 @@ const StartChatBtn = ({ phoneNumber = "+254796720289", imageUrl }: Props) => {
   const { accentColor, concAccentColor } = useAppColorMode();
   const { url } = useWhatsAppRedirect(phoneNumber, imageUrl);
 
-  const handleStartChatClick = () => func.navTo(url);
+  const handleStartChatClick = () => util.navTo(url);
 
   return (
     <Button

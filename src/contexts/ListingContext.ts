@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 
 import { Listing } from "../hooks/useListing";
 
@@ -7,7 +7,7 @@ interface ListingContextValue {
   setListing: (listing: Listing) => void;
 }
 
-export const ListingContext = React.createContext<ListingContextValue>({
+export const ListingContext = createContext<ListingContextValue>({
   listing: undefined,
   setListing: () => {},
 });

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -38,7 +38,7 @@ const FormField = ({
 
   const inputName = name || label.toLowerCase();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (onChange) onChange(e.target.value);
   };
 

@@ -1,13 +1,13 @@
-import React from "react";
+import { createContext } from "react";
 
 import { Request } from "../hooks/useRequest";
 
-interface RequestsContextValue {
+interface ContextValue {
   requests: Request[] | undefined;
   setRequests: (requests: Request[]) => void;
 }
 
-export const RequestsContext = React.createContext<RequestsContextValue>({
+export const RequestsContext = createContext<ContextValue>({
   requests: [],
   setRequests: () => {},
 });

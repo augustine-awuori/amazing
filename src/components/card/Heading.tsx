@@ -1,9 +1,9 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import Heading from "../../components/Heading";
 
 interface Props {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const AppHeading = ({ children }: Props) => (

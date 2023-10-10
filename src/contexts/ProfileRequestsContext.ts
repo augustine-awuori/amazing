@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 
 import { Request } from "../hooks/useRequest";
 
@@ -8,7 +8,7 @@ interface ProfileRequestsContextValue {
 }
 
 export const ProfileRequestsContext =
-  React.createContext<ProfileRequestsContextValue>({
+  createContext<ProfileRequestsContextValue>({
     profileRequests: [],
     setProfileRequests: () => {},
   });

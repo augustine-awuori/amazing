@@ -1,4 +1,4 @@
-import React from "react";
+import { createContext } from "react";
 
 import { User } from "../hooks/useUser";
 
@@ -13,7 +13,7 @@ const defaultValue: ProfileUserContextValue = {
 };
 
 export const ProfileUserContext =
-  React.createContext<ProfileUserContextValue>(defaultValue);
+  createContext<ProfileUserContextValue>(defaultValue);
 
 ProfileUserContext.displayName = "Profile User Context";
 
