@@ -1,6 +1,7 @@
-import { create, HEADERS } from "apisauce";
+import { ApiResponse, create, HEADERS } from "apisauce";
 
 import auth from "./auth";
+import cache from "../utils/cache";
 
 export const appBaseUrl = "https://kisiiuniversemart.digital/";
 export const authTokenKey = "x-auth-token";
@@ -16,8 +17,26 @@ apiClient.addAsyncRequestTransform(async (request) => {
   if (authToken && request.headers) request.headers[authTokenKey] = authToken;
 });
 
+const get = apiClient.get;
+apiClient.get = async <T, U>(
+  url: string,
+  params: object | undefined,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  axiosConfig: any
+): Promise<ApiResponse<T, U>> => {
+  const response = await get(url, params, axiosConfig);
+
+  if (response.ok) {
+    cache.store(url, response.data);
+    return response as ApiResponse<T, U>;
+  }
+
+  const data = await cache.get(url);
+  return (data ? { ok: true, data } : response) as ApiResponse<T, U>;
+};
+
 export interface DataError {
-  error?: "";
+  error?: string;
 }
 
 export default apiClient;
