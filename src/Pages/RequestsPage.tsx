@@ -1,8 +1,11 @@
-import { Category } from "../hooks/useCategories";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { GridPageContainer, RequestGrid } from "../components";
+import { Category } from "../hooks/useCategories";
+import {
+  RequestGrid,
+  ListingCategoriesGridPageContainer as GridPageContainer,
+} from "../components";
 import ScrollToTopBtn from "../components/common/ScrollToTopBtn";
 import useRequest, { Request } from "../hooks/useRequest";
 
@@ -23,7 +26,7 @@ const RequestsPage = () => {
       <ScrollToTopBtn />
       <GridPageContainer
         onSelectCategory={setSelectedCategory}
-        selectedItem={selectedCategory}
+        selectedCategory={selectedCategory}
         gridHeadingLabel="Showing Requests"
       >
         <RequestGrid
