@@ -18,7 +18,7 @@ function App() {
         base: `"nav""main"`,
         lg: `"nav nav" "aside main"`,
       }}
-      templateColumns={{ base: "100%", lg: "150px 1fr" }}
+      templateColumns={{ base: "100%", lg: "170px 1fr" }}
     >
       <GridItem area="nav">
         <NavBar user={user} />

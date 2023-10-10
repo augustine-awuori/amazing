@@ -46,6 +46,7 @@ import {
   BagContext,
   ProductsContext,
 } from "../contexts";
+import RedirectRoot from "../navigation/RedirectRoot";
 
 function AppRoutes() {
   const [listings, setListings] = useState<Listing[]>([]);
@@ -110,7 +111,10 @@ function AppRoutes() {
                                     path="listings/new"
                                     element={<ListingEditPage />}
                                   />
-                                  <Route index element={<ListingsPage />} />
+                                  <Route
+                                    path="/listings"
+                                    element={<ListingsPage />}
+                                  />
                                   <Route
                                     path="requests/:requestId"
                                     element={<RequestDetailsPage />}
@@ -168,6 +172,7 @@ function AppRoutes() {
                                     path="/shops"
                                     element={<ShopsPage />}
                                   />
+                                  <Route index element={<RedirectRoot />} />
                                   <Route path="*" element={<NotFoundPage />} />
                                 </Routes>
                               </ProductsContext.Provider>

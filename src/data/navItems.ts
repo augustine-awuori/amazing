@@ -7,12 +7,27 @@ export interface NavItem {
 
 export const NAV_ITEMS: Array<NavItem> = [
   {
+    label: "Shops",
+    children: [
+      {
+        label: "View Shops",
+        subLabel: "View all online shops",
+        href: "/shops",
+      },
+      {
+        label: "Create your online shop",
+        subLabel: "Increase your visibility online",
+        href: "/shops/new",
+      },
+    ],
+  },
+  {
     label: "Listings",
     children: [
       {
         label: "View Listings",
         subLabel: "View all created listings",
-        href: "/",
+        href: "/listings",
       },
       {
         label: "Create a new listing",
@@ -33,21 +48,6 @@ export const NAV_ITEMS: Array<NavItem> = [
         label: "Create a new request",
         subLabel: "Ask for an item that isn't available",
         href: "/requests/new",
-      },
-    ],
-  },
-  {
-    label: "Shops",
-    children: [
-      {
-        label: "View Shops",
-        subLabel: "View all online shops",
-        href: "/shops",
-      },
-      {
-        label: "Create your online shop",
-        subLabel: "Increase your visibility online",
-        href: "/shops/new",
       },
     ],
   },
