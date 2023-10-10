@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import { FormData, Request, populate, schema } from "../hooks/useRequest";
 import { useCategories, useForm, useRequests } from "../hooks";
@@ -16,37 +17,32 @@ const RequestEditPage = () => {
   const { data: categories } = useCategories();
   const { addRequest } = useRequests();
   const navigate = useNavigate();
-  const user = auth.getCurrentUser();
+
+  const createRequest = async (info: FormData) => {
+    setLoading(true);
+    const response = await requestsApi.create(populate(info, undefined));
+    setLoading(false);
+
+    return response;
+  };
 
   const doSubmit = async (info: FormData) => {
     if (error) setError("");
     if (!info.category) setError("Select a request category!");
 
-    setLoading(true);
-    const response = (await requestsApi.create(populate(info, undefined))) as {
-      data: Request;
-      problem: string;
-      ok: boolean;
-    };
-    setLoading(false);
-
-    if (!response.ok) {
+    const { data, ok, problem } = await createRequest(info);
+    if (!ok) {
       toast.error("Request creation failed!");
-      const responseData = response.data as { error?: string };
-      if (responseData && responseData.error) {
-        setError(responseData.error);
-      } else {
-        setError(response.problem);
-      }
-    } else {
-      addRequest(response.data);
-      toast("Request created successfully!");
-      reset();
-      navigate("/");
+      return setError((data as DataError).error || problem);
     }
+
+    addRequest(data as Request);
+    toast("Request created successfully!");
+    reset();
+    navigate("/");
   };
 
-  if (!user) return <Navigate to="/login" replace />;
+  if (!auth.getCurrentUser()) return <Navigate to="/login" replace />;
 
   return (
     <Form

@@ -34,15 +34,21 @@ const ShopEditPage = () => {
   const shops = useShops();
   const user = auth.getCurrentUser();
 
-  const doSubmit = async (info: FormData) => {
-    if (error) setError("");
-    if (!imagesCount) return setError("Please select an image");
-
+  const createShop = async (info: FormData) => {
     setLoading(true);
     const res = await shops.create({ ...info, image: images[0] });
     setLoading(false);
 
-    if (!res.ok) return setError(res.error);
+    return res;
+  };
+
+  const doSubmit = async (info: FormData) => {
+    if (error) setError("");
+    if (!imagesCount) return setError("Please select an image");
+
+    const { error: resError, ok } = await createShop(info);
+    if (!ok) return setError(resError);
+
     removeAllImages();
     reset();
   };

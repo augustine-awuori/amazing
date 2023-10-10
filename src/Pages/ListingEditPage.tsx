@@ -20,30 +20,33 @@ const ListingEditPage = () => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
   const { errors, handleSubmit, register, reset } = useForm(schema);
-  const user = auth.getCurrentUser();
   const { imagesCount, images, removeAllImages } = useImages(MAX_IMAGES);
   const { addListing } = useListings();
   const navigate = useNavigate();
+
+  const createListing = async (info: FormData) => {
+    setLoading(true);
+    const response = await service.addListing({ ...info, images });
+    setLoading(false);
+
+    return response;
+  };
 
   const doSubmit = async (info: FormData) => {
     if (error) setError("");
     if (!imagesCount) return setError("Please select at least one image");
 
-    setLoading(true);
-    const listing = { ...info, images };
-    const { data, ok, problem } = await service.addListing(listing);
-    setLoading(false);
-
+    const { data, ok, problem } = await createListing(info);
     if (!ok) return setError((data as DataError)?.error || problem);
+    addListing(data as Listing);
 
     toast.success("Listing created successfully");
-    addListing(data as Listing);
     reset();
     navigate("/");
     removeAllImages();
   };
 
-  if (!user) return <Navigate to="/login" replace />;
+  if (!auth.getCurrentUser()) return <Navigate to="/login" replace />;
 
   return (
     <Form

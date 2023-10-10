@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
+import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import { useCurrentUser, useForm, useProfileUser } from "../hooks";
 import usersApi from "../services/users";
@@ -54,22 +55,25 @@ const ProfileEditPage = () => {
     return info;
   }
 
+  const updateInfo = async (info: FormData) => {
+    if (!userId) {
+      const problem = "App Error!";
+      setError(problem);
+      return { data: null, ok: false, problem };
+    }
+
+    setLoading(true);
+    const response = await usersApi.updateUserInfo(checkUsername(info), userId);
+    setLoading(false);
+
+    return response;
+  };
+
   const doSubmit = async (userInfo: FormData) => {
     if (!isTheOwner) return navigate("/");
 
-    if (!userId) return setError("App error");
-
-    setLoading(true);
-    const { ok, data, problem } = await usersApi.updateUserInfo(
-      checkUsername(userInfo),
-      userId
-    );
-    setLoading(false);
-
-    if (!ok) {
-      const responseData = data as { error?: string };
-      return setError(responseData.error || problem);
-    }
+    const { data, ok, problem } = await updateInfo(userInfo);
+    if (!ok) return setError((data as DataError).error || problem);
 
     toast.success("Changes saved");
     navigate(-1);
