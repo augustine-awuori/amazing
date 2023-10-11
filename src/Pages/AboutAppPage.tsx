@@ -49,7 +49,7 @@ const AboutAppPage = () => {
         entrepreneurship.
       </Paragraph>
       <Footer name="Baby Softwares">
-        <StartChatBtn phoneNumber="254745889801" />
+        <StartChatBtn phoneNumber="254796720289" />
       </Footer>
     </PageContainer>
   );

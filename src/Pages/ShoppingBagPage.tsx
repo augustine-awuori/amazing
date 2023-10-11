@@ -5,11 +5,18 @@ import { FaChevronLeft, FaPaperPlane } from "react-icons/fa";
 import { z } from "zod";
 
 import { Button, Heading, Modal, PageContainer } from "../components";
-import { useBag, useForm, useOrders, useShop } from "../hooks";
+import {
+  useBag,
+  useForm,
+  useOrders,
+  useShop,
+  useWhatsAppRedirect,
+} from "../hooks";
 import auth from "../services/auth";
 import BagTable from "../components/shops/BagTable";
 import DismissableInfo from "../components/common/DismissableInfo";
 import MessageField from "../components/form/TextAreaField";
+import util from "../utils/funcs";
 
 const info =
   "When you place an order, the shop owner will contact you to arrange delivery and payment.";
@@ -23,6 +30,7 @@ const ShoppingBagPage = () => {
   const { bag } = useBag();
   const { errors, register } = useForm(schema);
   const { shop } = useShop();
+  const { url } = useWhatsAppRedirect(shop?.author.otherAccounts.whatsapp);
   const helper = useOrders();
   const navigate = useNavigate();
 
@@ -30,11 +38,15 @@ const ShoppingBagPage = () => {
 
   const closeModal = () => setShowModal(false);
 
+  const sendWhatsAppNotification = () => util.navTo(url, message);
+
   const handlePositiveResponse = async () => {
     if (!takingMessage) return setTakingMessage(true);
 
     closeModal();
+
     await helper.makeOrder(products, message);
+    sendWhatsAppNotification();
   };
 
   const content = takingMessage ? (

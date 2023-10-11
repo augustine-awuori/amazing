@@ -1,4 +1,7 @@
-const navTo = (url: string) =>
-  window.open(url, "_blank", "noopener,noreferrer");
+const addMessageToUrl = (url: string, text = "") =>
+  text ? `${url} . ${text}` : url;
+
+const navTo = (url: string, message?: string) =>
+  window.open(addMessageToUrl(url, message), "_blank", "noopener,noreferrer");
 
 export default { navTo };
