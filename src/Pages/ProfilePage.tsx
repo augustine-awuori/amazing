@@ -15,18 +15,18 @@ import {
 } from "@chakra-ui/react";
 
 import {
+  Button,
+  ProfileActivities,
+  PageContainer,
+  StartChatBtn,
+} from "../components";
+import {
   useAppColorMode,
   useCurrentUser,
   useProfileUser,
   useReload,
   useTimestamp,
 } from "../hooks";
-import {
-  Button,
-  ProfileActivities,
-  PageContainer,
-  StartChatBtn,
-} from "../components";
 import { User } from "../hooks/useUser";
 import empty from "../utils/empty";
 import Text from "../components/Text";
@@ -67,13 +67,9 @@ const ProfilePage = () => {
     setProfileUser(info);
   };
 
-  const navigateToListings = () => {
-    navigate("listings");
-  };
+  const navigateToListings = () => navigate("listings");
 
-  const navigateToRequests = () => {
-    navigate("requests");
-  };
+  const navigateToRequests = () => navigate("requests");
 
   const computedAboutMe =
     aboutMe ||

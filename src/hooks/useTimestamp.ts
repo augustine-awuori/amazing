@@ -72,14 +72,7 @@ export default (timestamp?: number, withoutSuffix?: boolean) => {
   const getDate = (timestamp: number) => {
     const date = new Date(timestamp);
 
-    const day = date.getDate();
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-    const month = date.getMonth() + 1;
-    const seconds = date.getSeconds();
-    const year = date.getFullYear();
-
-    return `${day}/${month}/${year} at ${hours}:${minutes}:${seconds}`;
+    return `${date.toDateString()} at ${date.toLocaleTimeString()}`;
   };
 
   return { getDate, getTimeFromNow, tempTimestamp };
