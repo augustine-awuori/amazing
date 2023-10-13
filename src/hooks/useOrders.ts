@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { ApiResponse } from "apisauce";
 import { toast } from "react-toastify";
 
@@ -8,11 +9,10 @@ import { Product } from "../components/shops/product/Card";
 import auth from "../services/auth";
 import OrdersContext from "../contexts/OrdersContext";
 import service from "../services/orders";
-import useShop from "./useShop";
 
 const useOrders = () => {
-  const { shop } = useShop();
   const { orders, setOrders } = useContext(OrdersContext);
+  const shopId = useParams().shopId;
 
   useEffect(() => {
     initOrders();
@@ -30,7 +30,7 @@ const useOrders = () => {
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,
     products: products.map((p) => p._id),
-    shop: shop?._id || "",
+    shop: shopId || "",
   });
 
   const processResponse = (res: ApiResponse<unknown, unknown>): boolean => {
@@ -47,7 +47,7 @@ const useOrders = () => {
     products: Product[],
     message = ""
   ): Promise<boolean> => {
-    if (!shop || !products.length) {
+    if (!products.length || shopId) {
       toast.error("App error! Restart app");
       return false;
     }
