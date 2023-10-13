@@ -1,12 +1,14 @@
 import { HStack } from "@chakra-ui/react";
 
+import {
+  Card,
+  CardBody as Body,
+  CardHeading as Heading,
+  CardImage as Image,
+} from "../card";
 import { Listing } from "../../hooks/useListing";
 import { useTimestamp, useAppColorMode } from "../../hooks";
-import Body from "../card/Body";
-import Card from "../card/index.tsx";
 import figure from "../../utils/figure.ts";
-import Heading from "../card/Heading";
-import Image from "../card/Image";
 import Text from "../../components/Text";
 import UserAvatar from "../common/MediaQuery.tsx";
 

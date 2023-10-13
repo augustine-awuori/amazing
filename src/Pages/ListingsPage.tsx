@@ -7,7 +7,6 @@ import {
   ListingGrid,
 } from "../components";
 import { endpoint } from "../services/listings";
-import { ScrollToTopBtn } from "../components/common";
 import useListing, { Listing } from "../hooks/useListing";
 import useListings from "../hooks/useListings";
 
@@ -25,22 +24,18 @@ const ListingsPage = () => {
   };
 
   return (
-    <>
-      <ScrollToTopBtn />
-      <GridPageContainer
+    <GridPageContainer
+      selectedCategory={selectedCategory}
+      onSelectCategory={setSelectedCategory}
+    >
+      <ListingGrid
+        error={error}
+        isLoading={isLoading}
+        listings={data}
+        onListingClick={navigateToDetails}
         selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-        headingPrefix={"Showing " + data?.length || ""}
-      >
-        <ListingGrid
-          error={error}
-          isLoading={isLoading}
-          listings={data}
-          onListingClick={navigateToDetails}
-          selectedCategory={selectedCategory}
-        />
-      </GridPageContainer>
-    </>
+      />
+    </GridPageContainer>
   );
 };
 

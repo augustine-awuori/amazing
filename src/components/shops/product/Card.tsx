@@ -20,7 +20,8 @@ interface Props extends ProductCardBtnFuncs {
   data: Product;
   onClick: () => void;
   onEdit: () => void;
-  showButton: boolean;
+  showButton?: boolean;
+  showNoButton?: boolean;
 }
 
 const ProductCard: FC<Props> = ({
@@ -30,9 +31,12 @@ const ProductCard: FC<Props> = ({
   onQuantityDecrease,
   onQuantityIncrease,
   showButton,
+  showNoButton,
 }: Props) => {
   const { accentColor } = useAppColorMode();
   const bgColor = useColorModeValue("white", "gray.800");
+
+  const buttonsVisible = () => (showNoButton ? false : showButton);
 
   return (
     <Box
@@ -44,7 +48,7 @@ const ProductCard: FC<Props> = ({
     >
       <Box position="relative">
         <Image src={image} alt={name} w="100%" onClick={onClick} />
-        {!showButton && (
+        {!buttonsVisible && (
           <Flex position="absolute" top={0} right={0} p="2" onClick={onEdit}>
             <Icon as={EditIcon} boxSize={6} color="white" />
           </Flex>

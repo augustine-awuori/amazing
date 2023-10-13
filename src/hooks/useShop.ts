@@ -15,6 +15,7 @@ export interface Shop extends Common {
   _id: string;
   author: User;
   image: string;
+  isVerified: boolean;
   location: string;
   type: Type;
 }

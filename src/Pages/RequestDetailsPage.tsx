@@ -130,7 +130,7 @@ const RequestDetailsPage = () => {
         </>
       )}
       {isTheAuthor && (
-        <Button onClick={switchModalVisibility} my={3}>
+        <Button onClick={switchModalVisibility} my={3} display="block">
           Edit Listing
         </Button>
       )}

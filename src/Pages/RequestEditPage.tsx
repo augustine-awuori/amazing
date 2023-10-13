@@ -33,7 +33,7 @@ const RequestEditPage = () => {
     const { data, ok, problem } = await createRequest(info);
     if (!ok) {
       toast.error("Request creation failed!");
-      return setError((data as DataError).error || problem);
+      return setError((data as DataError)?.error || problem);
     }
 
     addRequest(data as Request);

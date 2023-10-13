@@ -39,6 +39,7 @@ const shop: Shop = {
   _id: "",
   author,
   image: "",
+  isVerified: false,
   name: "",
   location: "",
   type: { _id: "", label: "" },

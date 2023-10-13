@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {
-  ScrollToTopBtn,
-  ShopsGrid,
-  ShopsTypesGridPageContainer,
-} from "../components";
+import { ShopsGrid, ShopsTypesGridPageContainer } from "../components";
 import { Type } from "../hooks/useTypes";
 import useShop, { Shop } from "../hooks/useShop";
 import useShops from "../hooks/useShops";
@@ -22,22 +18,19 @@ const ShopsPage = () => {
   };
 
   return (
-    <>
-      <ScrollToTopBtn />
-      <ShopsTypesGridPageContainer
-        onSelectType={setSelectedType}
+    <ShopsTypesGridPageContainer
+      onSelectType={setSelectedType}
+      selectedType={selectedType}
+      gridHeadingLabel="Shops"
+    >
+      <ShopsGrid
+        error={error}
+        isLoading={isLoading}
+        onShopClick={navigateToDetails}
         selectedType={selectedType}
-        gridHeadingLabel="Showing Shops"
-      >
-        <ShopsGrid
-          error={error}
-          isLoading={isLoading}
-          onShopClick={navigateToDetails}
-          selectedType={selectedType}
-          shops={shops}
-        />
-      </ShopsTypesGridPageContainer>
-    </>
+        shops={shops}
+      />
+    </ShopsTypesGridPageContainer>
   );
 };
 

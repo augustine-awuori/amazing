@@ -50,7 +50,7 @@ const RegisterPage = () => {
   const doSubmit = async (info: FormData) => {
     const { data, headers, ok, problem } = await registerUser(info);
 
-    if (!ok) return setError((data as DataError).error || problem);
+    if (!ok) return setError((data as DataError)?.error || problem);
 
     toast("You're now a member!");
     loginWithJwt(headers);

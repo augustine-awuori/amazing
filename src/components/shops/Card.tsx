@@ -29,7 +29,7 @@ const ShopCard = ({ onClick, shop }: Props) => {
         <HStack mt={1}>
           <UserAvatar user={author} />
           <Text color={accentColor} fontSize=".9rem">
-            {format.truncate(type?.label)}
+            {format.truncate(format.getFirstWord(type?.label))}
           </Text>
         </HStack>
         {location && (

@@ -8,6 +8,7 @@ export { default as useForm } from "./useForm";
 export { default as useImages } from "./useImages";
 export { default as useListing } from "./useListing";
 export { default as useListings } from "./useListings";
+export { default as useOrder } from "./useOrder";
 export { default as useOrders } from "./useOrders";
 export { default as useProducts } from "./useProducts";
 export { default as useProfileListings } from "./useProfileListings";

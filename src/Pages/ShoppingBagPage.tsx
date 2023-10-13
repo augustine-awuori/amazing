@@ -45,8 +45,8 @@ const ShoppingBagPage = () => {
 
     closeModal();
 
-    await helper.makeOrder(products, message);
-    sendWhatsAppNotification();
+    const done = await helper.makeOrder(products, message);
+    if (done) sendWhatsAppNotification();
   };
 
   const content = takingMessage ? (

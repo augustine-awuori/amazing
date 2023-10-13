@@ -73,7 +73,7 @@ const ProfileEditPage = () => {
     if (!isTheOwner) return navigate("/");
 
     const { data, ok, problem } = await updateInfo(userInfo);
-    if (!ok) return setError((data as DataError).error || problem);
+    if (!ok) return setError((data as DataError)?.error || problem);
 
     toast.success("Changes saved");
     navigate(-1);

@@ -8,9 +8,11 @@ interface Props {
 
 const AppCard = ({ children, onClick }: Props) => (
   <Card
-    shadow={{ purple: "0 0 0 3px purple" }}
+    borderRadius={10}
     cursor="pointer"
     onClick={onClick}
+    overflow="hidden"
+    shadow={{ purple: "0 0 0 3px purple" }}
   >
     {children}
   </Card>

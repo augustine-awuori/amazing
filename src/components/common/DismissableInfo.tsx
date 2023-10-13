@@ -4,15 +4,16 @@ import { Box } from "@chakra-ui/react";
 import { Button, Text } from "../../components";
 
 interface Props {
-  info: string;
+  dismissable?: boolean;
+  info?: string;
 }
 
-const DismissableInfo: FC<Props> = ({ info }) => {
+const DismissableInfo: FC<Props> = ({ dismissable = true, info }) => {
   const [dismissed, setDismissed] = useState(false);
 
   const handleDismiss = () => setDismissed(true);
 
-  if (dismissed) return null;
+  if (dismissed || !info) return null;
 
   return (
     <Box
@@ -25,9 +26,11 @@ const DismissableInfo: FC<Props> = ({ info }) => {
       borderRadius={5}
     >
       <Text flex="1">{info}</Text>
-      <Button onClick={handleDismiss} colorScheme="black">
-        Cancel
-      </Button>
+      {dismissable && (
+        <Button onClick={handleDismiss} colorScheme="black">
+          Cancel
+        </Button>
+      )}
     </Box>
   );
 };

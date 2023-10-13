@@ -1,13 +1,18 @@
 import { Avatar, Wrap, WrapItem, ResponsiveValue } from "@chakra-ui/react";
 import { getFirstWord } from "../../utils/format";
-import { User } from "../../hooks/useUser";
 import VerifiedIcon from "./VerifiedIcon";
 
 import Text from "../../components/Text";
 
+export interface MediaQueryUser {
+  avatar: string;
+  name: string;
+  isVerified: boolean;
+}
+
 interface Props {
   onClick?: () => void;
-  user: User | undefined;
+  user: MediaQueryUser | undefined;
   size?:
     | ResponsiveValue<
         | (string & object)

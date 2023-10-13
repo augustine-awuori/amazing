@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 
+import { ScrollToTopBtn } from "../../../components";
 import CategoryList from "./List";
 import CategorySelector, { CategorySelectorProps } from "./Selector";
 import GridPageContainer from "../../grid/PageContainer";
@@ -31,14 +32,17 @@ const CategoriesGridPageContainer = ({
   );
 
   return (
-    <GridPageContainer
-      Aside={Aside}
-      Selector={Selector}
-      selectedItem={selectedCategory}
-      {...otherProps}
-    >
-      {children}
-    </GridPageContainer>
+    <>
+      <ScrollToTopBtn />
+      <GridPageContainer
+        Aside={Aside}
+        Selector={Selector}
+        selectedItem={selectedCategory}
+        {...otherProps}
+      >
+        {children}
+      </GridPageContainer>
+    </>
   );
 };
 

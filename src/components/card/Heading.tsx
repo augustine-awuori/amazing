@@ -1,13 +1,14 @@
 import { ReactNode } from "react";
+import { HeadingProps } from "@chakra-ui/react";
 
 import Heading from "../../components/Heading";
 
-interface Props {
+interface Props extends HeadingProps {
   children: ReactNode;
 }
 
-const AppHeading = ({ children }: Props) => (
-  <Heading fontSize="2xl" noOfLines={1}>
+const AppHeading = ({ children, ...otherProps }: Props) => (
+  <Heading {...otherProps} fontSize="2xl" noOfLines={1}>
     {children}
   </Heading>
 );

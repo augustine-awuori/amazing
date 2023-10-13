@@ -1,13 +1,12 @@
+import { NewOrder } from "../hooks/useOrder";
 import client from "./client";
 
 const endpoint = "/orders";
 
-export interface Order {
-  seller: string;
-  products: string[];
-  message: string;
-}
+const makeOrder = (order: NewOrder) => client.post(endpoint, order);
 
-const makeOrder = (order: Order) => client.post(endpoint, order);
+const getMyOrders = (userId: string) => client.get(`/my/${userId}`);
 
-export default { makeOrder };
+const getShopOrders = (shopId: string) => client.get(`/shop/${shopId}`);
+
+export default { getMyOrders, getShopOrders, makeOrder };
