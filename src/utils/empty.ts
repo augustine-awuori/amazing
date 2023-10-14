@@ -1,3 +1,4 @@
+import { Order } from "hooks/useOrder";
 import { Listing } from "../hooks/useListing";
 import { Request } from "../hooks/useRequest";
 import { Shop } from "../hooks/useShop";
@@ -45,8 +46,17 @@ const shop: Shop = {
   type: { _id: "", label: "" },
 };
 
+const order: Order = {
+  _id: "",
+  products: [],
+  shop,
+  timestamp: 52086,
+  message: "",
+};
+
 export default {
   listing: { ...listing, paramsId: "listingId" },
+  order: { ...order, paramsId: "orderId" },
   request: { ...request, paramsId: "requestId" },
   shop: { ...shop, paramsId: "shopId" },
   user: { ...author, paramsId: "userId" },

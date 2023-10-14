@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box } from "@chakra-ui/react";
 
-import { CardContainer, CardSkeleton } from "../card";
+import { CardContainer, CardSkeletons } from "../card";
 import { Category } from "../../hooks/useCategories";
 import { paginate } from "../../utils/paginate";
 import { Request } from "../../hooks/useRequest";
@@ -21,7 +21,6 @@ const RequestGrid = ({ onRequestClick, selectedCategory, userId }: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(9);
   const { error, isLoading, data: requests } = useRequests();
-  const skeletons = [1, 2, 3, 4, 5, 6];
 
   const byUser = userId
     ? requests.filter((request) => request.author._id === userId)
@@ -38,12 +37,7 @@ const RequestGrid = ({ onRequestClick, selectedCategory, userId }: Props) => {
   return (
     <>
       <Grid>
-        {isLoading &&
-          skeletons.map((skeleton) => (
-            <CardContainer key={skeleton}>
-              <CardSkeleton height="20px" />
-            </CardContainer>
-          ))}
+        <CardSkeletons isLoading={isLoading} height="20px" />
         {paginated.length ? (
           paginated.map((request) => (
             <CardContainer key={request._id}>

@@ -3,15 +3,7 @@ import { HStack } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaLocationArrow } from "react-icons/fa";
 
-import {
-  CardContainer,
-  CardSkeleton,
-  Footer,
-  Info,
-  PageContainer,
-  StartChatBtn,
-  Text,
-} from "../components";
+import { Footer, Info, PageContainer, StartChatBtn, Text } from "../components";
 import { paginate } from "../utils/paginate";
 import {
   useBag,
@@ -24,6 +16,7 @@ import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
 import { Settings, ShopPageHeader as Header } from "../components/shops";
 import { Shop } from "../hooks/useShop";
+import CardSkeletons from "../components/card/Skeletons";
 import empty from "../utils/empty";
 import Grid from "../components/grid";
 import ProductCard, { Product } from "../components/shops/product/Card";
@@ -60,7 +53,6 @@ const ShopPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products.length, shop?._id]);
 
-  const skeletons = [1, 2, 3, 4, 5, 6];
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
 
   const markBought = products.map((p) => {
@@ -219,12 +211,7 @@ const ShopPage = () => {
           shopName={shop?.name}
         />
         <Grid>
-          {isLoading &&
-            skeletons.map((skeleton) => (
-              <CardContainer key={skeleton}>
-                <CardSkeleton />
-              </CardContainer>
-            ))}
+          <CardSkeletons isLoading={isLoading} />
           {paginated.length ? (
             paginated.map((product, index) => (
               <ProductCard

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box } from "@chakra-ui/react";
 
-import { CardContainer, CardSkeleton } from "../card";
+import { CardContainer, CardSkeletons } from "../card";
 import { paginate } from "../../utils/paginate";
 import { Shop } from "../../hooks/useShop";
 import { Type } from "../../hooks/useTypes";
@@ -28,7 +28,6 @@ const ShopsGrid = ({
 }: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
-  const skeletons = [1, 2, 3, 4, 5, 6];
 
   const filtered = selectedType?._id
     ? shops.filter((shop) => shop.type._id === selectedType?._id)
@@ -41,12 +40,7 @@ const ShopsGrid = ({
   return (
     <>
       <Grid>
-        {isLoading &&
-          skeletons.map((skeleton) => (
-            <CardContainer key={skeleton}>
-              <CardSkeleton />
-            </CardContainer>
-          ))}
+        <CardSkeletons isLoading={isLoading} />
         {paginated.length ? (
           paginated.map((shop) => (
             <CardContainer key={shop._id}>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box } from "@chakra-ui/react";
 
-import { CardContainer, CardSkeleton } from "../card";
+import { CardContainer, CardSkeletons } from "../card";
 import { Category } from "../../hooks/useCategories";
 import { Listing } from "../../hooks/useListing";
 import { paginate } from "../../utils/paginate";
@@ -28,7 +28,6 @@ const ListingGrid = ({
 }: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
-  const skeletons = [1, 2, 3, 4, 5, 6];
 
   const filtered = selectedCategory?._id
     ? listings.filter(
@@ -43,12 +42,7 @@ const ListingGrid = ({
   return (
     <>
       <Grid>
-        {isLoading &&
-          skeletons.map((skeleton) => (
-            <CardContainer key={skeleton}>
-              <CardSkeleton />
-            </CardContainer>
-          ))}
+        <CardSkeletons isLoading={isLoading} />
         {paginated.length ? (
           paginated.map((listing) => (
             <CardContainer key={listing._id}>
