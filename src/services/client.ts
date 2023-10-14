@@ -39,4 +39,10 @@ export interface DataError {
   error?: string;
 }
 
+export interface Response {
+  data: unknown;
+  problem: string | null;
+  ok: boolean;
+}
+
 export default apiClient;

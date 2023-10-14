@@ -12,6 +12,7 @@ import BagTable from "../components/shops/BagTable";
 import DismissableInfo from "../components/common/DismissableInfo";
 import MessageField from "../components/form/TextAreaField";
 import util from "../utils/funcs";
+import { Order } from "../hooks/useOrder";
 
 const info =
   "When you place an order, the shop owner will contact you to arrange delivery and payment.";
@@ -32,16 +33,16 @@ const ShoppingBagPage = () => {
 
   const closeModal = () => setShowModal(false);
 
-  const sendWhatsAppNotification = () =>
-    util.navTo(appBaseUrl + "/notifications", message);
+  const sendWhatsAppNotification = (orderId: string) =>
+    util.navTo(`${appBaseUrl}notifications/orders/${orderId}`, message);
 
   const handlePositiveResponse = async () => {
     if (!takingMessage) return setTakingMessage(true);
 
     closeModal();
 
-    const done = await helper.makeOrder(products, message);
-    if (done) sendWhatsAppNotification();
+    const { data, ok } = await helper.makeOrder(products, message);
+    if (ok) sendWhatsAppNotification((data as Order)._id);
   };
 
   const content = takingMessage ? (

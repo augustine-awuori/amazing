@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ApiResponse } from "apisauce";
 import { toast } from "react-toastify";
 
-import { DataError } from "../services/client";
+import { DataError, Response } from "../services/client";
 import { NewOrder, Order } from "./useOrder";
 import { Product } from "../components/shops/product/Card";
 import auth from "../services/auth";
@@ -34,14 +34,14 @@ const useOrders = () => {
     shop: shopId || "",
   });
 
-  const processResponse = (res: ApiResponse<unknown, unknown>): boolean => {
+  const processResponse = (res: ApiResponse<unknown, unknown>): Response => {
     const { data, ok, problem } = res;
 
     ok
       ? toast.success("Order placed successfully!")
       : toast.error((data as DataError)?.error || problem);
 
-    return ok;
+    return { data, ok, problem };
   };
 
   const isStateValid = (products: Product[]): boolean => {
@@ -59,8 +59,9 @@ const useOrders = () => {
   const makeOrder = async (
     products: Product[],
     message = ""
-  ): Promise<boolean> => {
-    if (!isStateValid(products)) return false;
+  ): Promise<Response> => {
+    if (!isStateValid(products))
+      return { data: null, ok: false, problem: "CLIENT_ERROR" };
 
     const response = await service.makeOrder(prepOrder(products, message));
 
