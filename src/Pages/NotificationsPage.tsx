@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import { Heading, PageContainer, Paragraph, Text } from "../components";
 import useOrders from "../hooks/useOrders";
@@ -7,9 +6,6 @@ import useOrders from "../hooks/useOrders";
 const NotificationsPage = () => {
   const { orders } = useOrders();
   const navigate = useNavigate();
-
-  const viewOrders = () =>
-    orders.length ? navigate("orders") : toast("You don't have any orders");
 
   return (
     <PageContainer>
@@ -25,7 +21,7 @@ const NotificationsPage = () => {
               color: "orange.400",
               textDecoration: "underline",
             }}
-            onClick={viewOrders}
+            onClick={() => navigate("orders")}
           >
             Orders
           </Heading>

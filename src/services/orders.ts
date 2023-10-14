@@ -1,7 +1,7 @@
 import { NewOrder } from "../hooks/useOrder";
 import client from "./client";
 
-const endpoint = "/orders";
+export const endpoint = "/orders";
 
 const makeOrder = (order: NewOrder) => client.post(endpoint, order);
 

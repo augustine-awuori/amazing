@@ -8,7 +8,7 @@ import {
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
-import { NavItem, NAV_ITEMS } from "../../data/navItems";
+import { NavItem, getNavItems } from "../../data/navItems";
 import Text from "../../components/Text";
 
 const MobileNavItem = ({ label, children, href }: NavItem) => {
@@ -68,7 +68,7 @@ const MobileNav = () => (
     p={4}
     display={{ md: "none" }}
   >
-    {NAV_ITEMS.map((navItem) => (
+    {getNavItems().map((navItem) => (
       <MobileNavItem key={navItem.label} {...navItem} />
     ))}
   </Stack>

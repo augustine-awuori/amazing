@@ -8,25 +8,20 @@ import { NewOrder, Order } from "./useOrder";
 import { Product } from "../components/shops/product/Card";
 import auth from "../services/auth";
 import OrdersContext from "../contexts/OrdersContext";
-import service from "../services/orders";
+import service, { endpoint } from "../services/orders";
+import useData from "./useData";
 
 const useOrders = () => {
   const { orders, setOrders } = useContext(OrdersContext);
+  const user = auth.getCurrentUser();
+  const { data, error, isLoading } = useData<Order>(`${endpoint}/${user?._id}`);
   const navigate = useNavigate();
   const shopId = useParams().shopId;
 
   useEffect(() => {
-    initOrders();
+    if (!error) setOrders(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const initOrders = async () => {
-    const user = auth.getCurrentUser();
-    if (!user) return;
-
-    const { data, ok } = await getMyOrders(user._id);
-    if (ok) setOrders(data as Order[]);
-  };
+  }, [user?._id]);
 
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,
@@ -68,17 +63,7 @@ const useOrders = () => {
     return processResponse(response);
   };
 
-  async function getMyOrders(userId: string) {
-    const { ok, data, problem } = await service.getMyOrders(userId);
-
-    ok
-      ? toast("Orders retrieved")
-      : toast.error((data as DataError)?.error || problem);
-
-    return { ok, data, problem };
-  }
-
-  return { orders, getMyOrders, makeOrder };
+  return { isLoading, orders, makeOrder };
 };
 
 export default useOrders;

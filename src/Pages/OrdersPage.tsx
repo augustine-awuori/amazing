@@ -1,54 +1,23 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
-import { empty } from "../utils";
-import { Grid, ShopsTypesGridPageContainer } from "../components";
+import { Grid, Info, ShopsTypesGridPageContainer } from "../components";
 import { MediaQueryUser } from "../components/common/MediaQuery";
 import { Pagination } from "../components/common";
-import { Product } from "../components/shops/product/Card";
 import { Type } from "../hooks/useTypes";
+import auth from "../services/auth";
 import OrderCard from "../components/order/CardWithBadge";
 import useOrder, { Order } from "../hooks/useOrder";
-import pic from "../assets/pic.jpg";
-
-const product: Product = {
-  name: "iPhone 14 Collection",
-  _id: "",
-  description: "",
-  image: pic,
-  price: 250,
-  quantity: 0,
-};
-
-const orders: Order[] = [
-  {
-    _id: "1",
-    products: [product, product, product],
-    shop: empty.shop,
-    timestamp: 503384,
-  },
-  {
-    _id: "2",
-    products: [product, product],
-    shop: empty.shop,
-    timestamp: 503384,
-  },
-  {
-    _id: "3",
-    products: [product, product, product, product],
-    shop: empty.shop,
-    timestamp: 503384,
-  },
-  { _id: "4", products: [product], shop: empty.shop, timestamp: 503384 },
-];
+import useOrders from "../hooks/useOrders";
 
 const OrdersPage = () => {
-  const [selectedType, setSelectedType] = useState<Type | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
-  const navigate = useNavigate();
+  const [selectedType, setSelectedType] = useState<Type | null>(null);
+  const { isLoading, orders } = useOrders();
   const helper = useOrder();
+  const navigate = useNavigate();
 
   const getUserFrom = ({ shop }: Order): MediaQueryUser => ({
     avatar: shop.image,
@@ -65,23 +34,29 @@ const OrdersPage = () => {
     navigate(order._id);
   };
 
+  if (!auth.getCurrentUser()) return <Navigate to="/login" />;
+
   return (
     <ShopsTypesGridPageContainer
       onSelectType={setSelectedType}
       selectedType={selectedType}
-      gridHeadingLabel="Shop Orders"
+      gridHeadingLabel="Shops Orders"
     >
       <Grid>
-        {filtered.map((order) => (
-          <OrderCard
-            key={order._id}
-            count={order.products.length}
-            name={order.products[0].name}
-            onClick={() => navigateToDetails(order)}
-            user={getUserFrom(order)}
-            timestamp={order.timestamp}
-          />
-        ))}
+        {filtered.length ? (
+          filtered.map((order) => (
+            <OrderCard
+              key={order._id}
+              count={order.products.length}
+              name={order.products[0].name}
+              onClick={() => navigateToDetails(order)}
+              user={getUserFrom(order)}
+              timestamp={order.timestamp}
+            />
+          ))
+        ) : (
+          <Info show={!isLoading} />
+        )}
       </Grid>
       <Box mt={5}>
         <Pagination

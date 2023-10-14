@@ -7,7 +7,7 @@ import {
   PopoverContent,
 } from "@chakra-ui/react";
 
-import { NAV_ITEMS } from "../../data/navItems";
+import { getNavItems } from "../../data/navItems";
 import DesktopSubNav from "./DesktopSub";
 
 const DesktopNav = () => {
@@ -17,7 +17,7 @@ const DesktopNav = () => {
 
   return (
     <Stack direction="row" spacing={4}>
-      {NAV_ITEMS.map((navItem) => (
+      {getNavItems().map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger="hover" placement="bottom-start">
             <PopoverTrigger>

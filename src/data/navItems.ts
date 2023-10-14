@@ -1,3 +1,5 @@
+import auth from "../services/auth";
+
 export interface NavItem {
   label: string;
   subLabel?: string;
@@ -5,7 +7,7 @@ export interface NavItem {
   href?: string;
 }
 
-export const NAV_ITEMS: Array<NavItem> = [
+const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Shops",
     children: [
@@ -52,11 +54,15 @@ export const NAV_ITEMS: Array<NavItem> = [
     ],
   },
   {
-    label: "Notifications",
-    href: "/notifications",
-  },
-  {
     label: "About App",
     href: "/about-app",
   },
 ];
+
+const NotificationsNavItem: NavItem = {
+  label: "Notifications",
+  href: "/notifications",
+};
+
+export const getNavItems = (): NavItem[] =>
+  auth.getCurrentUser() ? [...NAV_ITEMS, NotificationsNavItem] : NAV_ITEMS;
