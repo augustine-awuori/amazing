@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ApiResponse } from "apisauce";
 import { toast } from "react-toastify";
 
@@ -12,6 +12,7 @@ import service from "../services/orders";
 
 const useOrders = () => {
   const { orders, setOrders } = useContext(OrdersContext);
+  const navigate = useNavigate();
   const shopId = useParams().shopId;
 
   useEffect(() => {
@@ -21,10 +22,10 @@ const useOrders = () => {
 
   const initOrders = async () => {
     const user = auth.getCurrentUser();
-    if (user) {
-      const { data, ok } = await getMyOrders(user._id);
-      if (ok) setOrders(data as Order[]);
-    }
+    if (!user) return;
+
+    const { data, ok } = await getMyOrders(user._id);
+    if (ok) setOrders(data as Order[]);
   };
 
   const prepOrder = (products: Product[], message: string): NewOrder => ({
@@ -43,14 +44,23 @@ const useOrders = () => {
     return ok;
   };
 
+  const isStateValid = (products: Product[]): boolean => {
+    if (products.length && shopId) return true;
+
+    const message = !products.length
+      ? "Error! Your products are not reflected in your shopping bag"
+      : "App error!";
+    toast.error(message);
+
+    navigate(-1);
+    return false;
+  };
+
   const makeOrder = async (
     products: Product[],
     message = ""
   ): Promise<boolean> => {
-    if (!products.length || shopId) {
-      toast.error("App error! Restart app");
-      return false;
-    }
+    if (!isStateValid(products)) return false;
 
     const response = await service.makeOrder(prepOrder(products, message));
 
