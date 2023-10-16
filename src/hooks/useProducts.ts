@@ -16,9 +16,13 @@ const useProducts = (shopId: string | undefined) => {
   useEffect(() => {
     if (products.length === data?.length) return;
 
-    if (!error && shopId) setProducts(data);
+    if (!error && shopId) setProducts(mapQuantity(data));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shopId, products.length]);
+
+  function mapQuantity(products: Product[]) {
+    return products.map((p) => ({ ...p, quantity: 0 }));
+  }
 
   const create = async (product: NewProduct) => {
     const { data: newProduct, ok, problem } = await service.create(product);
