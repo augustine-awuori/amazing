@@ -1,3 +1,10 @@
+export interface OtherAccounts {
+  instagram?: string;
+  twitter?: string;
+  whatsapp?: string;
+  youtube?: string;
+}
+
 export interface User {
   _id: string;
   aboutMe: string;
@@ -5,12 +12,7 @@ export interface User {
   isAdmin: boolean;
   isVerified: boolean;
   name: string;
-  otherAccounts: {
-    instagram?: string;
-    twitter?: string;
-    whatsapp?: string;
-    youtube?: string;
-  };
+  otherAccounts: OtherAccounts;
   timestamp: number;
   username: string;
 }

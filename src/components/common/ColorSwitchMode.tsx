@@ -14,7 +14,9 @@ const ColoModeSwitch = () => {
         isChecked={isDarkMode}
         onChange={toggleColorMode}
       />
-      <Text whiteSpace="nowrap">Dark Mode</Text>
+      <Text display={{ base: "none", md: "block" }} whiteSpace="nowrap">
+        Dark Mode
+      </Text>
     </HStack>
   );
 };

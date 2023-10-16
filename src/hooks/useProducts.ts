@@ -10,7 +10,7 @@ import service from "../services/products";
 import useData from "./useData";
 
 const useProducts = (shopId: string | undefined) => {
-  const { data, error, isLoading } = useData<Product>(`${endpoint}/${shopId}`);
+  const { data, error, isLoading } = useData<Product>(getApiEndpoint());
   const { products, setProducts } = useContext(ProductsContext);
 
   useEffect(() => {
@@ -20,8 +20,12 @@ const useProducts = (shopId: string | undefined) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shopId, products.length]);
 
-  function mapQuantity(products: Product[]) {
+  function mapQuantity(products: Product[]): Product[] {
     return products.map((p) => ({ ...p, quantity: 0 }));
+  }
+
+  function getApiEndpoint() {
+    return shopId ? `${endpoint}/${shopId}` : endpoint;
   }
 
   const create = async (product: NewProduct) => {

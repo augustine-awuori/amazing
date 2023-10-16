@@ -5,6 +5,7 @@ import VerifiedIcon from "./VerifiedIcon";
 import Text from "../../components/Text";
 
 export interface MediaQueryUser {
+  _id?: string;
   avatar: string;
   name: string;
   isVerified: boolean;

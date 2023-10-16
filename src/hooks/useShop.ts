@@ -11,13 +11,21 @@ interface Common {
   name: string;
 }
 
-export interface Shop extends Common {
+interface ShopBase {
   _id: string;
-  author: User;
   image: string;
   isVerified: boolean;
   location: string;
+}
+
+export interface Shop extends Common, ShopBase {
+  author: User;
   type: Type;
+}
+
+export interface ShopProduct extends Common, ShopBase {
+  author: string;
+  type: string;
 }
 
 export interface NewShop extends Common {
