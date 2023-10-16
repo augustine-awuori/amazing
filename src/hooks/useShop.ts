@@ -17,7 +17,7 @@ export interface Shop extends Common {
   image: string;
   isVerified: boolean;
   location: string;
-  type: Type;
+  type: Type | string;
 }
 
 export interface NewShop extends Common {

@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { z } from "zod";
 
 import { Category } from "./useCategories";
-import { User } from "./useUser";
+import { MediaQueryUser } from "../components/common/MediaQuery";
 import ListingContext from "../contexts/ListingContext";
 
 export interface ListingBase {
@@ -28,7 +28,7 @@ export interface ListingInfo extends ListingBase {
 export interface Listing extends ListingBase {
   _id: string;
   category: Category;
-  author: User;
+  author: MediaQueryUser;
   images: string[];
   timestamp: number;
   price: number | undefined;

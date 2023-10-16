@@ -7,6 +7,7 @@ import TypeList from "./List";
 
 interface Props extends ShopTypeSelectorProps {
   children: ReactNode;
+  Filter?: JSX.Element;
   gridHeadingLabel?: string;
   headingPrefix?: string;
 }

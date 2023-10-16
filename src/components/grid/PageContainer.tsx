@@ -10,6 +10,7 @@ import PageContainer from "../PageContainer";
 interface Props {
   Aside?: JSX.Element;
   children: ReactNode;
+  Filter?: JSX.Element;
   gridHeadingLabel?: string;
   headingPrefix?: string;
   onSelectCategory?: (item: Item) => void;
@@ -19,36 +20,46 @@ interface Props {
 
 const GridPageContainer = ({
   children,
+  Filter,
   gridHeadingLabel,
   headingPrefix,
   onSelectCategory = () => {},
   selectedItem,
   Selector,
   ...otherProps
-}: Props) => (
-  <PageContainer {...otherProps}>
-    <Box marginY={1}>
-      <Box>
-        <GridHeading
-          selectedItem={selectedItem}
-          headingPrefix={headingPrefix}
-          label={gridHeadingLabel}
+}: Props) => {
+  const TempSelector = () => (
+    <Box display={{ lg: "none" }}>
+      {Selector || (
+        <CategorySelector
+          selectedCategory={selectedItem}
+          onSelectCategory={onSelectCategory}
         />
-      </Box>
-      <HStack justifyContent="space-between" marginTop={3}>
-        <Box display={{ lg: "none" }}>
-          {Selector || (
-            <CategorySelector
-              selectedCategory={selectedItem}
-              onSelectCategory={onSelectCategory}
-            />
-          )}
-        </Box>
-        <ColorSwitchMode />
-      </HStack>
+      )}
     </Box>
-    {children}
-  </PageContainer>
-);
+  );
+
+  return (
+    <PageContainer {...otherProps}>
+      <Box marginY={1}>
+        <Box>
+          <GridHeading
+            selectedItem={selectedItem}
+            headingPrefix={headingPrefix}
+            label={gridHeadingLabel}
+          />
+        </Box>
+        <HStack justifyContent="space-between" marginTop={3}>
+          <HStack>
+            <TempSelector />
+            {Filter && <Box>{Filter}</Box>}
+          </HStack>
+          <ColorSwitchMode />
+        </HStack>
+      </Box>
+      {children}
+    </PageContainer>
+  );
+};
 
 export default GridPageContainer;

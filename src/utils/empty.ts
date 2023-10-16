@@ -1,5 +1,6 @@
 import { Order } from "hooks/useOrder";
 import { Listing } from "../hooks/useListing";
+import { Product } from "../components/shops/product/Card";
 import { Request } from "../hooks/useRequest";
 import { Shop } from "../hooks/useShop";
 import { User } from "../hooks/useUser";
@@ -46,6 +47,17 @@ const shop: Shop = {
   type: { _id: "", label: "" },
 };
 
+const product: Product = {
+  _id: "",
+  description: "",
+  image: "",
+  name: "",
+  price: 100,
+  quantity: 0,
+  shop,
+  timestamp: 0,
+};
+
 const order: Order = {
   _id: "",
   products: [],
@@ -57,6 +69,7 @@ const order: Order = {
 export default {
   listing: { ...listing, paramsId: "listingId" },
   order: { ...order, paramsId: "orderId" },
+  product: { ...product, paramsId: "" },
   request: { ...request, paramsId: "requestId" },
   shop: { ...shop, paramsId: "shopId" },
   user: { ...author, paramsId: "userId" },
