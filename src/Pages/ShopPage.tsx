@@ -37,7 +37,7 @@ const ShopPage = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { info: shop, request } = useReload<Shop>(
-    shopInfo,
+    checkInfoExistence(shopInfo),
     empty.shop,
     service.getShop
   );
@@ -54,6 +54,10 @@ const ShopPage = () => {
   }, [products.length, shop?._id]);
 
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
+
+  function checkInfoExistence(info: Shop | null) {
+    return info?._id ? info : undefined;
+  }
 
   const markBought = products.map((p) => {
     const ids = { ...bag.ids };
@@ -157,7 +161,7 @@ const ShopPage = () => {
       <Text color="whiteAlpha.500">{shop.location || "Main Campus Area"}</Text>
     </HStack>
   );
-
+  console.log(shop);
   return (
     <>
       {shop?._id && (
