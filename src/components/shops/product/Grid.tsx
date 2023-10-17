@@ -14,7 +14,7 @@ import ProductDisplayCard from "./DisplayCard";
 interface Props {
   error: string | undefined;
   isLoading: boolean;
-  onClick: (product: Product) => void;
+  onClick: (shopId: string) => void;
   selectedType: Type | null;
   products: Product[];
 }
@@ -44,7 +44,10 @@ const ShopsProductsGrid = ({
         {paginated.length ? (
           paginated.map((product, index) => (
             <CardContainer key={product._id + index}>
-              <ProductDisplayCard product={product} onClick={onClick} />
+              <ProductDisplayCard
+                product={product}
+                onClick={() => onClick(product.shop._id)}
+              />
             </CardContainer>
           ))
         ) : (

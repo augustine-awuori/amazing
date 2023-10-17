@@ -6,7 +6,7 @@ import empty from "../../../utils/empty";
 
 interface Props {
   product: Product;
-  onClick: (product: Product) => void;
+  onClick: (shopId: string) => void;
 }
 
 const DisplayCard = ({ onClick, product }: Props) => {
@@ -30,7 +30,7 @@ const DisplayCard = ({ onClick, product }: Props) => {
     description,
   };
 
-  return <ListingCard listing={listing} onClick={() => onClick(product)} />;
+  return <ListingCard listing={listing} onClick={() => onClick(shop._id)} />;
 };
 
 export default DisplayCard;

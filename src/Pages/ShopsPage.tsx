@@ -59,7 +59,7 @@ const ShopsPage = () => {
         <ShopsProductsGrid
           error=""
           isLoading={productsLoading}
-          onClick={() => {}}
+          onClick={navigate}
           products={products}
           selectedType={selectedType}
         />
