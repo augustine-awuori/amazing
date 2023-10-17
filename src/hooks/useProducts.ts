@@ -37,7 +37,7 @@ const useProducts = (shopId: string | undefined) => {
       toast("Product has been saved successfully");
     } else {
       error = (newProduct as DataError)?.error || problem;
-      toast("Product not saved!");
+      toast.error("Product not saved!");
     }
 
     return { error, ok };
@@ -78,7 +78,7 @@ const useProducts = (shopId: string | undefined) => {
   const getProducts = () => {
     if (error || (data as DataError)?.error || isLoading) return [];
 
-    return data;
+    return mapQuantity(data);
   };
 
   return {

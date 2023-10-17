@@ -161,7 +161,7 @@ const ShopPage = () => {
       <Text color="whiteAlpha.500">{shop.location || "Main Campus Area"}</Text>
     </HStack>
   );
-  console.log(shop);
+
   return (
     <>
       {shop?._id && (
