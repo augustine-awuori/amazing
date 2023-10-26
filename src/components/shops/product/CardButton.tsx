@@ -22,10 +22,14 @@ const ProductCardButton = ({
 }: ProductCardBtnProps) => {
   const { accentColor } = useAppColorMode();
 
+  const handleQuantityDec = () => {
+    if (quantity >= 1) onQuantityDecrease(productId);
+  };
+
   if (quantity)
     return (
       <>
-        <Button onClick={() => onQuantityDecrease(productId)}>-</Button>
+        <Button onClick={handleQuantityDec}>-</Button>
         <Badge
           bgColor={accentColor}
           borderRadius={5}

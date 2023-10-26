@@ -15,7 +15,8 @@ const OrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
   const [selectedType, setSelectedType] = useState<Type | null>(null);
-  const { isLoading, orders } = useOrders();
+  const user = auth.getCurrentUser();
+  const { isLoading, orders } = useOrders(user?._id || "");
   const helper = useOrder();
   const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ const OrdersPage = () => {
     navigate(order._id);
   };
 
-  if (!auth.getCurrentUser()) return <Navigate to="/login" />;
+  if (!user) return <Navigate to="/login" />;
 
   return (
     <ShopsTypesGridPageContainer

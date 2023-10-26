@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import {
   Box,
   Collapse,
@@ -64,18 +63,19 @@ export default function WithSubNav({ user }: Props) {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
-          <NavLink to="/">
-            <Text
-              textAlign={useBreakpointValue({ base: "center", md: "left" })}
+          <Text
+            textAlign={useBreakpointValue({ base: "center", md: "left" })}
+            color={useColorModeValue("gray.800", "white")}
+            mr={1}
+          >
+            <NavButton
+              to="/"
+              color="#fff"
+              label="Campus Mart"
               fontWeight="bold"
-              color={useColorModeValue("gray.800", "white")}
               fontSize={17}
-              cursor="pointer"
-              mr={1}
-            >
-              Campus Mart
-            </Text>
-          </NavLink>
+            />
+          </Text>
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
             <DesktopNav />
           </Flex>

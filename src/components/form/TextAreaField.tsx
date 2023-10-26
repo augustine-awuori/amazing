@@ -34,6 +34,7 @@ const TextAreaField = ({
     <FormControl marginBottom={4}>
       <FormLabel fontFamily="andika">{label}</FormLabel>
       <Textarea
+        autoFocus
         fontFamily="andika"
         placeholder={placeholder || label}
         {...register(inputName)}

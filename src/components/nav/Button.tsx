@@ -5,17 +5,26 @@ import Button from "../Button";
 
 interface Props extends ButtonProps {
   Element?: JSX.Element;
+  fontWeight?: number | string;
+  fontSize?: number | string;
   label?: string;
   to: string;
 }
 
-const NavButton = ({ Element, label, to, ...otherProps }: Props) => (
+const NavButton = ({
+  Element,
+  label,
+  to,
+  fontSize = "sm",
+  fontWeight = 400,
+  ...otherProps
+}: Props) => (
   <NavLink to={to}>
     <Button
       {...otherProps}
       as="a"
-      fontSize="sm"
-      fontWeight={400}
+      fontSize={fontSize}
+      fontWeight={fontWeight}
       variant="link"
     >
       {label || Element}

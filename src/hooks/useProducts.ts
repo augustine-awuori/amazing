@@ -81,12 +81,14 @@ const useProducts = (shopId: string | undefined) => {
     return mapQuantity(data);
   };
 
+  const result = getProducts();
+
   return {
     create,
     deleteProductBy,
     isLoading,
-    products: getProducts(),
-    productsCount: getProducts().length,
+    products: result,
+    productsCount: result.length,
     setProducts,
     update,
   };

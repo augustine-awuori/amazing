@@ -6,22 +6,22 @@ import { toast } from "react-toastify";
 import { DataError, Response } from "../services/client";
 import { NewOrder, Order } from "./useOrder";
 import { Product } from "../components/shops/product/Card";
-import auth from "../services/auth";
 import OrdersContext from "../contexts/OrdersContext";
 import service, { endpoint } from "../services/orders";
 import useData from "./useData";
 
-const useOrders = () => {
-  const { orders, setOrders } = useContext(OrdersContext);
-  const user = auth.getCurrentUser();
-  const { data, error, isLoading } = useData<Order>(`${endpoint}/${user?._id}`);
+const useOrders = (targetUrl?: string) => {
+  const { setOrders } = useContext(OrdersContext);
+  const { data, error, isLoading } = useData<Order>(
+    `${endpoint}/${targetUrl || ""}`
+  );
   const navigate = useNavigate();
   const shopId = useParams().shopId;
 
   useEffect(() => {
     if (!error) setOrders(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?._id]);
+  }, [targetUrl]);
 
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,
@@ -63,7 +63,7 @@ const useOrders = () => {
     return processResponse(response);
   };
 
-  return { isLoading, orders, makeOrder };
+  return { isLoading, orders: data, makeOrder };
 };
 
 export default useOrders;
