@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { z } from "zod";
 
 import { Button, Modal, Text } from "../../components";
 import { Form, FormField, SubmitButton } from "../../components/form";
-import { schema } from "./NewProductForm";
 import { Product } from "../shops/product/Card";
+import { ProductFormData, productSchema } from "../../data/schemas";
 import { useForm, useProducts, useShop } from "../../hooks";
-
-type FormData = z.infer<typeof schema>;
 
 interface Props {
   product: Product | undefined;
@@ -19,12 +16,12 @@ const ProductUpdateForm = ({ onDone, product }: Props) => {
   const [isLoading, setLoading] = useState(false);
   const [name, setName] = useState(product?.name);
   const [price, setPrice] = useState(product?.price);
-  const { errors, handleSubmit, register, reset } = useForm(schema);
+  const { errors, handleSubmit, register, reset } = useForm(productSchema);
   const { shop } = useShop();
   const service = useProducts(shop?._id);
   const [showModal, setShowModal] = useState(false);
 
-  const doSubmit = async (info: FormData) => {
+  const doSubmit = async (info: ProductFormData) => {
     if (error) setError("");
     if (!product) return setError("App Error");
 

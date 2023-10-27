@@ -1,15 +1,13 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { z } from "zod";
 
 import { DataError } from "../../services/client";
 import { Form, FormField, SubmitButton } from "../form";
-import { Listing, ListingInfo, schema } from "../../hooks/useListing";
+import { Listing, ListingInfo } from "../../hooks/useListing";
+import { ListingFormData, listingSchema } from "../../data/schemas";
 import { useCategories, useForm, useListings } from "../../hooks";
 import listingsService from "../../services/listings";
 import Select from "../common/Select";
-
-type FormData = z.infer<typeof schema>;
 
 interface Props {
   listing: Listing | undefined;
@@ -19,14 +17,14 @@ interface Props {
 const ListingEditForm = ({ listing, onDone }: Props) => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { errors, handleSubmit, register } = useForm(schema);
+  const { errors, handleSubmit, register } = useForm(listingSchema);
   const { data: categories } = useCategories();
   const [title, setTitle] = useState(listing?.title);
   const [price, setPrice] = useState(listing?.price);
   const [description, setDescription] = useState(listing?.description);
   const { updateListing } = useListings();
 
-  const populate = (listingInfo: FormData): ListingInfo => {
+  const populate = (listingInfo: ListingFormData): ListingInfo => {
     const { category, description, price, title } = listingInfo;
 
     return {
@@ -39,7 +37,7 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
     };
   };
 
-  const doSubmit = async (listingInfo: FormData) => {
+  const doSubmit = async (listingInfo: ListingFormData) => {
     if (!listingInfo.category) return setError("Select category");
 
     if (error) setError("");

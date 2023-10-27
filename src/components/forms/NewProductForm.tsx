@@ -1,23 +1,11 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { z } from "zod";
 
 import { Form, FormField, SubmitButton } from "../form";
+import { ProductFormData, productSchema } from "../../data/schemas";
 import { useForm, useImages, useProducts } from "../../hooks";
 import authApi from "../../services/auth";
 import ImageInputList from "../common/ImageInputList";
-
-// eslint-disable-next-line react-refresh/only-export-components
-export const schema = z.object({
-  name: z.string().min(1, "Name should be between 1 and 50 characters").max(50),
-  price: z
-    .string()
-    .min(1, "Price should be between Ksh 1 and  Ksh 1M")
-    .max(1_000_000),
-  description: z.string(),
-});
-
-export type FormData = z.infer<typeof schema>;
 
 const IMAGES_COUNT = 1;
 
@@ -27,19 +15,19 @@ interface Props {
 }
 
 const NewProductForm = ({ onDone, shopId }: Props) => {
-  const { errors, handleSubmit, register, reset } = useForm(schema);
+  const { errors, handleSubmit, register, reset } = useForm(productSchema);
   const { imagesCount, images, removeAllImages } = useImages(IMAGES_COUNT);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const user = authApi.getCurrentUser();
   const products = useProducts(shopId);
 
-  const makeShopFrom = (info: FormData) => {
+  const makeShopFrom = (info: ProductFormData) => {
     if (user)
       return { ...info, author: user._id, image: images[0], shop: shopId };
   };
 
-  const doSubmit = async (info: FormData) => {
+  const doSubmit = async (info: ProductFormData) => {
     if (error) setError("");
     if (!imagesCount) return setError("Select an image");
     const shop = makeShopFrom(info);

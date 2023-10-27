@@ -2,7 +2,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 
 import { DataError } from "../../services/client";
-import { Request, schema, populate, FormData } from "../../hooks/useRequest";
+import { Request, populate } from "../../hooks/useRequest";
+import { requestSchema, RequestFormData } from "../../data/schemas";
 import { useCategories, useForm, useRequests } from "../../hooks";
 import { Form, FormField } from "../form";
 import SubmitButton from "../form/SubmitButton";
@@ -17,13 +18,13 @@ interface Props {
 const RequestUpdateForm = ({ onDone, request }: Props) => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const { errors, handleSubmit, register } = useForm(schema);
+  const { errors, handleSubmit, register } = useForm(requestSchema);
   const { data: categories } = useCategories();
   const [title, setTitle] = useState(request?.title);
   const [description, setDescription] = useState(request?.description);
   const { updateRequest } = useRequests();
 
-  const doSubmit = async (info: FormData) => {
+  const doSubmit = async (info: RequestFormData) => {
     if (!info.category) return setError("Select category");
     if (!request?._id || !request?.author?._id)
       return setError("Error loading request, try again later");

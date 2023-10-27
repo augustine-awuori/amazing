@@ -4,21 +4,21 @@ import { toast } from "react-toastify";
 
 import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
-import { FormData, Request, populate, schema } from "../hooks/useRequest";
+import { Request, populate } from "../hooks/useRequest";
+import { requestSchema, RequestFormData } from "../data/schemas";
 import { useCategories, useForm, useRequests } from "../hooks";
-import auth from "../services/auth";
-import requestsApi from "../services/requests";
+import { authApi, requests as requestsApi } from "../services";
 import Select from "../components/common/Select";
 
 const RequestEditPage = () => {
   const [error, setError] = useState("");
-  const { errors, handleSubmit, register, reset } = useForm(schema);
+  const { errors, handleSubmit, register, reset } = useForm(requestSchema);
   const [isLoading, setLoading] = useState(false);
   const { data: categories } = useCategories();
   const { addRequest } = useRequests();
   const navigate = useNavigate();
 
-  const createRequest = async (info: FormData) => {
+  const createRequest = async (info: RequestFormData) => {
     setLoading(true);
     const response = await requestsApi.create(populate(info, undefined));
     setLoading(false);
@@ -26,7 +26,7 @@ const RequestEditPage = () => {
     return response;
   };
 
-  const doSubmit = async (info: FormData) => {
+  const doSubmit = async (info: RequestFormData) => {
     if (error) setError("");
     if (!info.category) setError("Select a request category!");
 
@@ -42,7 +42,7 @@ const RequestEditPage = () => {
     navigate("/");
   };
 
-  if (!auth.getCurrentUser()) return <Navigate to="/login" replace />;
+  if (!authApi.getCurrentUser()) return <Navigate to="/login" replace />;
 
   return (
     <Form

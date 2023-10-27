@@ -1,30 +1,28 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { z } from "zod";
 
 import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
-import { Listing, schema } from "../hooks/useListing";
+import { Listing } from "../hooks/useListing";
+import { listingSchema, ListingFormData } from "../data/schemas";
 import { useForm, useImages, useListings } from "../hooks";
 import auth from "../services/auth";
 import CategorySelect from "../components/listings/category/Select";
 import ImageInputList from "../components/common/ImageInputList";
 import service from "../services/listings";
 
-type FormData = z.infer<typeof schema>;
-
 const MAX_IMAGES = 3;
 
 const ListingEditPage = () => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const { errors, handleSubmit, register, reset } = useForm(schema);
+  const { errors, handleSubmit, register, reset } = useForm(listingSchema);
   const { imagesCount, images, removeAllImages } = useImages(MAX_IMAGES);
   const { addListing } = useListings();
   const navigate = useNavigate();
 
-  const createListing = async (info: FormData) => {
+  const createListing = async (info: ListingFormData) => {
     setLoading(true);
     const response = await service.addListing({ ...info, images });
     setLoading(false);
@@ -32,7 +30,7 @@ const ListingEditPage = () => {
     return response;
   };
 
-  const doSubmit = async (info: FormData) => {
+  const doSubmit = async (info: ListingFormData) => {
     if (error) setError("");
     if (!imagesCount) return setError("Please select at least one image");
 

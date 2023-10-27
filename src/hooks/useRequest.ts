@@ -1,7 +1,7 @@
 import { useContext } from "react";
-import { z } from "zod";
 
 import { Category } from "./useCategories";
+import { RequestFormData } from "../data/schemas";
 import { User } from "./useUser";
 import RequestContext from "../contexts/RequestContext";
 
@@ -21,16 +21,8 @@ export interface Request {
   timestamp: number;
 }
 
-export const schema = z.object({
-  category: z.string().min(5),
-  description: z.string().min(6).max(100),
-  title: z.string().min(4).max(50),
-});
-
-export type FormData = z.infer<typeof schema>;
-
 export const populate = (
-  info: FormData,
+  info: RequestFormData,
   request: Request | undefined
 ): RequestInfo => {
   const { category, description, title } = info;
