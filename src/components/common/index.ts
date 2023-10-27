@@ -9,6 +9,7 @@ export { default as MediaQuery } from "./MediaQuery";
 export { default as Modal } from "./Modal";
 export { default as Pagination } from "./Pagination";
 export { default as Paragraph } from "./Paragraph";
+export { default as SelectorMenuList } from "./SelectorMenuList";
 export { default as ScrollToTopBtn } from "./ScrollToTopBtn";
 export { default as Selector } from "./Selector";
 export { default as TextInput } from "./TextInput";

@@ -1,12 +1,15 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, HStack, Badge, useBreakpointValue } from "@chakra-ui/react";
-import {
-  AiOutlineShopping,
-  AiFillPlusCircle,
-  AiFillSetting,
-} from "react-icons/ai";
+import { AiOutlineShopping, AiFillPlusCircle } from "react-icons/ai";
 
-import { Button, Heading } from "../../components";
-import { useCurrentUser, useShop } from "../../hooks";
+import { Button, Heading, Modal } from "../../components";
+import { endpoint } from "../../services/shops";
+import { Item } from "../../components/common/Selector";
+import { Setting } from "./SettingsSelector";
+import { useCurrentUser, useShop, useShops } from "../../hooks";
+import SettingsSelector from "./SettingsSelector";
+import ShopUpdateForm from "./UpdateForm";
 
 interface Props {
   bagCount: number;
@@ -21,30 +24,73 @@ const ShopPageHeader = ({
   bagCount,
   onAddProduct,
   onBagView,
-  onShowSettings,
   productsCount,
   shopName,
 }: Props) => {
   const { shop } = useShop();
   const isTheAuthor = useCurrentUser(shop?.author._id);
   const showIconsOnly = useBreakpointValue({ base: true, md: false });
+  const [, setSetting] = useState<Item | null>(null);
+  const [isDeleting, setDeleting] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const helper = useShops();
+  const navigate = useNavigate();
+
+  const settings: Setting[] = [
+    {
+      _id: "",
+      label: "Update Shop Info",
+      onClick: () => setShowUpdateModal(true),
+    },
+    {
+      _id: "",
+      label: "Delete Shop",
+      onClick: () => setShowDeleteModal(true),
+    },
+  ];
+
+  const handleDelete = async () => {
+    setDeleting(true);
+    const ok = await helper.deleteShop(shop?._id);
+    setDeleting(false);
+
+    if (!ok) return;
+
+    setShowDeleteModal(false);
+    navigate(endpoint);
+  };
 
   return (
     <HStack justifyContent="space-between" alignItems="center">
-      <Heading as="h1" mb={4} size="md">
+      <Modal
+        content="Are you sure you want to permanently delete this shop and it's products? "
+        isLoading={isDeleting}
+        isOpen={showDeleteModal}
+        onModalClose={() => setShowDeleteModal(false)}
+        onPrimaryClick={handleDelete}
+        primaryBtnLabel="Yes"
+        secondaryBtnLabel="No"
+        title="Confirm Deletion"
+      />
+      <Modal
+        content={<ShopUpdateForm onDone={() => setShowUpdateModal(false)} />}
+        isOpen={showUpdateModal}
+        onModalClose={() => setShowUpdateModal(false)}
+        title="Update Shop Info"
+      />
+      <Heading as="h1" mb={4} size="md" noOfLines={1}>
         {shopName}'s Products ({productsCount})
       </Heading>
       <Box>
         {isTheAuthor ? (
-          <>
-            <Button
-              rightIcon={<AiFillSetting />}
-              onClick={onShowSettings}
-              mr={3}
-              pl={showIconsOnly ? 1.5 : undefined}
-            >
-              {showIconsOnly ? null : "Settings"}
-            </Button>
+          <Box whiteSpace="nowrap">
+            <SettingsSelector
+              data={settings}
+              onSelectItem={setSetting}
+              onShowSettings={setSetting}
+              showIconsOnly={showIconsOnly}
+            />
             <Button
               rightIcon={<AiFillPlusCircle />}
               onClick={onAddProduct}
@@ -52,7 +98,7 @@ const ShopPageHeader = ({
             >
               {showIconsOnly ? null : "Add Product"}
             </Button>
-          </>
+          </Box>
         ) : (
           <Button
             isLoading={false}

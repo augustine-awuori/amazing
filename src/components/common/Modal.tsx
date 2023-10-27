@@ -16,6 +16,7 @@ interface Props {
   title?: string;
   subTitle?: string;
   isOpen: boolean;
+  isLoading?: boolean | undefined;
   content: ReactNode;
   primaryBtnLabel?: string;
   secondaryBtnLabel?: string;
@@ -27,6 +28,7 @@ interface Props {
 function AppModal({
   content,
   isOpen,
+  isLoading,
   onModalClose,
   onPrimaryClick,
   onSecondaryClick,
@@ -43,8 +45,11 @@ function AppModal({
   };
 
   const handleSecondaryClick = () => {
+    if (isLoading) return;
+
     onClose();
-    if (onSecondaryClick) onSecondaryClick();
+
+    onSecondaryClick ? onSecondaryClick() : onModalClose();
   };
 
   return (
@@ -65,13 +70,18 @@ function AppModal({
           <ModalFooter>
             <Button
               colorScheme="orange"
+              isLoading={isLoading}
               mr={3}
               onClick={handlePrimaryClick}
               type="submit"
             >
               {primaryBtnLabel}
             </Button>
-            <Button variant="ghost" onClick={handleSecondaryClick}>
+            <Button
+              disabled={isLoading}
+              variant="ghost"
+              onClick={handleSecondaryClick}
+            >
               {secondaryBtnLabel}
             </Button>
           </ModalFooter>

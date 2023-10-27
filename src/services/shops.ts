@@ -1,6 +1,6 @@
 import client from "./client";
-
 import { NewShop } from "../hooks/useShop";
+import { ShopFormData } from "../data/schemas";
 
 export const endpoint = "/shops";
 
@@ -15,6 +15,11 @@ const create = ({ image, name, type }: NewShop) => {
   });
 };
 
+const deleteShop = (shopId: string) => client.delete(`${endpoint}/${shopId}`);
+
 const getShop = (shopId: string) => client.get(`${endpoint}/${shopId}`);
 
-export default { create, getShop };
+const update = (shop: ShopFormData, shopId: string) =>
+  client.patch(`${endpoint}/${shopId}`, shop);
+
+export default { create, deleteShop, getShop, update };

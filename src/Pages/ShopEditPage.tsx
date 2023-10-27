@@ -9,27 +9,19 @@ import {
   SubmitButton,
 } from "../components/form";
 import { ImageInputList } from "../components/common";
+import { shopSchema } from "../data/schemas";
 import { useForm, useImages, useShops } from "../hooks";
 import auth from "../services/auth";
 import Selector from "../components/forms/FormShopTypeSelector";
 
-const schema = z.object({
-  name: z.string().min(3, "Name should be between 3 & 50 chars").max(50),
-  location: z
-    .string()
-    .min(3, "Location description should be btn 3 & 255 chars")
-    .max(255),
-  type: z.string().min(2),
-});
-
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof shopSchema>;
 
 const MAX_IMAGES = 1;
 
 const ShopEditPage = () => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const { errors, handleSubmit, register, reset } = useForm(schema);
+  const { errors, handleSubmit, register, reset } = useForm(shopSchema);
   const { images, imagesCount, removeAllImages } = useImages(MAX_IMAGES);
   const shops = useShops();
   const user = auth.getCurrentUser();

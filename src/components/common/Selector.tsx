@@ -1,39 +1,25 @@
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { Button, Menu, MenuButton } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
+
+import SelectorMenuList, { MenuListProps } from "./SelectorMenuList";
 
 export interface Item {
   _id: string;
   label: string;
 }
 
-interface Props {
+interface Props extends MenuListProps {
   data: Item[];
   name?: string;
-  onSelectItem: (item: Item) => void;
   selectedItem: Item | null;
 }
 
-const Selector = ({
-  data,
-  name = "Categories",
-  onSelectItem,
-  selectedItem,
-}: Props) => (
+const Selector = ({ name = "Categories", selectedItem, ...rest }: Props) => (
   <Menu>
     <MenuButton as={Button} rightIcon={<BsChevronDown />} fontFamily="andika">
       {selectedItem?.label || name}
     </MenuButton>
-    <MenuList>
-      {data.map((item) => (
-        <MenuItem
-          key={item._id}
-          fontFamily="andika"
-          onClick={() => onSelectItem(item)}
-        >
-          {item.label}
-        </MenuItem>
-      ))}
-    </MenuList>
+    <SelectorMenuList {...rest} />
   </Menu>
 );
 

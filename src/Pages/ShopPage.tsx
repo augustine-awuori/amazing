@@ -37,7 +37,7 @@ const ShopPage = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { info: shop, request } = useReload<Shop>(
-    checkInfoExistence(shopInfo),
+    checkShopExistence(shopInfo),
     empty.shop,
     service.getShop
   );
@@ -55,8 +55,8 @@ const ShopPage = () => {
 
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
 
-  function checkInfoExistence(info: Shop | null) {
-    return info?._id ? info : undefined;
+  function checkShopExistence(shop: Shop | null) {
+    return shop?._id ? shop : undefined;
   }
 
   const markBought = products.map((p) => {
