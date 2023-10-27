@@ -53,16 +53,33 @@ const NAV_ITEMS: Array<NavItem> = [
       },
     ],
   },
-  {
-    label: "About App",
-    href: "/about-app",
-  },
 ];
 
-const NotificationsNavItem: NavItem = {
-  label: "Notifications",
-  href: "/notifications",
+const AboutApp: NavItem = {
+  label: "About App",
+  href: "/about-app",
 };
 
-export const getNavItems = (): NavItem[] =>
-  auth.getCurrentUser() ? [...NAV_ITEMS, NotificationsNavItem] : NAV_ITEMS;
+const OrdersNavItem: NavItem = {
+  label: "Orders",
+  children: [
+    {
+      label: "View My Orders",
+      subLabel: "View orders you made to other shops",
+      href: "/orders/my",
+    },
+    {
+      label: "View Shops Orders",
+      subLabel: "View orders made to your shops",
+      href: "/orders/my-shops",
+    },
+  ],
+};
+
+export const getNavItems = (): NavItem[] => {
+  const authenticated = auth.getCurrentUser()
+    ? [...NAV_ITEMS, OrdersNavItem]
+    : NAV_ITEMS;
+
+  return [...authenticated, AboutApp];
+};

@@ -30,9 +30,11 @@ import {
   ShopPage,
   ShopEditPage,
   ShoppingBagPage,
-  NotificationsPage,
   OrdersPage,
   OrderPage,
+  MyShopsPage,
+  ShopOrders,
+  ShopOrderPage,
 } from "../Pages";
 import {
   ListingsContext,
@@ -142,16 +144,24 @@ function AppRoutes() {
                                         element={<RequestsPage />}
                                       />
                                       <Route
-                                        path="notifications"
-                                        element={<NotificationsPage />}
-                                      />
-                                      <Route
-                                        path="notifications/orders"
+                                        path="orders/my"
                                         element={<OrdersPage />}
                                       />
                                       <Route
-                                        path="notifications/orders/:id"
+                                        path="orders/my/:orderId"
                                         element={<OrderPage />}
+                                      />
+                                      <Route
+                                        path="orders/my-shops"
+                                        element={<MyShopsPage />}
+                                      />
+                                      <Route
+                                        path="orders/my-shops/:shopId"
+                                        element={<ShopOrders />}
+                                      />
+                                      <Route
+                                        path="orders/my-shops/:shopId/:orderId"
+                                        element={<ShopOrderPage />}
                                       />
                                       <Route
                                         path="about-app"

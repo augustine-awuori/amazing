@@ -1,12 +1,18 @@
+import { HeadingProps } from "@chakra-ui/react";
+
 import Heading from "./Heading";
 
-interface Props {
-  show?: boolean;
+interface Props extends HeadingProps {
+  show?: boolean | string;
 }
 
-const Info = ({ show }: Props) => (
-  <Heading color="yellow.400" fontSize="xl" show={show}>
-    None found
+const Info = ({ children, fontSize = "xl", show }: Props) => (
+  <Heading
+    color={children ? "green.300" : "yellow.400"}
+    fontSize={fontSize}
+    show={show ? true : false}
+  >
+    {children || "None found"}
   </Heading>
 );
 

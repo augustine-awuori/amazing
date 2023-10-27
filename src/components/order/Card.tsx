@@ -1,17 +1,17 @@
 import { Card, CardBody, CardHeading, CardImage } from "../../components/card";
-import pic from "../../assets/pic.jpg";
 import UserAvatar, { MediaQueryUser } from "../../components/common/MediaQuery";
 
 export interface OrderCardProps {
   name: string;
+  image: string;
   onClick: () => void;
   user: MediaQueryUser;
   time?: string;
 }
 
-const OrderCard = ({ name, onClick, time, user }: OrderCardProps) => (
+const OrderCard = ({ name, onClick, time, user, image }: OrderCardProps) => (
   <Card onClick={onClick}>
-    <CardImage src={pic} />
+    <CardImage src={image} />
     <CardBody>
       <CardHeading mb={3}>{name}</CardHeading>
       <UserAvatar user={user} time={time} />

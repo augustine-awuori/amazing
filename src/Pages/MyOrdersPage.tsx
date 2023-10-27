@@ -16,7 +16,7 @@ const OrdersPage = () => {
   const [pageSize] = useState(6);
   const [selectedType, setSelectedType] = useState<Type | null>(null);
   const user = auth.getCurrentUser();
-  const { isLoading, orders } = useOrders(user?._id || "");
+  const { isLoading, orders } = useOrders(`${user?._id}`);
   const helper = useOrder();
   const navigate = useNavigate();
 
@@ -41,7 +41,7 @@ const OrdersPage = () => {
     <ShopsTypesGridPageContainer
       onSelectType={setSelectedType}
       selectedType={selectedType}
-      gridHeadingLabel="Shops Orders"
+      gridHeadingLabel="My Orders"
     >
       <Grid>
         {filtered.length ? (

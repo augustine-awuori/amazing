@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { DismissableInfo, Pagination } from "../components/common";
 import { Grid, Heading, PageContainer } from "../components";
@@ -21,6 +21,7 @@ const OrderPage = () => {
     isLoading,
     request,
   } = useReload<Order>(info, empty.order, service.getOrder);
+  const navigate = useNavigate();
 
   useEffect(() => {
     request();
@@ -30,7 +31,7 @@ const OrderPage = () => {
   const products = order.products;
   const paginated = paginate<Product>(products, currentPage, pageSize);
 
-  if (!order._id) return <Navigate to="/notifications" />;
+  if (!order._id) return <>{navigate(-1)}</>;
 
   return (
     <PageContainer>

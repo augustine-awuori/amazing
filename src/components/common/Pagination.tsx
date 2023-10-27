@@ -1,4 +1,4 @@
-import { HStack } from "@chakra-ui/react";
+import { HStack, Box } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import _ from "lodash";
 
@@ -25,39 +25,40 @@ const Pagination = ({
   const canGoNext = currentPage < pagesCount;
 
   return (
-    <HStack spacing={4} justify="center" align="center">
-      {canGoPrevious && (
-        <Button
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={!canGoPrevious}
-          leftIcon={<ChevronLeftIcon />}
-          colorScheme="teal"
-        >
-          Prev
-        </Button>
-      )}
+    <Box maxW="100%" overflowX="auto">
+      <HStack spacing={4} justify="center" align="center">
+        {canGoPrevious && (
+          <Button
+            onClick={() => onPageChange(currentPage - 1)}
+            disabled={!canGoPrevious}
+            leftIcon={<ChevronLeftIcon />}
+            colorScheme="teal"
+          >
+            Prev
+          </Button>
+        )}
+        {pages.map((page) => (
+          <Button
+            key={page}
+            onClick={() => onPageChange(page)}
+            colorScheme={currentPage === page ? "teal" : "gray"}
+          >
+            {page}
+          </Button>
+        ))}
 
-      {pages.map((page) => (
-        <Button
-          key={page}
-          onClick={() => onPageChange(page)}
-          colorScheme={currentPage === page ? "teal" : "gray"}
-        >
-          {page}
-        </Button>
-      ))}
-
-      {canGoNext && (
-        <Button
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={!canGoNext}
-          rightIcon={<ChevronRightIcon />}
-          colorScheme="teal"
-        >
-          Next
-        </Button>
-      )}
-    </HStack>
+        {canGoNext && (
+          <Button
+            onClick={() => onPageChange(currentPage + 1)}
+            disabled={!canGoNext}
+            rightIcon={<ChevronRightIcon />}
+            colorScheme="teal"
+          >
+            Next
+          </Button>
+        )}
+      </HStack>
+    </Box>
   );
 };
 

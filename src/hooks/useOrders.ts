@@ -7,26 +7,24 @@ import { DataError, Response } from "../services/client";
 import { NewOrder, Order } from "./useOrder";
 import { Product } from "../components/shops/product/Card";
 import OrdersContext from "../contexts/OrdersContext";
-import service, { endpoint } from "../services/orders";
+import service from "../services/orders";
 import useData from "./useData";
 
 const useOrders = (targetUrl?: string) => {
   const { setOrders } = useContext(OrdersContext);
-  const { data, error, isLoading } = useData<Order>(
-    `${endpoint}/${targetUrl || ""}`
-  );
+  const { data, error, isLoading } = useData<Order>(`orders/${targetUrl}`);
   const navigate = useNavigate();
-  const shopId = useParams().shopId;
+  const shopId = useParams().shopId || "";
 
   useEffect(() => {
     if (!error) setOrders(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetUrl]);
+  }, [targetUrl, isLoading]);
 
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,
     products: products.map((p) => p._id),
-    shop: shopId || "",
+    shop: shopId,
   });
 
   const processResponse = (res: ApiResponse<unknown, unknown>): Response => {
