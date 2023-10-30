@@ -3,8 +3,8 @@ import { toast } from "react-toastify";
 
 import { DataError } from "../services/client";
 import { endpoint, NewProduct } from "../services/products";
-import { FormData } from "../components/forms/NewProductForm";
 import { Product } from "../components/shops/product/Card";
+import { ProductFormData } from "../data/schemas";
 import ProductsContext from "../contexts/ProductsContext";
 import service from "../services/products";
 import useData from "./useData";
@@ -43,7 +43,7 @@ const useProducts = (shopId: string | undefined) => {
     return { error, ok };
   };
 
-  const update = async (info: FormData, productId: string) => {
+  const update = async (info: ProductFormData, productId: string) => {
     const { data, ok, problem } = await service.update(info, productId);
 
     let error = "";

@@ -8,6 +8,7 @@ import service from "../services/shops";
 import ShopContext from "../contexts/ShopContext";
 
 interface Common {
+  location: string;
   name: string;
 }
 
@@ -15,7 +16,6 @@ interface ShopBase {
   _id: string;
   image: string;
   isVerified: boolean;
-  location: string;
 }
 
 export interface Shop extends Common, ShopBase {

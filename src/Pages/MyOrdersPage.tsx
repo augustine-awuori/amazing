@@ -45,16 +45,21 @@ const OrdersPage = () => {
     >
       <Grid>
         {filtered.length ? (
-          filtered.map((order) => (
-            <OrderCard
-              key={order._id}
-              count={order.products.length}
-              name={order.products[0].name}
-              onClick={() => navigateToDetails(order)}
-              user={getUserFrom(order)}
-              timestamp={order.timestamp}
-            />
-          ))
+          filtered.map((order) => {
+            const { _id, products, timestamp } = order;
+
+            return (
+              <OrderCard
+                key={_id}
+                count={products.length}
+                name={products[0].name}
+                image={products[0].image}
+                onClick={() => navigateToDetails(order)}
+                user={getUserFrom(order)}
+                timestamp={timestamp}
+              />
+            );
+          })
         ) : (
           <Info show={!isLoading} />
         )}

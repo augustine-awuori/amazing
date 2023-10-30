@@ -65,6 +65,7 @@ const product: Product = {
 };
 
 const order: Order = {
+  buyer: { ...author, canceled: false, hasShop: false, seen: false },
   _id: "",
   products: [],
   shop,

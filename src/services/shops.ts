@@ -4,11 +4,12 @@ import { ShopFormData } from "../data/schemas";
 
 export const endpoint = "/shops";
 
-const create = ({ image, name, type }: NewShop) => {
+const create = ({ image, name, type, location }: NewShop) => {
   const data = new FormData();
   data.append("image", image);
   data.append("name", name);
   data.append("type", type);
+  data.append("location", location);
 
   return client.post("/shops", data, {
     headers: { "Content-Type": "multipart/form-data" },
