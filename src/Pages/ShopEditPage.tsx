@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 import {
   Form,
@@ -8,6 +8,7 @@ import {
   SubmitButton,
 } from "../components/form";
 import { ImageInputList } from "../components/common";
+import { Shop } from "../hooks/useShop";
 import { ShopFormData, shopSchema } from "../data/schemas";
 import { useForm, useImages, useShops } from "../hooks";
 import auth from "../services/auth";
@@ -22,6 +23,7 @@ const ShopEditPage = () => {
   const { images, imagesCount, removeAllImages } = useImages(MAX_IMAGES);
   const shops = useShops();
   const user = auth.getCurrentUser();
+  const navigate = useNavigate();
 
   const createShop = async (info: ShopFormData) => {
     setLoading(true);
@@ -35,11 +37,12 @@ const ShopEditPage = () => {
     if (error) setError("");
     if (!imagesCount) return setError("Please select an image");
 
-    const { error: resError, ok } = await createShop(info);
+    const { data, error: resError, ok } = await createShop(info);
     if (!ok) return setError(resError);
 
     removeAllImages();
     reset();
+    navigate(`/shops/${(data as Shop)._id}`);
   };
 
   if (!user) return <Navigate to="/login" replace />;

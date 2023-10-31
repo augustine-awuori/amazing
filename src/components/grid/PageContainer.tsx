@@ -51,8 +51,8 @@ const GridPageContainer = ({
         </Box>
         <HStack justifyContent="space-between" marginTop={3}>
           <HStack>
-            <TempSelector />
             {Filter && <Box>{Filter}</Box>}
+            <TempSelector />
           </HStack>
           <ColorSwitchMode />
         </HStack>

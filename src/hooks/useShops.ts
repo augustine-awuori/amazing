@@ -29,7 +29,7 @@ const useShops = () => {
       toast.success("Shop created successfully!");
     }
 
-    return { ok, error };
+    return { data, ok, error };
   };
 
   const deleteShop = async (shopId: string | undefined): Promise<boolean> => {
