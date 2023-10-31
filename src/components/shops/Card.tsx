@@ -33,7 +33,7 @@ const ShopCard = ({ onClick, shop }: Props) => {
           </Text>
         </HStack>
         {location && (
-          <HStack>
+          <HStack mt={2}>
             <FaLocationArrow />
             <Text color="green.400" fontSize="sm" noOfLines={1}>
               {location}

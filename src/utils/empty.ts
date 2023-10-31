@@ -1,4 +1,4 @@
-import { Order } from "hooks/useOrder";
+import { Order } from "../hooks/useOrder";
 import { Listing } from "../hooks/useListing";
 import { Product } from "../components/shops/product/Card";
 import { Request } from "../hooks/useRequest";

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Navigate } from "react-router-dom";
-import { z } from "zod";
 
 import {
   Form,
@@ -9,12 +8,10 @@ import {
   SubmitButton,
 } from "../components/form";
 import { ImageInputList } from "../components/common";
-import { shopSchema } from "../data/schemas";
+import { ShopFormData, shopSchema } from "../data/schemas";
 import { useForm, useImages, useShops } from "../hooks";
 import auth from "../services/auth";
 import Selector from "../components/forms/FormShopTypeSelector";
-
-type FormData = z.infer<typeof shopSchema>;
 
 const MAX_IMAGES = 1;
 
@@ -26,7 +23,7 @@ const ShopEditPage = () => {
   const shops = useShops();
   const user = auth.getCurrentUser();
 
-  const createShop = async (info: FormData) => {
+  const createShop = async (info: ShopFormData) => {
     setLoading(true);
     const res = await shops.create({ ...info, image: images[0] });
     setLoading(false);
@@ -34,7 +31,7 @@ const ShopEditPage = () => {
     return res;
   };
 
-  const doSubmit = async (info: FormData) => {
+  const doSubmit = async (info: ShopFormData) => {
     if (error) setError("");
     if (!imagesCount) return setError("Please select an image");
 

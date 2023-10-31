@@ -64,8 +64,18 @@ const RegisterPage = () => {
       onSubmit={doSubmit}
       title="Register"
     >
-      <FormField error={errors.name} label="Name" register={register} />
-      <FormField error={errors.username} label="Username" register={register} />
+      <FormField
+        error={errors.name}
+        label="Individual Name"
+        name="name"
+        register={register}
+      />
+      <FormField
+        error={errors.username}
+        label="Username (for signing in)"
+        name="username"
+        register={register}
+      />
       <FormField
         error={errors.whatsapp}
         label="WhatsApp Number"

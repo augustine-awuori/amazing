@@ -12,12 +12,12 @@ const NAV_ITEMS: Array<NavItem> = [
     label: "Shops",
     children: [
       {
-        label: "View Shops",
-        subLabel: "View all online shops",
+        label: "View Shops & Products",
+        subLabel: "View all online shops & their products",
         href: "/shops",
       },
       {
-        label: "Create your online shop",
+        label: "Create Your Online Shop",
         subLabel: "Increase your visibility online",
         href: "/shops/new",
       },

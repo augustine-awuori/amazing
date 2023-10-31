@@ -63,7 +63,8 @@ const ListingEditPage = () => {
       />
       <FormField
         error={errors.description}
-        label="Description"
+        label="Description (optional)"
+        name="description"
         register={register}
       />
       <CategorySelect register={register} />
