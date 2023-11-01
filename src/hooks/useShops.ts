@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { DataError } from "../services/client";
 import { NewShop, Shop } from "./useShop";
 import { ShopFormData } from "../data/schemas";
+import cache from "../utils/cache";
 import service, { endpoint } from "../services/shops";
 import ShopsContext from "../contexts/ShopsContext";
 import useData from "./useData";
@@ -63,6 +64,23 @@ const useShops = () => {
     return { error: `${(data as DataError).error || problem}`, ok };
   };
 
+  const decShopViews = (shopId: string, previous: Shop[]) => {
+    setShops(previous);
+    cache.removeViewFor(shopId);
+  };
+
+  const incShopViews = async (shopId: string) => {
+    if (cache.hasViewedShop(shopId)) return;
+
+    const previous = shops;
+    setShops(
+      shops.map((s) => (s._id === shopId ? { ...s, views: s.views + 1 } : s))
+    );
+
+    const res = await service.incViews(shopId);
+    if (!res.ok) decShopViews(shopId, previous);
+  };
+
   return {
     create,
     deleteShop,
@@ -71,6 +89,7 @@ const useShops = () => {
     isLoading,
     setShops,
     update,
+    incShopViews,
   };
 };
 

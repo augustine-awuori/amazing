@@ -23,4 +23,7 @@ const getShop = (shopId: string) => client.get(`${endpoint}/${shopId}`);
 const update = (shop: ShopFormData, shopId: string) =>
   client.patch(`${endpoint}/${shopId}`, shop);
 
-export default { create, deleteShop, getShop, update };
+const incViews = (shopId: string) =>
+  client.patch(`${endpoint}/views/${shopId}`);
+
+export default { create, deleteShop, incViews, getShop, update };

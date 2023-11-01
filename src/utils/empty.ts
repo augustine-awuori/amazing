@@ -45,6 +45,7 @@ const shop: Shop = {
   name: "",
   location: "",
   type: { _id: "", label: "" },
+  views: 0,
 };
 
 const shopProduct: ShopProduct = {

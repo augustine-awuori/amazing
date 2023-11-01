@@ -11,6 +11,7 @@ import {
   useProducts,
   useReload,
   useShop,
+  useShops,
 } from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
@@ -35,21 +36,22 @@ const ShopPage = () => {
   const { setShop, shop: shopInfo } = useShop();
   const [product, setProduct] = useState<Product>();
   const navigate = useNavigate();
-  const params = useParams();
   const { info: shop, request } = useReload<Shop>(
     checkShopExistence(shopInfo),
     empty.shop,
     service.getShop
   );
   const { isLoading, products, productsCount, setProducts } = useProducts(
-    params.shopId
+    useParams().shopId
   );
   const authorId = shop?.author?._id;
   const isTheAuthor = useCurrentUser(authorId);
+  const helper = useShops();
 
   useEffect(() => {
     request();
     setShop(shop);
+    helper.incShopViews(shop._id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products.length, shop?._id]);
 

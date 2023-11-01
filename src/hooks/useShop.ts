@@ -21,6 +21,7 @@ interface ShopBase {
 export interface Shop extends Common, ShopBase {
   author: User;
   type: Type;
+  views: number;
 }
 
 export interface ShopProduct extends Common, ShopBase {
