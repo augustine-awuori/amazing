@@ -1,5 +1,4 @@
-import { Item } from "../common/Selector";
-import { Selector } from "../common";
+import Selector, { Item } from "../common/Selector";
 
 interface FilterItem extends Item {
   _id: "products" | "shops";

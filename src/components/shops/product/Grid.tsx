@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Box } from "@chakra-ui/react";
 
 import { CardContainer, CardSkeletons } from "../../card";
@@ -8,10 +7,10 @@ import { Type } from "../../../hooks/useTypes";
 import ErrorMessage from "../../form/ErrorMessage";
 import Grid from "../../grid";
 import Info from "../../../components/Info";
-import Pagination from "../../common/Pagination";
+import Pagination, { PaginationProps } from "../../common/Pagination";
 import ProductDisplayCard from "./DisplayCard";
 
-interface Props {
+interface Props extends PaginationProps {
   error: string | undefined;
   isLoading: boolean;
   onClick: (shopId: string) => void;
@@ -20,15 +19,15 @@ interface Props {
 }
 
 const ShopsProductsGrid = ({
+  currentPage,
   error,
   isLoading,
   onClick,
-  selectedType,
+  onPageChange,
+  pageSize,
   products,
+  selectedType,
 }: Props) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(6);
-
   const filtered = selectedType?._id
     ? products.filter((product) => product.shop.type === selectedType?._id)
     : products;
@@ -58,7 +57,7 @@ const ShopsProductsGrid = ({
         <Pagination
           currentPage={currentPage}
           itemsCount={filtered.length}
-          onPageChange={setCurrentPage}
+          onPageChange={onPageChange}
           pageSize={pageSize}
         />
       </Box>

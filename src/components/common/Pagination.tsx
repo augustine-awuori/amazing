@@ -4,16 +4,19 @@ import _ from "lodash";
 
 import Button from "../Button";
 
-interface Props {
-  itemsCount: number;
+export interface PaginationProps {
+  currentPage: number;
   onPageChange: (page: number) => void;
   pageSize: number;
-  currentPage?: number;
+}
+
+interface Props extends PaginationProps {
+  itemsCount: number;
 }
 
 const Pagination = ({
   itemsCount,
-  currentPage = 1,
+  currentPage,
   onPageChange,
   pageSize,
 }: Props) => {
@@ -25,18 +28,18 @@ const Pagination = ({
   const canGoNext = currentPage < pagesCount;
 
   return (
-    <Box maxW="100%" overflowX="auto">
+    <Box maxW="100%" overflowX="auto" mb={4}>
       <HStack spacing={4} justify="center" align="center">
         {canGoPrevious && (
           <Button
             onClick={() => onPageChange(currentPage - 1)}
             disabled={!canGoPrevious}
-            leftIcon={<ChevronLeftIcon />}
             colorScheme="teal"
           >
-            Prev
+            <ChevronLeftIcon />
           </Button>
         )}
+
         {pages.map((page) => (
           <Button
             key={page}
@@ -49,12 +52,11 @@ const Pagination = ({
 
         {canGoNext && (
           <Button
-            onClick={() => onPageChange(currentPage + 1)}
-            disabled={!canGoNext}
-            rightIcon={<ChevronRightIcon />}
             colorScheme="teal"
+            disabled={!canGoNext}
+            onClick={() => onPageChange(currentPage + 1)}
           >
-            Next
+            <ChevronRightIcon />
           </Button>
         )}
       </HStack>

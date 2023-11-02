@@ -13,6 +13,8 @@ const MyShopsPage = () => {
   const [selectedType, setSelectedType] = useState<Type | null>(null);
   const navigate = useNavigate();
   const { setShop } = useShop();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(6);
 
   const navigateToDetails = (shop: Shop) => {
     setShop(shop);
@@ -28,9 +30,12 @@ const MyShopsPage = () => {
       gridHeadingLabel="My Shops"
     >
       <ShopsGrid
+        currentPage={currentPage}
         error={error}
         isLoading={isLoading}
+        onPageChange={setCurrentPage}
         onShopClick={navigateToDetails}
+        pageSize={pageSize}
         selectedType={selectedType}
         shops={shops}
       />

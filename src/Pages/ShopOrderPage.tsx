@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { Box, Divider, HStack, Spinner } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 
@@ -13,6 +15,8 @@ const ShopOrderPage = () => {
   );
   const { message, buyer, timestamp, products } = data as unknown as Order;
   const { tempTimestamp } = useTimestamp(timestamp);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(6);
 
   return (
     <PageContainer>
@@ -30,9 +34,12 @@ const ShopOrderPage = () => {
           </Box>
           <Text>Ordered Products</Text>
           <ShopsProductsGrid
+            currentPage={currentPage}
             error=""
             isLoading={isLoading}
             onClick={() => {}}
+            onPageChange={setCurrentPage}
+            pageSize={pageSize}
             products={products || []}
             selectedType={null}
           />
