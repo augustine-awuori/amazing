@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Footer,
   PageContainer,
@@ -9,6 +10,18 @@ import useAppColorMode from "../hooks/useAppColorMode";
 
 const AboutAppPage = () => {
   const { accentColor } = useAppColorMode();
+  const navigate = useNavigate();
+
+  const getLink = (label: string, to: string) => (
+    <Text
+      color={accentColor}
+      cursor="pointer"
+      onClick={() => navigate(`/${to}`)}
+      display="inline-flex"
+    >
+      {label}
+    </Text>
+  );
 
   return (
     <PageContainer>
@@ -19,36 +32,65 @@ const AboutAppPage = () => {
         marginTop={2}
         marginBottom={5}
       >
-        Kisii University Students' Business App
+        Unveiling the Kisii University Business App
       </Text>
       <Text fontSize="xl" fontWeight="600" color={accentColor}>
-        Get access to the market faster and easer than ever before
+        Let's Dive In
       </Text>
       <Paragraph>
-        Welcome to Kisii Universe Mart, the platform where all Kisii University
-        Businesses come together to serve their fellow comrades.
+        Campus Mart isn't just another website; it's your digital playground at
+        Kisii University. Imagine a place where you can explore a world of
+        student activities. You can peek at other students' products, chat them
+        up on WhatsApp if something catches your eye, and even showcase your own
+        treasures.
+      </Paragraph>
+      <Text fontSize="xl" fontWeight="600" color={accentColor}>
+        The Magic of Campus Mart
+      </Text>
+      <Paragraph>
+        Let's rewind to the old ways. Shop owners would open their physical
+        stores, hoping that passers-by would notice. But what if they didn't?
+        How much can you show with a single glance? Can you risk it all on a
+        fleeting moment?
       </Paragraph>
       <Paragraph>
-        Whether you have a shop or you just want to sell/buy one-time thing this
-        is a place for you.
+        Well, guess what? Campus Mart transforms the game. Potential customers
+        can now stroll through your products from the cozy corners of their
+        homes. Even if you don't unlock your physical shop, your products are on
+        display 24/7. When someone's interested, they can ping you on WhatsApp,
+        just like that, using the phone number you signed up with.
       </Paragraph>
+      <Text fontSize="large" fontWeight="600" color={accentColor}>
+        Ready to Embark?
+      </Text>
       <Paragraph>
-        We acknowledge that our app is a work in progress, and we're dedicated
-        to continuously improving it. We invite all students who share our
-        vision to join us and contribute in any way, be it through programming
-        skills or valuable insights.
+        First, let others know who you are. Begin your journey by{" "}
+        {getLink("Signing Up", "register")}. You can also create your very own{" "}
+        {getLink("online shop", "shops/new")}. No need for a physical store – if
+        you have something to sell, like a cozy bed, simply{" "}
+        {getLink("list it", "listings/new")}. When you're on the hunt for
+        something special, and it's not there yet, just{" "}
+        {getLink("create a request", "")}. Someone might just have it.
       </Paragraph>
+
+      <Text fontSize="xl" fontWeight="600" color={accentColor}>
+        Our Vision
+      </Text>
       <Paragraph>
-        Let's reshape the future of Kisii University together – where
-        connectivity, collaboration, and growth go hand in hand. Join us in
-        building a vibrant community that supports both education and
-        entrepreneurship.
+        We dream of a world with less hassle and more internet. Picture a social
+        media platform just for us, like Twitter or Facebook. Imagine an app for
+        sharing photos specific to our campus – a place where photographers can
+        truly shine. The possibilities are endless.
       </Paragraph>
+      <Text fontSize="xl" fontWeight="600" color={accentColor}>
+        Our Mission
+      </Text>
       <Paragraph>
-        Join us in building a vibrant community that supports both education and
-        entrepreneurship.
+        Our mission is to make life easier, starting with Kisii University
+        students and extending beyond. We're on a tech-driven journey, and if
+        you share our vision, let's join forces by clicking the button below.
       </Paragraph>
-      <Footer name="Baby Softwares">
+      <Footer name="Baby Software">
         <StartChatBtn phoneNumber="254796720289" />
       </Footer>
     </PageContainer>
