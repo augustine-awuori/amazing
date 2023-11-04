@@ -1,16 +1,11 @@
-import { ReactNode } from "react";
-
 import { ScrollToTopBtn } from "../../../components";
 import ShopTypeSelector, { ShopTypeSelectorProps } from "./Selector";
-import GridPageContainer from "../../grid/PageContainer";
+import GridPageContainer, {
+  PageContainerProps,
+} from "../../grid/PageContainer";
 import TypeList from "./List";
 
-interface Props extends ShopTypeSelectorProps {
-  children: ReactNode;
-  Filter?: JSX.Element;
-  gridHeadingLabel?: string;
-  headingPrefix?: string;
-}
+interface Props extends ShopTypeSelectorProps, PageContainerProps {}
 
 const CategoriesGridPageContainer = ({
   children,
@@ -34,6 +29,7 @@ const CategoriesGridPageContainer = ({
         Aside={Aside}
         Selector={Selector}
         selectedItem={selectedType}
+        showSearchInput
       >
         {children}
       </GridPageContainer>

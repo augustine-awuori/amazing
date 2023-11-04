@@ -33,7 +33,7 @@ const ImagePicker = ({ onChange, visible = true }: Props) =>
           height: "100%",
           cursor: "pointer",
         }}
-        onChange={onChange}
+        onTextChangeText={onChange}
       />
       <FaCamera size={24} />
     </Box>

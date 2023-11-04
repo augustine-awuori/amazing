@@ -16,6 +16,7 @@ interface Props extends PaginationProps {
   onShopClick: (shop: Shop) => void;
   selectedType: Type | null;
   shops: Shop[];
+  query?: string;
 }
 
 const ShopsGrid = ({
@@ -27,12 +28,19 @@ const ShopsGrid = ({
   pageSize,
   selectedType,
   shops,
+  query,
 }: Props) => {
   const filtered = selectedType?._id
     ? shops.filter((shop) => shop.type._id === selectedType?._id)
     : shops;
 
-  const paginated = paginate<Shop>(filtered, currentPage, pageSize);
+  const queried = query
+    ? filtered.filter((shop) =>
+        shop.name.toLowerCase().includes(query.toLowerCase())
+      )
+    : filtered;
+
+  const paginated = paginate<Shop>(queried, currentPage, pageSize);
 
   if (error) return <ErrorMessage error={error} />;
 

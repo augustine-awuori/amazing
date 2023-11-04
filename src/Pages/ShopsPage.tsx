@@ -2,7 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { Item } from "../components/common/Selector";
-import { ShopsGrid, ShopsTypesGridPageContainer } from "../components";
+import {
+  SearchInput,
+  ShopsGrid,
+  ShopsTypesGridPageContainer,
+} from "../components";
 import { Type } from "../hooks/useTypes";
 import { useProducts, useShops } from "../hooks";
 import ShopsProductsGrid from "../components/shops/product/Grid";
@@ -19,6 +23,7 @@ const ShopsPage = () => {
   const [productsCurrentPage, setProductsCurrentPage] = useState(1);
   const [shopsCurrentPage, setShopsCurrentPage] = useState(1);
   const [pageSize] = useState(6);
+  const [query, setQuery] = useState("");
 
   const navigateToDetails = (shop: Shop) => {
     setShop(shop);
@@ -35,9 +40,18 @@ const ShopsPage = () => {
 
   const showingShops = filter?.label.toLowerCase() === "shops";
 
-  const handleSelectType = (type: Type) => {
+  const resetCurrentPage = () =>
     showingShops ? setShopsCurrentPage(1) : setProductsCurrentPage(1);
+
+  const handleSelectType = (type: Type) => {
+    resetCurrentPage();
+    setQuery("");
     setSelectedType(type);
+  };
+
+  const handleTextChange = (text: string) => {
+    resetCurrentPage();
+    setQuery(text);
   };
 
   const Filter = (
@@ -48,12 +62,21 @@ const ShopsPage = () => {
     />
   );
 
+  const HeadingELement = (
+    <SearchInput
+      placeholder={`Search ${getHeadingLabel()}`}
+      onTextChange={handleTextChange}
+      value={query}
+    />
+  );
+
   return (
     <ShopsTypesGridPageContainer
+      gridHeadingLabel={getHeadingLabel()}
+      HeadingElement={HeadingELement}
+      Filter={Filter}
       onSelectType={handleSelectType}
       selectedType={selectedType}
-      gridHeadingLabel={getHeadingLabel()}
-      Filter={Filter}
     >
       {showingShops ? (
         <ShopsGrid
@@ -65,6 +88,7 @@ const ShopsPage = () => {
           onShopClick={navigateToDetails}
           selectedType={selectedType}
           shops={shops}
+          query={query}
         />
       ) : (
         <ShopsProductsGrid
@@ -76,6 +100,7 @@ const ShopsPage = () => {
           products={products}
           selectedType={selectedType}
           onPageChange={setProductsCurrentPage}
+          query={query}
         />
       )}
     </ShopsTypesGridPageContainer>

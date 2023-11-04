@@ -7,7 +7,7 @@ interface Props {
   paddingTop?: number;
 }
 
-const PageContainer = ({ Aside, children, paddingTop = 20 }: Props) => (
+const PageContainer = ({ Aside, children, paddingTop = 16 }: Props) => (
   <>
     {Aside && (
       <GridItem

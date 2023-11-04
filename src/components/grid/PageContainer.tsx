@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Box, HStack } from "@chakra-ui/react";
+import { Box, Flex, HStack } from "@chakra-ui/react";
 
 import { Item } from "../common/Selector";
 import CategorySelector from "../listings/category/Selector";
@@ -7,15 +7,20 @@ import ColorSwitchMode from "../common/ColorSwitchMode";
 import GridHeading from "./Heading";
 import PageContainer from "../PageContainer";
 
-interface Props {
-  Aside?: JSX.Element;
+export interface PageContainerProps {
   children: ReactNode;
   Filter?: JSX.Element;
   gridHeadingLabel?: string;
   headingPrefix?: string;
+  HeadingElement?: JSX.Element;
+}
+
+interface Props extends PageContainerProps {
+  Aside?: JSX.Element;
   onSelectCategory?: (item: Item) => void;
   selectedItem: Item | null;
   Selector?: JSX.Element;
+  showSearchInput?: boolean;
 }
 
 const GridPageContainer = ({
@@ -26,6 +31,7 @@ const GridPageContainer = ({
   onSelectCategory = () => {},
   selectedItem,
   Selector,
+  HeadingElement: RightHeadingElement,
   ...otherProps
 }: Props) => {
   const TempSelector = () => (
@@ -41,14 +47,16 @@ const GridPageContainer = ({
 
   return (
     <PageContainer {...otherProps}>
-      <Box marginY={1}>
-        <Box>
-          <GridHeading
-            selectedItem={selectedItem}
-            headingPrefix={headingPrefix}
-            label={gridHeadingLabel}
-          />
-        </Box>
+      <Box>
+        <Flex alignItems="start" justifyContent="space-between" w="100%">
+          {RightHeadingElement || (
+            <GridHeading
+              selectedItem={selectedItem}
+              headingPrefix={headingPrefix}
+              label={gridHeadingLabel}
+            />
+          )}
+        </Flex>
         <HStack justifyContent="space-between" marginTop={3}>
           <HStack>
             {Filter && <Box>{Filter}</Box>}
