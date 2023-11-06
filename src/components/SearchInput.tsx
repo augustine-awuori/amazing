@@ -34,6 +34,7 @@ const SearchInput = ({ onTextChange, value, ...rest }: Props) => {
       <Input
         {...rest}
         borderRadius="30px"
+        fontFamily="andika"
         transition="border-radius 0.3s"
         onTextChangeText={handleChange}
         onChange={handleChange}

@@ -30,15 +30,13 @@ const ShopsPage = () => {
     navigate(shop._id);
   };
 
-  const getHeadingLabel = () => {
-    const prefix = "Shops";
-
-    if (filter?.label.toLowerCase() === "shops") return prefix;
-
-    return `${prefix} Products`;
-  };
-
   const showingShops = filter?.label.toLowerCase() === "shops";
+
+  const getHeadingLabel = () => {
+    const shopsLabel = "Shops";
+
+    return showingShops ? shopsLabel : `${shopsLabel}' Products`;
+  };
 
   const resetCurrentPage = () =>
     showingShops ? setShopsCurrentPage(1) : setProductsCurrentPage(1);
