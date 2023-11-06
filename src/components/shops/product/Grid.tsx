@@ -64,7 +64,7 @@ const ShopsProductsGrid = ({
       <Box mt={5}>
         <Pagination
           currentPage={currentPage}
-          itemsCount={filtered.length}
+          itemsCount={queried.length}
           onPageChange={onPageChange}
           pageSize={pageSize}
         />
