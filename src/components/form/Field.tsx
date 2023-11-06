@@ -54,7 +54,7 @@ const FormField = ({
           type={isPasswordVisible ? "text" : type}
           placeholder={placeholder || label}
           {...register(inputName)}
-          onTextChangeText={handleChange}
+          onChange={handleChange}
           {...otherProps}
           value={value}
         />
