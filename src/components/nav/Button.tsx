@@ -27,7 +27,7 @@ const NavButton = ({
       fontWeight={fontWeight}
       variant="link"
     >
-      {label || Element}
+      {Element || label}
     </Button>
   </NavLink>
 );

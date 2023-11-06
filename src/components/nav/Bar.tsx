@@ -3,16 +3,20 @@ import {
   Collapse,
   Flex,
   IconButton,
+  Image,
   Stack,
   useBreakpointValue,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { AiFillEdit, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 
 import { User } from "../../hooks/useUser";
 import Avatar from "../../components/common/Avatar";
 import DesktopNav from "./Desktop";
+import logo from "../../../public/app.svg";
 import MobileNav from "./Mobile";
 import NavButton from "./Button";
 import Text from "../../components/Text";
@@ -25,6 +29,8 @@ interface Props {
 export default function WithSubNav({ user }: Props) {
   const { color } = useAppColorMode();
   const { isOpen, onToggle } = useDisclosure();
+  const showIcon = useBreakpointValue({ base: true, md: false });
+  const navigate = useNavigate();
 
   const MenuIcon = isOpen ? CloseIcon : HamburgerIcon;
 
@@ -62,7 +68,12 @@ export default function WithSubNav({ user }: Props) {
             aria-label="Toggle Navigation"
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+        <Flex
+          flex={{ base: 1 }}
+          justify={{ base: "center", md: "start" }}
+          onClick={() => navigate("/")}
+        >
+          <Image cursor="pointer" src={logo} mr={1.5} />
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             color={useColorModeValue("gray.800", "white")}
@@ -89,7 +100,11 @@ export default function WithSubNav({ user }: Props) {
         >
           {user ? (
             <>
-              <NavButton to="/logout" label="Logout" />
+              <NavButton
+                Element={showIcon ? <AiOutlineLogout /> : undefined}
+                to="/logout"
+                label="Logout"
+              />
               <NavButton
                 Element={
                   <Avatar name={user.name} size="xs" src={user.avatar} />
@@ -99,8 +114,16 @@ export default function WithSubNav({ user }: Props) {
             </>
           ) : (
             <>
-              <NavButton to="/login" label="Sign In" />
-              <NavButton to="/register" label="Sign Up" />
+              <NavButton
+                Element={showIcon ? <AiOutlineLogin /> : undefined}
+                to="/login"
+                label="Sign In"
+              />
+              <NavButton
+                Element={showIcon ? <AiFillEdit /> : undefined}
+                to="/register"
+                label="Sign Up"
+              />
             </>
           )}
         </Stack>

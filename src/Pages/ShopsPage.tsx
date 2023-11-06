@@ -64,7 +64,7 @@ const ShopsPage = () => {
 
   const HeadingELement = (
     <SearchInput
-      placeholder={`Search ${getHeadingLabel()}`}
+      placeholder={` Search ${getHeadingLabel()}`}
       onTextChange={handleTextChange}
       value={query}
     />
