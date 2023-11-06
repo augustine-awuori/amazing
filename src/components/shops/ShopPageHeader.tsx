@@ -8,6 +8,7 @@ import { endpoint } from "../../services/shops";
 import { Item } from "../../components/common/Selector";
 import { Setting } from "./SettingsSelector";
 import { useCurrentUser, useShop, useShops } from "../../hooks";
+import auth from "../../services/auth";
 import SettingsSelector from "./SettingsSelector";
 import ShopUpdateForm from "./UpdateForm";
 
@@ -34,6 +35,7 @@ const ShopPageHeader = ({
   const [isDeleting, setDeleting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const currentUser = auth.getCurrentUser();
   const helper = useShops();
   const navigate = useNavigate();
 
@@ -83,7 +85,7 @@ const ShopPageHeader = ({
         {shopName}'s Products ({productsCount})
       </Heading>
       <Box>
-        {isTheAuthor ? (
+        {isTheAuthor || currentUser?.isAdmin ? (
           <Box whiteSpace="nowrap">
             <SettingsSelector
               data={settings}
