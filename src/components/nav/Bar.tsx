@@ -16,7 +16,7 @@ import { AiFillEdit, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 import { User } from "../../hooks/useUser";
 import Avatar from "../../components/common/Avatar";
 import DesktopNav from "./Desktop";
-import logo from "../../../public/app.svg";
+import logo from "../../assets/logo.svg";
 import MobileNav from "./Mobile";
 import NavButton from "./Button";
 import Text from "../../components/Text";
