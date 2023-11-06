@@ -3,16 +3,19 @@ import {
   Collapse,
   Flex,
   IconButton,
+  Image,
   Stack,
   useBreakpointValue,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { AiFillEdit, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 
 import { User } from "../../hooks/useUser";
 import Avatar from "../../components/common/Avatar";
 import DesktopNav from "./Desktop";
+import logo from "../../../public/app.svg";
 import MobileNav from "./Mobile";
 import NavButton from "./Button";
 import Text from "../../components/Text";
@@ -25,6 +28,7 @@ interface Props {
 export default function WithSubNav({ user }: Props) {
   const { color } = useAppColorMode();
   const { isOpen, onToggle } = useDisclosure();
+  const showIcon = useBreakpointValue({ base: true, md: false });
 
   const MenuIcon = isOpen ? CloseIcon : HamburgerIcon;
 
@@ -63,6 +67,7 @@ export default function WithSubNav({ user }: Props) {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+          <Image src={logo} mr={1.5} />
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             color={useColorModeValue("gray.800", "white")}
@@ -89,7 +94,11 @@ export default function WithSubNav({ user }: Props) {
         >
           {user ? (
             <>
-              <NavButton to="/logout" label="Logout" />
+              <NavButton
+                Element={showIcon ? <AiOutlineLogout /> : undefined}
+                to="/logout"
+                label="Logout"
+              />
               <NavButton
                 Element={
                   <Avatar name={user.name} size="xs" src={user.avatar} />
@@ -99,8 +108,16 @@ export default function WithSubNav({ user }: Props) {
             </>
           ) : (
             <>
-              <NavButton to="/login" label="Sign In" />
-              <NavButton to="/register" label="Sign Up" />
+              <NavButton
+                Element={showIcon ? <AiOutlineLogin /> : undefined}
+                to="/login"
+                label="Sign In"
+              />
+              <NavButton
+                Element={showIcon ? <AiFillEdit /> : undefined}
+                to="/register"
+                label="Sign Up"
+              />
             </>
           )}
         </Stack>
