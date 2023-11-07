@@ -86,9 +86,9 @@ const ProfilePage = () => {
 
   return (
     <PageContainer Aside={Aside}>
-      <Container maxW="container.lg" py={8}>
-        <Flex direction={{ base: "column", md: "row" }}>
-          <Avatar name={name} src={avatar} size="lg" />
+      <Container maxW="container.lg" pb={8} pt={1}>
+        <Flex>
+          <Avatar name={name} src={avatar} size="lg" mr={5} mt={2} />
           <Box ml={{ md: 8 }}>
             {isLoading ? (
               <SkeletonText mt={3} />
@@ -108,9 +108,9 @@ const ProfilePage = () => {
                 ADMIN
               </Badge>
             )}
-            <Text mt={2}>Joined on {getDate(timestamp)}</Text>
           </Box>
         </Flex>
+        <Text mt={2}>Joined on {getDate(timestamp)}</Text>
         <Divider my={6} />
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
           <Stack spacing={2}>
