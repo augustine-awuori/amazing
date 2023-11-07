@@ -86,10 +86,10 @@ const ProfilePage = () => {
 
   return (
     <PageContainer Aside={Aside}>
-      <Container maxW="container.lg" py={8}>
-        <Flex direction={{ base: "column", md: "row" }}>
-          <Avatar name={name} src={avatar} size="lg" />
-          <Box ml={{ md: 8 }}>
+      <Container maxW="container.lg" pb={8} pt={1}>
+        <Flex>
+          <Avatar name={name} src={avatar} size="lg" mr={3} mb={2} />
+          <Box>
             {isLoading ? (
               <SkeletonText mt={3} />
             ) : (
@@ -97,20 +97,20 @@ const ProfilePage = () => {
                 <Text fontSize="2xl" fontWeight="bold" mb={0}>
                   {name}
                 </Text>
-                <Text color={accentColor} fontStyle="italic">
+                <Text color={accentColor} mt={0}>
                   {username}
                 </Text>
               </>
             )}
-            {isVerified && <Badge colorScheme="green">VERIFIED</Badge>}
-            {isAdmin && (
-              <Badge colorScheme="orange" marginLeft={3}>
-                ADMIN
-              </Badge>
-            )}
-            <Text mt={2}>Joined on {getDate(timestamp)}</Text>
           </Box>
         </Flex>
+        {isVerified && <Badge colorScheme="green">VERIFIED</Badge>}
+        {isAdmin && (
+          <Badge colorScheme="orange" marginLeft={3}>
+            ADMIN
+          </Badge>
+        )}
+        <Text mt={2}>Joined on {getDate(timestamp)}</Text>
         <Divider my={6} />
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={8}>
           <Stack spacing={2}>
