@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { IconButton } from "@chakra-ui/react";
+import { IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { FaChevronUp } from "react-icons/fa";
+
+import FloatingButtonBox from "../../components/FloatingButtonBox";
 
 const ScrollToTop = () => {
   const [showButton, setShowButton] = useState(false);
@@ -15,25 +17,33 @@ const ScrollToTop = () => {
     };
   }, []);
 
-  const handleScrollToTop = () => {
+  const handleScrollToTop = () =>
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
-    <IconButton
-      icon={<FaChevronUp />}
-      isRound
-      size="lg"
-      colorScheme="teal"
-      opacity={showButton ? 1 : 0}
-      position="fixed"
-      bottom="20px"
-      right="20px"
+    <FloatingButtonBox
+      bottom="1.25rem"
+      label="Scroll to Top"
       onClick={handleScrollToTop}
-      zIndex="999"
-      transition="opacity 0.3s ease"
-      aria-label="Scroll to Top"
-    />
+      opacity={showButton ? 1 : 0}
+    >
+      {useBreakpointValue({
+        base: (
+          <IconButton
+            icon={<FaChevronUp />}
+            isRound
+            size="lg"
+            colorScheme="teal"
+            position="fixed"
+            bottom="1.25rem"
+            right="1.25rem"
+            onClick={handleScrollToTop}
+            aria-label="Scroll to Top"
+          />
+        ),
+        md: <FaChevronUp />,
+      })}
+    </FloatingButtonBox>
   );
 };
 

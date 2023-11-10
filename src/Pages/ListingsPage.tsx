@@ -5,6 +5,7 @@ import { Category } from "../hooks/useCategories";
 import {
   ListingCategoriesGridPageContainer as GridPageContainer,
   ListingGrid,
+  NewItemButton as NewListingButton,
 } from "../components";
 import { endpoint } from "../services/listings";
 import useListing, { Listing } from "../hooks/useListing";
@@ -28,6 +29,7 @@ const ListingsPage = () => {
       selectedCategory={selectedCategory}
       onSelectCategory={setSelectedCategory}
     >
+      <NewListingButton />
       <ListingGrid
         error={error}
         isLoading={isLoading}

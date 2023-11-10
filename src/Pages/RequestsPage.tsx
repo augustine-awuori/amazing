@@ -5,6 +5,7 @@ import { Category } from "../hooks/useCategories";
 import {
   RequestGrid,
   ListingCategoriesGridPageContainer as GridPageContainer,
+  NewItemButton as NewRequestButton,
 } from "../components";
 import ScrollToTopBtn from "../components/common/ScrollToTopBtn";
 import useRequest, { Request } from "../hooks/useRequest";
@@ -24,6 +25,7 @@ const RequestsPage = () => {
   return (
     <>
       <ScrollToTopBtn />
+      <NewRequestButton />
       <GridPageContainer
         onSelectCategory={setSelectedCategory}
         selectedCategory={selectedCategory}

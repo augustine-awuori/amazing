@@ -6,6 +6,7 @@ import {
   SearchInput,
   ShopsGrid,
   ShopsTypesGridPageContainer,
+  NewItemButton as NewShopButton,
 } from "../components";
 import { Type } from "../hooks/useTypes";
 import { useProducts, useShops } from "../hooks";
@@ -76,6 +77,7 @@ const ShopsPage = () => {
       onSelectType={handleSelectType}
       selectedType={selectedType}
     >
+      <NewShopButton />
       {showingShops ? (
         <ShopsGrid
           currentPage={shopsCurrentPage}
