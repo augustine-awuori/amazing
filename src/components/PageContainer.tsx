@@ -1,13 +1,19 @@
 import { ReactNode } from "react";
-import { GridItem } from "@chakra-ui/react";
+import { GridItem, GridItemProps } from "@chakra-ui/react";
 
-interface Props {
+interface Props extends GridItemProps {
   Aside?: JSX.Element;
   children: ReactNode;
   paddingTop?: number;
 }
 
-const PageContainer = ({ Aside, children, paddingTop = 16 }: Props) => (
+const PageContainer = ({
+  Aside,
+  children,
+  paddingTop = 16,
+  px = 5,
+  ...rest
+}: Props) => (
   <>
     {Aside && (
       <GridItem
@@ -20,7 +26,7 @@ const PageContainer = ({ Aside, children, paddingTop = 16 }: Props) => (
         {Aside}
       </GridItem>
     )}
-    <GridItem area="main" px={5} pt={paddingTop}>
+    <GridItem area="main" px={px} pt={paddingTop} {...rest}>
       {children}
     </GridItem>
   </>

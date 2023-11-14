@@ -20,7 +20,6 @@ const StartChatBtn = ({ phoneNumber = "+254796720289", imageUrl }: Props) => {
       onClick={handleStartChatClick}
       as="a"
       rel="noopener noreferrer"
-      maxW="500px"
       w="100%"
       my={5}
       _hover={{ backgroundColor: concAccentColor }}

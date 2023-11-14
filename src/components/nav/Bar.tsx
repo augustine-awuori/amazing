@@ -73,7 +73,7 @@ export default function WithSubNav({ user }: Props) {
           justify={{ base: "center", md: "start" }}
           onClick={() => navigate("/")}
         >
-          <Image cursor="pointer" src={logo} mr={1} w={5} />
+          <Image cursor="pointer" src={logo} mr={1.5} w={5} />
           <Text
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
             color={useColorModeValue("gray.800", "white")}

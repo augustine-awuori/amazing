@@ -4,4 +4,8 @@ const addMessageToUrl = (url: string, text = "") =>
 const navTo = (url: string, message?: string) =>
   window.open(addMessageToUrl(url, message), "_blank", "noopener,noreferrer");
 
-export default { navTo };
+function isOdd(number: number): boolean {
+  return number % 2 !== 0;
+}
+
+export default { navTo, isOdd };
