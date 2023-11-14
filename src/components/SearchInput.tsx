@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, ReactNode } from "react";
 import { AiOutlineSearch, AiOutlineClose } from "react-icons/ai";
 import {
   IconButton,
@@ -11,43 +11,62 @@ import {
 
 interface Props extends InputProps {
   onTextChange: (text: string) => void;
+  LeftElement?: ReactNode;
+  RightElement?: ReactNode;
 }
 
-const SearchInput = ({ onTextChange, value, ...rest }: Props) => {
+const SearchInput = ({
+  backgroundColor,
+  onTextChange,
+  LeftElement,
+  RightElement,
+  value,
+  ...rest
+}: Props) => {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     onTextChange(event.target.value);
   };
 
   return (
-    <InputGroup borderRadius={30} mt={1} mb={2}>
-      {!value && (
-        <InputLeftElement pointerEvents="auto">
-          <IconButton
-            borderRadius="30px"
-            icon={<AiOutlineSearch w={1} h={1} />}
-            aria-label="search-icon"
-            transition="opacity 0.3s"
-          />
-        </InputLeftElement>
-      )}
+    <InputGroup
+      borderRadius={30}
+      mt={1}
+      mb={2}
+      backgroundColor={backgroundColor}
+    >
+      {!value &&
+        (LeftElement || (
+          <InputLeftElement pointerEvents="auto">
+            <IconButton
+              borderRadius="30px"
+              color="white"
+              icon={<AiOutlineSearch w={1} h={1} />}
+              aria-label="search-icon"
+              transition="opacity 0.3s"
+            />
+          </InputLeftElement>
+        ))}
       <Input
         {...rest}
         borderRadius="30px"
         fontFamily="andika"
         transition="border-radius 0.3s"
         onTextChangeText={handleChange}
+        _placeholder={{ color: "white" }}
         onChange={handleChange}
         value={value}
       />
-      <InputRightElement onClick={() => onTextChange("")}>
-        <IconButton
-          borderRadius="30px"
-          opacity={value ? 1 : 0}
-          icon={<AiOutlineClose />}
-          aria-label="cancel-icon"
-        />
-      </InputRightElement>
+      {RightElement || (
+        <InputRightElement onClick={() => onTextChange("")}>
+          <IconButton
+            borderRadius="30px"
+            opacity={value ? 1 : 0}
+            icon={<AiOutlineClose />}
+            aria-label="cancel-icon"
+          />
+        </InputRightElement>
+      )}
     </InputGroup>
   );
 };

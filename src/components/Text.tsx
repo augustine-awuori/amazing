@@ -1,9 +1,7 @@
 import { Text, TextProps } from "@chakra-ui/react";
 
-interface Props extends TextProps {}
-
-const AppText = ({ children, ...otherProps }: Props) => (
-  <Text {...otherProps} fontFamily="Andika sans-serif">
+const AppText = ({ children, ...otherProps }: TextProps) => (
+  <Text {...otherProps} fontFamily="andika">
     {children}
   </Text>
 );

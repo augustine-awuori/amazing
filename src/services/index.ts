@@ -1,5 +1,6 @@
 export { default as authApi } from "./auth";
 export { default as client } from "./client";
+export { default as comments } from "./comments";
 export { default as listings } from "./listings";
 export { default as orders } from "./orders";
 export { default as products } from "./products";
