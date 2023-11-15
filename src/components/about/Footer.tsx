@@ -38,7 +38,7 @@ interface Data {
 }
 
 const data: Data[] = [
-  { heading: "Company", items: ["Baby Software"] },
+  { heading: "Company", items: ["BABY Software Co", "Campus Mart LLC"] },
   { heading: "Support", items: ["+254 7967 20289", "We Trust In God"] },
   {
     heading: "Domains",

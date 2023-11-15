@@ -8,15 +8,15 @@ import {
   Footer,
   Hero,
 } from "../components/about";
-import useColumn from "../hooks/useColumn";
+import useGridController from "../hooks/useGridController";
 
 const AboutAppPage = () => {
-  const { resetColumn, setColumn } = useColumn();
+  const { removeAsideGrid, resetGrid } = useGridController();
 
   useEffect(() => {
-    setColumn("");
+    removeAsideGrid();
 
-    return () => resetColumn();
+    return () => resetGrid();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

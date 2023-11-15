@@ -13,7 +13,10 @@ const DomainBlock = () => {
     if (!input) return;
 
     const { ok } = await service.addComment(input);
-    ok ? toast.success("Comment sent!") : toast.error("Comment not sent!");
+
+    if (!ok) return toast.error("Comment not sent!");
+    setInput("");
+    toast.success("Comment sent!");
   };
 
   const InputRightElement = (
@@ -25,6 +28,7 @@ const DomainBlock = () => {
       px={8}
       type="button"
       _active={{ backgroundColor: "green.400" }}
+      _hover={{ backgroundColor: "green.400" }}
     >
       Send
     </Button>
@@ -33,10 +37,11 @@ const DomainBlock = () => {
   const InputLeftElement = (
     <IconButton
       borderRadius="30px"
-      color="white"
+      color="green.200"
       icon={<AiFillMessage w={1} h={1} />}
       aria-label="icon"
       transition="opacity 0.3s"
+      _hover={{ color: "green.400" }}
     />
   );
 
@@ -54,7 +59,7 @@ const DomainBlock = () => {
         <Text color="blackAlpha.500" textAlign="center" my={3}>
           Any critic, feature request, advice?
         </Text>
-        <Box maxW="500px" margin="0 auto">
+        <Box maxW="600px" margin="0 auto" mt={7}>
           <SearchInput
             placeholder="Type your comment here"
             backgroundColor="gray.100"

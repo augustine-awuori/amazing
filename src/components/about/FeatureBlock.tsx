@@ -14,6 +14,7 @@ import listing from "../../assets/listing.png";
 import request from "../../assets/quotes.png";
 import shop from "../../assets/shop.png";
 import utils from "../../utils/funcs";
+import useAppColorMode from "../../hooks/useAppColorMode";
 
 interface FeatureProps extends Feature {
   index: number;
@@ -23,6 +24,7 @@ interface Feature {
   description: string;
   heading: string;
   image: string;
+  imageHeight?: string;
   url: string;
 }
 
@@ -32,15 +34,24 @@ const FeatureGridItem = ({ children }: GridItemProps) => (
   </GridItem>
 );
 
-const Feature = ({ description, heading, image, index, url }: FeatureProps) => {
+const Feature = ({
+  description,
+  heading,
+  image,
+  imageHeight,
+  index,
+  url,
+}: FeatureProps) => {
   const navigate = useNavigate();
   const bigScreen = useBreakpointValue({ md: true, lg: true });
+  const { accentColor } = useAppColorMode();
 
   const ImageCom = (
     <Image
       src={image}
       alt="img"
       w="100%"
+      h={imageHeight}
       objectFit="contain"
       data-aos="zoom-in"
     />
@@ -54,7 +65,15 @@ const Feature = ({ description, heading, image, index, url }: FeatureProps) => {
       <Text color="gray.500" fontSize="1.3rem" fontWeight="bold" mt={3}>
         {description}
       </Text>
-      <Button color="red" mt={2} fontSize="md" onClick={() => navigate(url)}>
+      <Button
+        color={accentColor}
+        mt={2}
+        fontSize="md"
+        border="1px"
+        borderRadius="30px"
+        onClick={() => navigate(url)}
+        _hover={{ color: "#fff", backgroundColor: accentColor }}
+      >
         Create One
       </Button>
     </FeatureGridItem>
@@ -93,6 +112,7 @@ const features: Feature[] = [
       "When you're on the hunt for something special, and it's not there yet, just request it. Someone might just have it.",
     heading: "Request",
     image: request,
+    imageHeight: "70%",
     url: "/requests/new",
   },
 ];
