@@ -1,3 +1,4 @@
+import { APP_PHONE_NUMBER } from "../data/general";
 import { useAppColorMode, useWhatsAppRedirect } from "../hooks";
 import Button from "./Button";
 import util from "../utils/funcs";
@@ -7,7 +8,7 @@ interface Props {
   phoneNumber: string | undefined;
 }
 
-const StartChatBtn = ({ phoneNumber = "+254796720289", imageUrl }: Props) => {
+const StartChatBtn = ({ phoneNumber = APP_PHONE_NUMBER, imageUrl }: Props) => {
   const { accentColor, concAccentColor } = useAppColorMode();
   const { url } = useWhatsAppRedirect(phoneNumber, imageUrl);
 

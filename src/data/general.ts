@@ -1,0 +1,1 @@
+export const APP_PHONE_NUMBER = "+254796720289";

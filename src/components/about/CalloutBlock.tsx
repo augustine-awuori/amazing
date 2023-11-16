@@ -1,5 +1,6 @@
 import { Box, Heading, Text, Grid } from "@chakra-ui/react";
 
+import { APP_PHONE_NUMBER } from "../../data/general";
 import { StartChatBtn } from "../../components";
 
 const Callout = () => (
@@ -19,7 +20,7 @@ const Callout = () => (
           you share our vision, let's join forces by clicking this button.
         </Text>
       </Box>
-      <StartChatBtn phoneNumber="" />
+      <StartChatBtn phoneNumber={APP_PHONE_NUMBER} />
     </Grid>
   </Box>
 );
