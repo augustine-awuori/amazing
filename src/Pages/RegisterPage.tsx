@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
@@ -56,6 +57,8 @@ const RegisterPage = () => {
     loginWithJwt(headers);
     window.location.href = "/";
   };
+
+  if (authApi.getCurrentUser()) return <Navigate to="/" />;
 
   return (
     <Form

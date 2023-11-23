@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { z } from "zod";
 import { toast } from "react-toastify";
 
@@ -48,6 +49,8 @@ const LoginPage = () => {
     if (error) setError(error);
     setLoginFailed(true);
   };
+
+  if (authApi.getCurrentUser()) return <Navigate to="/" />;
 
   return (
     <Form
