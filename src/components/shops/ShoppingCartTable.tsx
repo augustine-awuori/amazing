@@ -39,7 +39,7 @@ const CartTable = ({ products }: { products: Product[] }) => {
       if (p._id !== id) return p;
 
       p.quantity === 1
-        ? toast.info("Quantity is one. Press 'x' if you want to remove it")
+        ? toast.info("Delete it if you really wanna")
         : (p.quantity -= 1);
 
       return p;

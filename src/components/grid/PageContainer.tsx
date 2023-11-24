@@ -47,7 +47,7 @@ const GridPageContainer = ({
 
   return (
     <PageContainer {...otherProps}>
-      <Box>
+      <Box mb={2}>
         <Flex alignItems="start" justifyContent="space-between" w="100%">
           {RightHeadingElement || (
             <GridHeading

@@ -73,7 +73,13 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
         onModalClose={() => setShowUpdateModal(false)}
         title="Update Shop Info"
       />
-      <Heading as="h1" mb={4} size="md" noOfLines={1}>
+      <Heading
+        as="h1"
+        mb={4}
+        size="md"
+        noOfLines={1}
+        textTransform="capitalize"
+      >
         {shopName}'s Products ({productsCount})
       </Heading>
       <Box>

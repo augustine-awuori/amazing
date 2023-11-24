@@ -28,6 +28,8 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
 
   const handleClick = () => (isAdded ? removeProduct(_id) : addProduct(_id));
 
+  const navigateToShop = () => onClick(shop._id);
+
   const ComputedButton = isTheOwner ? (
     <Button
       backgroundColor={accentColor}
@@ -69,9 +71,9 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
         }}
         borderRadius=".2rem"
         h={{ base: "8rem", md: "9.5rem" }}
-        mr={5}
+        mr={{ base: 3, md: 5 }}
         objectFit="cover"
-        onClick={() => onClick(shop._id)}
+        onClick={navigateToShop}
         src={image}
         transition="all 0.3s"
         w={{ sm: "60%", base: "70%", md: "100%" }}
@@ -82,11 +84,12 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
           fontWeight="extrabold"
           letterSpacing="1px"
           noOfLines={{ base: 2, md: 1 }}
+          onClick={navigateToShop}
           textTransform="capitalize"
         >
           {name}
         </Text>
-        <Flex justify="space-between">
+        <Flex justify="space-between" onClick={navigateToShop}>
           <Text color={accentColor} noOfLines={1}>
             Ksh {price}
           </Text>
@@ -98,7 +101,8 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
           _hover={{ color: "whiteAlpha.700" }}
           color="gray.500"
           display={{ sm: "block", md: "none" }}
-          noOfLines={{ base: 2, md: 1 }}
+          noOfLines={1}
+          onClick={navigateToShop}
           textTransform="capitalize"
           transition="color 0.3s"
         >

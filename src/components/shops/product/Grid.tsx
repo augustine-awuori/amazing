@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
 
-import { CardSkeletons } from "../../card";
+import Skeleton from "../product/Skeleton";
 import { paginate } from "../../../utils/paginate";
 import { Product } from "./Card";
 import { Type } from "../../../hooks/useTypes";
@@ -49,7 +49,7 @@ const ShopsProductsGrid = ({
   return (
     <>
       <Grid columns={{ sm: 1, md: 3, lg: 4 }}>
-        <CardSkeletons isLoading={isLoading} />
+        <Skeleton isLoading={isLoading} />
         {paginated.map((product, index) => (
           <ProductDisplayCard
             key={product._id + index}
