@@ -11,7 +11,7 @@ import { NewProductForm, ProductUpdateForm } from "../components/forms";
 import { Product } from "../components/shops/product/Card";
 import { Settings, ShopPageHeader as Header } from "../components/shops";
 import { Shop } from "../hooks/useShop";
-import CardSkeletons from "../components/card/Skeletons";
+import Skeletons from "../components/shops/product/Skeleton";
 import empty from "../utils/empty";
 import Grid from "../components/grid";
 import ProductDetails from "../components/shops/product/Details";
@@ -126,7 +126,7 @@ const ShopPage = () => {
           shopName={shop?.name}
         />
         <Grid>
-          <CardSkeletons isLoading={isLoading} />
+          <Skeletons isLoading={isLoading} />
           {paginated.map((product, index) => (
             <DisplayCard
               key={index}
