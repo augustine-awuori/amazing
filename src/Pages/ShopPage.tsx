@@ -1,28 +1,22 @@
 import { useEffect, useState } from "react";
 import { HStack } from "@chakra-ui/react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { FaLocationArrow } from "react-icons/fa";
 
 import { Footer, Info, PageContainer, StartChatBtn, Text } from "../components";
 import { paginate } from "../utils/paginate";
-import {
-  useBag,
-  useCurrentUser,
-  useProducts,
-  useReload,
-  useShop,
-  useShops,
-} from "../hooks";
+import { useBag, useProducts, useReload, useShop, useShops } from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
+import { Product } from "../components/shops/product/Card";
 import { Settings, ShopPageHeader as Header } from "../components/shops";
 import { Shop } from "../hooks/useShop";
 import CardSkeletons from "../components/card/Skeletons";
 import empty from "../utils/empty";
 import Grid from "../components/grid";
-import ProductCard, { Product } from "../components/shops/product/Card";
 import ProductDetails from "../components/shops/product/Details";
 import service from "../services/shops";
+import DisplayCard from "../components/shops/product/DisplayCard";
 
 const PAGE_SIZE = 6;
 
@@ -32,20 +26,17 @@ const ShopPage = () => {
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const { bag, setBag } = useBag();
+  const { bag } = useBag();
   const { setShop, shop: shopInfo } = useShop();
   const [product, setProduct] = useState<Product>();
-  const navigate = useNavigate();
   const { info: shop, request } = useReload<Shop>(
     checkShopExistence(shopInfo),
     empty.shop,
     service.getShop
   );
-  const { isLoading, products, productsCount, setProducts } = useProducts(
+  const { isLoading, products, productsCount } = useProducts(
     useParams().shopId
   );
-  const authorId = shop?.author?._id;
-  const isTheAuthor = useCurrentUser(authorId);
   const helper = useShops();
 
   useEffect(() => {
@@ -74,69 +65,6 @@ const ShopPage = () => {
 
   const paginated = paginate<Product>(markBought, currentPage, PAGE_SIZE);
 
-  const navigateToViewBag = () => navigate("my-bag");
-
-  const markAddedProducts = (product: Product) => {
-    const ids = { ...bag.ids };
-
-    if (!ids[product._id]) {
-      ids[product._id] = true;
-
-      return setBag({ ids, products: [...bag.products, product] });
-    }
-
-    const updated = bag.products.map((p) =>
-      p._id === product._id ? product : p
-    );
-    setBag({ ids, products: updated });
-  };
-
-  const unmarkRemovedProducts = (product: Product) => {
-    const ids = { ...bag.ids };
-
-    if (!product.quantity) {
-      delete ids[product._id];
-
-      return setBag({
-        ids,
-        products: bag.products.filter((p) => p._id !== product._id),
-      });
-    }
-
-    const updated = [...bag.products].map((p) =>
-      p._id === product._id ? product : p
-    );
-    setBag({ ids, products: updated });
-  };
-
-  const handleQuantityInc = (productId: string) => {
-    const updated = products.map((p) => {
-      if (p._id === productId) {
-        p.quantity += 1;
-
-        markAddedProducts(p);
-      }
-
-      return p;
-    });
-
-    setProducts(updated);
-  };
-
-  const handleQuantityDec = (productId: string) => {
-    const updated = [...products].map((p) => {
-      if (p._id === productId) {
-        p.quantity -= 1;
-
-        unmarkRemovedProducts(p);
-      }
-
-      return p;
-    });
-
-    setProducts(updated);
-  };
-
   const switchShowProductForm = () => setShowProductForm(!showProductForm);
 
   const switchShowProductUpdateForm = () =>
@@ -164,6 +92,8 @@ const ShopPage = () => {
     </HStack>
   );
 
+  if (!paginated.length && !isLoading) return <Info />;
+
   return (
     <>
       {shop?._id && (
@@ -188,15 +118,7 @@ const ShopPage = () => {
       {product && (
         <Modal
           isOpen={showProductDetails}
-          content={
-            <ProductDetails
-              info={product}
-              onQuantityDecrease={handleQuantityDec}
-              onQuantityIncrease={handleQuantityInc}
-              productId={product._id}
-              quantity={product.quantity}
-            />
-          }
+          content={<ProductDetails info={product} />}
           onModalClose={switchShowProductDetails}
         />
       )}
@@ -209,30 +131,21 @@ const ShopPage = () => {
       <PageContainer>
         <ScrollToTopBtn />
         <Header
-          bagCount={bag.products.length}
           onAddProduct={switchShowProductForm}
-          onBagView={navigateToViewBag}
           onShowSettings={switchShowSettings}
           productsCount={productsCount}
           shopName={shop?.name}
         />
         <Grid>
           <CardSkeletons isLoading={isLoading} />
-          {paginated.length ? (
-            paginated.map((product, index) => (
-              <ProductCard
-                data={product}
-                key={index}
-                onClick={() => handleProductClick(product)}
-                onEdit={() => handleEdit(product)}
-                onQuantityDecrease={handleQuantityDec}
-                onQuantityIncrease={handleQuantityInc}
-                showButton={!isTheAuthor}
-              />
-            ))
-          ) : (
-            <Info show={!isLoading} />
-          )}
+          {paginated.map((product, index) => (
+            <DisplayCard
+              key={index}
+              product={product}
+              onClick={() => handleProductClick(product)}
+              onEdit={() => handleEdit(product)}
+            />
+          ))}
         </Grid>
         <Pagination
           itemsCount={productsCount}

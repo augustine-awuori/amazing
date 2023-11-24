@@ -1,20 +1,15 @@
 import { Box } from "@chakra-ui/react";
-import { ProductCardBtnProps } from "./CardButton";
-import Button from "./CardButton";
 import Text from "../../../components/Text";
 import useAppColorMode from "../../../hooks/useAppColorMode";
 
-interface Props extends ProductCardBtnProps {
+interface Props {
   info: {
     description: string;
     name: string;
   };
 }
 
-const ProductDetails = ({
-  info: { description, name },
-  ...otherProps
-}: Props) => {
+const ProductDetails = ({ info: { description, name } }: Props) => {
   const { accentColor } = useAppColorMode();
 
   return (
@@ -22,8 +17,7 @@ const ProductDetails = ({
       <Text color={accentColor} fontWeight="extrabold" fontSize="lg" mb={3}>
         {name}
       </Text>
-      <Text mb={3}>{description}</Text>
-      <Button {...otherProps} />
+      <Text mb={3}>{description || "Product has no description"}</Text>
     </Box>
   );
 };

@@ -31,7 +31,7 @@ const SearchInput = ({
   return (
     <InputGroup
       borderRadius={30}
-      mt={1}
+      mt={3}
       mb={2}
       backgroundColor={backgroundColor}
     >

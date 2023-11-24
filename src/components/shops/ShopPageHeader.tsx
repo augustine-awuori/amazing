@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, HStack, Badge, useBreakpointValue } from "@chakra-ui/react";
-import { AiOutlineShopping, AiFillPlusCircle } from "react-icons/ai";
+import { Box, HStack, useBreakpointValue } from "@chakra-ui/react";
+import { AiFillPlusCircle } from "react-icons/ai";
 
 import { Button, Heading, Modal } from "../../components";
 import { endpoint } from "../../services/shops";
@@ -13,21 +13,13 @@ import SettingsSelector from "./SettingsSelector";
 import ShopUpdateForm from "./UpdateForm";
 
 interface Props {
-  bagCount: number;
   onAddProduct: () => void;
-  onBagView: () => void;
   onShowSettings: () => void;
   productsCount: number;
   shopName: string | undefined;
 }
 
-const ShopPageHeader = ({
-  bagCount,
-  onAddProduct,
-  onBagView,
-  productsCount,
-  shopName,
-}: Props) => {
+const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
   const { shop } = useShop();
   const isTheAuthor = useCurrentUser(shop?.author._id);
   const showIconsOnly = useBreakpointValue({ base: true, md: false });
@@ -85,7 +77,7 @@ const ShopPageHeader = ({
         {shopName}'s Products ({productsCount})
       </Heading>
       <Box>
-        {isTheAuthor || currentUser?.isAdmin ? (
+        {(isTheAuthor || currentUser?.isAdmin) && (
           <Box whiteSpace="nowrap">
             <SettingsSelector
               data={settings}
@@ -101,20 +93,6 @@ const ShopPageHeader = ({
               {showIconsOnly ? null : "Add Product"}
             </Button>
           </Box>
-        ) : (
-          <Button
-            isLoading={false}
-            leftIcon={<AiOutlineShopping />}
-            mx={3}
-            onClick={onBagView}
-            px={2}
-            textAlign="center"
-          >
-            {showIconsOnly ? null : "My Bag"}
-            <Badge rounded={50} ml={1} pl={1.5} py={0.5}>
-              {bagCount}
-            </Badge>
-          </Button>
         )}
       </Box>
     </HStack>

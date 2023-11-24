@@ -4,34 +4,34 @@ import {
   Flex,
   IconButton,
   Image,
-  Stack,
-  useBreakpointValue,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
-import { AiFillEdit, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 
 import { User } from "../../hooks/useUser";
-import Avatar from "../../components/common/Avatar";
+import Cart from "./Cart";
 import DesktopNav from "./Desktop";
 import logo from "../../assets/logo.svg";
 import MobileNav from "./Mobile";
-import NavButton from "./Button";
 import Text from "../../components/Text";
 import useAppColorMode from "../../hooks/useAppColorMode";
+import useCart from "../../hooks/useCart";
+import UserButton from "./UserButton";
 
 interface Props {
   user: User | null | undefined;
+  cartCount: number;
 }
 
-export default function WithSubNav({ user }: Props) {
+export default function WithSubNav({ cartCount, user }: Props) {
   const { color } = useAppColorMode();
   const { isOpen, onToggle } = useDisclosure();
-  const showIcon = useBreakpointValue({ base: true, md: false });
   const navigate = useNavigate();
+  const { productsId } = useCart();
 
+  console.log("NAV", productsId.count);
   const MenuIcon = isOpen ? CloseIcon : HamburgerIcon;
 
   return (
@@ -54,12 +54,13 @@ export default function WithSubNav({ user }: Props) {
         borderStyle="solid"
         borderColor={useColorModeValue("gray.200", "gray.900")}
         align="center"
+        justifyContent="space-between"
         backgroundColor={color}
       >
         <Flex
-          flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
           display={{ base: "flex", md: "none" }}
+          align="center"
         >
           <IconButton
             onClick={onToggle}
@@ -70,63 +71,33 @@ export default function WithSubNav({ user }: Props) {
         </Flex>
         <Flex
           flex={{ base: 1 }}
-          justify={{ base: "center", md: "start" }}
-          onClick={() => navigate("/")}
+          justify={{ base: "center", md: "flex-start" }}
+          align="center"
         >
-          <Image cursor="pointer" src={logo} mr={1.5} w={5} />
-          <Text
-            textAlign={useBreakpointValue({ base: "center", md: "left" })}
-            color={useColorModeValue("gray.800", "white")}
-            mr={1}
-          >
-            <NavButton
-              to="/"
-              color="#fff"
-              label="Campus Mart"
+          <Flex align="center" cursor="pointer" onClick={() => navigate("/")}>
+            <Image src={logo} mr={1.5} w={5} />
+            <Text
+              color={useColorModeValue("gray.800", "white")}
               fontWeight="bold"
               fontSize={17}
-            />
-          </Text>
-          <Flex display={{ base: "none", md: "flex" }} ml={10}>
+            >
+              Campus Mart
+            </Text>
+          </Flex>
+
+          <Flex
+            display={{ base: "none", md: "flex" }}
+            ml={{ base: 0, md: 10 }}
+            align="center"
+          >
             <DesktopNav />
           </Flex>
         </Flex>
 
-        <Stack
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-        >
-          {user ? (
-            <>
-              <NavButton
-                Element={showIcon ? <AiOutlineLogout /> : undefined}
-                to="/logout"
-                label="Logout"
-              />
-              <NavButton
-                Element={
-                  <Avatar name={user.name} size="xs" src={user.avatar} />
-                }
-                to={`/profile/${user?._id}`}
-              />
-            </>
-          ) : (
-            <>
-              <NavButton
-                Element={showIcon ? <AiOutlineLogin /> : undefined}
-                to="/login"
-                label="Sign In"
-              />
-              <NavButton
-                Element={showIcon ? <AiFillEdit /> : undefined}
-                to="/register"
-                label="Sign Up"
-              />
-            </>
-          )}
-        </Stack>
+        <Flex align="center" ml={{ base: 0, md: 4 }} justify="center">
+          <Cart cartCount={cartCount} />
+          <UserButton user={user} />
+        </Flex>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>

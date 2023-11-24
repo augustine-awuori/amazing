@@ -12,7 +12,7 @@ import {
 import { Button, Heading, Text } from "../../components";
 import listing from "../../assets/listing.png";
 import request from "../../assets/quotes.png";
-import shop from "../../assets/shop.png";
+import shop from "../../assets/shop.jpg";
 import utils from "../../utils/funcs";
 import useAppColorMode from "../../hooks/useAppColorMode";
 

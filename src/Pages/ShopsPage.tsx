@@ -24,6 +24,7 @@ const ShopsPage = () => {
   const [productsCurrentPage, setProductsCurrentPage] = useState(1);
   const [shopsCurrentPage, setShopsCurrentPage] = useState(1);
   const [pageSize] = useState(6);
+  const [productsPageSize] = useState(8);
   const [query, setQuery] = useState("");
 
   const navigateToDetails = (shop: Shop) => {
@@ -96,7 +97,7 @@ const ShopsPage = () => {
           error=""
           isLoading={productsLoading}
           onClick={navigate}
-          pageSize={pageSize}
+          pageSize={productsPageSize}
           products={products}
           selectedType={selectedType}
           onPageChange={setProductsCurrentPage}

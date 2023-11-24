@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Box } from "@chakra-ui/react";
 
 import {
@@ -8,20 +7,15 @@ import {
   Footer,
   Hero,
 } from "../components/about";
-import useGridController from "../hooks/useGridController";
+import ScrollToTop from "../components/common/ScrollToTopBtn";
+import useNoGrid from "../hooks/useNoGrid";
 
 const AboutAppPage = () => {
-  const { removeAsideGrid, resetGrid } = useGridController();
-
-  useEffect(() => {
-    removeAsideGrid();
-
-    return () => resetGrid();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useNoGrid();
 
   return (
     <Box backgroundColor="white">
+      <ScrollToTop />
       <Hero />
       <DomainBlock />
       <FeatureBlock />

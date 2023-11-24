@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Grid, GridItem } from "@chakra-ui/react";
 
 import { NavBar, Routes } from "./components";
+import { CartProducts } from "./contexts/CartContext";
 import { User } from "./hooks/useUser";
 import auth from "./services/auth";
 import ColumnContext from "./contexts/ColumnContext";
@@ -9,6 +10,10 @@ import ColumnContext from "./contexts/ColumnContext";
 function App() {
   const [user, setUser] = useState<User | null>();
   const [column, setColumn] = useState("170px");
+  const [cartProducts, setCartProducts] = useState<CartProducts>({
+    count: 0,
+    ids: {},
+  });
 
   useEffect(() => {
     setUser(auth.getCurrentUser());
@@ -24,9 +29,9 @@ function App() {
         templateColumns={{ base: "100%", lg: `${column} 1fr` }}
       >
         <GridItem area="nav">
-          <NavBar user={user} />
+          <NavBar user={user} cartCount={cartProducts.count} />
         </GridItem>
-        <Routes />
+        <Routes cartProducts={cartProducts} setCartProducts={setCartProducts} />
       </Grid>
     </ColumnContext.Provider>
   );

@@ -1,61 +1,32 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { HStack, IconButton, Spinner } from "@chakra-ui/react";
-import { FaChevronLeft, FaPaperPlane } from "react-icons/fa";
+import { Spinner } from "@chakra-ui/react";
+import { FaPaperPlane } from "react-icons/fa";
 import { z } from "zod";
 
 import { appBaseUrl } from "../services/client";
-import { Button, Heading, Modal, PageContainer } from "../components";
+import { Button, Modal, PageContainer } from "../components";
 import { Order } from "../hooks/useOrder";
-import { useBag, useForm, useOrders, useShop } from "../hooks";
-import auth from "../services/auth";
-import BagTable from "../components/shops/BagTable";
+import { useCart, useForm, useOrders, useProducts } from "../hooks";
+import CartTable from "../components/shops/ShoppingCartTable";
 import DismissableInfo from "../components/common/DismissableInfo";
 import MessageField from "../components/form/TextAreaField";
 import util from "../utils/funcs";
+import { Product } from "components/shops/product/Card";
 
 const info =
   "When you place an order, the shop owner will contact you to arrange delivery and payment.";
 
 const schema = z.object({ message: z.string() });
 
-const ShoppingBagPage = () => {
-  const [message, setMessage] = useState("");
+const ShoppingCartPage = () => {
   const [showModal, setShowModal] = useState(false);
   const [takingMessage, setTakingMessage] = useState(false);
-  const [isLoading, setLoading] = useState(false);
-  const { bag, setBag } = useBag();
+  const [message, setMessage] = useState("");
   const { errors, register } = useForm(schema);
-  const { shop } = useShop();
+  const [isLoading, setLoading] = useState(false);
   const helper = useOrders();
-  const navigate = useNavigate();
-  const user = auth.getCurrentUser();
-
-  let products = [...bag.products];
-
-  const closeModal = () => setShowModal(false);
-
-  const sendWhatsAppNotification = (orderId: string) =>
-    util.navTo(`${appBaseUrl}notifications/orders/${orderId}`, message);
-
-  const clearBag = () => {
-    setBag({ ids: {}, products: [] });
-    products = [];
-  };
-
-  const handlePositiveResponse = async () => {
-    if (!takingMessage) return setTakingMessage(true);
-
-    closeModal();
-
-    setLoading(true);
-    const { data, ok } = await helper.makeOrder(products, message);
-    setLoading(false);
-    if (ok) {
-      clearBag();
-      sendWhatsAppNotification((data as Order)._id);
-    }
-  };
+  const { cartHasProduct, clearCart } = useCart();
+  const { products } = useProducts(undefined);
 
   const content = takingMessage ? (
     <MessageField
@@ -68,10 +39,39 @@ const ShoppingBagPage = () => {
     "Would you like to attach a message to your order?"
   );
 
-  if (!user) return <Navigate to="/login" replace />;
+  const closeModal = () => setShowModal(false);
+
+  const sendWhatsAppNotification = (orderId: string) =>
+    util.navTo(`${appBaseUrl}notifications/orders/${orderId}`, message);
+
+  const handlePositiveResponse = async () => {
+    if (!takingMessage) return setTakingMessage(true);
+
+    closeModal();
+    setLoading(true);
+    const { data, ok } = await helper.makeOrder(products, message);
+    setLoading(false);
+
+    if (ok) {
+      clearCart();
+      sendWhatsAppNotification((data as Order)._id);
+    }
+  };
+
+  const getProducts = (): Product[] => {
+    const found: Product[] = [];
+
+    products.forEach((p) => {
+      if (cartHasProduct(p._id)) found.push(p);
+    });
+
+    return found;
+  };
+
+  const cartProducts = getProducts();
 
   return (
-    <PageContainer>
+    <PageContainer maxW="700px" margin="0 auto">
       {isLoading && <Spinner />}
       <Modal
         content={content}
@@ -84,20 +84,8 @@ const ShoppingBagPage = () => {
         title="Order Message"
       />
       <DismissableInfo info={info} />
-      <HStack alignItems="center">
-        <IconButton
-          aria-label="button"
-          icon={<FaChevronLeft />}
-          size="md"
-          rounded={50}
-          onClick={() => navigate(-1)}
-        />
-        <Heading mb={3} ml={1}>
-          {`${shop?.name}'s Shopping Bag`}
-        </Heading>
-      </HStack>
-      <BagTable />
-      {products.length && (
+      <CartTable products={cartProducts} />
+      {cartProducts.length && (
         <Button
           isLoading={isLoading}
           mt={7}
@@ -111,4 +99,4 @@ const ShoppingBagPage = () => {
   );
 };
 
-export default ShoppingBagPage;
+export default ShoppingCartPage;

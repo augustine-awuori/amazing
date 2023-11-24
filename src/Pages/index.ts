@@ -19,6 +19,6 @@ export { default as RequestsPage } from "./RequestsPage";
 export { default as ShopEditPage } from "./ShopEditPage";
 export { default as ShopOrderPage } from "./ShopOrderPage";
 export { default as ShopOrders } from "./ShopOrders";
-export { default as ShoppingBagPage } from "./ShoppingBagPage";
+export { default as ShoppingCartPage } from "./ShoppingCartPage";
 export { default as ShopPage } from "./ShopPage";
 export { default as ShopsPage } from "./ShopsPage";

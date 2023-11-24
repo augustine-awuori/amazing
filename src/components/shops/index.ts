@@ -1,5 +1,5 @@
-export { default as BagTable } from "./BagTable";
 export { default as Card } from "./Card";
+export { default as CartTable } from "./ShoppingCartTable";
 export { default as Grid } from "./Grid";
 export { default as ProductCard } from "./product/Card";
 export { default as ProductCardButton } from "./product/CardButton";

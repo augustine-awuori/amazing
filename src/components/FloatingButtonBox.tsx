@@ -1,18 +1,22 @@
 import { Box, BoxProps } from "@chakra-ui/react";
 
 import Text from "./Text";
+import useAppColorMode from "../hooks/useAppColorMode";
 
 interface Props extends BoxProps {
   label: string;
 }
 
 const FloatingButtonBox = ({ children, label, ...rest }: Props) => {
+  const { accentColor } = useAppColorMode();
+
   return (
     <Box
       {...rest}
       alignItems="center"
-      bgColor={{ base: "transparent", md: "teal.300" }}
+      bgColor={{ base: "transparent", md: accentColor }}
       borderRadius={{ base: 0, md: 30 }}
+      color="white"
       cursor="pointer"
       display="flex"
       fontFamily="andika"

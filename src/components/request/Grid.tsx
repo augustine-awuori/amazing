@@ -34,19 +34,17 @@ const RequestGrid = ({ onRequestClick, selectedCategory, userId }: Props) => {
 
   if (error) return <Text>{error}</Text>;
 
+  if (!paginated.length && !isLoading) return <Info show={!isLoading} />;
+
   return (
     <>
       <Grid>
         <CardSkeletons isLoading={isLoading} height="20px" />
-        {paginated.length ? (
-          paginated.map((request) => (
-            <CardContainer key={request._id}>
-              <RequestCard request={request} onClick={onRequestClick} />
-            </CardContainer>
-          ))
-        ) : (
-          <Info show={!isLoading} />
-        )}
+        {paginated.map((request) => (
+          <CardContainer key={request._id}>
+            <RequestCard request={request} onClick={onRequestClick} />
+          </CardContainer>
+        ))}
       </Grid>
       <Box mt={5}>
         <Pagination

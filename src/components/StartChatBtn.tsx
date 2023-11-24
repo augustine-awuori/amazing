@@ -1,3 +1,5 @@
+import { AiOutlineWhatsApp } from "react-icons/ai";
+
 import { APP_PHONE_NUMBER } from "../data/general";
 import { useAppColorMode, useWhatsAppRedirect } from "../hooks";
 import Button from "./Button";
@@ -12,18 +14,19 @@ const StartChatBtn = ({ phoneNumber = APP_PHONE_NUMBER, imageUrl }: Props) => {
   const { accentColor, concAccentColor } = useAppColorMode();
   const { url } = useWhatsAppRedirect(phoneNumber, imageUrl);
 
-  const handleStartChatClick = () => util.navTo(url);
+  const handleClick = () => util.navTo(url);
 
   return (
     <Button
+      _hover={{ backgroundColor: concAccentColor }}
+      as="a"
       backgroundColor={accentColor}
       color="#fff"
-      onClick={handleStartChatClick}
-      as="a"
-      rel="noopener noreferrer"
-      w="100%"
       my={5}
-      _hover={{ backgroundColor: concAccentColor }}
+      onClick={handleClick}
+      rel="noopener noreferrer"
+      rightIcon={<AiOutlineWhatsApp />}
+      w="100%"
     >
       Start Chat
     </Button>

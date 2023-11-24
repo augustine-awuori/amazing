@@ -29,9 +29,9 @@ const useRequests = () => {
     const oldRequests = [...requests];
     setRequests(requests.filter((r) => r._id !== requestId));
 
-    const { data, ok, problem } = (await requestsService.deleteRequest(
+    const { data, ok, problem } = await requestsService.deleteRequest(
       requestId
-    )) as { data: Request; ok: boolean; problem: string };
+    );
 
     if (!ok) {
       toast.error((data as DataError)?.error || problem);

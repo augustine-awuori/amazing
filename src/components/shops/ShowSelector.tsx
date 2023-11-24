@@ -16,8 +16,8 @@ interface Props {
   selectedItem: Item | null;
 }
 
-const ShowSelector = ({ name, ...otherProps }: Props) => (
-  <Selector data={filters} {...otherProps} name={`Show: ${name}`} />
+const ShowSelector = ({ ...otherProps }: Props) => (
+  <Selector data={filters} {...otherProps} />
 );
 
 export default ShowSelector;

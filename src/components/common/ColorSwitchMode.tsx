@@ -10,7 +10,7 @@ const ColoModeSwitch = () => {
   return (
     <HStack>
       <Switch
-        colorScheme="green"
+        colorScheme="teal"
         isChecked={isDarkMode}
         onChange={toggleColorMode}
       />
