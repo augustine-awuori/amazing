@@ -16,7 +16,7 @@ const SelectorMenuList = ({ data, onSelectItem }: MenuListProps) => (
         fontFamily="andika"
         onClick={() => onSelectItem(item)}
       >
-        <Flex align="center">
+        <Flex align="center" letterSpacing=".59px">
           <Box mr={2}>{(item as ControlItem)?.icon}</Box>
           {item.label}
         </Flex>

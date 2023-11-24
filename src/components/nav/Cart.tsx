@@ -19,7 +19,7 @@ const Cart = ({ cartCount }: { cartCount: number }) => {
         color={accentColor}
         icon={<AiOutlineShoppingCart />}
         mr={4}
-        size="xs"
+        size="sm"
       />
       <Text cursor="pointer" fontSize="2xs" pos="absolute" top={0} right={3.5}>
         {cartCount}
