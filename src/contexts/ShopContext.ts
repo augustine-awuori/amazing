@@ -4,7 +4,7 @@ import { Shop } from "../hooks/useShop";
 
 interface ShopContextValue {
   shop: Shop | null;
-  setShop: (shop: Shop) => void;
+  setShop: (shop: Shop | null) => void;
 }
 
 const ShopContext = createContext<ShopContextValue>({

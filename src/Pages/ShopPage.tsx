@@ -33,17 +33,18 @@ const ShopPage = () => {
     empty.shop,
     service.getShop
   );
-  const { isLoading, products, productsCount } = useProducts(
-    useParams().shopId
-  );
+  const shopId = useParams().shopId;
+  const { isLoading, products, productsCount } = useProducts(shopId);
   const helper = useShops();
 
   useEffect(() => {
     request();
     setShop(shop);
     helper.incShopViews(shop._id);
+
+    return () => setShop(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products.length, shop?._id]);
+  }, [products.length, shopId]);
 
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
 
