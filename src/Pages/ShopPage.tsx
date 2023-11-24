@@ -5,7 +5,7 @@ import { FaLocationArrow } from "react-icons/fa";
 
 import { Footer, Info, PageContainer, StartChatBtn, Text } from "../components";
 import { paginate } from "../utils/paginate";
-import { useBag, useProducts, useReload, useShop, useShops } from "../hooks";
+import { useProducts, useReload, useShop, useShops } from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
 import { Product } from "../components/shops/product/Card";
@@ -26,7 +26,6 @@ const ShopPage = () => {
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const { bag } = useBag();
   const { setShop, shop: shopInfo } = useShop();
   const [product, setProduct] = useState<Product>();
   const { info: shop, request } = useReload<Shop>(
@@ -52,18 +51,7 @@ const ShopPage = () => {
     return shop?._id ? shop : undefined;
   }
 
-  const markBought = products.map((p) => {
-    const ids = { ...bag.ids };
-
-    if (ids[p._id]) {
-      const found = bag.products.find((pro) => pro._id === p._id);
-      if (found) return found;
-    }
-
-    return p;
-  });
-
-  const paginated = paginate<Product>(markBought, currentPage, PAGE_SIZE);
+  const paginated = paginate<Product>(products, currentPage, PAGE_SIZE);
 
   const switchShowProductForm = () => setShowProductForm(!showProductForm);
 

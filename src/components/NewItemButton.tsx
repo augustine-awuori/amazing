@@ -36,7 +36,7 @@ const FloatingButton: FC<Props> = ({ label = "Create New", onClick }) => {
         base: (
           <IconButton
             aria-label="Add button"
-            colorScheme="orange"
+            colorScheme="teal"
             color="white"
             icon={<FaPlus />}
             isRound

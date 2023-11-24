@@ -18,10 +18,10 @@ const Cart = ({ cartCount }: { cartCount: number }) => {
         borderRadius={20}
         color={accentColor}
         icon={<AiOutlineShoppingCart />}
-        mr={2}
+        mr={4}
         size="xs"
       />
-      <Text cursor="pointer" fontSize="2xs" pos="absolute" top={0} right={1.5}>
+      <Text cursor="pointer" fontSize="2xs" pos="absolute" top={0} right={3.5}>
         {cartCount}
       </Text>
     </Box>

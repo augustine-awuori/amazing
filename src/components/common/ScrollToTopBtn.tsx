@@ -33,7 +33,7 @@ const ScrollToTop = () => {
             icon={<FaChevronUp />}
             isRound
             size="lg"
-            colorScheme="orange"
+            colorScheme="teal"
             color="white"
             position="fixed"
             bottom="1.25rem"

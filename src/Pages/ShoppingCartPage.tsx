@@ -6,12 +6,12 @@ import { z } from "zod";
 import { appBaseUrl } from "../services/client";
 import { Button, Modal, PageContainer } from "../components";
 import { Order } from "../hooks/useOrder";
+import { Product } from "../components/shops/product/Card";
 import { useCart, useForm, useOrders, useProducts } from "../hooks";
 import CartTable from "../components/shops/ShoppingCartTable";
 import DismissableInfo from "../components/common/DismissableInfo";
 import MessageField from "../components/form/TextAreaField";
 import util from "../utils/funcs";
-import { Product } from "components/shops/product/Card";
 
 const info =
   "When you place an order, the shop owner will contact you to arrange delivery and payment.";
@@ -71,7 +71,7 @@ const ShoppingCartPage = () => {
   const cartProducts = getProducts();
 
   return (
-    <PageContainer maxW="700px" margin="0 auto">
+    <PageContainer>
       {isLoading && <Spinner />}
       <Modal
         content={content}
