@@ -36,7 +36,7 @@ const UserButton = ({ user }: Props) => {
   return (
     <Menu>
       <MenuButton>
-        <Avatar name={name} size="sm" src={avatar} />
+        <Avatar name={name} size={{ base: "xs", md: "sm" }} src={avatar} />
       </MenuButton>
       <MenuList data={controls} onSelectItem={handleSelection} />
     </Menu>

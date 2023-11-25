@@ -17,7 +17,6 @@ import logo from "../../assets/logo.svg";
 import MobileNav from "./Mobile";
 import Text from "../../components/Text";
 import useAppColorMode from "../../hooks/useAppColorMode";
-import useCart from "../../hooks/useCart";
 import UserButton from "./UserButton";
 
 interface Props {
@@ -29,9 +28,7 @@ export default function WithSubNav({ cartCount, user }: Props) {
   const { color } = useAppColorMode();
   const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
-  const { productsId } = useCart();
 
-  console.log("NAV", productsId.count);
   const MenuIcon = isOpen ? CloseIcon : HamburgerIcon;
 
   return (
