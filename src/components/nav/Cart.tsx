@@ -21,7 +21,7 @@ const Cart = ({ cartCount }: { cartCount: number }) => {
         mr={4}
         size="sm"
       />
-      <Text cursor="pointer" fontSize="2xs" pos="absolute" top={0} right={3.5}>
+      <Text cursor="pointer" fontSize="2xs" pos="absolute" top={0} right={4}>
         {cartCount}
       </Text>
     </Box>
