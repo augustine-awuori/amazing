@@ -2,6 +2,7 @@ import { Box, Flex, Image } from "@chakra-ui/react";
 import { AiFillEdit, AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
 
 import { Button, Text } from "../../../components";
+import { empty, figure } from "../../../utils";
 import { Product } from "./Card";
 import {
   useAppColorMode,
@@ -9,7 +10,6 @@ import {
   useCurrentUser,
   useTimestamp,
 } from "../../../hooks";
-import empty from "../../../utils/empty";
 
 interface Props {
   product: Product;
@@ -91,7 +91,7 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
         </Text>
         <Flex justify="space-between" onClick={navigateToShop}>
           <Text color={accentColor} noOfLines={1}>
-            Ksh {price}
+            Ksh {figure.addComma(price)}
           </Text>
           <Text color="gray.400" fontSize="sm">
             {tempTimestamp}
