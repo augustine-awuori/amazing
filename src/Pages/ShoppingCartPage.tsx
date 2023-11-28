@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { Spinner } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { z } from "zod";
 
-import { appBaseUrl } from "../services/client";
 import { Button, Modal, PageContainer } from "../components";
-import { Order } from "../hooks/useOrder";
-import { Product } from "../components/shops/product/Card";
-import { useCart, useForm, useOrders, useProducts } from "../hooks";
+import { useCart, useForm, useOrders } from "../hooks";
+import auth from "../services/auth";
 import CartTable from "../components/shops/ShoppingCartTable";
 import DismissableInfo from "../components/common/DismissableInfo";
 import MessageField from "../components/form/TextAreaField";
-import util from "../utils/funcs";
 
 const info =
   "When you place an order, the shop owner will contact you to arrange delivery and payment.";
@@ -20,13 +18,14 @@ const schema = z.object({ message: z.string() });
 
 const ShoppingCartPage = () => {
   const [showModal, setShowModal] = useState(false);
+  const [authModalShown, setAuthModal] = useState(false);
   const [takingMessage, setTakingMessage] = useState(false);
   const [message, setMessage] = useState("");
   const { errors, register } = useForm(schema);
   const [isLoading, setLoading] = useState(false);
+  const cart = useCart();
   const helper = useOrders();
-  const { cartHasProduct, clearCart } = useCart();
-  const { products } = useProducts(undefined);
+  const navigate = useNavigate();
 
   const content = takingMessage ? (
     <MessageField
@@ -41,38 +40,31 @@ const ShoppingCartPage = () => {
 
   const closeModal = () => setShowModal(false);
 
-  const sendWhatsAppNotification = (orderId: string) =>
-    util.navTo(`${appBaseUrl}notifications/orders/${orderId}`, message);
-
   const handlePositiveResponse = async () => {
     if (!takingMessage) return setTakingMessage(true);
 
     closeModal();
     setLoading(true);
-    const { data, ok } = await helper.makeOrder(products, message);
+    await helper.makeShopsOrders(message);
     setLoading(false);
-
-    if (ok) {
-      clearCart();
-      sendWhatsAppNotification((data as Order)._id);
-    }
   };
 
-  const getProducts = (): Product[] => {
-    const found: Product[] = [];
-
-    products.forEach((p) => {
-      if (cartHasProduct(p._id)) found.push(p);
-    });
-
-    return found;
-  };
-
-  const cartProducts = getProducts();
+  const handleOrderPlacement = () =>
+    auth.getCurrentUser() ? setShowModal(true) : setAuthModal(true);
 
   return (
     <PageContainer>
       {isLoading && <Spinner />}
+      <Modal
+        content="The shop owners need to know who you are. If you don't have time to login just 'Start Chat' them on WhatsApp"
+        isOpen={authModalShown}
+        onModalClose={() => setAuthModal(false)}
+        onPrimaryClick={() => navigate("/login")}
+        onSecondaryClick={() => navigate("/register")}
+        primaryBtnLabel="Login"
+        secondaryBtnLabel="Register"
+        title="Who's Ordering"
+      />
       <Modal
         content={content}
         isOpen={showModal}
@@ -84,13 +76,13 @@ const ShoppingCartPage = () => {
         title="Order Message"
       />
       <DismissableInfo info={info} />
-      <CartTable products={cartProducts} />
-      {cartProducts.length && (
+      <CartTable />
+      {cart.count && (
         <Button
           isLoading={isLoading}
           mt={7}
           rightIcon={<FaPaperPlane />}
-          onClick={() => setShowModal(true)}
+          onClick={handleOrderPlacement}
         >
           Send Order
         </Button>
