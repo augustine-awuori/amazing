@@ -71,7 +71,6 @@ const useOrders = (targetUrl?: string) => {
 
   const makeShopOrder = async (prods: Product[], message: string) => {
     const { data, ok } = await makeOrder(prods, message);
-
     ok
       ? sendWhatsAppNotification((data as Order)._id, message)
       : setSuccess(ok);
