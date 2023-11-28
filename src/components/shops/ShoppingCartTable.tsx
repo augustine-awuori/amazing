@@ -11,21 +11,23 @@ export interface BagProduct extends Product {
   deleted: boolean;
 }
 
-const CartTable = ({ products }: { products: Product[] }) => {
-  const [cartProducts, setCartProducts] = useState<BagProduct[]>([]);
+const CartTable = () => {
+  const [addedProducts, setCartProducts] = useState<BagProduct[]>([]);
   const [modalOpen, setModalVisibility] = useState(false);
   const [productId, setProductId] = useState("");
-  const { removeProduct } = useCart();
+  const cart = useCart();
+
+  const cartProducts = cart.getProducts();
 
   useEffect(() => {
     setCartProducts(
-      products.map((p) => ({ ...p, deleted: false, quantity: 1 }))
+      cartProducts.map((p) => ({ ...p, deleted: false, quantity: 1 }))
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products.length]);
+  }, [cartProducts.length]);
 
   const handleIncrease = (id: string) => {
-    const updated = cartProducts.map((p) => {
+    const updated = addedProducts.map((p) => {
       if (p._id === id) p.quantity += 1;
 
       return p;
@@ -35,7 +37,7 @@ const CartTable = ({ products }: { products: Product[] }) => {
   };
 
   const handleDecrease = (id: string) => {
-    const updated = cartProducts.map((p) => {
+    const updated = addedProducts.map((p) => {
       if (p._id !== id) return p;
 
       p.quantity === 1
@@ -50,12 +52,12 @@ const CartTable = ({ products }: { products: Product[] }) => {
 
   const handleRemoval = () => {
     setModalVisibility(false);
-    removeProduct(productId);
+    cart.remove(productId);
   };
 
   const handleAbort = (): void => {
     setCartProducts(
-      cartProducts.map((p) => {
+      addedProducts.map((p) => {
         if (p.deleted) p.deleted = false;
 
         return p;
@@ -66,7 +68,7 @@ const CartTable = ({ products }: { products: Product[] }) => {
   };
 
   const getGrandTotal = () => {
-    const grandTotal = cartProducts.reduce(
+    const grandTotal = addedProducts.reduce(
       (total, { price, quantity }) => total + price * quantity,
       0
     );
@@ -74,7 +76,7 @@ const CartTable = ({ products }: { products: Product[] }) => {
     return figure.roundToTwoDecimalPlaces(grandTotal);
   };
 
-  if (!products.length)
+  if (!cart.count)
     return (
       <Heading
         as="h2"
@@ -112,7 +114,7 @@ const CartTable = ({ products }: { products: Product[] }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {cartProducts.map(({ _id, name, price, quantity }, index) => (
+            {addedProducts.map(({ _id, name, price, quantity }, index) => (
               <Tr key={index}>
                 <Td>
                   <Text isTruncated maxW="150px">

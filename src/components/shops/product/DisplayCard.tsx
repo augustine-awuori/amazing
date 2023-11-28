@@ -21,12 +21,12 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
   const { _id, image, price, name, shop, timestamp } = product || empty.product;
   const { accentColor } = useAppColorMode();
   const { tempTimestamp } = useTimestamp(timestamp, true);
-  const { addProduct, cartHasProduct, removeProduct } = useCart();
+  const cart = useCart();
   const isTheOwner = useCurrentUser(shop.author);
 
-  const isAdded = cartHasProduct(_id);
+  const isAdded = cart.hasProduct(_id);
 
-  const handleClick = () => (isAdded ? removeProduct(_id) : addProduct(_id));
+  const handleClick = () => (isAdded ? cart.remove(_id) : cart.add(_id));
 
   const navigateToShop = () => onClick(shop._id);
 

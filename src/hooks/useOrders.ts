@@ -1,20 +1,25 @@
-import { useContext, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ApiResponse } from "apisauce";
 import { toast } from "react-toastify";
 
-import { DataError, Response } from "../services/client";
+import { DataError, Response, appBaseUrl } from "../services/client";
 import { NewOrder, Order } from "./useOrder";
 import { Product } from "../components/shops/product/Card";
 import OrdersContext from "../contexts/OrdersContext";
 import service from "../services/orders";
 import useData from "./useData";
+import util from "../utils/funcs";
+import useCart from "./useCart";
+
+type ShopsProducts = { [shopId: string]: Product[] };
 
 const useOrders = (targetUrl?: string) => {
-  const { setOrders } = useContext(OrdersContext);
   const { data, error, isLoading } = useData<Order>(`orders/${targetUrl}`);
+  const { setOrders } = useContext(OrdersContext);
+  const [success, setSuccess] = useState(true);
   const navigate = useNavigate();
-  const shopId = useParams().shopId || "";
+  const cart = useCart();
 
   useEffect(() => {
     if (!error) setOrders(data);
@@ -24,7 +29,7 @@ const useOrders = (targetUrl?: string) => {
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,
     products: products.map((p) => p._id),
-    shop: shopId,
+    shop: products[0].shop._id,
   });
 
   const processResponse = (res: ApiResponse<unknown, unknown>): Response => {
@@ -38,7 +43,7 @@ const useOrders = (targetUrl?: string) => {
   };
 
   const isStateValid = (products: Product[]): boolean => {
-    if (products.length && shopId) return true;
+    if (products.length) return true;
 
     const message = !products.length
       ? "Error! Your products are not reflected in your shopping bag"
@@ -61,7 +66,43 @@ const useOrders = (targetUrl?: string) => {
     return processResponse(response);
   };
 
-  return { isLoading, orders: data, makeOrder };
+  const sendWhatsAppNotification = (orderId: string, message: string) =>
+    util.navTo(`${appBaseUrl}notifications/orders/${orderId}`, message);
+
+  const makeShopOrder = async (prods: Product[], message: string) => {
+    const { data, ok } = await makeOrder(prods, message);
+    ok
+      ? sendWhatsAppNotification((data as Order)._id, message)
+      : setSuccess(ok);
+  };
+
+  const getShopsProducts = (): ShopsProducts => {
+    const shopsProducts: ShopsProducts = {};
+
+    cart.getProducts().forEach((p) => {
+      const shopId = p.shop._id;
+
+      if (shopsProducts[shopId])
+        shopsProducts[shopId] = [...shopsProducts[shopId], p];
+      else shopsProducts[shopId] = [p];
+    });
+
+    return shopsProducts;
+  };
+
+  const makeShopsOrders = async (message: string) => {
+    const shopsProducts = getShopsProducts();
+
+    for (const shopId in shopsProducts)
+      makeShopOrder(shopsProducts[shopId], message);
+
+    if (success) {
+      cart.clear();
+      toast.success("Order placed successfully!");
+    } else toast.error("Something went wrong! Some orders aren't placed");
+  };
+
+  return { isLoading, orders: data, makeOrder, makeShopsOrders };
 };
 
 export default useOrders;
