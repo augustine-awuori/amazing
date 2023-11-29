@@ -101,6 +101,7 @@ const CartTable = () => {
         primaryBtnLabel="Yes, Remove"
         secondaryBtnLabel="Abort"
       />
+      <Heading my={3}>Shopping Cart</Heading>
       <Box whiteSpace="nowrap" overflowX="auto">
         <Table w="100%">
           <Thead>

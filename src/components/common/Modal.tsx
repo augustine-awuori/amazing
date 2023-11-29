@@ -53,12 +53,26 @@ function AppModal({
   };
 
   return (
-    <Modal blockScrollOnMount={false} isOpen={isOpen} onClose={onModalClose}>
+    <Modal
+      blockScrollOnMount={false}
+      isOpen={isOpen}
+      onClose={onModalClose}
+      size="sm"
+    >
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent
+        mx={{ base: 4, md: "auto" }} // Set horizontal margin and center on larger screens
+        width={{ base: "100%", md: "auto" }} // Take full width on small screens and auto on larger screens
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        alignItems="center"
+        textAlign="center"
+        fontFamily="andika"
+      >
         {title && <ModalHeader>{title}</ModalHeader>}
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody textAlign="left">
           {subTitle && (
             <Text fontWeight="bold" mb="1rem">
               {subTitle}
@@ -67,13 +81,14 @@ function AppModal({
           {content}
         </ModalBody>
         {primaryBtnLabel && secondaryBtnLabel && (
-          <ModalFooter>
+          <ModalFooter w="100%">
             <Button
               colorScheme="orange"
               isLoading={isLoading}
               mr={3}
               onClick={handlePrimaryClick}
               type="submit"
+              w="100%"
             >
               {primaryBtnLabel}
             </Button>
@@ -81,6 +96,7 @@ function AppModal({
               disabled={isLoading}
               variant="ghost"
               onClick={handleSecondaryClick}
+              w="100%"
             >
               {secondaryBtnLabel}
             </Button>
