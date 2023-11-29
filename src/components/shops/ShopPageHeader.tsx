@@ -80,7 +80,7 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
         noOfLines={1}
         textTransform="capitalize"
       >
-        {shopName}'s Products ({productsCount})
+        {shopName + "'s"} Products ({productsCount})
       </Heading>
       <Box>
         {(isTheAuthor || currentUser?.isAdmin) && (
