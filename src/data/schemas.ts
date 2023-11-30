@@ -44,3 +44,17 @@ export const requestSchema = z.object({
 });
 
 export type RequestFormData = z.infer<typeof requestSchema>;
+
+export const profileEditSchema = z.object({
+  instagram: z.string(),
+  name: z.string().min(3, "Name must be at least 3 characters").max(30),
+  twitter: z.string(),
+  username: z.string().min(3, "Username must be at least 3 characters").max(20),
+  whatsapp: z
+    .string()
+    .min(12, "WhatsApp number should be either 12 or 13 characters")
+    .max(13),
+  youtube: z.string(),
+});
+
+export type ProfileEditFormData = z.infer<typeof profileEditSchema>;

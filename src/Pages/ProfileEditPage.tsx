@@ -1,36 +1,22 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { z } from "zod";
 
 import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
+import { ProfileEditFormData, profileEditSchema } from "../data/schemas";
+import { UpdatableUserInfo } from "../hooks/useUser";
 import { useCurrentUser, useForm, useProfileUser } from "../hooks";
 import usersApi from "../services/users";
-
-const schema = z.object({
-  // avatar: z.string(),
-  instagram: z.string(),
-  name: z.string().min(3, "Name must be at least 3 characters").max(30),
-  twitter: z.string(),
-  username: z.string().min(3, "Username must be at least 3 characters").max(20),
-  whatsapp: z
-    .string()
-    .min(12, "WhatsApp number should be either 12 or 13 characters")
-    .max(13),
-  youtube: z.string(),
-});
-
-type FormData = z.infer<typeof schema>;
 
 const ProfileEditPage = () => {
   const params = useParams();
   const userId = params.userId;
   const [error, setError] = useState("");
-  const { errors, handleSubmit, register, reset } = useForm(schema);
+  const { errors, handleSubmit, register, reset } = useForm(profileEditSchema);
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { profileUser } = useProfileUser();
+  const { profileUser, getChangedInfo } = useProfileUser();
   const isTheOwner = useCurrentUser(userId);
   const [name, setName] = useState(profileUser?.name || "");
   const [username, setUsername] = useState(profileUser?.username || "");
@@ -47,15 +33,15 @@ const ProfileEditPage = () => {
     profileUser?.otherAccounts.youtube || ""
   );
 
-  function checkUsername(userInfo: FormData): FormData {
+  function checkUsername(userInfo: UpdatableUserInfo): UpdatableUserInfo {
     const info = { ...userInfo };
 
-    if (!info.username.startsWith("@")) info.username = "@" + info.username;
+    if (!info?.username?.startsWith("@")) info.username = "@" + info.username;
 
     return info;
   }
 
-  const updateInfo = async (info: FormData) => {
+  const updateInfo = async (info: UpdatableUserInfo) => {
     if (!userId) {
       const problem = "App Error!";
       setError(problem);
@@ -69,14 +55,13 @@ const ProfileEditPage = () => {
     return response;
   };
 
-  const doSubmit = async (userInfo: FormData) => {
+  const doSubmit = async (userInfo: ProfileEditFormData) => {
     if (!isTheOwner) return navigate("/");
 
-    const { data, ok, problem } = await updateInfo(userInfo);
+    const { data, ok, problem } = await updateInfo(getChangedInfo(userInfo));
     if (!ok) return setError((data as DataError)?.error || problem);
 
     toast.success("Changes saved");
-    navigate(-1);
     reset();
   };
 

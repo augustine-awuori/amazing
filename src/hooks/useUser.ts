@@ -16,3 +16,8 @@ export interface User {
   timestamp: number;
   username: string;
 }
+
+export interface UpdatableUserInfo extends OtherAccounts {
+  name?: string;
+  username?: string;
+}
