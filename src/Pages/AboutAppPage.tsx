@@ -3,6 +3,7 @@ import { Box } from "@chakra-ui/react";
 import {
   CalloutBlock,
   DomainBlock,
+  FAQBlock,
   FeatureBlock,
   Footer,
   Hero,
@@ -14,11 +15,12 @@ const AboutAppPage = () => {
   useNoGrid();
 
   return (
-    <Box backgroundColor="white">
+    <Box backgroundColor="#fff">
       <ScrollToTop />
       <Hero />
       <DomainBlock />
       <FeatureBlock />
+      <FAQBlock />
       <CalloutBlock />
       <Footer />
     </Box>

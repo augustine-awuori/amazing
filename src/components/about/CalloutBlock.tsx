@@ -4,7 +4,13 @@ import { APP_PHONE_NUMBER } from "../../data/general";
 import { StartChatBtn } from "../../components";
 
 const Callout = () => (
-  <Box bg="#2584ff" color="#fff" borderRadius="5px" p="2rem" mx={5}>
+  <Box
+    bg="#2584ff"
+    color="#fff"
+    borderRadius="5px"
+    p="2rem"
+    mx={{ base: 5, lg: 30 }}
+  >
     <Grid
       alignItems="center"
       templateColumns={{ base: "1fr", md: "1fr auto" }}
@@ -15,9 +21,9 @@ const Callout = () => (
           What's It All About?
         </Heading>
         <Text color="#fff" fontSize="1.2rem">
-          Our mission is to make life easier, starting with Kisii University
-          students and extending beyond. We're on a tech-driven journey, and if
-          you share our vision, let's join forces by clicking this button.
+          Campus Mart's mission: digitally weave hearts, minds, and campuses.
+          Join our tech-driven journey—click the button and unite with our
+          vision.
         </Text>
       </Box>
       <StartChatBtn phoneNumber={APP_PHONE_NUMBER} />
