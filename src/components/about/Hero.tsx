@@ -30,7 +30,7 @@ const HeroSection = () => (
           Unveiling the Business App
         </Heading>
         <Text fontSize="1.25rem" my={{ base: "3.5rem" }} color="whiteAlpha.700">
-          Your digital playground at Kisii University
+          Discover Your Digital Playground for Campus Commerce
         </Text>
         <Button mb={{ base: "3.5rem" }} />
       </Box>
