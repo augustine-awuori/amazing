@@ -14,7 +14,7 @@ const GridHeading = ({
   headingPrefix = "",
   selectedItem,
 }: Props) => {
-  const isSmallScreen = useBreakpointValue({ sm: true, md: false });
+  const isSmallScreen = useBreakpointValue({ base: true, sm: true, md: false });
 
   const newLabel = isSmallScreen ? "" : label;
 

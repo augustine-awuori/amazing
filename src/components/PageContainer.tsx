@@ -26,7 +26,12 @@ const PageContainer = ({
         {Aside}
       </GridItem>
     )}
-    <GridItem area="main" px={px} pt={{ sm: 27, md: paddingTop }} {...rest}>
+    <GridItem
+      area="main"
+      px={px}
+      pt={{ base: 27, sm: 27, md: paddingTop }}
+      {...rest}
+    >
       {children}
     </GridItem>
   </>
