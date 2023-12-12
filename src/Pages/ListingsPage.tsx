@@ -29,7 +29,7 @@ const ListingsPage = () => {
       selectedCategory={selectedCategory}
       onSelectCategory={setSelectedCategory}
     >
-      <NewListingButton urlPrefix="/listings" />
+      <NewListingButton />
       <ListingGrid
         error={error}
         isLoading={isLoading}

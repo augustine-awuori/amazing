@@ -25,7 +25,7 @@ const RequestsPage = () => {
   return (
     <>
       <ScrollToTopBtn />
-      <NewRequestButton urlPrefix="/requests" />
+      <NewRequestButton />
       <GridPageContainer
         onSelectCategory={setSelectedCategory}
         selectedCategory={selectedCategory}
