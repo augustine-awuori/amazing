@@ -1,20 +1,17 @@
 import {
   Box,
-  Collapse,
   Flex,
   IconButton,
   Image,
   useColorModeValue,
-  useDisclosure,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import { InfoIcon } from "@chakra-ui/icons";
 
 import { User } from "../../hooks/useUser";
 import Cart from "./Cart";
 import DesktopNav from "./Desktop";
 import logo from "../../assets/logo.svg";
-import MobileNav from "./Mobile";
 import Text from "../../components/Text";
 import useAppColorMode from "../../hooks/useAppColorMode";
 import UserButton from "./UserButton";
@@ -26,10 +23,7 @@ interface Props {
 
 export default function WithSubNav({ cartCount, user }: Props) {
   const { color } = useAppColorMode();
-  const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
-
-  const MenuIcon = isOpen ? CloseIcon : HamburgerIcon;
 
   return (
     <Box
@@ -60,8 +54,9 @@ export default function WithSubNav({ cartCount, user }: Props) {
           align="center"
         >
           <IconButton
-            onClick={onToggle}
-            icon={<MenuIcon w={3} h={3} />}
+            onClick={() => navigate("/about-app")}
+            borderRadius="full"
+            icon={<InfoIcon w={3} h={3} />}
             variant="ghost"
             aria-label="Toggle Navigation"
           />
@@ -96,10 +91,6 @@ export default function WithSubNav({ cartCount, user }: Props) {
           <UserButton user={user} />
         </Flex>
       </Flex>
-
-      <Collapse in={isOpen} animateOpacity>
-        <MobileNav />
-      </Collapse>
     </Box>
   );
 }
