@@ -54,8 +54,8 @@ import {
   OrderContext,
   OrdersContext,
 } from "../contexts";
+import { CheckScreenWidth, RedirectRoot } from "../navigation";
 import CartContext, { Cart } from "../contexts/CartContext";
-import RedirectRoot from "../navigation/RedirectRoot";
 
 function AppRoutes({ cartProducts, setCartProducts }: Cart) {
   const [listings, setListings] = useState<Listing[]>([]);
@@ -139,7 +139,11 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
                                         />
                                         <Route
                                           path="/listings"
-                                          element={<ListingsPage />}
+                                          element={
+                                            <CheckScreenWidth
+                                              Component={<ListingsPage />}
+                                            />
+                                          }
                                         />
                                         <Route
                                           path="requests/:requestId"
@@ -151,7 +155,11 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
                                         />
                                         <Route
                                           path="requests"
-                                          element={<RequestsPage />}
+                                          element={
+                                            <CheckScreenWidth
+                                              Component={<RequestsPage />}
+                                            />
+                                          }
                                         />
                                         <Route
                                           path="orders/my"
@@ -219,7 +227,11 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
                                         />
                                         <Route
                                           path="/shops"
-                                          element={<ShopsPage />}
+                                          element={
+                                            <CheckScreenWidth
+                                              Component={<ShopsPage />}
+                                            />
+                                          }
                                         />
                                         <Route
                                           index
