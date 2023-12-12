@@ -81,7 +81,7 @@ const ShopsPage = () => {
       onSelectType={handleSelectType}
       selectedType={selectedType}
     >
-      <NewShopButton />
+      <NewShopButton urlPrefix="/shops" />
       {showingShops ? (
         <ShopsGrid
           currentPage={shopsCurrentPage}
