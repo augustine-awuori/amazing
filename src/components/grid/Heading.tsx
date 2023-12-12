@@ -1,3 +1,4 @@
+import { useBreakpointValue } from "@chakra-ui/react";
 import { Item } from "../common/Selector";
 import Heading from "../Heading";
 
@@ -13,9 +14,13 @@ const GridHeading = ({
   headingPrefix = "",
   selectedItem,
 }: Props) => {
+  const isSmallScreen = useBreakpointValue({ sm: true, md: false });
+
+  const newLabel = isSmallScreen ? "" : label;
+
   const prefix = selectedItem?.label ? headingPrefix : headingPrefix;
 
-  const heading = `${prefix} ${selectedItem?.label || ""}  ${label}`;
+  const heading = `${prefix} ${selectedItem?.label || ""}  ${newLabel}`;
 
   return (
     <Heading as="h1" fontSize={22} marginY={5} mt={0} pt={0} noOfLines={1}>

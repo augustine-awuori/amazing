@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 
 import { Item } from "../components/common/Selector";
 import {
@@ -63,11 +64,13 @@ const ShopsPage = () => {
   );
 
   const HeadingELement = (
-    <SearchInput
-      placeholder={` Search ${getHeadingLabel()}`}
-      onTextChange={handleTextChange}
-      value={query}
-    />
+    <Box mt={{ sm: 5, md: 0 }} w="100%">
+      <SearchInput
+        placeholder={` Search ${getHeadingLabel()}`}
+        onTextChange={handleTextChange}
+        value={query}
+      />
+    </Box>
   );
 
   return (
