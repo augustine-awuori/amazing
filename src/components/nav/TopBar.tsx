@@ -1,21 +1,10 @@
-import {
-  Box,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  TabProps,
-  Tabs,
-} from "@chakra-ui/react";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
 import { ListingsPage, RequestsPage, ShopsPage } from "../../Pages";
 import useAppColorMode from "../../hooks/useAppColorMode";
 
-const AppTab = ({ children, ...rest }: TabProps) => (
-  <Tab letterSpacing={1.2} {...rest}>
-    {children}
-  </Tab>
-);
+const pages = [<ShopsPage />, <ListingsPage />, <RequestsPage />];
+const tabs = ["Products", "Listings", "Requests"];
 
 const TopBar = () => {
   const { color } = useAppColorMode();
@@ -30,22 +19,19 @@ const TopBar = () => {
           zIndex={2}
           w="100%"
           p={2}
+          pb={0}
         >
-          <AppTab>Products</AppTab>
-          <AppTab>Listings</AppTab>
-          <AppTab>Requests</AppTab>
+          {tabs.map((tab) => (
+            <Tab key={tab} letterSpacing={1.2}>
+              {tab}
+            </Tab>
+          ))}
         </TabList>
 
         <TabPanels>
-          <TabPanel>
-            <ShopsPage />
-          </TabPanel>
-          <TabPanel>
-            <ListingsPage />
-          </TabPanel>
-          <TabPanel>
-            <RequestsPage />
-          </TabPanel>
+          {pages.map((page, index) => (
+            <TabPanel key={index}>{page}</TabPanel>
+          ))}
         </TabPanels>
       </Tabs>
     </Box>
