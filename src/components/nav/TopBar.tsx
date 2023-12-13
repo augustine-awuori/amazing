@@ -7,7 +7,7 @@ const pages = [<ShopsPage />, <ListingsPage />, <RequestsPage />];
 const tabs = ["Products", "Listings", "Requests"];
 
 const TopBar = () => {
-  const { color } = useAppColorMode();
+  const { accentColor, color } = useAppColorMode();
 
   return (
     <Box display={{ sm: "block", md: "none" }} mt={14}>
@@ -22,7 +22,7 @@ const TopBar = () => {
           pb={0}
         >
           {tabs.map((tab) => (
-            <Tab key={tab} letterSpacing={1.2}>
+            <Tab key={tab} letterSpacing={1} _active={{ color: accentColor }}>
               {tab}
             </Tab>
           ))}
@@ -30,7 +30,9 @@ const TopBar = () => {
 
         <TabPanels>
           {pages.map((page, index) => (
-            <TabPanel key={index}>{page}</TabPanel>
+            <TabPanel key={index} px={0}>
+              {page}
+            </TabPanel>
           ))}
         </TabPanels>
       </Tabs>
