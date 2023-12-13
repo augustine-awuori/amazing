@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
 import { DataError } from "../services/client";
@@ -47,29 +48,31 @@ const ListingEditPage = () => {
   if (!auth.getCurrentUser()) return <Navigate to="/login" replace />;
 
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      error={error}
-      title="New Listing"
-    >
-      <ImageInputList imagesLimit={MAX_IMAGES} />
-      <FormField error={errors.title} register={register} label="Title" />
-      <FormField
-        error={errors.price}
-        label="Price"
-        register={register}
-        type="number"
-      />
-      <FormField
-        error={errors.description}
-        label="Description (optional)"
-        name="description"
-        register={register}
-      />
-      <CategorySelect register={register} />
-      <SubmitButton label="Create" isLoading={isLoading} />
-    </Form>
+    <Box mt={{ base: 5 }}>
+      <Form
+        handleSubmit={handleSubmit}
+        onSubmit={doSubmit}
+        error={error}
+        title="New Listing"
+      >
+        <ImageInputList imagesLimit={MAX_IMAGES} />
+        <FormField error={errors.title} register={register} label="Title" />
+        <FormField
+          error={errors.price}
+          label="Price"
+          register={register}
+          type="number"
+        />
+        <FormField
+          error={errors.description}
+          label="Description (optional)"
+          name="description"
+          register={register}
+        />
+        <CategorySelect register={register} />
+        <SubmitButton label="Create" isLoading={isLoading} />
+      </Form>
+    </Box>
   );
 };
 

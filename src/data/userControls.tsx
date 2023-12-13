@@ -23,7 +23,7 @@ export function getControls(
         {
           _id: "",
           icon: <AiOutlineLogout />,
-          label: "Logout",
+          label: "Sign Out",
           route: "/logout",
         },
       ]
@@ -31,13 +31,13 @@ export function getControls(
         {
           _id: "",
           icon: <AiOutlineLogin />,
-          label: "Login",
+          label: "Sign In",
           route: "/login",
         },
         {
           _id: "",
           icon: <AiFillEdit />,
-          label: "Register",
+          label: "Sign Up",
           route: "/register",
         },
       ];

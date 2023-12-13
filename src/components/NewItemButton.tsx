@@ -7,10 +7,15 @@ import FloatingButtonBox from "./FloatingButtonBox";
 
 interface Props {
   onClick?: () => void;
+  pageUrl: string;
   label?: string;
 }
 
-const FloatingButton: FC<Props> = ({ label = "Create New", onClick }) => {
+const FloatingButton: FC<Props> = ({
+  label = "Create New",
+  onClick,
+  pageUrl,
+}) => {
   const [lifted, setLifted] = useState(false);
   const navigate = useNavigate();
 
@@ -24,7 +29,7 @@ const FloatingButton: FC<Props> = ({ label = "Create New", onClick }) => {
 
   const handleScroll = () => setLifted(window.scrollY > 200);
 
-  const handleClick = () => (onClick ? onClick() : navigate("new"));
+  const handleClick = () => (onClick ? onClick() : navigate(`${pageUrl}/new`));
 
   return (
     <FloatingButtonBox

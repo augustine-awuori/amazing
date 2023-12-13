@@ -29,7 +29,7 @@ const PageContainer = ({
     <GridItem
       area="main"
       px={px}
-      pt={{ base: 27, sm: 27, md: paddingTop }}
+      pt={{ base: 35, sm: 29, md: paddingTop }}
       {...rest}
     >
       {children}

@@ -85,7 +85,7 @@ const ProfilePage = () => {
   );
 
   return (
-    <PageContainer Aside={Aside}>
+    <PageContainer Aside={Aside} mt={{ base: 7 }}>
       <Container maxW="container.lg" pb={8} pt={1}>
         <Flex>
           <Avatar name={name} src={avatar} size="lg" mr={3} mb={2} />

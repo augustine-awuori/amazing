@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 
 import {
   Form,
@@ -48,23 +49,25 @@ const ShopEditPage = () => {
   if (!user) return <Navigate to="/login" replace />;
 
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      error={error}
-      title="New Shop"
-    >
-      <ImageInputList imagesLimit={MAX_IMAGES} />
-      <FormField error={errors.name} label="Name" register={register} />
-      <Selector mb={2} register={register} />
-      <LocationField
-        error={errors.location}
-        label="Location"
-        placeholder="Describe your shop location"
-        register={register}
-      />
-      <SubmitButton label="Create" isLoading={isLoading} />
-    </Form>
+    <Box mt={{ base: 5 }}>
+      <Form
+        handleSubmit={handleSubmit}
+        onSubmit={doSubmit}
+        error={error}
+        title="New Shop"
+      >
+        <ImageInputList imagesLimit={MAX_IMAGES} />
+        <FormField error={errors.name} label="Name" register={register} />
+        <Selector mb={2} register={register} />
+        <LocationField
+          error={errors.location}
+          label="Location"
+          placeholder="Describe your shop location"
+          register={register}
+        />
+        <SubmitButton label="Create" isLoading={isLoading} />
+      </Form>
+    </Box>
   );
 };
 

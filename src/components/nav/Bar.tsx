@@ -56,9 +56,9 @@ export default function WithSubNav({ cartCount, user }: Props) {
           <IconButton
             onClick={() => navigate("/about-app")}
             borderRadius="full"
-            icon={<InfoIcon w={3} h={3} />}
+            icon={<InfoIcon w={5} h={5} />}
             variant="ghost"
-            aria-label="Toggle Navigation"
+            aria-label="link"
           />
         </Flex>
         <Flex

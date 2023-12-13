@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 import { toast } from "react-toastify";
 
 import { DataError } from "../services/client";
@@ -45,21 +46,23 @@ const RequestEditPage = () => {
   if (!authApi.getCurrentUser()) return <Navigate to="/login" replace />;
 
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      title="New Request"
-      error={error}
-    >
-      <FormField error={errors.title} label="Title" register={register} />
-      <FormField
-        error={errors.description}
-        label="Description"
-        register={register}
-      />
-      <Select label="Category" options={categories} register={register} />
-      <SubmitButton label="Save Request" isLoading={isLoading} />
-    </Form>
+    <Box mt={{ base: 5 }}>
+      <Form
+        handleSubmit={handleSubmit}
+        onSubmit={doSubmit}
+        title="New Request"
+        error={error}
+      >
+        <FormField error={errors.title} label="Title" register={register} />
+        <FormField
+          error={errors.description}
+          label="Description"
+          register={register}
+        />
+        <Select label="Category" options={categories} register={register} />
+        <SubmitButton label="Save Request" isLoading={isLoading} />
+      </Form>
+    </Box>
   );
 };
 
