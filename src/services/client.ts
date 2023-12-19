@@ -3,12 +3,12 @@ import { ApiResponse, create, HEADERS } from "apisauce";
 import auth from "./auth";
 import cache from "../utils/cache";
 
-export const appBaseUrl = "https://kisiiuniversemart.digital/";
+export const appBaseUrl = "https://campusmart.site/";
 export const authTokenKey = "x-auth-token";
 export interface Headers extends HEADERS {}
 
 const apiClient = create({
-  baseURL: "https://dry-wave-89045-4354397f63ac.herokuapp.com/api",
+  baseURL: "https://campus-mart-site.onrender.com/api",
 });
 
 apiClient.addAsyncRequestTransform(async (request) => {
