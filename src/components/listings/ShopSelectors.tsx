@@ -55,11 +55,12 @@ const ShopSelectors = ({ onShopSelect, selectedShop }: Props) => {
         value={query}
       />
       <Box maxH="250px" overflowY="scroll" px={2} scrollBehavior="smooth">
-        {filtered.map(({ _id }, index) => (
+        {filtered.map((shop, index) => (
           <ShopSelector
             key={index}
-            onClick={() => onShopSelect(_id)}
-            selected={selectedShop === _id}
+            onClick={() => onShopSelect(shop._id)}
+            selected={selectedShop === shop._id}
+            shop={shop}
           />
         ))}
       </Box>
