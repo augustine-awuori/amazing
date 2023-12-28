@@ -22,12 +22,11 @@ const register = ({ avatar, name, username, whatsapp, password }: Props) => {
   data.append("username", "@" + username);
   data.append("whatsapp", whatsapp);
   if (password) data.append("password", password);
-  if (avatar) {
+  if (avatar)
     data.append(
       "avatar",
       new File([avatar], "avatar.jpg", { type: "image/jpeg" })
     );
-  }
 
   return client.post(endpoint, data);
 };

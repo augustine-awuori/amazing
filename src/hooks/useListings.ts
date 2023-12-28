@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { endpoint } from "../services/listings";
 import { Listing } from "./useListing";
 import ListingsContext from "../contexts/ListingsContext";
-import listingsService from "../services/listings";
+import service from "../services/listings";
 import useData from "./useData";
 
 const useListings = () => {
@@ -30,7 +30,7 @@ const useListings = () => {
     const prevListings = [...data];
     setListings(data.filter((listing) => listing._id !== listingId));
 
-    const { ok } = await listingsService.deleteListing(listingId);
+    const { ok } = await service.deleteListing(listingId);
 
     if (ok) return toast.done("Listing deleted successfully");
     setListings(prevListings);
@@ -39,7 +39,18 @@ const useListings = () => {
 
   const addListing = (listing: Listing) => setListings([listing, ...data]);
 
-  return { addListing, data, deleteListing, error, isLoading, updateListing };
+  const convertToShopProduct = (listingId: string, shopId: string) =>
+    service.convertToShopProduct(listingId, shopId);
+
+  return {
+    addListing,
+    convertToShopProduct,
+    data,
+    deleteListing,
+    error,
+    isLoading,
+    updateListing,
+  };
 };
 
 export default useListings;

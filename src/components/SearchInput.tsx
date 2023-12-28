@@ -12,6 +12,7 @@ import {
 interface Props extends InputProps {
   onTextChange: (text: string) => void;
   LeftElement?: ReactNode;
+  placeholder?: string;
   RightElement?: ReactNode;
 }
 
@@ -19,6 +20,7 @@ const SearchInput = ({
   backgroundColor,
   onTextChange,
   LeftElement,
+  placeholder,
   RightElement,
   value,
   ...rest
@@ -54,6 +56,7 @@ const SearchInput = ({
         transition="border-radius 0.3s"
         onTextChangeText={handleChange}
         _placeholder={{ color: "white" }}
+        placeholder={`  ${placeholder}`}
         onChange={handleChange}
         value={value}
       />

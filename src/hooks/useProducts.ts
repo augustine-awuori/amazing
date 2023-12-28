@@ -81,9 +81,12 @@ const useProducts = (shopId: string | undefined) => {
     return mapQuantity(data);
   };
 
+  const addProduct = (product: Product) => setProducts([product, ...products]);
+
   const result = getProducts();
 
   return {
+    addProduct,
     create,
     deleteProductBy,
     isLoading,

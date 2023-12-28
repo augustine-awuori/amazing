@@ -9,6 +9,7 @@ import {
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 import { Button, Text } from "../../components";
 
@@ -61,8 +62,8 @@ function AppModal({
     >
       <ModalOverlay />
       <ModalContent
-        mx={{ base: 4, md: "auto" }} // Set horizontal margin and center on larger screens
-        width={{ base: "100%", md: "auto" }} // Take full width on small screens and auto on larger screens
+        mx={{ base: 4, md: "auto" }}
+        width={{ base: "100%", md: "auto" }}
         display="flex"
         flexDirection="column"
         justifyContent="center"
@@ -72,7 +73,7 @@ function AppModal({
       >
         {title && <ModalHeader>{title}</ModalHeader>}
         <ModalCloseButton />
-        <ModalBody textAlign="left">
+        <ModalBody textAlign="left" w="100%">
           {subTitle && (
             <Text fontWeight="bold" mb="1rem">
               {subTitle}
@@ -87,6 +88,7 @@ function AppModal({
               isLoading={isLoading}
               mr={3}
               onClick={handlePrimaryClick}
+              leftIcon={<CheckIcon />}
               type="submit"
               w="100%"
             >
@@ -94,8 +96,9 @@ function AppModal({
             </Button>
             <Button
               disabled={isLoading}
-              variant="ghost"
               onClick={handleSecondaryClick}
+              leftIcon={<CloseIcon />}
+              variant="ghost"
               w="100%"
             >
               {secondaryBtnLabel}
