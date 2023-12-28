@@ -29,6 +29,7 @@ import {
 import { Listing } from "../hooks/useListing";
 import { Product } from "../components/shops/product/Card";
 import { ShopSelectors } from "../components/listings";
+import auth from "../services/auth";
 import ListingUpdateForm from "../components/forms/ListingUpdateForm";
 import service from "../services/listings";
 
@@ -219,19 +220,23 @@ const ListingDetailsPage = () => {
           />
         )}
         {isTheAuthor && (
-          <Button onClick={switchModalVisibility} my={3}>
-            Edit Listing
-          </Button>
+          <>
+            <Button onClick={switchModalVisibility} my={3}>
+              Edit Listing
+            </Button>
+            {auth.getCurrentUser()?.isAdmin && (
+              <Button
+                w="100%"
+                backgroundColor="green.500"
+                rightIcon={<BiRecycle />}
+                onClick={() => setShopsModal(true)}
+                _hover={{ bgColor: "green.600" }}
+              >
+                Convert to Shop Product
+              </Button>
+            )}
+          </>
         )}
-        <Button
-          w="100%"
-          backgroundColor="green.500"
-          rightIcon={<BiRecycle />}
-          onClick={() => setShopsModal(true)}
-          _hover={{ bgColor: "green.600" }}
-        >
-          Convert to Shop Product
-        </Button>
       </Box>
     </PageContainer>
   );
