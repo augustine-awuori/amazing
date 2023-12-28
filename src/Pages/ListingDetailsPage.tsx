@@ -220,22 +220,20 @@ const ListingDetailsPage = () => {
           />
         )}
         {isTheAuthor && (
-          <>
-            <Button onClick={switchModalVisibility} my={3}>
-              Edit Listing
-            </Button>
-            {auth.getCurrentUser()?.isAdmin && (
-              <Button
-                w="100%"
-                backgroundColor="green.500"
-                rightIcon={<BiRecycle />}
-                onClick={() => setShopsModal(true)}
-                _hover={{ bgColor: "green.600" }}
-              >
-                Convert to Shop Product
-              </Button>
-            )}
-          </>
+          <Button onClick={switchModalVisibility} my={3}>
+            Edit Listing
+          </Button>
+        )}
+        {(auth.getCurrentUser()?.isAdmin || isTheAuthor) && (
+          <Button
+            w="100%"
+            backgroundColor="green.500"
+            rightIcon={<BiRecycle />}
+            onClick={() => setShopsModal(true)}
+            _hover={{ bgColor: "green.600" }}
+          >
+            Convert to Shop Product
+          </Button>
         )}
       </Box>
     </PageContainer>
