@@ -50,8 +50,12 @@ const getUserListings = (userId: string) => client.get(`${endpoint}/${userId}`);
 const getListing = (listingId: string) =>
   client.get(`${endpoint}/${listingId}`);
 
+const convertToShopProduct = (listingId: string, shopId: string) =>
+  client.post(`${endpoint}/to-product/${listingId}`, { shop: shopId });
+
 export default {
   addListing,
+  convertToShopProduct,
   deleteListing,
   getListing,
   getListings,

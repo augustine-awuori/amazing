@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Box, HStack, SkeletonText } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { BiRecycle } from "react-icons/bi";
+import { toast } from "react-toastify";
 
 import { empty, figure } from "../utils";
 import {
@@ -19,10 +21,14 @@ import {
   useCurrentUser,
   useListing,
   useListings,
+  useProducts,
   useReload,
+  useShops,
   useTimestamp,
 } from "../hooks";
 import { Listing } from "../hooks/useListing";
+import { Product } from "../components/shops/product/Card";
+import { ShopSelectors } from "../components/listings";
 import ListingUpdateForm from "../components/forms/ListingUpdateForm";
 import service from "../services/listings";
 
@@ -31,10 +37,14 @@ const ListingDetailsPage = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [isShowModalOpen, setShopsModal] = useState(false);
+  const [isListingDeletionModalOpen, setShowListingDeletionModal] =
+    useState(false);
+  const [selectedShop, setSelectedShop] = useState("");
   const { listing } = useListing();
   const { tempTimestamp } = useTimestamp(listing?.timestamp);
   const { accentColor } = useAppColorMode();
-  const { deleteListing } = useListings();
+  const { convertToShopProduct, deleteListing } = useListings();
   const { info, isLoading, request } = useReload<Listing>(
     listing,
     empty.listing,
@@ -42,6 +52,8 @@ const ListingDetailsPage = () => {
   );
   const userId = info.author._id;
   const isTheAuthor = useCurrentUser(userId);
+  const { isLoading: loadingShops } = useShops();
+  const { addProduct } = useProducts(undefined);
 
   useEffect(() => {
     request();
@@ -81,6 +93,36 @@ const ListingDetailsPage = () => {
     switchDeleteModalVisibility();
   };
 
+  const createProductFromListing = async (): Promise<boolean> => {
+    setShopsModal(false);
+
+    toast.loading("Converting listing to shop product...");
+    const { ok, data } = await convertToShopProduct(info._id, selectedShop);
+    toast.dismiss();
+    if (ok) addProduct(data as Product);
+
+    return ok;
+  };
+
+  const convertListingToProduct = async () => {
+    if (!selectedShop)
+      return toast.info("You need to select a shop to add product to");
+
+    const successful = await createProductFromListing();
+
+    if (successful) {
+      setShowListingDeletionModal(true);
+      setShopsModal(false);
+      navigate(-1);
+    }
+  };
+
+  const handleListingDeletion = () => {
+    deleteListing(listing?._id);
+    toast.info("Deleting listing");
+    setShowListingDeletionModal(false);
+  };
+
   return (
     <PageContainer>
       <Modal
@@ -108,6 +150,32 @@ const ListingDetailsPage = () => {
         primaryBtnLabel="Edit Listing"
         secondaryBtnLabel="Delete Listing"
         title="How'd you like to change your listing?"
+      />
+      <Modal
+        content={
+          <ShopSelectors
+            onShopSelect={setSelectedShop}
+            selectedShop={selectedShop}
+          />
+        }
+        title="Select Shop"
+        isOpen={isShowModalOpen}
+        isLoading={loadingShops}
+        primaryBtnLabel="Add to Shop"
+        secondaryBtnLabel="Cancel"
+        onModalClose={() => setShopsModal(false)}
+        onPrimaryClick={convertListingToProduct}
+      />
+      <Modal
+        content="This listing has already been converted to shop product, would you like to delete it?"
+        title="Listing Deletion Request"
+        isOpen={isListingDeletionModalOpen}
+        onModalClose={() => setShowListingDeletionModal(false)}
+        primaryBtnLabel="Delete"
+        secondaryBtnLabel="Dismiss"
+        isLoading={false}
+        onPrimaryClick={handleListingDeletion}
+        onSecondaryClick={() => setShowListingDeletionModal(false)}
       />
       {isLoading ? (
         <CardContainer>
@@ -155,6 +223,15 @@ const ListingDetailsPage = () => {
             Edit Listing
           </Button>
         )}
+        <Button
+          w="100%"
+          backgroundColor="green.500"
+          rightIcon={<BiRecycle />}
+          onClick={() => setShopsModal(true)}
+          _hover={{ bgColor: "green.600" }}
+        >
+          Convert to Shop Product
+        </Button>
       </Box>
     </PageContainer>
   );

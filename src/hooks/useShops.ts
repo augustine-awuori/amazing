@@ -64,8 +64,8 @@ const useShops = () => {
     return { error: `${(data as DataError).error || problem}`, ok };
   };
 
-  const decShopViews = (shopId: string, previous: Shop[]) => {
-    setShops(previous);
+  const decShopViews = (shopId: string, initial: Shop[]) => {
+    setShops(initial);
     cache.removeViewFor(shopId);
   };
 
