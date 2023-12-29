@@ -2,6 +2,7 @@ import { Box, HStack, List, ListItem, Spinner } from "@chakra-ui/react";
 
 import { Button, Heading } from "../../components";
 import { Item } from "./Selector";
+import { scrollBarModifier } from "../../data/general";
 
 interface Props {
   heading: string;
@@ -25,24 +26,29 @@ const AsideList = ({
       <Heading fontSize={20} marginBottom={3}>
         {heading}
       </Heading>
-      <List>
-        {items.map((item) => (
-          <ListItem key={item._id} paddingY="5px">
-            <HStack>
-              <Button
-                fontSize="lg"
-                fontFamily="andika"
-                fontWeight={item._id === selectedItem?._id ? "bold" : "normal"}
-                onClick={() => onSelectItem(item)}
-                textAlign="left"
-                variant="link"
-                whiteSpace="normal"
-              >
-                {item?.label}
-              </Button>
-            </HStack>
-          </ListItem>
-        ))}
+      <List maxH="100vh" overflowY="scroll" css={scrollBarModifier}>
+        {items.map((item) => {
+          const selected = item._id === selectedItem?._id;
+
+          return (
+            <ListItem key={item._id} paddingY="5px">
+              <HStack>
+                <Button
+                  color={selected ? "orange.400" : "whiteAlpha.700"}
+                  fontSize="lg"
+                  fontFamily="andika"
+                  fontWeight={selected ? "bold" : "normal"}
+                  onClick={() => onSelectItem(item)}
+                  textAlign="left"
+                  variant="link"
+                  whiteSpace="normal"
+                >
+                  {item?.label}
+                </Button>
+              </HStack>
+            </ListItem>
+          );
+        })}
       </List>
     </Box>
   );

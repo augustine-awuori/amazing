@@ -9,7 +9,7 @@ import ColumnContext from "./contexts/ColumnContext";
 
 function App() {
   const [user, setUser] = useState<User | null>();
-  const [column, setColumn] = useState("170px");
+  const [column, setColumn] = useState("220px");
   const [cartProducts, setCartProducts] = useState<CartProducts>({
     count: 0,
     ids: {},
