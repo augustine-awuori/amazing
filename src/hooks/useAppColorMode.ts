@@ -1,16 +1,17 @@
 import { useColorMode } from "@chakra-ui/react";
 
 const useAppColorMode = () => {
-  const { colorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
 
   const isDarkMode = colorMode === "dark";
   const accentColor = "orange.400";
 
   return {
-    concAccentColor: "orange.500",
-    color: isDarkMode ? "gray.800" : accentColor,
-    isDarkMode,
     accentColor,
+    color: isDarkMode ? "gray.800" : accentColor,
+    concAccentColor: "orange.500",
+    isDarkMode,
+    toggleColorMode,
   };
 };
 

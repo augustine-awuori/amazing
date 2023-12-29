@@ -1,22 +1,27 @@
 import { AiFillEdit, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { BiUser } from "react-icons/bi";
 
-import { Avatar } from "../components";
+import { Avatar, ColorSwitchMode } from "../components";
 import { Item } from "../components/common/Selector";
 import { MediaQueryUser } from "../components/common/MediaQuery";
 
 export interface ControlItem extends Item {
   icon: JSX.Element;
-  route: string;
+  rightIcon?: JSX.Element;
+  route?: string;
 }
 
 export function getControls(
-  user: MediaQueryUser | null | undefined
+  user: MediaQueryUser | null | undefined,
+  isDarkMode: boolean
 ): ControlItem[] {
-  return user?._id
+  const controls = user?._id
     ? [
         {
           _id: "",
-          icon: <Avatar name={user.name} size="xs" src={user.avatar} />,
+          icon: <BiUser />,
+          rightIcon: <Avatar name={user.name} size="xs" src={user.avatar} />,
           label: user.name,
           route: `/profile/${user._id}`,
         },
@@ -41,4 +46,14 @@ export function getControls(
           route: "/register",
         },
       ];
+
+  return [
+    ...controls,
+    {
+      _id: "",
+      icon: isDarkMode ? <MoonIcon /> : <SunIcon />,
+      label: isDarkMode ? "Dark Mode" : "Light Mode",
+      rightIcon: <ColorSwitchMode />,
+    },
+  ];
 }

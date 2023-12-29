@@ -3,7 +3,6 @@ import { Box, Flex, HStack } from "@chakra-ui/react";
 
 import { Item } from "../common/Selector";
 import CategorySelector from "../listings/category/Selector";
-import ColorSwitchMode from "../common/ColorSwitchMode";
 import GridHeading from "./Heading";
 import PageContainer from "../PageContainer";
 
@@ -62,7 +61,6 @@ const GridPageContainer = ({
             {Filter && <Box>{Filter}</Box>}
             <TempSelector />
           </HStack>
-          <ColorSwitchMode />
         </HStack>
       </Box>
       {children}

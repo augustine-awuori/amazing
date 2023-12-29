@@ -4,8 +4,8 @@ import { Menu, MenuButton } from "@chakra-ui/react";
 
 import { Avatar } from "../../components/common";
 import { ControlItem, getControls } from "../../data/userControls";
-import { Item } from "../../components/common/Selector";
 import { MediaQueryUser } from "../../components/common/MediaQuery";
+import { useAppColorMode } from "../../hooks";
 import empty from "../../utils/empty";
 import MenuList from "../common/SelectorMenuList";
 
@@ -14,13 +14,14 @@ interface Props {
 }
 
 const UserButton = ({ user }: Props) => {
+  const { isDarkMode, toggleColorMode } = useAppColorMode();
   const [controls, setControls] = useState<ControlItem[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     initAuthControls();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?._id]);
+  }, [user?._id, isDarkMode]);
 
   const { name, avatar }: MediaQueryUser = user || {
     ...empty.user,
@@ -28,10 +29,13 @@ const UserButton = ({ user }: Props) => {
   };
 
   function initAuthControls() {
-    setControls(getControls(user));
+    setControls(getControls(user, isDarkMode));
   }
 
-  const handleSelection = (item: Item) => navigate((item as ControlItem).route);
+  const handleSelection = (item: ControlItem) => {
+    if (item.route) navigate(item.route);
+    else toggleColorMode();
+  };
 
   return (
     <Menu>
