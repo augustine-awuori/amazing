@@ -1,6 +1,7 @@
 import { Button, Menu, MenuButton } from "@chakra-ui/react";
 import { AiFillSetting } from "react-icons/ai";
 
+import { ControlItem } from "../../data/userControls";
 import { Item } from "../../components/common/Selector";
 import SelectorMenuList, {
   MenuListProps,
@@ -22,7 +23,7 @@ const SettingsSelector = ({
 }: Props) => {
   const handleSelectItem = (item: Item) => {
     (item as Setting).onClick();
-    onSelectItem(item);
+    onSelectItem(item as ControlItem);
   };
 
   return (
