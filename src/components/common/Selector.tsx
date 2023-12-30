@@ -1,6 +1,7 @@
 import { Button, Menu, MenuButton } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 
+import { ControlItem } from "../../data/userControls";
 import SelectorMenuList, { MenuListProps } from "./SelectorMenuList";
 
 export interface Item {
@@ -9,7 +10,7 @@ export interface Item {
 }
 
 interface Props extends MenuListProps {
-  data: Item[];
+  data: ControlItem[];
   name?: string;
   selectedItem: Item | null;
 }
