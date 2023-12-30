@@ -1,11 +1,11 @@
 import { MenuList, MenuItem, Flex, Box } from "@chakra-ui/react";
 
-import { ControlItem } from "../../data/userControls";
+import { Item } from "./Selector";
 import Text from "../Text";
 
 export interface MenuListProps {
-  data: ControlItem[];
-  onSelectItem: (item: ControlItem) => void;
+  data: Item[];
+  onSelectItem: (item: Item) => void;
 }
 
 const SelectorMenuList = ({ data, onSelectItem }: MenuListProps) => (
@@ -23,7 +23,7 @@ const SelectorMenuList = ({ data, onSelectItem }: MenuListProps) => (
           w="100%"
         >
           <Flex align="center">
-            <Box mr={2}>{(item as ControlItem).icon}</Box>
+            <Box mr={2}>{item.icon}</Box>
             <Text noOfLines={1}>{item.label}</Text>
           </Flex>
           {item?.rightIcon}

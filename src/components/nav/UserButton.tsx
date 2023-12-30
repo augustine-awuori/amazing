@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Menu, MenuButton } from "@chakra-ui/react";
 
 import { Avatar } from "../../components/common";
-import { ControlItem, getControls } from "../../data/userControls";
+import { getControls } from "../../data/userControls";
+import { Item } from "../../components/common/Selector";
 import { MediaQueryUser } from "../../components/common/MediaQuery";
 import { useAppColorMode } from "../../hooks";
 import empty from "../../utils/empty";
@@ -15,7 +16,7 @@ interface Props {
 
 const UserButton = ({ user }: Props) => {
   const { isDarkMode, toggleColorMode } = useAppColorMode();
-  const [controls, setControls] = useState<ControlItem[]>([]);
+  const [controls, setControls] = useState<Item[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const UserButton = ({ user }: Props) => {
     setControls(getControls(user, isDarkMode));
   }
 
-  const handleSelection = (item: ControlItem) => {
+  const handleSelection = (item: Item) => {
     if (item.route) navigate(item.route);
     else toggleColorMode();
   };

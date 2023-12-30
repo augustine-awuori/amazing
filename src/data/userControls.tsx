@@ -6,16 +6,10 @@ import { Avatar, ColorSwitchMode } from "../components";
 import { Item } from "../components/common/Selector";
 import { MediaQueryUser } from "../components/common/MediaQuery";
 
-export interface ControlItem extends Item {
-  icon: JSX.Element;
-  rightIcon?: JSX.Element;
-  route?: string;
-}
-
 export function getControls(
   user: MediaQueryUser | null | undefined,
   isDarkMode: boolean
-): ControlItem[] {
+): Item[] {
   const controls = user?._id
     ? [
         {
