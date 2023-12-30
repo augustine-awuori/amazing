@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
 
 import { Item } from "../components/common/Selector";
 import {
@@ -8,6 +8,7 @@ import {
   ShopsGrid,
   ShopsTypesGridPageContainer,
   NewItemButton as NewShopButton,
+  CategorySelector,
 } from "../components";
 import { Type } from "../hooks/useTypes";
 import { useProducts, useShops } from "../hooks";
@@ -24,9 +25,8 @@ const ShopsPage = () => {
   const { products, isLoading: productsLoading } = useProducts(undefined);
   const [productsCurrentPage, setProductsCurrentPage] = useState(1);
   const [shopsCurrentPage, setShopsCurrentPage] = useState(1);
-  const [pageSize] = useState(6);
-  const [productsPageSize] = useState(8);
   const [query, setQuery] = useState("");
+  const pageSize = useBreakpointValue({ sm: 6, md: 12 }) || 6;
 
   const navigateToDetails = (shop: Shop) => {
     setShop(shop);
@@ -55,29 +55,39 @@ const ShopsPage = () => {
     setQuery(text);
   };
 
-  const Filter = (
-    <ShowSelector
-      name={filter?.label || "Products"}
-      onSelectItem={setFilter}
-      selectedItem={filter}
-    />
-  );
-
   const HeadingELement = (
-    <Box mt={{ sm: 5, md: 0 }} w="100%">
+    <Flex
+      display={{ md: "flex", base: "block" }}
+      mt={{ sm: 5, md: 0 }}
+      w="100%"
+      align="center"
+    >
       <SearchInput
         placeholder={`Search ${getHeadingLabel()}`}
         onTextChange={handleTextChange}
         value={query}
+        mr={3}
       />
-    </Box>
+      <Flex>
+        <ShowSelector
+          name={filter?.label || "Products"}
+          onSelectItem={setFilter}
+          selectedItem={filter}
+        />
+        <Box display={{ lg: "none" }} ml={3}>
+          <CategorySelector
+            selectedCategory={selectedType}
+            onSelectCategory={setSelectedType}
+          />
+        </Box>
+      </Flex>
+    </Flex>
   );
 
   return (
     <ShopsTypesGridPageContainer
       gridHeadingLabel={getHeadingLabel()}
       HeadingElement={HeadingELement}
-      Filter={Filter}
       onSelectType={handleSelectType}
       selectedType={selectedType}
     >
@@ -100,7 +110,7 @@ const ShopsPage = () => {
           error=""
           isLoading={productsLoading}
           onClick={navigate}
-          pageSize={productsPageSize}
+          pageSize={pageSize}
           products={products}
           selectedType={selectedType}
           onPageChange={setProductsCurrentPage}

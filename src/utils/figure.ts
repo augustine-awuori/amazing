@@ -16,4 +16,12 @@ function roundToTwoDecimalPlaces(num: number): number {
   return parseFloat(num.toFixed(2));
 }
 
-export default { addComma, roundToTwoDecimalPlaces };
+const getArrayUpTo = (max: number): number[] => {
+  const array = [];
+
+  if (max >= 0) for (let i = 0; i <= max; i++) array.push(i);
+
+  return array;
+};
+
+export default { addComma, getArrayUpTo, roundToTwoDecimalPlaces };
