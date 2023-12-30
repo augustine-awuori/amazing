@@ -11,7 +11,7 @@ import {
 import { ImageInputList } from "../components/common";
 import { Shop } from "../hooks/useShop";
 import { ShopFormData, shopSchema } from "../data/schemas";
-import { useForm, useImages, useShops } from "../hooks";
+import { useForm, useImages, useNoGrid, useShops } from "../hooks";
 import auth from "../services/auth";
 import Selector from "../components/forms/FormShopTypeSelector";
 
@@ -25,6 +25,7 @@ const ShopEditPage = () => {
   const shops = useShops();
   const user = auth.getCurrentUser();
   const navigate = useNavigate();
+  useNoGrid();
 
   const createShop = async (info: ShopFormData) => {
     setLoading(true);
@@ -49,7 +50,7 @@ const ShopEditPage = () => {
   if (!user) return <Navigate to="/login" replace />;
 
   return (
-    <Box mt={{ base: 5 }}>
+    <Box mt={{ base: 5 }} m="0 auto">
       <Form
         handleSubmit={handleSubmit}
         onSubmit={doSubmit}

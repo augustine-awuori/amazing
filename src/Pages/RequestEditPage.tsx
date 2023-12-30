@@ -7,7 +7,7 @@ import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import { Request, populate } from "../hooks/useRequest";
 import { requestSchema, RequestFormData } from "../data/schemas";
-import { useCategories, useForm, useRequests } from "../hooks";
+import { useCategories, useForm, useNoGrid, useRequests } from "../hooks";
 import { authApi, requests as requestsApi } from "../services";
 import Select from "../components/common/Select";
 
@@ -18,6 +18,7 @@ const RequestEditPage = () => {
   const { data: categories } = useCategories();
   const { addRequest } = useRequests();
   const navigate = useNavigate();
+  useNoGrid();
 
   const createRequest = async (info: RequestFormData) => {
     setLoading(true);
@@ -46,7 +47,7 @@ const RequestEditPage = () => {
   if (!authApi.getCurrentUser()) return <Navigate to="/login" replace />;
 
   return (
-    <Box mt={{ base: 5 }}>
+    <Box mt={{ base: 5 }} m="0 auto">
       <Form
         handleSubmit={handleSubmit}
         onSubmit={doSubmit}

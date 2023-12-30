@@ -7,7 +7,7 @@ import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import { Listing } from "../hooks/useListing";
 import { listingSchema, ListingFormData } from "../data/schemas";
-import { useForm, useImages, useListings } from "../hooks";
+import { useForm, useImages, useListings, useNoGrid } from "../hooks";
 import auth from "../services/auth";
 import CategorySelect from "../components/listings/category/Select";
 import ImageInputList from "../components/common/ImageInputList";
@@ -22,6 +22,7 @@ const ListingEditPage = () => {
   const { imagesCount, images, removeAllImages } = useImages(MAX_IMAGES);
   const { addListing } = useListings();
   const navigate = useNavigate();
+  useNoGrid();
 
   const createListing = async (info: ListingFormData) => {
     setLoading(true);
@@ -48,7 +49,7 @@ const ListingEditPage = () => {
   if (!auth.getCurrentUser()) return <Navigate to="/login" replace />;
 
   return (
-    <Box mt={{ base: 5 }}>
+    <Box mt={{ base: 5 }} m="0 auto">
       <Form
         handleSubmit={handleSubmit}
         onSubmit={doSubmit}
