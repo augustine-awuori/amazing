@@ -1,5 +1,6 @@
 import { MenuList, MenuItem, Flex, Box } from "@chakra-ui/react";
 
+import { fontFamily } from "../../data/typography";
 import { Item } from "./Selector";
 import Text from "../Text";
 
@@ -13,7 +14,7 @@ const SelectorMenuList = ({ data, onSelectItem }: MenuListProps) => (
     {data.map((item, index) => (
       <MenuItem
         key={item._id + index}
-        fontFamily="andika"
+        fontFamily={fontFamily}
         onClick={() => onSelectItem(item)}
       >
         <Flex
@@ -26,7 +27,14 @@ const SelectorMenuList = ({ data, onSelectItem }: MenuListProps) => (
             <Box mr={2}>{item.icon}</Box>
             <Text noOfLines={1}>{item.label}</Text>
           </Flex>
-          {item?.rightIcon}
+          <Box
+            onMouseDown={(e) => {
+              e.stopPropagation();
+              onSelectItem(item);
+            }}
+          >
+            {item?.rightIcon}
+          </Box>
         </Flex>
       </MenuItem>
     ))}

@@ -1,7 +1,9 @@
 import { Text, TextProps } from "@chakra-ui/react";
 
+import { fontFamily } from "../data/typography";
+
 const AppText = ({ children, ...otherProps }: TextProps) => (
-  <Text {...otherProps} fontFamily="andika" letterSpacing=".5px">
+  <Text {...otherProps} letterSpacing=".5px" fontFamily={fontFamily}>
     {children}
   </Text>
 );

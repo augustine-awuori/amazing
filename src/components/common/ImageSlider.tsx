@@ -3,6 +3,8 @@ import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Slider from "react-slick";
 
+import { fontFamily } from "../../data/typography";
+
 const settings = {
   dots: true,
   arrows: false,
@@ -35,7 +37,7 @@ export default function ImageSlider({ images }: Props) {
       borderRadius="full"
       position="absolute"
       left={left ? side : undefined}
-      fontFamily="andika"
+      fontFamily={fontFamily}
       right={left ? undefined : side}
       bottom={side}
       zIndex={2}

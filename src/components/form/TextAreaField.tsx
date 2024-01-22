@@ -1,6 +1,7 @@
 import { ChangeEvent } from "react";
 import { FormControl, FormLabel, Textarea } from "@chakra-ui/react";
 
+import { fontFamily } from "../../data/typography";
 import { FormRegister } from "../../hooks/useForm";
 import ErrorMessage, { AppFieldError } from "./ErrorMessage";
 
@@ -32,10 +33,10 @@ const TextAreaField = ({
 
   return (
     <FormControl marginBottom={4}>
-      <FormLabel fontFamily="andika">{label}</FormLabel>
+      <FormLabel fontFamily={fontFamily}>{label}</FormLabel>
       <Textarea
         autoFocus
-        fontFamily="andika"
+        fontFamily={fontFamily}
         placeholder={placeholder || label}
         {...register(inputName)}
         {...otherProps}

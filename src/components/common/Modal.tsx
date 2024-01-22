@@ -12,6 +12,7 @@ import {
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 import { Button, Text } from "../../components";
+import { fontFamily } from "../../data/typography";
 
 interface Props {
   title?: string;
@@ -69,7 +70,7 @@ function AppModal({
         justifyContent="center"
         alignItems="center"
         textAlign="center"
-        fontFamily="andika"
+        fontFamily={fontFamily}
       >
         {title && <ModalHeader>{title}</ModalHeader>}
         <ModalCloseButton />

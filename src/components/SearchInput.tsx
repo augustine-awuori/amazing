@@ -9,6 +9,8 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 
+import { fontFamily } from "../data/typography";
+
 interface Props extends InputProps {
   onTextChange: (text: string) => void;
   LeftElement?: ReactNode;
@@ -52,7 +54,7 @@ const SearchInput = ({
       <Input
         {...rest}
         borderRadius="30px"
-        fontFamily="andika"
+        fontFamily={fontFamily}
         transition="border-radius 0.3s"
         onTextChangeText={handleChange}
         _placeholder={{ color: "white" }}

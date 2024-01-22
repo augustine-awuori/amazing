@@ -1,5 +1,6 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
+import { fontFamily } from "../../data/typography";
 import { ListingsPage, RequestsPage, ShopsPage } from "../../Pages";
 import useAppColorMode from "../../hooks/useAppColorMode";
 
@@ -13,7 +14,7 @@ const TopBar = () => {
     <Box display={{ sm: "block", md: "none" }} mt={14}>
       <Tabs isFitted variant="enclosed">
         <TabList
-          fontFamily="andika"
+          fontFamily={fontFamily}
           backgroundColor={color}
           pos="fixed"
           zIndex={2}

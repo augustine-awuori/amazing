@@ -7,6 +7,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
+import { fontFamily } from "../../data/typography";
 import DesktopSubNav from "../../components/nav/DesktopSub";
 
 const Settings = () => {
@@ -33,7 +34,7 @@ const Settings = () => {
                 as="a"
                 p={2}
                 href={navItem.href ?? "#"}
-                fontFamily="andika"
+                fontFamily={fontFamily}
                 fontSize="sm"
                 fontWeight={500}
                 color={linkColor}
