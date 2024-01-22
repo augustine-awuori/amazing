@@ -1,6 +1,7 @@
 import { Button, Menu, MenuButton } from "@chakra-ui/react";
 import { BsChevronDown } from "react-icons/bs";
 
+import { fontFamily } from "../../data/typography";
 import SelectorMenuList, { MenuListProps } from "./SelectorMenuList";
 
 export interface Item {
@@ -19,7 +20,11 @@ interface Props extends MenuListProps {
 
 const Selector = ({ name = "Categories", selectedItem, ...rest }: Props) => (
   <Menu>
-    <MenuButton as={Button} rightIcon={<BsChevronDown />} fontFamily="andika">
+    <MenuButton
+      as={Button}
+      rightIcon={<BsChevronDown />}
+      fontFamily={fontFamily}
+    >
       {selectedItem?.label || name}
     </MenuButton>
     <SelectorMenuList {...rest} />

@@ -3,6 +3,7 @@ import { Box, HStack, List, ListItem, Spinner } from "@chakra-ui/react";
 import { Button, Heading } from "../../components";
 import { Item } from "./Selector";
 import { scrollBarModifier } from "../../data/general";
+import { useAppColorMode } from "../../hooks";
 
 interface Props {
   heading: string;
@@ -18,8 +19,12 @@ const AsideList = ({
   items,
   onSelectItem,
   selectedItem,
-}: Props) =>
-  isLoading ? (
+}: Props) => {
+  const { isDarkMode } = useAppColorMode();
+
+  const color = isDarkMode ? "whiteAlpha.700" : "gray.500";
+
+  return isLoading ? (
     <Spinner />
   ) : (
     <Box display={{ base: "none", lg: "block" }}>
@@ -34,9 +39,8 @@ const AsideList = ({
             <ListItem key={item._id} paddingY="5px">
               <HStack>
                 <Button
-                  color={selected ? "orange.400" : "whiteAlpha.700"}
+                  color={selected ? "orange.400" : color}
                   fontSize="lg"
-                  fontFamily="andika"
                   fontWeight={selected ? "bold" : "normal"}
                   onClick={() => onSelectItem(item)}
                   textAlign="left"
@@ -52,5 +56,5 @@ const AsideList = ({
       </List>
     </Box>
   );
-
+};
 export default AsideList;

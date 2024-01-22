@@ -7,6 +7,7 @@ import {
   PopoverContent,
 } from "@chakra-ui/react";
 
+import { fontFamily } from "../../data/typography";
 import { getNavItems } from "../../data/navItems";
 import DesktopSubNav from "./DesktopSub";
 
@@ -25,7 +26,7 @@ const DesktopNav = () => {
                 as="a"
                 p={2}
                 href={navItem.href ?? "#"}
-                fontFamily="andika"
+                fontFamily={fontFamily}
                 fontSize="sm"
                 fontWeight={500}
                 color={linkColor}

@@ -61,32 +61,27 @@ export default function WithSubNav({ cartCount, user }: Props) {
             aria-label="link"
           />
         </Flex>
-        <Flex
-          flex={{ base: 1 }}
-          justify={{ base: "center", md: "flex-start" }}
-          align="center"
-        >
-          <Flex align="center" cursor="pointer" onClick={() => navigate("/")}>
-            <Image src={logo} mr={1.5} w={5} />
-            <Text
-              color={useColorModeValue("gray.800", "white")}
-              fontWeight="bold"
-              fontSize={17}
-            >
-              Campus Mart
-            </Text>
-          </Flex>
-
-          <Flex
-            display={{ base: "none", md: "flex" }}
-            ml={{ base: 0, md: 10 }}
-            align="center"
+        <Flex align="center" cursor="pointer" onClick={() => navigate("/")}>
+          <Image src={logo} mr={1.5} w={5} />
+          <Text
+            color={useColorModeValue("gray.800", "white")}
+            fontWeight="bold"
+            fontSize={17}
           >
-            <DesktopNav />
-          </Flex>
+            Campus Mart
+          </Text>
         </Flex>
 
-        <Flex align="center" ml={{ base: 0, md: 4 }} justify="center">
+        <Flex
+          flex={{ base: 1 }}
+          justify="center"
+          align="center"
+          display={{ base: "none", md: "flex" }}
+        >
+          <DesktopNav />
+        </Flex>
+
+        <Flex align="center" ml={{ base: 0, md: 4 }}>
           <Cart cartCount={cartCount} />
           <UserButton user={user} />
         </Flex>

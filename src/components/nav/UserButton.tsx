@@ -33,10 +33,8 @@ const UserButton = ({ user }: Props) => {
     setControls(getControls(user, isDarkMode));
   }
 
-  const handleSelection = (item: Item) => {
-    if (item.route) navigate(item.route);
-    else toggleColorMode();
-  };
+  const handleSelection = (item: Item) =>
+    item.route ? navigate(item.route) : toggleColorMode();
 
   return (
     <Menu>

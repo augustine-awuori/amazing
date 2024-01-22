@@ -1,5 +1,6 @@
 import { Box, BoxProps } from "@chakra-ui/react";
 
+import { fontFamily } from "../data/typography";
 import Text from "./Text";
 import useAppColorMode from "../hooks/useAppColorMode";
 
@@ -19,7 +20,7 @@ const FloatingButtonBox = ({ children, label, ...rest }: Props) => {
       color="white"
       cursor="pointer"
       display="flex"
-      fontFamily="andika"
+      fontFamily={fontFamily}
       position="fixed"
       px={{ base: 0, md: 3.5 }}
       py={{ base: 0, md: 2 }}

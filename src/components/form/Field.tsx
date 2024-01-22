@@ -9,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
 
+import { fontFamily } from "../../data/typography";
 import { FormRegister } from "../../hooks/useForm";
 import ErrorMessage, { AppFieldError } from "./ErrorMessage";
 
@@ -47,10 +48,10 @@ const FormField = ({
 
   return (
     <FormControl marginBottom={4}>
-      <FormLabel fontFamily="andika">{label}</FormLabel>
+      <FormLabel fontFamily={fontFamily}>{label}</FormLabel>
       <InputGroup>
         <Input
-          fontFamily="andika"
+          fontFamily={fontFamily}
           type={isPasswordVisible ? "text" : type}
           placeholder={placeholder || label}
           {...register(inputName)}
