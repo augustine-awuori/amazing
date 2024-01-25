@@ -10,10 +10,8 @@ export interface ListingBase {
   title: string;
 }
 
-export interface NewListingInfo {
-  images: File[];
-  title: string;
-  description: string;
+export interface NewListingInfo extends ListingBase {
+  images: string[];
   price: string | number;
   category: string;
 }

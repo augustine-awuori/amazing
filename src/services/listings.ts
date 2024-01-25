@@ -6,26 +6,15 @@ export const endpoint = "/listings";
 const addListing = (
   listing: NewListingInfo,
   onUploadProgress: (progress: number) => void = () => {}
-) => {
-  const { category, description, images, price, title } = listing;
-
-  const data = new FormData();
-  data.append("title", title);
-  data.append("price", price.toString());
-  data.append("category", category);
-  data.append("description", description);
-  images.forEach((image) => data.append("images", image));
-
-  return client.post(endpoint, data, {
+) =>
+  client.post(endpoint, listing, {
     onUploadProgress: (progressEvent) => {
       if (progressEvent.total !== null && progressEvent.total !== undefined) {
         const progress = (progressEvent.loaded / progressEvent.total) * 100;
         onUploadProgress(progress);
       }
     },
-    headers: { "Content-Type": "multipart/form-data" },
   });
-};
 
 const getListings = () => client.get(endpoint);
 

@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 import { Form, FormField, SubmitButton } from "../form";
+import { NewProduct } from "../../services/products";
 import { ProductFormData, productSchema } from "../../data/schemas";
+import { saveImage } from "../../utils/storage";
 import { useForm, useImages, useProducts } from "../../hooks";
 import authApi from "../../services/auth";
 import ImageInputList from "../common/ImageInputList";
@@ -22,15 +24,22 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
   const user = authApi.getCurrentUser();
   const products = useProducts(shopId);
 
-  const makeShopFrom = (info: ProductFormData) => {
+  const makeShopFrom = async (
+    info: ProductFormData
+  ): Promise<NewProduct | undefined> => {
     if (user)
-      return { ...info, author: user._id, image: images[0], shop: shopId };
+      return {
+        ...info,
+        author: user._id,
+        image: await saveImage(images[0]),
+        shop: shopId,
+      };
   };
 
   const doSubmit = async (info: ProductFormData) => {
     if (error) setError("");
     if (!imagesCount) return setError("Select an image");
-    const shop = makeShopFrom(info);
+    const shop = await makeShopFrom(info);
     if (!user || !shop) return;
 
     setLoading(true);

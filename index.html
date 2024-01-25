@@ -22,5 +22,29 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-storage.js"></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCAtitgurCoK8LIYRWfo2i95Q6otoTmXSA",
+        authDomain: "kisii-campus-mart-site.firebaseapp.com",
+        projectId: "kisii-campus-mart-site",
+        storageBucket: "kisii-campus-mart-site.appspot.com",
+        messagingSenderId: "66759292374",
+        appId: "1:66759292374:web:2a09e7ad0919c6a056e077",
+        measurementId: "G-C2MJ2XQDCQ",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
   </body>
 </html>

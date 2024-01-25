@@ -7,6 +7,7 @@ import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import { Listing } from "../hooks/useListing";
 import { listingSchema, ListingFormData } from "../data/schemas";
+import { saveImages } from "../utils/storage";
 import { useForm, useImages, useListings, useNoGrid } from "../hooks";
 import auth from "../services/auth";
 import CategorySelect from "../components/listings/category/Select";
@@ -26,7 +27,10 @@ const ListingEditPage = () => {
 
   const createListing = async (info: ListingFormData) => {
     setLoading(true);
-    const response = await service.addListing({ ...info, images });
+    const response = await service.addListing({
+      ...info,
+      images: await saveImages(images),
+    });
     setLoading(false);
 
     return response;

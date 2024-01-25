@@ -16,20 +16,8 @@ interface Props {
   password?: string;
 }
 
-const register = ({ avatar, name, username, whatsapp, password }: Props) => {
-  const data = new FormData();
-  data.append("name", name);
-  data.append("username", "@" + username);
-  data.append("whatsapp", whatsapp);
-  if (password) data.append("password", password);
-  if (avatar)
-    data.append(
-      "avatar",
-      new File([avatar], "avatar.jpg", { type: "image/jpeg" })
-    );
-
-  return client.post(endpoint, data);
-};
+const register = (info: Props) =>
+  client.post(endpoint, { ...info, username: `@${info.username}` });
 
 const getUser = (userId: string) => client.get(`${endpoint}/${userId}`);
 
