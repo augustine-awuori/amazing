@@ -4,13 +4,10 @@ import client from "./client";
 export const endpoint = "/listings";
 
 const addListing = (
-  listing: NewListingInfo,
+  info: NewListingInfo,
   onUploadProgress: (progress: number) => void = () => {}
-) => {
-  const { category, ...rest } = listing;
-  const data = { categoryId: category, ...rest };
-
-  return client.post(endpoint, data, {
+) =>
+  client.post(endpoint, info, {
     onUploadProgress: (progressEvent) => {
       if (progressEvent.total !== null && progressEvent.total !== undefined) {
         const progress = (progressEvent.loaded / progressEvent.total) * 100;
@@ -18,7 +15,6 @@ const addListing = (
       }
     },
   });
-};
 
 const getListings = () => client.get(endpoint);
 
