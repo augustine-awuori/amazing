@@ -6,8 +6,11 @@ export const endpoint = "/listings";
 const addListing = (
   listing: NewListingInfo,
   onUploadProgress: (progress: number) => void = () => {}
-) =>
-  client.post(endpoint, listing, {
+) => {
+  const { category, ...rest } = listing;
+  const data = { categoryId: category, ...rest };
+
+  return client.post(endpoint, data, {
     onUploadProgress: (progressEvent) => {
       if (progressEvent.total !== null && progressEvent.total !== undefined) {
         const progress = (progressEvent.loaded / progressEvent.total) * 100;
@@ -15,6 +18,7 @@ const addListing = (
       }
     },
   });
+};
 
 const getListings = () => client.get(endpoint);
 

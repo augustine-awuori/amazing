@@ -125,7 +125,7 @@ const ListingDetailsPage = () => {
   };
 
   return (
-    <PageContainer>
+    <PageContainer mt={{ base: 8 }}>
       <Modal
         isOpen={isDeleteModalOpen}
         title="Delete Listing"
