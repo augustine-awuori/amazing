@@ -7,6 +7,7 @@ import { Product } from "../components/shops/product/Card";
 import { ProductFormData } from "../data/schemas";
 import ProductsContext from "../contexts/ProductsContext";
 import service from "../services/products";
+import storage from "../utils/storage";
 import useData from "./useData";
 
 const useProducts = (shopId: string | undefined) => {
@@ -62,7 +63,15 @@ const useProducts = (shopId: string | undefined) => {
 
   const deleteProductBy = async (productId: string) => {
     const initial = [...products];
-    setProducts(initial.filter((p) => p._id !== productId));
+    let found: Product | undefined;
+
+    setProducts(
+      initial.filter((p) => {
+        if (p._id === productId) found = p;
+
+        return p._id !== productId;
+      })
+    );
 
     const { data, ok, problem } = await service.deleteProductBy(productId);
     let error = "";
@@ -70,7 +79,10 @@ const useProducts = (shopId: string | undefined) => {
       setProducts(initial);
       toast.error("Product deletion terminated unsuccessfully!");
       error = (data as DataError)?.error || problem;
-    } else toast("Product deleted succesfully!");
+    } else {
+      if (found) storage.deleteImage(found.image);
+      toast("Product deleted succesfully!");
+    }
 
     return { ok, error };
   };

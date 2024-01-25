@@ -5,6 +5,7 @@ import { endpoint } from "../services/listings";
 import { Listing } from "./useListing";
 import ListingsContext from "../contexts/ListingsContext";
 import service from "../services/listings";
+import storage from "../utils/storage";
 import useData from "./useData";
 
 const useListings = () => {
@@ -27,12 +28,23 @@ const useListings = () => {
 
   const deleteListing = async (listingId: string | undefined) => {
     if (!listingId) return;
+    let found: Listing | undefined;
     const prevListings = [...data];
-    setListings(data.filter((listing) => listing._id !== listingId));
+
+    setListings(
+      data.filter((listing) => {
+        if (listing._id === listingId) found = listing;
+
+        return listing._id !== listingId;
+      })
+    );
 
     const { ok } = await service.deleteListing(listingId);
+    if (ok) {
+      if (found) storage.deleteImages(found.images);
+      return toast.done("Listing deleted successfully");
+    }
 
-    if (ok) return toast.done("Listing deleted successfully");
     setListings(prevListings);
     toast.error("Listing deletion failed!");
   };

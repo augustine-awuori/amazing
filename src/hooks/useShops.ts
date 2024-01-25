@@ -8,6 +8,7 @@ import cache from "../utils/cache";
 import service, { endpoint } from "../services/shops";
 import ShopsContext from "../contexts/ShopsContext";
 import useData from "./useData";
+import storage from "../utils/storage";
 
 const useShops = () => {
   const { data, error, isLoading } = useData<Shop>(endpoint);
@@ -42,9 +43,13 @@ const useShops = () => {
     }
 
     const { data, ok, problem } = await service.deleteShop(shopId);
-    ok
-      ? toast.success("Shop deleted successfully")
-      : toast.error((data as DataError).error || problem);
+
+    if (ok) {
+      toast.success("Shop deleted successfully");
+      shops.forEach((shop) => {
+        if (shop._id === shopId) storage.deleteImage(shop.image);
+      });
+    } else toast.error((data as DataError).error || problem);
 
     return ok;
   };
