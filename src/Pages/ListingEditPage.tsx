@@ -7,12 +7,12 @@ import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import { Listing } from "../hooks/useListing";
 import { listingSchema, ListingFormData } from "../data/schemas";
-import { saveImages } from "../utils/storage";
 import { useForm, useImages, useListings, useNoGrid } from "../hooks";
 import auth from "../services/auth";
 import CategorySelect from "../components/listings/category/Select";
 import ImageInputList from "../components/common/ImageInputList";
 import service from "../services/listings";
+import storage from "../utils/storage";
 
 const MAX_IMAGES = 3;
 
@@ -27,11 +27,14 @@ const ListingEditPage = () => {
 
   const createListing = async (info: ListingFormData) => {
     setLoading(true);
+    const imagesURL = await storage.saveImages(images);
     const response = await service.addListing({
       ...info,
-      images: await saveImages(images),
+      images: imagesURL,
     });
     setLoading(false);
+
+    if (!response.ok) await storage.deleteImages(imagesURL);
 
     return response;
   };

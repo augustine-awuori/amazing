@@ -14,6 +14,7 @@ import { ShopFormData, shopSchema } from "../data/schemas";
 import { useForm, useImages, useNoGrid, useShops } from "../hooks";
 import auth from "../services/auth";
 import Selector from "../components/forms/FormShopTypeSelector";
+import storage from "../utils/storage";
 
 const MAX_IMAGES = 1;
 
@@ -29,8 +30,11 @@ const ShopEditPage = () => {
 
   const createShop = async (info: ShopFormData) => {
     setLoading(true);
-    const res = await shops.create({ ...info, image: images[0] });
+    const imageURL = await storage.saveImage(images[0]);
+    const res = await shops.create({ ...info, image: imageURL });
     setLoading(false);
+
+    if (!res.ok) await storage.deleteImage(imageURL);
 
     return res;
   };

@@ -4,9 +4,9 @@ import { Navigate } from "react-router-dom";
 import { Form, FormField, SubmitButton } from "../form";
 import { NewProduct } from "../../services/products";
 import { ProductFormData, productSchema } from "../../data/schemas";
-import { saveImage } from "../../utils/storage";
 import { useForm, useImages, useProducts } from "../../hooks";
 import authApi from "../../services/auth";
+import storage from "../../utils/storage";
 import ImageInputList from "../common/ImageInputList";
 
 const IMAGES_COUNT = 1;
@@ -31,7 +31,7 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
       return {
         ...info,
         author: user._id,
-        image: await saveImage(images[0]),
+        image: await storage.saveImage(images[0]),
         shop: shopId,
       };
   };
@@ -45,7 +45,10 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
     setLoading(true);
     const { error: message, ok } = await products.create(shop);
     setLoading(false);
-    if (!ok) return setError(message);
+    if (!ok) {
+      storage.deleteImage(shop.image);
+      return setError(message);
+    }
 
     onDone();
     removeAllImages();
