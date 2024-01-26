@@ -9,6 +9,7 @@ import ProductsContext from "../contexts/ProductsContext";
 import service from "../services/products";
 import storage from "../utils/storage";
 import useData from "./useData";
+import storage from "utils/storage";
 
 const useProducts = (shopId: string | undefined) => {
   const { data, error, isLoading } = useData<Product>(getApiEndpoint());
