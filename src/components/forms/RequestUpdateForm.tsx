@@ -60,14 +60,14 @@ const RequestUpdateForm = ({ onDone, request }: Props) => {
       <FormField
         error={errors.title}
         label="Title"
-        onChange={setTitle}
+        onChangeText={setTitle}
         register={register}
         value={title}
       />
       <FormField
         error={errors.description}
         label="Description"
-        onChange={setDescription}
+        onChangeText={setDescription}
         register={register}
         value={description}
       />

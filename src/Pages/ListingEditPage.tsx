@@ -56,7 +56,7 @@ const ListingEditPage = () => {
   if (!auth.getCurrentUser()) return <Navigate to="/login" replace />;
 
   return (
-    <Box mt={{ base: 5 }} m="0 auto">
+    <Box mt={{ base: 5 }}>
       <Form
         handleSubmit={handleSubmit}
         onSubmit={doSubmit}
@@ -64,7 +64,12 @@ const ListingEditPage = () => {
         title="New Listing"
       >
         <ImageInputList imagesLimit={MAX_IMAGES} />
-        <FormField error={errors.title} register={register} label="Title" />
+        <FormField
+          error={errors.title}
+          register={register}
+          label="Title"
+          textTransform="capitalize"
+        />
         <FormField
           error={errors.price}
           label="Price"

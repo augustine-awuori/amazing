@@ -1,7 +1,7 @@
-import { Box, Flex, Image, Radio } from "@chakra-ui/react";
+import { Box, Flex, Radio } from "@chakra-ui/react";
 import { CheckIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
-import { Text } from "../../components";
+import { Text, Image } from "../../components";
 import { Shop } from "../../hooks/useShop";
 
 interface Props {

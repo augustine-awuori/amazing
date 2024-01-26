@@ -28,10 +28,17 @@ const Form = ({
 
   return (
     <Container>
-      <Box my={4} textAlign="left" maxW="500px">
+      <Box
+        my={4}
+        textAlign="left"
+        maxW="400px"
+        mx="auto"
+        w={{ sm: "100%" }}
+        mt={{ base: 7 }}
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           {title && (
-            <Text fontWeight="bold" fontSize="2xl" marginY={3}>
+            <Text fontWeight="bold" fontSize="2xl" my={3}>
               {title}
             </Text>
           )}

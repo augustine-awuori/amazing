@@ -65,14 +65,15 @@ const ProductUpdateForm = ({ onDone, product }: Props) => {
         <FormField
           error={errors.name}
           label="Name"
-          onChange={setName}
+          onChangeText={setName}
           register={register}
+          textTransform="capitalize"
           value={name}
         />
         <FormField
           error={errors.price}
           label="Price"
-          onChange={(text) => setPrice(parseInt(text))}
+          onChangeText={(text) => setPrice(parseInt(text))}
           register={register}
           type="number"
           value={price}

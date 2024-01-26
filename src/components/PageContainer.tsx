@@ -19,8 +19,8 @@ const PageContainer = ({
       <GridItem
         area="aside"
         display={{ base: "none", lg: "block" }}
-        marginTop={2}
-        paddingX={5}
+        mt={2}
+        px={5}
         pt={paddingTop}
         position="fixed"
         top={0}
@@ -33,7 +33,6 @@ const PageContainer = ({
       area="main"
       px={px}
       pt={{ base: 35, sm: 29, md: paddingTop }}
-      ml={Aside ? 3 : 0}
       {...rest}
     >
       {children}

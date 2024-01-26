@@ -62,7 +62,12 @@ const ShopEditPage = () => {
         title="New Shop"
       >
         <ImageInputList imagesLimit={MAX_IMAGES} />
-        <FormField error={errors.name} label="Name" register={register} />
+        <FormField
+          error={errors.name}
+          label="Name"
+          register={register}
+          textTransform="capitalize"
+        />
         <Selector mb={2} register={register} />
         <LocationField
           error={errors.location}

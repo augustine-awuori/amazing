@@ -6,22 +6,19 @@ import {
   InputGroup,
   InputRightElement,
   IconButton,
+  InputProps,
 } from "@chakra-ui/react";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // Import eye icons
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { fontFamily } from "../../data/typography";
 import { FormRegister } from "../../hooks/useForm";
 import ErrorMessage, { AppFieldError } from "./ErrorMessage";
 
-interface Props {
+interface Props extends InputProps {
   error: AppFieldError | undefined;
   label: string;
-  placeholder?: string;
-  name?: string;
   register: FormRegister;
-  value?: string | number | readonly string[] | undefined;
-  onChange?: (value: string) => void | undefined;
-  type?: string;
+  onChangeText?: (value: string) => void | undefined;
 }
 
 const FormField = ({
@@ -30,18 +27,16 @@ const FormField = ({
   placeholder,
   label,
   register,
-  value,
   type = "text",
-  onChange,
+  onChangeText,
   ...otherProps
 }: Props) => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
 
   const inputName = name || label.toLowerCase();
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (onChange) onChange(e.target.value);
-  };
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
+    onChangeText?.(e.target.value);
 
   const togglePasswordVisibility = () =>
     setPasswordVisibility(!isPasswordVisible);
@@ -51,13 +46,11 @@ const FormField = ({
       <FormLabel fontFamily={fontFamily}>{label}</FormLabel>
       <InputGroup>
         <Input
-          fontFamily={fontFamily}
-          type={isPasswordVisible ? "text" : type}
-          placeholder={placeholder || label}
-          {...register(inputName)}
-          onChange={handleChange}
           {...otherProps}
-          value={value}
+          {...register(inputName)}
+          fontFamily={fontFamily}
+          onChange={handleChange}
+          placeholder={placeholder || label}
         />
         {type === "password" && (
           <InputRightElement>

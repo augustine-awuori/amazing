@@ -1,6 +1,6 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
-import { Button, Text } from "../../../components";
+import { Button, Image, Text } from "../../../components";
 import figure from "../../../utils/figure";
 import useAppColorMode from "../../../hooks/useAppColorMode";
 

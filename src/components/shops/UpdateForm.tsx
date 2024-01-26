@@ -44,8 +44,9 @@ const ShopUpdateForm = ({ onDone }: Props) => {
       <FormField
         error={errors.name}
         label="Name"
-        onChange={setName}
+        onChangeText={setName}
         register={register}
+        textTransform="capitalize"
         value={name}
       />
       <Selector mb={2} register={register} />

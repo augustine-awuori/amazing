@@ -66,7 +66,12 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
       usePageContainer={false}
     >
       <ImageInputList imagesLimit={IMAGES_COUNT} />
-      <FormField error={errors.name} label="Name" register={register} />
+      <FormField
+        error={errors.name}
+        label="Name"
+        register={register}
+        textTransform="capitalize"
+      />
       <FormField
         error={errors.price}
         label="Price"

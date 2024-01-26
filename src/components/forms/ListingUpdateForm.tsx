@@ -24,18 +24,11 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
   const [description, setDescription] = useState(listing?.description);
   const { updateListing } = useListings();
 
-  const populate = (listingInfo: ListingFormData): ListingInfo => {
-    const { category, description, price, title } = listingInfo;
-
-    return {
-      _id: listing?._id,
-      author: listing?.author._id,
-      category,
-      description,
-      price,
-      title,
-    };
-  };
+  const populate = (listingInfo: ListingFormData): ListingInfo => ({
+    _id: listing?._id,
+    author: listing?.author._id,
+    ...listingInfo,
+  });
 
   const doSubmit = async (listingInfo: ListingFormData) => {
     if (!listingInfo.category) return setError("Select category");
@@ -68,14 +61,15 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
       <FormField
         error={errors.title}
         label="Title"
-        onChange={setTitle}
+        onChangeText={setTitle}
         register={register}
+        textTransform="capitalize"
         value={title}
       />
       <FormField
         error={errors.price}
         label="Price"
-        onChange={(text) => setPrice(parseInt(text))}
+        onChangeText={(text) => setPrice(parseInt(text))}
         register={register}
         type="number"
         value={price}
@@ -83,7 +77,7 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
       <FormField
         error={errors.description}
         label="Description"
-        onChange={setDescription}
+        onChangeText={setDescription}
         register={register}
         value={description}
       />

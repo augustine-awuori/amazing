@@ -31,7 +31,7 @@ const AsideList = ({
       <Heading fontSize={20} marginBottom={3}>
         {heading}
       </Heading>
-      <List maxH="100vh" overflowY="scroll" css={scrollBarModifier}>
+      <List maxH="78vh" overflowY="scroll" pr={5} css={scrollBarModifier}>
         {items.map((item) => {
           const selected = item._id === selectedItem?._id;
 

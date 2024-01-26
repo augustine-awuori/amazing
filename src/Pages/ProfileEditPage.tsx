@@ -75,42 +75,42 @@ const ProfileEditPage = () => {
       <FormField
         error={errors.name}
         label="Name"
-        onChange={setName}
+        onChangeText={setName}
         register={register}
         value={name}
       />
       <FormField
         error={errors.username}
         label="Username"
-        onChange={setUsername}
+        onChangeText={setUsername}
         register={register}
         value={username}
       />
       <FormField
         error={errors.instagram}
         label="Instagram"
-        onChange={setInstagram}
+        onChangeText={setInstagram}
         register={register}
         value={instagram}
       />
       <FormField
         error={errors.twitter}
         label="Twitter"
-        onChange={setTwitter}
+        onChangeText={setTwitter}
         register={register}
         value={twitter}
       />
       <FormField
         error={errors.whatsapp}
         label="WhatsApp"
-        onChange={setWhatsApp}
+        onChangeText={setWhatsApp}
         register={register}
         value={whatsApp}
       />
       <FormField
         error={errors.youtube}
         label="YouTube"
-        onChange={setYouTube}
+        onChangeText={setYouTube}
         register={register}
         value={youtube}
       />

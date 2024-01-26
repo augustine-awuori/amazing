@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { Box, Flex, Image, useColorModeValue, Icon } from "@chakra-ui/react";
+import { Box, Flex, useColorModeValue, Icon } from "@chakra-ui/react";
 import { EditIcon } from "@chakra-ui/icons";
 
+import { Image, Text } from "../../";
 import { ShopProduct } from "../../../hooks/useShop";
 import { useAppColorMode } from "../../../hooks";
 import Button, { ProductCardBtnFuncs } from "./CardButton";
 import figure from "../../../utils/figure";
-import Text from "../../Text";
 
 export interface Product {
   _id: string;

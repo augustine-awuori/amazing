@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 
 import { Item } from "../common/Selector";
+import { useAppColorMode } from "../../hooks";
 import GridHeading from "./Heading";
 import PageContainer from "../PageContainer";
 
@@ -28,9 +29,19 @@ const GridPageContainer = ({
   HeadingElement: RightHeadingElement,
   ...otherProps
 }: Props) => {
+  const { color } = useAppColorMode();
+
   return (
-    <PageContainer {...otherProps}>
-      <Box mb={2}>
+    <PageContainer {...otherProps} pos="relative">
+      <Box
+        pos="sticky"
+        top={9}
+        left={0}
+        zIndex={1}
+        bgColor={color}
+        pt={4}
+        right={0}
+      >
         <Flex alignItems="start" justifyContent="space-between" w="100%">
           {RightHeadingElement || (
             <GridHeading
@@ -41,7 +52,7 @@ const GridPageContainer = ({
           )}
         </Flex>
       </Box>
-      {children}
+      <Box marginTop="10px">{children}</Box>
     </PageContainer>
   );
 };

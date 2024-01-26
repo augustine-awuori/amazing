@@ -1,7 +1,7 @@
-import { Box, Flex, Image } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { AiFillEdit, AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
 
-import { Button, Text } from "../../../components";
+import { Button, Image, Text } from "../../../components";
 import { empty, figure } from "../../../utils";
 import { Product } from "./Card";
 import {
