@@ -1,6 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { Box, FormControl, Flex, Image } from "@chakra-ui/react";
 
+import { scrollBarModifier } from "../../data/general";
 import ImagePicker from "./ImagePicker";
 import useImages from "../../hooks/useImages";
 
@@ -42,28 +43,31 @@ const ImageInputList = ({ imagesLimit }: Props) => {
   return (
     <Box maxWidth="400px" mb={2} mr={2}>
       <FormControl>
-        <Flex>
-          <ImagePicker
-            onChange={handleFileChange}
-            visible={imagesCount < imagesLimit}
-          />
+        <Box overflowX="auto" css={scrollBarModifier}>
           <Flex>
-            {imagePreviews.map((preview, index) => (
-              <Image
-                key={index}
-                src={preview}
-                alt={`Selected Image ${index + 1}`}
-                boxSize="100px"
-                objectFit="cover"
-                margin="0 10px"
-                borderRadius="md"
-                cursor="pointer"
-                mr={2}
-                onClick={() => unSelectImageBy(index)}
-              />
-            ))}
+            <ImagePicker
+              onChange={handleFileChange}
+              visible={imagesCount < imagesLimit}
+            />
+            <Flex>
+              {imagePreviews.map((preview, index) => (
+                <Image
+                  key={index}
+                  src={preview}
+                  alt={`Selected Image ${index + 1}`}
+                  boxSize="100px"
+                  objectFit="cover"
+                  margin="0 10px"
+                  borderRadius="md"
+                  cursor="pointer"
+                  mr={2}
+                  onClick={() => unSelectImageBy(index)}
+                  minWidth="100px"
+                />
+              ))}
+            </Flex>
           </Flex>
-        </Flex>
+        </Box>
       </FormControl>
     </Box>
   );
