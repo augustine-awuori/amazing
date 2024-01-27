@@ -95,6 +95,9 @@ const useProducts = (shopId: string | undefined) => {
 
   const addProduct = (product: Product) => setProducts([product, ...products]);
 
+  const updateProductImage = async (productId: string, image: string) =>
+    await service.updateImage(productId, image);
+
   const result = getProducts();
 
   return {
@@ -106,6 +109,7 @@ const useProducts = (shopId: string | undefined) => {
     productsCount: result.length,
     setProducts,
     update,
+    updateProductImage,
   };
 };
 

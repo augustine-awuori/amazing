@@ -11,5 +11,6 @@ export { default as Pagination } from "./Pagination";
 export { default as Paragraph } from "./Paragraph";
 export { default as SelectorMenuList } from "./SelectorMenuList";
 export { default as ScrollToTopBtn } from "./ScrollToTopBtn";
+export { default as Select } from "./Select";
 export { default as Selector } from "./Selector";
 export { default as TextInput } from "./TextInput";

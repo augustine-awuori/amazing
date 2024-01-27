@@ -107,7 +107,9 @@ const ShopPage = () => {
       {product && (
         <Modal
           isOpen={showProductDetails}
-          content={<ProductDetails info={product} />}
+          content={
+            <ProductDetails info={product} onDone={switchShowProductDetails} />
+          }
           onModalClose={switchShowProductDetails}
         />
       )}

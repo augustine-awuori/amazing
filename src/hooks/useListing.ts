@@ -20,6 +20,7 @@ export interface ListingInfo extends ListingBase {
   _id: string | undefined;
   author: string | undefined;
   category: string | undefined;
+  images?: string[];
   price: number | string;
 }
 

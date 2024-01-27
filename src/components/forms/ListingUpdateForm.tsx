@@ -3,11 +3,13 @@ import { toast } from "react-toastify";
 
 import { DataError } from "../../services/client";
 import { Form, FormField, SubmitButton } from "../form";
+import { ImageInputList, Select } from "../common";
 import { Listing, ListingInfo } from "../../hooks/useListing";
 import { ListingFormData, listingSchema } from "../../data/schemas";
-import { useCategories, useForm, useListings } from "../../hooks";
-import listingsService from "../../services/listings";
-import Select from "../common/Select";
+import { storage } from "../../utils";
+import { Text } from "../../components";
+import { useCategories, useForm, useImages, useListings } from "../../hooks";
+import service from "../../services/listings";
 
 interface Props {
   listing: Listing | undefined;
@@ -23,6 +25,7 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
   const [price, setPrice] = useState(listing?.price);
   const [description, setDescription] = useState(listing?.description);
   const { updateListing } = useListings();
+  const { images } = useImages(3);
 
   const populate = (listingInfo: ListingFormData): ListingInfo => ({
     _id: listing?._id,
@@ -35,7 +38,12 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
 
     if (error) setError("");
     setLoading(true);
-    const { data, ok, problem } = await listingsService.updateListing(
+    let imagesUrl;
+    if (images[0]) {
+      imagesUrl = await storage.saveImages(images);
+      listingInfo.images = imagesUrl;
+    }
+    const { data, ok, problem } = await service.updateListing(
       populate(listingInfo)
     );
     setLoading(false);
@@ -43,6 +51,7 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
     if (!ok) {
       const error = (data as DataError)?.error;
       toast.error(`Listing update failed!`);
+      if (imagesUrl) storage.deleteImages(imagesUrl);
       return setError(error || problem);
     }
 
@@ -58,6 +67,10 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
       error={error}
       usePageContainer={false}
     >
+      <ImageInputList imagesLimit={3} />
+      <Text textAlign="center" color="yellow.200">
+        ONLY modify what you wan' change
+      </Text>
       <FormField
         error={errors.title}
         label="Title"

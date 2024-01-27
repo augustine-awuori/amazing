@@ -7,8 +7,11 @@ import {
   SubmitButton,
 } from "../../components/form/index.ts";
 import { ShopFormData, shopSchema } from "../../data/schemas";
-import { useForm, useShop, useShops } from "../../hooks";
+import { Text } from "../../components/index.ts";
+import { useForm, useImages, useShop, useShops } from "../../hooks";
 import Selector from "../../components/forms/FormShopTypeSelector";
+import storage from "../../utils/storage.ts";
+import ImageInputList from "../../components/common/ImageInputList.tsx";
 
 interface Props {
   onDone: () => void;
@@ -22,16 +25,26 @@ const ShopUpdateForm = ({ onDone }: Props) => {
   const helper = useShops();
   const [name, setName] = useState(shop?.name);
   const [location, setLocation] = useState(shop?.location);
+  const { images } = useImages(1);
 
   const doSubmit = async (shopInfo: ShopFormData) => {
     if (error) setError("");
     if (!shop?._id) return setError("App Error");
 
     setLoading(true);
+    const image = images[0];
+    let imageUrl;
+    if (image) imageUrl = await storage.saveImage(image);
+    if (imageUrl) shopInfo.image = imageUrl;
+
     const res = await helper.update(shopInfo, shop._id);
     setLoading(false);
 
-    res.ok ? onDone() : setError(res.error);
+    if (res.ok) onDone();
+    else {
+      setError(res.error);
+      if (imageUrl) storage.deleteImage(imageUrl);
+    }
   };
 
   return (
@@ -41,6 +54,10 @@ const ShopUpdateForm = ({ onDone }: Props) => {
       onSubmit={doSubmit}
       usePageContainer={false}
     >
+      <ImageInputList imagesLimit={1} />
+      <Text color="yellow.200" textAlign="center">
+        Select image ONLY when changing it
+      </Text>
       <FormField
         error={errors.name}
         label="Name"

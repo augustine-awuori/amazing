@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const shopSchema = z.object({
+  image: z.string(),
   name: z.string().min(3, "Name should be between 3 & 50 chars").max(50),
   location: z
     .string()
@@ -33,6 +34,7 @@ export const listingSchema = z.object({
     .max(1_000_000),
   description: z.string(),
   category: z.string().min(5),
+  images: z.any(),
 });
 
 export type ListingFormData = z.infer<typeof listingSchema>;
