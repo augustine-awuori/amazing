@@ -46,6 +46,9 @@ const RequestEditPage = () => {
 
   if (!authApi.getCurrentUser()) return <Navigate to="/login" replace />;
 
+  const explanation =
+    "Let's say a user is looking for a specific type of study desk with particular features, such as adjustable height and built-in storage. The user can submit a request through the 'request' feature, providing details about the desk they need. Sellers who have study desks matching the requested specifications or plan to list such desks in the future are notified of this request. They can then communicate with the user, offering their products or discussing details related to the request.";
+
   return (
     <Box mt={{ base: 5 }} m="0 auto">
       <Form
@@ -53,6 +56,7 @@ const RequestEditPage = () => {
         onSubmit={doSubmit}
         title="New Request"
         error={error}
+        explanation={explanation}
       >
         <FormField error={errors.title} label="Title" register={register} />
         <FormField

@@ -53,12 +53,16 @@ const ShopEditPage = () => {
 
   if (!user) return <Navigate to="/login" replace />;
 
+  const explanation =
+    "Unleash the entrepreneur in you! 🚀 Create your own Shop and showcase a treasure trove of products that stand out. 🛍️ Your Shop gets the spotlight on the home page, grabbing attention from eager shoppers. Got just a handful of gems? No worries, add them as Listings for a quick showcase. 🌟 Whether you're a boutique owner, an artist, or a craftsperson, let your products shine in your exclusive Shop and captivate the audience!";
+
   return (
     <Box mt={{ base: 5 }} m="0 auto">
       <Form
         handleSubmit={handleSubmit}
         onSubmit={doSubmit}
         error={error}
+        explanation={explanation}
         title="New Shop"
       >
         <ImageInputList imagesLimit={MAX_IMAGES} />

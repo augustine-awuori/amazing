@@ -74,7 +74,7 @@ function AppModal({
       >
         {title && <ModalHeader>{title}</ModalHeader>}
         <ModalCloseButton />
-        <ModalBody textAlign="left" w="100%">
+        <ModalBody textAlign="left" w="100%" mb={2}>
           {subTitle && (
             <Text fontWeight="bold" mb="1rem">
               {subTitle}
@@ -82,8 +82,8 @@ function AppModal({
           )}
           {content}
         </ModalBody>
-        {primaryBtnLabel && secondaryBtnLabel && (
-          <ModalFooter w="100%">
+        <ModalFooter w="100%">
+          {primaryBtnLabel && (
             <Button
               colorScheme="orange"
               isLoading={isLoading}
@@ -95,6 +95,8 @@ function AppModal({
             >
               {primaryBtnLabel}
             </Button>
+          )}
+          {secondaryBtnLabel && (
             <Button
               disabled={isLoading}
               onClick={handleSecondaryClick}
@@ -104,8 +106,8 @@ function AppModal({
             >
               {secondaryBtnLabel}
             </Button>
-          </ModalFooter>
-        )}
+          )}
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );

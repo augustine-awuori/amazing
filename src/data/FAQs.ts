@@ -34,4 +34,9 @@ export const FAQs: FAQ[] = [
       "Campus Mart is on a mission to connect hearts, minds, and, well, campuses. We're all about spreading good vibes, not bills.",
     question: "How does Campus Mart benefit?",
   },
+  {
+    question: "Do I need to advertise my products after adding them?",
+    answer:
+      "No need! Your products automatically get the spotlight. However, if you want to share all your treasures with the world, you can always drop a link to your Shop!",
+  },
 ];
