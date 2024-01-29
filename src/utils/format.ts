@@ -1,5 +1,11 @@
 export const getFirstWord = (sentence = "") => sentence.split(" ")[0];
 
+export const getLastWord = (sentence = "") => {
+  const parts = sentence.split(" ");
+
+  return parts[parts.length - 1];
+};
+
 export function phoneNumber(phoneNumber: string | undefined): string {
   if (!phoneNumber) return "";
 

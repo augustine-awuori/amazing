@@ -62,6 +62,7 @@ const ListingEditPage = () => {
         onSubmit={doSubmit}
         error={error}
         title="New Listing"
+        explanation="A 'listing' refers to a detailed description of a specific item, like chairs, beds, laptop, etc., that a user wants to sell."
       >
         <ImageInputList imagesLimit={MAX_IMAGES} />
         <FormField

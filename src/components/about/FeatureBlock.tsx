@@ -75,6 +75,7 @@ const FeatureBlock = ({
     <Grid
       templateColumns={{ base: "1fr", md: "repeat(2, 1fr)" }}
       gap={{ base: "4rem", md: "2rem" }}
+      alignItems="center"
     >
       {switchItems ? ImageCom : Details}
       {switchItems ? Details : ImageCom}
