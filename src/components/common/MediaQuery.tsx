@@ -1,19 +1,24 @@
 import { Avatar, Wrap, WrapItem, ResponsiveValue } from "@chakra-ui/react";
-import { getFirstWord } from "../../utils/format";
-import VerifiedIcon from "./VerifiedIcon";
+import { FaShieldAlt } from "react-icons/fa";
 
+import { getFirstWord } from "../../utils/format";
 import Text from "../../components/Text";
+import VerifiedIcon from "./VerifiedIcon";
 
 export interface MediaQueryUser {
   _id?: string;
   avatar: string;
   name: string;
   isVerified: boolean;
+  isAdmin?: boolean;
+  username?: string;
+  timestamp?: number;
 }
 
 interface Props {
   onClick?: () => void;
   user: MediaQueryUser | undefined;
+  RightElement?: JSX.Element;
   size?:
     | ResponsiveValue<
         | (string & object)
@@ -30,7 +35,13 @@ interface Props {
   time?: string;
 }
 
-const UserAvatar = ({ user, onClick, size = "xs", time }: Props) => {
+const UserAvatar = ({
+  user,
+  onClick,
+  size = "xs",
+  RightElement,
+  time = "",
+}: Props) => {
   return (
     <Wrap
       cursor="pointer"
@@ -46,9 +57,10 @@ const UserAvatar = ({ user, onClick, size = "xs", time }: Props) => {
       <WrapItem display="flex" alignItems="center">
         <Text marginRight={1}>{getFirstWord(user?.name)}</Text>
         <VerifiedIcon verified={user?.isVerified} />
+        {user?.isAdmin && <FaShieldAlt size={10} />}
       </WrapItem>
       <WrapItem marginLeft="auto">
-        {time && <Text fontSize=".85rem">{time}</Text>}
+        {RightElement || <Text fontSize=".85rem">{time}</Text>}
       </WrapItem>
     </Wrap>
   );

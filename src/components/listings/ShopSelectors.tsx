@@ -54,7 +54,7 @@ const ShopSelectors = ({ onShopSelect, selectedShop }: Props) => {
         placeholder="Search Shop"
         value={query}
       />
-      <Box maxH="250px" overflowY="scroll" px={2} scrollBehavior="smooth">
+      <Box>
         {filtered.map((shop, index) => (
           <ShopSelector
             key={index}

@@ -1,7 +1,7 @@
 import { UpdatableUserInfo } from "../hooks/useUser";
 import client from "./client";
 
-const endpoint = "/users";
+export const endpoint = "/users";
 
 interface Props {
   aboutMe?: string;

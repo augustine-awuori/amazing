@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import {
+  Box,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -13,6 +14,7 @@ import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 import { Button, Text } from "../../components";
 import { fontFamily } from "../../data/typography";
+import { scrollBarModifier } from "../../data/general";
 
 interface Props {
   title?: string;
@@ -80,7 +82,15 @@ function AppModal({
               {subTitle}
             </Text>
           )}
-          {content}
+          <Box
+            maxH="500px"
+            overflowY="scroll"
+            px={2}
+            scrollBehavior="smooth"
+            css={scrollBarModifier}
+          >
+            {content}
+          </Box>
         </ModalBody>
         <ModalFooter w="100%">
           {primaryBtnLabel && (

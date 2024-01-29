@@ -1,7 +1,8 @@
 import { AiFillEdit, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { BiUser } from "react-icons/bi";
+import { FaShieldAlt, FaUser, FaUserCheck } from "react-icons/fa";
 
+import { addObjectAtIndex } from "../utils/format";
 import { Avatar, ColorSwitchMode } from "../components";
 import { Item } from "../components/common/Selector";
 import { MediaQueryUser } from "../components/common/MediaQuery";
@@ -14,7 +15,7 @@ export function getControls(
     ? [
         {
           _id: "",
-          icon: <BiUser />,
+          icon: <FaUser />,
           rightIcon: <Avatar name={user.name} size="xs" src={user.avatar} />,
           label: user.name,
           route: `/profile/${user._id}`,
@@ -41,7 +42,7 @@ export function getControls(
         },
       ];
 
-  return [
+  const final = [
     ...controls,
     {
       _id: "",
@@ -50,4 +51,14 @@ export function getControls(
       rightIcon: <ColorSwitchMode />,
     },
   ];
+
+  const adminControl = {
+    _id: "",
+    label: "Admin View",
+    icon: <FaShieldAlt />,
+    route: "/admin",
+    rightIcon: <FaUserCheck />,
+  };
+
+  return addObjectAtIndex<Item>(final, 1, adminControl);
 }
