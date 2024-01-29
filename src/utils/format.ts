@@ -6,6 +6,19 @@ export const getLastWord = (sentence = "") => {
   return parts[parts.length - 1];
 };
 
+export function addObjectAtIndex<T>(
+  array: T[],
+  index: number,
+  objectToAdd: T
+): T[] {
+  if (index < 0 || index > array.length) {
+    // Index out of bounds, return the original array
+    return array;
+  }
+
+  return [...array.slice(0, index), objectToAdd, ...array.slice(index)];
+}
+
 export function phoneNumber(phoneNumber: string | undefined): string {
   if (!phoneNumber) return "";
 

@@ -1,5 +1,5 @@
 import { HStack, Flex } from "@chakra-ui/react";
-import { FaLocationArrow } from "react-icons/fa";
+import { GoLocation } from "react-icons/go";
 
 import { Shop } from "../../hooks/useShop";
 import Body from "../card/Body";
@@ -51,7 +51,7 @@ const ShopCard = ({ onClick, shop }: Props) => {
         </HStack>
         {location && (
           <HStack mt={2}>
-            <FaLocationArrow />
+            <GoLocation />
             <Text color="green.400" fontSize="sm" noOfLines={1}>
               {location}
             </Text>

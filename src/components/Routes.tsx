@@ -35,6 +35,7 @@ import {
   ShopOrders,
   ShopOrderPage,
   ShoppingCartPage,
+  AdminPage,
 } from "../Pages";
 import {
   ListingsContext,
@@ -129,6 +130,10 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
                                       value={{ order, setOrder }}
                                     >
                                       <Routes>
+                                        <Route
+                                          path="/admin"
+                                          element={<AdminPage />}
+                                        />
                                         <Route
                                           path="listings/:listingId"
                                           element={<ListingDetailsPage />}
