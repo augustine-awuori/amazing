@@ -35,17 +35,35 @@ const AdminPage = () => {
 
   const title = usersModalOpen ? "App Users" : "App Shops";
 
-  const data: UserType[] | Shop[] = usersModalOpen ? users : shops;
-
-  // Type guard for filtering users or shops based on name
-  const filterByName = (item: UserType | Shop): boolean =>
-    item.name.toLowerCase().includes(query.toLowerCase());
-
   const handleModalClose = () => {
     setUsersModalVisibility(false);
     setShopsModalVisibility(false);
     setQuery("");
   };
+
+  const ModalContent = (
+    <>
+      <SearchInput
+        onTextChange={setQuery}
+        placeholder={`Search ${title}`}
+        value={query}
+      />
+      {usersModalOpen &&
+        users
+          .filter(
+            ({ name, username }) =>
+              name.toLowerCase().includes(query.toLowerCase()) ||
+              username.toLowerCase().includes(query.toLowerCase())
+          )
+          .map((user, index) => <UserAdminItem user={user} key={index} />)}
+      {shopsModalOpen &&
+        shops
+          .filter(({ name }) =>
+            name.toLowerCase().includes(query.toLowerCase())
+          )
+          .map((shop, index) => <ShopAdminItem shop={shop} key={index} />)}
+    </>
+  );
 
   return (
     <Container maxW="600px" mt={20} px={7}>
@@ -54,30 +72,7 @@ const AdminPage = () => {
       </Text>
 
       <Modal
-        content={
-          <>
-            <SearchInput
-              onTextChange={setQuery}
-              placeholder={`Search ${title}`}
-              value={query}
-            />
-            {data.length ? (
-              data
-                .filter(filterByName)
-                .map((item, index) =>
-                  usersModalOpen ? (
-                    <UserAdminItem user={item as UserType} key={index} />
-                  ) : (
-                    <ShopAdminItem shop={item as Shop} key={index} />
-                  )
-                )
-            ) : (
-              <Text textAlign="center" mt={3} color="yellow.300">
-                None Found!
-              </Text>
-            )}
-          </>
-        }
+        content={ModalContent}
         isOpen={usersModalOpen || shopsModalOpen}
         onModalClose={handleModalClose}
         title={title}
