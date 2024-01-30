@@ -35,7 +35,7 @@ const AdminPage = () => {
 
   const title = usersModalOpen ? "App Users" : "App Shops";
 
-  const data = usersModalOpen ? users : shops;
+  const data: UserType[] | Shop[] = usersModalOpen ? users : shops;
 
   const handleModalClose = () => {
     setUsersModalVisibility(false);
@@ -60,7 +60,9 @@ const AdminPage = () => {
             {data.length ? (
               data
                 .filter((i) =>
-                  i.name.toLowerCase().includes(query.toLowerCase())
+                  (i as UserType).name
+                    .toLowerCase()
+                    .includes(query.toLowerCase())
                 )
                 .map((item, index) =>
                   usersModalOpen ? (
