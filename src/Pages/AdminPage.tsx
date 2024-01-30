@@ -35,7 +35,11 @@ const AdminPage = () => {
 
   const title = usersModalOpen ? "App Users" : "App Shops";
 
-  const data = usersModalOpen ? users : shops;
+  const data: UserType[] | Shop[] = usersModalOpen ? users : shops;
+
+  // Type guard for filtering users or shops based on name
+  const filterByName = (item: UserType | Shop): boolean =>
+    item.name.toLowerCase().includes(query.toLowerCase());
 
   const handleModalClose = () => {
     setUsersModalVisibility(false);
@@ -59,9 +63,7 @@ const AdminPage = () => {
             />
             {data.length ? (
               data
-                .filter((i) =>
-                  i.name.toLowerCase().includes(query.toLowerCase())
-                )
+                .filter(filterByName)
                 .map((item, index) =>
                   usersModalOpen ? (
                     <UserAdminItem user={item as UserType} key={index} />
