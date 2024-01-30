@@ -57,13 +57,15 @@ const Form = ({
                 {title}
               </Text>
             )}
-            <Text
-              color="orange.400"
-              cursor="pointer"
-              onClick={handleModalVisibility}
-            >
-              {getLastWord(title)}?
-            </Text>
+            {explanation && (
+              <Text
+                color="orange.400"
+                cursor="pointer"
+                onClick={handleModalVisibility}
+              >
+                {getLastWord(title)}?
+              </Text>
+            )}
           </Flex>
           <ErrorMessage error={error} visible={error} />
           {children}

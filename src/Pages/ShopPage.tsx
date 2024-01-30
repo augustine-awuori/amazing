@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { FaLocationArrow } from "react-icons/fa";
 
-import { Footer, Info, PageContainer, StartChatBtn, Text } from "../components";
+import { Footer, Info, Grid, StartChatBtn, Text } from "../components";
 import { paginate } from "../utils/paginate";
-import { useProducts, useReload, useShop, useShops } from "../hooks";
+import { useNoGrid, useProducts, useReload, useShop, useShops } from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
 import { Product } from "../components/shops/product/Card";
@@ -13,7 +13,6 @@ import { Settings, ShopPageHeader as Header } from "../components/shops";
 import { Shop } from "../hooks/useShop";
 import Skeletons from "../components/shops/product/Skeleton";
 import empty from "../utils/empty";
-import Grid from "../components/grid";
 import ProductDetails from "../components/shops/product/Details";
 import service from "../services/shops";
 import DisplayCard from "../components/shops/product/DisplayCard";
@@ -36,6 +35,7 @@ const ShopPage = () => {
   const shopId = useParams().shopId;
   const { isLoading, products, productsCount } = useProducts(shopId);
   const helper = useShops();
+  useNoGrid();
 
   useEffect(() => {
     request();
@@ -119,7 +119,7 @@ const ShopPage = () => {
         content={<Settings />}
         onModalClose={switchShowSettings}
       />
-      <PageContainer mt={{ base: 8 }}>
+      <Box pt={20} px={{ md: 5, lg: 7 }} pb={4}>
         <ScrollToTopBtn />
         <Header
           onAddProduct={switchShowProductForm}
@@ -154,7 +154,7 @@ const ShopPage = () => {
             {phoneNumber && <StartChatBtn phoneNumber={phoneNumber} />}
           </Footer>
         )}
-      </PageContainer>
+      </Box>
     </>
   );
 };

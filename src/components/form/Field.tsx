@@ -51,6 +51,7 @@ const FormField = ({
           fontFamily={fontFamily}
           onChange={handleChange}
           placeholder={placeholder || label}
+          type={type}
         />
         {type === "password" && (
           <InputRightElement>

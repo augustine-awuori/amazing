@@ -12,7 +12,6 @@ import {
   ImageSlider,
   MediaQuery,
   Modal,
-  PageContainer,
   StartChatBtn,
   Text,
 } from "../components";
@@ -21,6 +20,7 @@ import {
   useCurrentUser,
   useListing,
   useListings,
+  useNoGrid,
   useProducts,
   useReload,
   useShops,
@@ -55,6 +55,7 @@ const ListingDetailsPage = () => {
   const isTheAuthor = useCurrentUser(userId);
   const { isLoading: loadingShops } = useShops();
   const { addProduct } = useProducts(undefined);
+  useNoGrid();
 
   useEffect(() => {
     request();
@@ -125,7 +126,7 @@ const ListingDetailsPage = () => {
   };
 
   return (
-    <PageContainer mt={{ base: 8 }}>
+    <Box pt={{ base: 8 }} mx="auto">
       <Modal
         isOpen={isDeleteModalOpen}
         title="Delete Listing"
@@ -236,7 +237,7 @@ const ListingDetailsPage = () => {
           </Button>
         )}
       </Box>
-    </PageContainer>
+    </Box>
   );
 };
 
