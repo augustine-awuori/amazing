@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Menu, MenuButton } from "@chakra-ui/react";
 
-import { Avatar } from "../../components/common";
+import { Avatar, Modal } from "../../components/common";
 import { getControls } from "../../data/userControls";
 import { Item } from "../../components/common/Selector";
 import { MediaQueryUser } from "../../components/common/MediaQuery";
@@ -17,6 +17,7 @@ interface Props {
 const UserButton = ({ user }: Props) => {
   const { isDarkMode, toggleColorMode } = useAppColorMode();
   const [controls, setControls] = useState<Item[]>([]);
+  const [showLogoutPrompt, setShowLogoutPrompt] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,11 +34,27 @@ const UserButton = ({ user }: Props) => {
     setControls(getControls(user, isDarkMode));
   }
 
-  const handleSelection = (item: Item) =>
+  const handleSelection = (item: Item) => {
+    //TODO: Encapsulate this route to a single file
+    if (item.route === "/logout") return setShowLogoutPrompt(true);
+
     item.route ? navigate(item.route) : toggleColorMode();
+  };
+
+  const handleModalClose = () => setShowLogoutPrompt(false);
 
   return (
     <Menu>
+      <Modal
+        content="Are you sure you want to sign out?"
+        isOpen={showLogoutPrompt}
+        onModalClose={handleModalClose}
+        title="Signing Out ..."
+        primaryBtnLabel="I'm Sure"
+        secondaryBtnLabel="Not Now"
+        onPrimaryClick={() => setShowLogoutPrompt(true)}
+        onSecondaryClick={handleModalClose}
+      />
       <MenuButton>
         <Avatar name={name} size={{ base: "xs", md: "sm" }} src={avatar} />
       </MenuButton>

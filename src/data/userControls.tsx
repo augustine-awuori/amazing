@@ -1,5 +1,5 @@
 import { AiFillEdit, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, QuestionIcon, SunIcon } from "@chakra-ui/icons";
 import { FaShieldAlt, FaUser, FaUserCheck } from "react-icons/fa";
 
 import { addObjectAtIndex } from "../utils/format";
@@ -11,7 +11,7 @@ export function getControls(
   user: MediaQueryUser | null | undefined,
   isDarkMode: boolean
 ): Item[] {
-  const controls = user?._id
+  const controls: Item[] = user?._id
     ? [
         {
           _id: "",
@@ -25,6 +25,7 @@ export function getControls(
           icon: <AiOutlineLogout />,
           label: "Sign Out",
           route: "/logout",
+          rightIcon: <QuestionIcon />,
         },
       ]
     : [
