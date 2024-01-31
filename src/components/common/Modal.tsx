@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 import {
   Box,
+  Divider,
   Modal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
   ModalFooter,
   ModalHeader,
@@ -75,7 +75,7 @@ function AppModal({
         fontFamily={fontFamily}
       >
         {title && <ModalHeader>{title}</ModalHeader>}
-        <ModalCloseButton />
+        <Divider />
         <ModalBody textAlign="left" w="100%" mb={2}>
           {subTitle && (
             <Text fontWeight="bold" mb="1rem">
@@ -92,6 +92,7 @@ function AppModal({
             {content}
           </Box>
         </ModalBody>
+        {(primaryBtnLabel || secondaryBtnLabel) && <Divider />}
         <ModalFooter w="100%">
           {primaryBtnLabel && (
             <Button
