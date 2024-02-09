@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import { Box, FormControl, Flex, Image } from "@chakra-ui/react";
 
-import { scrollBarModifier } from "../../data/general";
+import { scrollBarModifierCss } from "../../data/general";
 import ImagePicker from "./ImagePicker";
 import useImages from "../../hooks/useImages";
 
@@ -43,7 +43,7 @@ const ImageInputList = ({ imagesLimit }: Props) => {
   return (
     <Box maxWidth="400px" mb={2} mr={2}>
       <FormControl>
-        <Box overflowX="auto" css={scrollBarModifier}>
+        <Box overflowX="auto" css={scrollBarModifierCss}>
           <Flex>
             <ImagePicker
               onChange={handleFileChange}

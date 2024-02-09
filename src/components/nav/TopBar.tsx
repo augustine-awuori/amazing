@@ -1,11 +1,11 @@
 import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
 import { fontFamily } from "../../data/typography";
-import { ListingsPage, RequestsPage, ShopsPage } from "../../Pages";
+import { EventsPage, ListingsPage, ShopsPage } from "../../Pages";
 import useAppColorMode from "../../hooks/useAppColorMode";
 
-const pages = [<ShopsPage />, <ListingsPage />, <RequestsPage />];
-const tabs = ["Products", "Listings", "Requests"];
+const pages = [<ShopsPage />, <ListingsPage />, <EventsPage />];
+const tabs = ["Products", "Listings", "Events"];
 
 const TopBar = () => {
   const { accentColor, color } = useAppColorMode();
@@ -31,7 +31,7 @@ const TopBar = () => {
 
         <TabPanels>
           {pages.map((page, index) => (
-            <TabPanel key={index} px={0}>
+            <TabPanel key={index} px={0} pt={0}>
               {page}
             </TabPanel>
           ))}

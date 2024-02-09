@@ -1,5 +1,6 @@
 export { default as AboutAppPage } from "./AboutAppPage";
 export { default as AdminPage } from "./AdminPage";
+export { default as EventsPage } from "./EventsPage";
 export { default as ListingDetailsPage } from "./ListingDetailsPage";
 export { default as ListingEditPage } from "./ListingEditPage";
 export { default as ListingsPage } from "./ListingsPage";

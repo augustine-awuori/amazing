@@ -2,7 +2,7 @@ import { Box, HStack, List, ListItem, Spinner } from "@chakra-ui/react";
 
 import { Button, Heading } from "../../components";
 import { Item } from "./Selector";
-import { scrollBarModifier } from "../../data/general";
+import { scrollBarModifierCss } from "../../data/general";
 import { useAppColorMode } from "../../hooks";
 
 interface Props {
@@ -31,7 +31,7 @@ const AsideList = ({
       <Heading fontSize={20} marginBottom={3}>
         {heading}
       </Heading>
-      <List maxH="78vh" overflowY="scroll" pr={5} css={scrollBarModifier}>
+      <List maxH="78vh" overflowY="scroll" pr={5} css={scrollBarModifierCss}>
         {items.map((item) => {
           const selected = item._id === selectedItem?._id;
 

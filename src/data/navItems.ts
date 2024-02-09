@@ -39,24 +39,13 @@ const NAV_ITEMS: Array<NavItem> = [
     ],
   },
   {
-    label: "Requests",
-    children: [
-      {
-        label: "View Requests",
-        subLabel: "View all created requests",
-        href: "/requests",
-      },
-      {
-        label: "Create a new request",
-        subLabel: "Ask for an item that isn't available",
-        href: "/requests/new",
-      },
-    ],
+    label: "Events",
+    href: "/events",
   },
 ];
 
 const AboutApp: NavItem = {
-  label: "About App",
+  label: "Info",
   href: "/about-app",
 };
 
