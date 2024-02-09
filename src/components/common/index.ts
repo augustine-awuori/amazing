@@ -1,5 +1,8 @@
 export { default as Avatar } from "./Avatar";
+export { default as BottomSheet } from "./BottomSheet";
+export { default as BottomSheetOpener } from "./BottomSheetOpener";
 export { default as ColorSwitchMode } from "./ColorSwitchMode";
+export { default as DatePicker } from "./DatePicker";
 export { default as DismissableInfo } from "./DismissableInfo";
 export { default as GridAsideList } from "./GridAsideList";
 export { default as ImageInputList } from "./ImageInputList";

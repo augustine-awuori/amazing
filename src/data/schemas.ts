@@ -60,3 +60,14 @@ export const profileEditSchema = z.object({
 });
 
 export type ProfileEditFormData = z.infer<typeof profileEditSchema>;
+
+export const eventSchema = z.object({
+  description: z
+    .string()
+    .min(5, "Event description should be at least 5 chars"),
+  title: z.string().min(3, "Event title should be at least 3 & 50 chars"),
+  fee: z.string().min(1, "Add a min fee of Ksh 0 if it's free. 10, 000 max"),
+  location: z.string().min(3, "Event location should be at least 3 chars"),
+});
+
+export type EventFormData = z.infer<typeof eventSchema>;

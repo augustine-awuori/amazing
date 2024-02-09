@@ -69,8 +69,9 @@ export default (timestamp?: number, withoutSuffix?: boolean) => {
     if (time) return format(dayjs(time).fromNow(withoutSuffix));
   }
 
-  const getDate = (timestamp: number) => {
-    const date = new Date(timestamp);
+  const getDate = (timestamp: number | Date) => {
+    const date =
+      typeof timestamp === "number" ? new Date(timestamp) : timestamp;
 
     return `${date.toDateString()} at ${date.toLocaleTimeString()}`;
   };

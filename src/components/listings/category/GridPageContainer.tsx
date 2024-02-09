@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { ScrollToTopBtn } from "../../../components";
+import { ScrollToTopBtn } from "../../";
 import CategoryList from "./List";
 import CategorySelector, { CategorySelectorProps } from "./Selector";
 import GridPageContainer from "../../grid/PageContainer";
@@ -9,10 +9,12 @@ interface Props extends CategorySelectorProps {
   children: ReactNode;
   gridHeadingLabel?: string;
   headingPrefix?: string;
+  MoreInfo?: JSX.Element;
 }
 
 const CategoriesGridPageContainer = ({
   children,
+  MoreInfo,
   onSelectCategory,
   selectedCategory,
   ...otherProps
@@ -40,6 +42,7 @@ const CategoriesGridPageContainer = ({
         selectedItem={selectedCategory}
         {...otherProps}
       >
+        {MoreInfo}
         {children}
       </GridPageContainer>
     </>

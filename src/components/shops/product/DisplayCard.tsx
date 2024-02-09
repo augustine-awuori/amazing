@@ -68,6 +68,7 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
           width: { sm: "62%", md: "100%" },
           borderRadius: ".3rem",
           transform: "scale(1.05)",
+          transition: "ease .3s",
         }}
         borderRadius=".2rem"
         h={{ base: "8rem", md: "9.5rem" }}

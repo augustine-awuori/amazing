@@ -14,7 +14,7 @@ import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 import { Button, Text } from "../../components";
 import { fontFamily } from "../../data/typography";
-import { scrollBarModifier } from "../../data/general";
+import { scrollBarModifierCss } from "../../data/general";
 
 interface Props {
   title?: string;
@@ -87,7 +87,7 @@ function AppModal({
             overflowY="scroll"
             px={2}
             scrollBehavior="smooth"
-            css={scrollBarModifier}
+            css={scrollBarModifierCss}
           >
             {content}
           </Box>

@@ -3,12 +3,12 @@ import { createContext } from "react";
 import { Category } from "../hooks/useCategories";
 
 interface CategoriesContextValue {
-  categories: Category[] | undefined;
+  categories: Category[];
   setCategories: (categories: Category[]) => void;
 }
 
 export const CategoriesContext = createContext<CategoriesContextValue>({
-  categories: undefined,
+  categories: [],
   setCategories: () => {},
 });
 
