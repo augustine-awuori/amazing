@@ -52,7 +52,7 @@ const UserButton = ({ user }: Props) => {
         title="Signing Out ..."
         primaryBtnLabel="I'm Sure"
         secondaryBtnLabel="Not Now"
-        onPrimaryClick={() => setShowLogoutPrompt(true)}
+        onPrimaryClick={() => navigate("/logout")}
         onSecondaryClick={handleModalClose}
       />
       <MenuButton>
