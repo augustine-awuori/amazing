@@ -16,7 +16,9 @@ const useEvents = () => {
   useEffect(() => {
     setEvents(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data?.length]);
+
+  const addEvent = (event: CreatedEvent) => setEvents([event, ...data]);
 
   const createEvent = async (event: EventFormDataWithDates, image: string) =>
     await service.create({ ...event, image });
@@ -60,6 +62,7 @@ const useEvents = () => {
   };
 
   return {
+    addEvent,
     createEvent,
     deleteEvent,
     events: data || events,

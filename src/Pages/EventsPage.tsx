@@ -99,7 +99,7 @@ const EventsPage = () => {
 
   const filtered = queried.filter((event) =>
     markedShown
-      ? typeof event.bookmarks[currentUser?._id || ""] === "string"
+      ? typeof event?.bookmarks?.[currentUser?._id || ""] === "string"
       : true
   );
 
@@ -222,8 +222,8 @@ const EventsPage = () => {
         content={
           <Image
             src={selectedImage}
-            w="100%"
-            objectFit="cover"
+            h="100%"
+            objectFit="contain"
             borderRadius={7}
           />
         }
