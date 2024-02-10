@@ -1,9 +1,17 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { Box, Flex } from "@chakra-ui/react";
 import { GoLocation } from "react-icons/go";
 import { BiGroup } from "react-icons/bi";
 
-import { Button, EventEditForm, EventTurnOuts, Modal, Text } from "./";
+import {
+  BookmarkIcon,
+  Button,
+  EventEditForm,
+  EventTurnOuts,
+  Modal,
+  Text,
+} from "./";
 import { CreatedEvent } from "../services/events";
 import {
   useAppColorMode,
@@ -11,6 +19,7 @@ import {
   useEvents,
   useTimestamp,
 } from "../hooks";
+import auth from "../services/auth";
 
 interface Props {
   event?: CreatedEvent;
@@ -24,6 +33,7 @@ const EventDetails = ({ event }: Props) => {
   const [showTurnOut, setShowTurnOut] = useState(false);
   const helper = useEvents();
   const isTheAuthor = useCurrentUser(event?.author._id);
+  const currentUser = auth.getCurrentUser();
 
   if (!event)
     return (
@@ -32,7 +42,7 @@ const EventDetails = ({ event }: Props) => {
       </Text>
     );
 
-  const { description, startsAt, endsAt, turnOut, location } = event;
+  const { bookmarks, description, startsAt, endsAt, turnOut, location } = event;
 
   const closeConfirmDeleteModal = () => setConfirmDeletion(false);
 
@@ -70,8 +80,23 @@ const EventDetails = ({ event }: Props) => {
         {formatTimestamp(startsAt)} - {formatTimestamp(endsAt)}
       </Text>
       <Text>{description}</Text>
-      <Flex mt={2} align="center" color="green.400" fontWeight="bold">
-        <GoLocation /> <Text ml={2}>{location}</Text>
+      <Flex
+        mt={2}
+        align="center"
+        justify="space-between"
+        color="green.400"
+        fontWeight="bold"
+      >
+        <Flex align="center">
+          <GoLocation /> <Text ml={2}>{location}</Text>
+        </Flex>
+        <BookmarkIcon
+          aria-label="bookmark-icon"
+          onClick={() =>
+            toast.success("Feature to be fully implemented, stay tuned")
+          }
+          marked={bookmarks?.[currentUser?._id || ""] ? true : false}
+        />
       </Flex>
 
       <Flex

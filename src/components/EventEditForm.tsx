@@ -62,6 +62,7 @@ const EventEditForm = ({ event, onDone }: Props) => {
       toast.success("Event created successfully!");
       removeAllImages();
       onDone();
+      helper.addEvent(data as CreatedEvent);
     } else {
       setError((data as DataError)?.error || "Something went wrong");
       storage.deleteImage(imageURL);

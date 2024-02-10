@@ -99,7 +99,7 @@ const EventsPage = () => {
 
   const filtered = queried.filter((event) =>
     markedShown
-      ? typeof event.bookmarks[currentUser?._id || ""] === "string"
+      ? typeof event?.bookmarks?.[currentUser?._id || ""] === "string"
       : true
   );
 

@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { toast } from "react-toastify";
 import { GoLocation } from "react-icons/go";
 
 import { BookmarkIcon, Image, Text } from "./";
@@ -39,6 +40,11 @@ const Event = ({
   const { formatTimestamp } = useTimestamp();
   const { isDarkMode, accentColor } = useAppColorMode();
   const currentUser = auth.getCurrentUser();
+
+  const handleBookmarking = () => {
+    onMarkChange(_id);
+    toast.success("Feature to be fully implemented, stay tuned");
+  };
 
   return (
     <Flex
@@ -94,7 +100,8 @@ const Event = ({
           top={4}
           right={4}
           mb={2}
-          onClick={() => onMarkChange(_id)}
+          onClick={handleBookmarking}
+          zIndex={1}
         />
       </Box>
     </Flex>
