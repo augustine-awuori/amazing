@@ -5,7 +5,6 @@ import { BookmarkIcon, Image, Text } from "./";
 import { CreatedEvent } from "../services/events";
 import { useAppColorMode, useTimestamp } from "../hooks";
 import auth from "../services/auth";
-import pic from "../assets/shop.jpg";
 
 export interface EventProps {
   _id: string;
@@ -43,6 +42,7 @@ const Event = ({
 
   return (
     <Flex
+      display={{ base: "block", md: "flex" }}
       _hover={{
         transform: "scale(1.01)",
         transition: "ease .3s",
@@ -56,13 +56,15 @@ const Event = ({
     >
       <Image
         _hover={{ borderRadius: 10 }}
-        boxShadow="1px 1px 6px #ccc"
-        src={image || pic}
         borderRadius={15}
+        boxShadow="1px 1px 6px #ccc"
         h={40}
+        mb={{ base: 3 }}
+        mr={3}
         objectFit="cover"
         onClick={() => onImageClick(image)}
-        mr={3}
+        src={image}
+        w={{ base: "100%", md: "auto" }}
       />
       <Box flex="1" onClick={onClick}>
         <Text color={accentColor} fontSize="sm" noOfLines={{ base: 1, md: 2 }}>
@@ -82,18 +84,19 @@ const Event = ({
             </Text>
           </Flex>
           <Text fontWeight="extrabold" color={accentColor} flexWrap="nowrap">
-            Ksh {fee}
+            {fee ? `Ksh ${fee}` : "Free"}
           </Text>
         </Flex>
+        <BookmarkIcon
+          marked={bookmarks?.[currentUser?._id || ""] ? true : false}
+          aria-label="bookmark"
+          pos="absolute"
+          top={4}
+          right={4}
+          mb={2}
+          onClick={() => onMarkChange(_id)}
+        />
       </Box>
-      <BookmarkIcon
-        marked={bookmarks?.[currentUser?._id || ""] ? true : false}
-        aria-label="bookmark"
-        pos="absolute"
-        right={4}
-        mb={2}
-        onClick={() => onMarkChange(_id)}
-      />
     </Flex>
   );
 };
