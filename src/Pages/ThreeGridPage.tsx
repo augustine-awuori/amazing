@@ -10,12 +10,13 @@ interface Props extends UseDisclosureProps {
   isBottomSheetOpen: boolean;
   MainContent?: JSX.Element;
   OtherContents?: JSX.Element;
+  onBottomSheetSwipeUp: () => void;
 }
 
 const ThreeGridPage = ({
   isBottomSheetOpen,
   MainContent,
-  onOpen,
+  onBottomSheetSwipeUp,
   OtherContents,
   RightSideBarContent,
   SideBarContent,
@@ -26,7 +27,7 @@ const ThreeGridPage = ({
   return (
     <Box pos="relative">
       {OtherContents}
-      <BottomSheetOpener onSwipeUp={() => onOpen?.()} />
+      <BottomSheetOpener onSwipeUp={onBottomSheetSwipeUp} />
       <BottomSheet
         Content={SideBarContent}
         isOpen={isBottomSheetOpen}

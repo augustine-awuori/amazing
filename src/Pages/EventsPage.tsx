@@ -242,6 +242,7 @@ const EventsPage = () => {
       RightSideBarContent={RightSideBarContent}
       SideBarContent={SideBarContent}
       isBottomSheetOpen={isOpen}
+      onBottomSheetSwipeUp={onOpen}
     />
   );
 };
