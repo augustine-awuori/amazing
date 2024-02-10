@@ -41,6 +41,7 @@ export { default as ScrollToTopBtn } from "./common/ScrollToTopBtn";
 export { default as SearchInput } from "./SearchInput";
 export { default as SeenIcon } from "./SeenIcon";
 export { default as Select } from "./common/Select";
+export { default as SideBar } from "./SideBar";
 export { default as ShopCard } from "./shops/Card";
 export { default as ShopsGrid } from "./shops/Grid";
 export { default as ShopsTypesGridPageContainer } from "./shops/types/GridPageContainer";

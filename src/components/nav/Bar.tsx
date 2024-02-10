@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { InfoIcon } from "@chakra-ui/icons";
+import { BsEmojiSmile } from "react-icons/bs";
 
 import { User } from "../../hooks/useUser";
 import Cart from "./Cart";
@@ -22,7 +23,7 @@ interface Props {
 }
 
 export default function WithSubNav({ cartCount, user }: Props) {
-  const { color } = useAppColorMode();
+  const { accentColor, color } = useAppColorMode();
   const navigate = useNavigate();
 
   return (
@@ -62,13 +63,23 @@ export default function WithSubNav({ cartCount, user }: Props) {
           />
         </Flex>
         <Flex align="center" cursor="pointer" onClick={() => navigate("/")}>
-          <Image src={logo} mr={1.5} w={5} />
+          <BsEmojiSmile />
+          {/* <Image src={logo} mr={1.5} w={5} /> */}
           <Text
+            ml={1}
             color={useColorModeValue("gray.800", "white")}
             fontWeight="bold"
-            fontSize={17}
+            fontSize={18}
           >
-            Campus Mart
+            Campus
+          </Text>
+          <Text
+            ml={0.2}
+            fontWeight="extrabold"
+            fontSize={18}
+            color={accentColor}
+          >
+            Life
           </Text>
         </Flex>
 

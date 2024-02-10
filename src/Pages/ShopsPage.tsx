@@ -1,20 +1,35 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import {
+  BiChair,
+  BiChat,
+  BiHomeAlt,
+  BiReceipt,
+  BiShoppingBag,
+} from "react-icons/bi";
 
 import { Item } from "../components/common/Selector";
 import {
   SearchInput,
   ShopsGrid,
-  ShopsTypesGridPageContainer,
-  NewItemButton as NewShopButton,
   CategorySelector,
+  SideBar,
 } from "../components";
+import { SideBarItem } from "../components/SideBar";
 import { Type } from "../hooks/useTypes";
 import { useProducts, useShops } from "../hooks";
 import ShopsProductsGrid from "../components/shops/product/Grid";
 import ShowSelector from "../components/shops/ShowSelector";
+import ThreeGridPage from "./ThreeGridPage";
 import useShop, { Shop } from "../hooks/useShop";
+
+const items: SideBarItem[] = [
+  { icon: <BiHomeAlt />, label: "Home" },
+  { icon: <BiChair />, label: "Listings" },
+  { icon: <BiChat />, label: "Requests" },
+  { icon: <BiReceipt />, label: "Orders" },
+];
 
 const ShopsPage = () => {
   const navigate = useNavigate();
@@ -84,40 +99,59 @@ const ShopsPage = () => {
     </Flex>
   );
 
-  return (
-    <ShopsTypesGridPageContainer
-      gridHeadingLabel={getHeadingLabel()}
-      HeadingElement={HeadingELement}
-      onSelectType={handleSelectType}
+  const Content = showingShops ? (
+    <ShopsGrid
+      currentPage={shopsCurrentPage}
+      error={error}
+      isLoading={isLoading}
+      pageSize={pageSize}
+      onPageChange={setShopsCurrentPage}
+      onShopClick={navigateToDetails}
       selectedType={selectedType}
-    >
-      <NewShopButton pageUrl="/shops" />
-      {showingShops ? (
-        <ShopsGrid
-          currentPage={shopsCurrentPage}
-          error={error}
-          isLoading={isLoading}
-          pageSize={pageSize}
-          onPageChange={setShopsCurrentPage}
-          onShopClick={navigateToDetails}
-          selectedType={selectedType}
-          shops={shops}
-          query={query}
-        />
-      ) : (
-        <ShopsProductsGrid
-          currentPage={productsCurrentPage}
-          error=""
-          isLoading={productsLoading}
-          onClick={navigate}
-          pageSize={pageSize}
-          products={products}
-          selectedType={selectedType}
-          onPageChange={setProductsCurrentPage}
-          query={query}
-        />
-      )}
-    </ShopsTypesGridPageContainer>
+      shops={shops}
+      query={query}
+    />
+  ) : (
+    <ShopsProductsGrid
+      currentPage={productsCurrentPage}
+      error=""
+      isLoading={productsLoading}
+      onClick={navigate}
+      pageSize={pageSize}
+      products={products}
+      selectedType={selectedType}
+      onPageChange={setProductsCurrentPage}
+      query={query}
+    />
+  );
+
+  const AppSideBar = (
+    <SideBar
+      Icon={<BiShoppingBag />}
+      buttonLabel="Create Product"
+      items={items}
+      onButtonClick={() => {}}
+      onItemSelect={() => {}}
+      pageTitle="mart"
+      selectedItemLabel=""
+    />
+  );
+
+  const MainContent = (
+    <>
+      {HeadingELement}
+      {Content}
+    </>
+  );
+
+  return (
+    <ThreeGridPage
+      RightSideBarContent={<></>}
+      SideBarContent={AppSideBar}
+      MainContent={MainContent}
+      isBottomSheetOpen={false}
+      onBottomSheetSwipeUp={() => {}}
+    />
   );
 };
 

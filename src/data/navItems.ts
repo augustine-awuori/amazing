@@ -9,35 +9,39 @@ export interface NavItem {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: "Shops",
-    children: [
-      {
-        label: "View Shops & Products",
-        subLabel: "View all online shops & their products",
-        href: "/shops",
-      },
-      {
-        label: "Create Your Online Shop",
-        subLabel: "Increase your visibility online",
-        href: "/shops/new",
-      },
-    ],
+    label: "Mart",
+    href: "/shops",
   },
-  {
-    label: "Listings",
-    children: [
-      {
-        label: "View Listings",
-        subLabel: "View all created listings",
-        href: "/listings",
-      },
-      {
-        label: "Create a new listing",
-        subLabel: "Do you have an item you don't need anymore?",
-        href: "/listings/new",
-      },
-    ],
-  },
+  // {
+  //   label: "Shops",
+  //   children: [
+  //     {
+  //       label: "View Shops & Products",
+  //       subLabel: "View all online shops & their products",
+  //       href: "/shops",
+  //     },
+  //     {
+  //       label: "Create Your Online Shop",
+  //       subLabel: "Increase your visibility online",
+  //       href: "/shops/new",
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: "Listings",
+  //   children: [
+  //     {
+  //       label: "View Listings",
+  //       subLabel: "View all created listings",
+  //       href: "/listings",
+  //     },
+  //     {
+  //       label: "Create a new listing",
+  //       subLabel: "Do you have an item you don't need anymore?",
+  //       href: "/listings/new",
+  //     },
+  //   ],
+  // },
   {
     label: "Events",
     href: "/events",
@@ -67,7 +71,10 @@ const OrdersNavItem: NavItem = {
 
 export const getNavItems = (): NavItem[] => {
   const authenticated = auth.getCurrentUser()
-    ? [...NAV_ITEMS, OrdersNavItem]
+    ? [
+        ...NAV_ITEMS,
+        // OrdersNavItem
+      ]
     : NAV_ITEMS;
 
   return [...authenticated, AboutApp];
