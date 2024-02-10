@@ -15,7 +15,7 @@ import {
   Text,
 } from "../components";
 import { CreatedEvent } from "../services/events";
-import { useAppColorMode } from "../hooks";
+import { useAppColorMode, useEvents } from "../hooks";
 import auth from "../services/auth";
 import UpcomingEvents from "../components/UpcomingEvent";
 import EventsPageSideBar from "../components/nav/EventsPageSideBar";
@@ -23,7 +23,7 @@ import ThreeGridPage from "./ThreeGridPage";
 
 const EventsPage = () => {
   const [query, setQuery] = useState("");
-  const [events, setEvents] = useState<CreatedEvent[]>([]);
+  const { events, setEvents } = useEvents();
   const [selectedItem, setSelectedItem] = useState("Home");
   const { accentColor } = useAppColorMode();
   const [Content, setContent] = useState<JSX.Element>();

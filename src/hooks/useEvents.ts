@@ -4,7 +4,7 @@ import { ApiResponse } from "apisauce";
 
 import { DataError } from "../services/client";
 import { EventsContext } from "../contexts";
-import { EventFormData } from "../data/schemas";
+import { EventFormDataWithDates } from "../data/schemas";
 import service, { CreatedEvent, endpoint } from "../services/events";
 import storage from "../utils/storage";
 import useData from "./useData";
@@ -18,9 +18,8 @@ const useEvents = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const createEvent = async (event: EventFormData, image: string) => {
-    return await service.create({ ...event, image });
-  };
+  const createEvent = async (event: EventFormDataWithDates, image: string) =>
+    await service.create({ ...event, image });
 
   const deleteEvent = async (event: CreatedEvent, onDone?: () => void) => {
     const previous = events;
@@ -60,7 +59,14 @@ const useEvents = () => {
     return res;
   };
 
-  return { createEvent, deleteEvent, events, updateEvent, ...rest };
+  return {
+    createEvent,
+    deleteEvent,
+    events: data || events,
+    updateEvent,
+    ...rest,
+    setEvents,
+  };
 };
 
 export default useEvents;

@@ -54,7 +54,8 @@ const EventEditForm = ({ event, onDone }: Props) => {
 
     setLoading(true);
     const imageURL = await storage.saveImage(images[0]);
-    const { data, ok } = await helper.createEvent(info, imageURL);
+    const eventInfo = { ...info, endsAt: endDate, startsAt: startDate };
+    const { data, ok } = await helper.createEvent(eventInfo, imageURL);
     setLoading(false);
 
     if (ok) {

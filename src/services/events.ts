@@ -1,11 +1,11 @@
 import { RSVPFormData } from "../components/RSVPForm";
-import { EventFormData } from "../data/schemas";
+import { EventFormDataWithDates } from "../data/schemas";
 import { User } from "../hooks/useUser";
 import client from "./client";
 
 export const endpoint = "/events";
 
-export interface NewEvent extends EventFormData {
+export interface NewEvent extends EventFormDataWithDates {
   image: string;
 }
 
@@ -15,8 +15,8 @@ export interface CreatedEvent extends NewEvent {
   timestamp: number;
   turnOut: RSVPFormData[];
   bookmarks: { [id: string]: string };
-  startsAt: Date;
-  endsAt: Date;
+  startsAt: string;
+  endsAt: string;
 }
 
 const create = (event: NewEvent) => client.post(endpoint, event);

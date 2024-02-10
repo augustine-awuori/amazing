@@ -18,7 +18,7 @@ interface Props {
 
 const EventDetails = ({ event }: Props) => {
   const { accentColor } = useAppColorMode();
-  const { getDate } = useTimestamp();
+  const { formatTimestamp } = useTimestamp();
   const [confirmDeletion, setConfirmDeletion] = useState(false);
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [showTurnOut, setShowTurnOut] = useState(false);
@@ -32,7 +32,7 @@ const EventDetails = ({ event }: Props) => {
       </Text>
     );
 
-  const { description, timestamp, turnOut, location } = event;
+  const { description, startsAt, endsAt, turnOut, location } = event;
 
   const closeConfirmDeleteModal = () => setConfirmDeletion(false);
 
@@ -67,7 +67,7 @@ const EventDetails = ({ event }: Props) => {
         title="Event Update"
       />
       <Text mb={2} textAlign="center" color={accentColor}>
-        {getDate(timestamp)}
+        {formatTimestamp(startsAt)} - {formatTimestamp(endsAt)}
       </Text>
       <Text>{description}</Text>
       <Flex mt={2} align="center" color="green.400" fontWeight="bold">

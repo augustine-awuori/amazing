@@ -37,7 +37,7 @@ const Event = ({
   startsAt,
   title,
 }: Props) => {
-  const { getDate } = useTimestamp();
+  const { formatTimestamp } = useTimestamp();
   const { isDarkMode, accentColor } = useAppColorMode();
   const currentUser = auth.getCurrentUser();
 
@@ -66,7 +66,7 @@ const Event = ({
       />
       <Box flex="1" onClick={onClick}>
         <Text color={accentColor} fontSize="sm" noOfLines={{ base: 1, md: 2 }}>
-          {getDate(startsAt)}
+          {formatTimestamp(startsAt)}
         </Text>
         <Text my={1.5} fontSize="2xl" noOfLines={1}>
           {title}
@@ -87,7 +87,7 @@ const Event = ({
         </Flex>
       </Box>
       <BookmarkIcon
-        marked={bookmarks[currentUser?._id || ""] ? true : false}
+        marked={bookmarks?.[currentUser?._id || ""] ? true : false}
         aria-label="bookmark"
         pos="absolute"
         right={4}

@@ -71,3 +71,8 @@ export const eventSchema = z.object({
 });
 
 export type EventFormData = z.infer<typeof eventSchema>;
+
+export interface EventFormDataWithDates extends EventFormData {
+  startsAt: Date | string;
+  endsAt: Date | string;
+}
