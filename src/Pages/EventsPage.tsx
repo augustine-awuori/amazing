@@ -76,10 +76,12 @@ const EventsPage = () => {
     if (!currentUser) return toast.info("Login to see your bookmarks");
 
     const updated = [...events].map((e) => {
-      if (e._id === event._id) {
-        if (e.bookmarks[currentUser?._id]) {
+      if (e._id === event._id && event.bookmarks) {
+        if (e?.bookmarks?.[currentUser?._id]) {
           delete e.bookmarks[currentUser?._id];
-        } else e.bookmarks[currentUser?._id] = currentUser?._id;
+        } else {
+          // e.bookmarks.[currentUser?._id] = currentUser?._id;
+        }
       }
 
       return e;
