@@ -34,6 +34,7 @@ const Event = ({
   onClick,
   onImageClick,
   onMarkChange,
+  endsAt,
   startsAt,
   title,
 }: Props) => {
@@ -74,7 +75,7 @@ const Event = ({
       />
       <Box flex="1" onClick={onClick}>
         <Text color={accentColor} fontSize="sm" noOfLines={{ base: 1, md: 2 }}>
-          {formatTimestamp(startsAt)}
+          {formatTimestamp(startsAt)} - {formatTimestamp(endsAt)}
         </Text>
         <Text my={1.5} fontSize="2xl" noOfLines={1}>
           {title}

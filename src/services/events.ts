@@ -14,7 +14,7 @@ export interface CreatedEvent extends NewEvent {
   author: User;
   timestamp: number;
   turnOut: RSVPFormData[];
-  bookmarks: { [id: string]: string };
+  bookmarks?: { [id: string]: string };
   startsAt: string;
   endsAt: string;
 }
