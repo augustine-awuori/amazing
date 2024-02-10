@@ -20,10 +20,11 @@ import auth from "../services/auth";
 import UpcomingEvents from "../components/UpcomingEvent";
 import EventsPageSideBar from "../components/nav/EventsPageSideBar";
 import ThreeGridPage from "./ThreeGridPage";
+import { CardSkeletons } from "../components/card";
 
 const EventsPage = () => {
   const [query, setQuery] = useState("");
-  const { events, setEvents } = useEvents();
+  const { events, setEvents, isLoading } = useEvents();
   const [selectedItem, setSelectedItem] = useState("Home");
   const { accentColor } = useAppColorMode();
   const [Content, setContent] = useState<JSX.Element>();
@@ -237,7 +238,7 @@ const EventsPage = () => {
   return (
     <ThreeGridPage
       OtherContents={Modals}
-      MainContent={Content}
+      MainContent={isLoading ? <CardSkeletons isLoading /> : Content}
       RightSideBarContent={RightSideBarContent}
       SideBarContent={SideBarContent}
       isBottomSheetOpen={isOpen}

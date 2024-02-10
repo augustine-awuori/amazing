@@ -1,4 +1,4 @@
-import { ResponsiveValue } from "@chakra-ui/react";
+import { Box, ResponsiveValue } from "@chakra-ui/react";
 
 import CardContainer from "./Container";
 import CardSkeleton from "./Skeleton";
@@ -15,9 +15,11 @@ const CardSkeletons = ({ isLoading, height, pageSize }: Props) => (
     {isLoading && (
       <>
         {utils.getArrayUpTo(pageSize || 6).map((skeleton) => (
-          <CardContainer key={skeleton}>
-            <CardSkeleton height={height} />
-          </CardContainer>
+          <Box mb={4}>
+            <CardContainer key={skeleton}>
+              <CardSkeleton height={height} />
+            </CardContainer>
+          </Box>
         ))}
       </>
     )}
