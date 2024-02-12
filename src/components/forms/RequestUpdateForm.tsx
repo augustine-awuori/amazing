@@ -19,7 +19,7 @@ const RequestUpdateForm = ({ onDone, request }: Props) => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { errors, handleSubmit, register } = useForm(requestSchema);
-  const { data: categories } = useCategories();
+  const { categories: categories } = useCategories();
   const [title, setTitle] = useState(request?.title);
   const [description, setDescription] = useState(request?.description);
   const { updateRequest } = useRequests();

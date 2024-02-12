@@ -1,16 +1,17 @@
-import { Box, Flex, UseDisclosureProps } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
 import { BottomSheet, BottomSheetOpener } from "../components/common";
 import { hideScrollBarCss } from "../data/general";
 import { useNoGrid } from "../hooks";
 
-interface Props extends UseDisclosureProps {
+interface Props {
   SideBarContent: JSX.Element;
   RightSideBarContent: JSX.Element;
   isBottomSheetOpen: boolean;
   MainContent?: JSX.Element;
   OtherContents?: JSX.Element;
   onBottomSheetSwipeUp: () => void;
+  onClose?: () => void;
 }
 
 const ThreeGridPage = ({
@@ -20,7 +21,7 @@ const ThreeGridPage = ({
   OtherContents,
   RightSideBarContent,
   SideBarContent,
-  ...rest
+  onClose,
 }: Props) => {
   useNoGrid();
 
@@ -31,7 +32,7 @@ const ThreeGridPage = ({
       <BottomSheet
         Content={SideBarContent}
         isOpen={isBottomSheetOpen}
-        {...rest}
+        onClose={onClose}
       />
       <Flex height="100vh" pt={{ base: 3, md: 10 }}>
         <Box

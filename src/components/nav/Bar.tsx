@@ -1,19 +1,13 @@
-import {
-  Box,
-  Flex,
-  IconButton,
-  Image,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, IconButton, useColorModeValue } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { InfoIcon } from "@chakra-ui/icons";
-import { BsEmojiSmile } from "react-icons/bs";
 
+import { Image } from "../";
 import { User } from "../../hooks/useUser";
 import Cart from "./Cart";
 import DesktopNav from "./Desktop";
-import logo from "../../assets/logo.svg";
 import Text from "../../components/Text";
+import logo from "../../assets/logo.png";
 import useAppColorMode from "../../hooks/useAppColorMode";
 import UserButton from "./UserButton";
 
@@ -63,22 +57,16 @@ export default function WithSubNav({ cartCount, user }: Props) {
           />
         </Flex>
         <Flex align="center" cursor="pointer" onClick={() => navigate("/")}>
-          <BsEmojiSmile />
-          <Image src={logo} mr={1.5} w={5} />
+          <Image src={logo} w={5} />
           <Text
-            ml={1}
+            mx={1.5}
             color={useColorModeValue("gray.800", "white")}
             fontWeight="bold"
             fontSize={18}
           >
             Campus
           </Text>
-          <Text
-            ml={0.2}
-            fontWeight="extrabold"
-            fontSize={18}
-            color={accentColor}
-          >
+          <Text fontWeight="extrabold" fontSize={18} color={accentColor}>
             Life
           </Text>
         </Flex>

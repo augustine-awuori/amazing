@@ -48,7 +48,7 @@ const ShopsGrid = ({
 
   return (
     <>
-      <Grid>
+      <Grid columns={{ sm: 1, md: 2 }}>
         <CardSkeletons isLoading={isLoading} pageSize={pageSize} />
         {paginated.map((shop) => (
           <CardContainer key={shop._id}>

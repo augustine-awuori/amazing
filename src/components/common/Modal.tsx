@@ -24,6 +24,7 @@ interface Props {
   content: ReactNode;
   primaryBtnLabel?: string;
   secondaryBtnLabel?: string;
+  SecondaryLeftIcon?: JSX.Element;
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
   onModalClose: () => void;
@@ -38,6 +39,7 @@ function AppModal({
   onSecondaryClick,
   primaryBtnLabel,
   secondaryBtnLabel,
+  SecondaryLeftIcon,
   subTitle,
   title,
 }: Props) {
@@ -78,7 +80,7 @@ function AppModal({
         <Divider />
         <ModalBody textAlign="left" w="100%" mb={2}>
           {subTitle && (
-            <Text fontWeight="bold" mb="1rem">
+            <Text fontWeight="bold" mb="1rem" textAlign="center">
               {subTitle}
             </Text>
           )}
@@ -111,7 +113,7 @@ function AppModal({
             <Button
               disabled={isLoading}
               onClick={handleSecondaryClick}
-              leftIcon={<CloseIcon />}
+              leftIcon={SecondaryLeftIcon || <CloseIcon />}
               variant="ghost"
               w="100%"
             >

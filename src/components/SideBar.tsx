@@ -1,4 +1,5 @@
 import { Box, Flex } from "@chakra-ui/react";
+import { BiPlusCircle } from "react-icons/bi";
 
 import { Button, Text } from "./";
 import { useAppColorMode } from "../hooks";
@@ -57,7 +58,7 @@ const SideBar = ({
             label={label}
             key={index}
             onClick={() => onItemSelect(label)}
-            selected={selectedItemLabel === label}
+            selected={selectedItemLabel.toLowerCase() === label.toLowerCase()}
           />
         ))}
       </Box>
@@ -68,6 +69,7 @@ const SideBar = ({
         _hover={{ bg: "orange.400" }}
         w="100%"
         letterSpacing={1}
+        leftIcon={<BiPlusCircle />}
         onClick={onButtonClick}
       >
         {buttonLabel}

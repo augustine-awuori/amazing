@@ -15,9 +15,15 @@ interface Props {
   selectedCategory: Category | null;
   onRequestClick: (request: Request) => void;
   userId?: string | undefined;
+  searchQuery?: string;
 }
 
-const RequestGrid = ({ onRequestClick, selectedCategory, userId }: Props) => {
+const RequestGrid = ({
+  onRequestClick,
+  searchQuery,
+  selectedCategory,
+  userId,
+}: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(9);
   const { error, isLoading, data: requests } = useRequests();
@@ -30,15 +36,26 @@ const RequestGrid = ({ onRequestClick, selectedCategory, userId }: Props) => {
     ? byUser.filter((request) => request.category._id === selectedCategory?._id)
     : byUser;
 
-  const paginated = paginate<Request>(filtered, currentPage, pageSize);
+  const queried = searchQuery
+    ? filtered.filter((request) =>
+        request.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : filtered;
+
+  const paginated = paginate<Request>(queried, currentPage, pageSize);
 
   if (error) return <Text>{error}</Text>;
 
-  if (!paginated.length && !isLoading) return <Info show={!isLoading} />;
+  if (!paginated.length && !isLoading)
+    return (
+      <Box w="100%" h="100%">
+        <Info show={!isLoading} />
+      </Box>
+    );
 
   return (
     <>
-      <Grid>
+      <Grid columns={{ sm: 1, md: 2 }}>
         <CardSkeletons isLoading={isLoading} height="20px" />
         {paginated.map((request) => (
           <CardContainer key={request._id}>
@@ -49,7 +66,7 @@ const RequestGrid = ({ onRequestClick, selectedCategory, userId }: Props) => {
       <Box mt={5}>
         <Pagination
           currentPage={currentPage}
-          itemsCount={requests.length}
+          itemsCount={queried.length}
           onPageChange={setCurrentPage}
           pageSize={pageSize}
         />

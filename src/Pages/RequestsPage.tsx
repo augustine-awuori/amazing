@@ -1,35 +1,42 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
-import {
-  RequestGrid,
-  ListingCategoriesGridPageContainer as GridPageContainer,
-  NewItemButton as NewRequestButton,
-  Text,
-} from "../components";
+import { Details } from "../components/request";
+import { Modal, RequestGrid, Text } from "../components";
 import { useAppColorMode } from "../hooks";
-import ScrollToTopBtn from "../components/common/ScrollToTopBtn";
 import useRequest, { Request } from "../hooks/useRequest";
 
-const RequestsPage = () => {
-  const navigate = useNavigate();
-  const { setRequest } = useRequest();
-  const { accentColor } = useAppColorMode();
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
-  );
+interface Props {
+  selectedCategory?: Category | null;
+  onListingsPageNav?: () => void;
+  searchQuery?: string;
+}
 
-  const navigateToDetails = (request: Request) => {
-    setRequest(request);
-    navigate(`/requests/${request._id}`);
-  };
+const RequestsPage = ({
+  onListingsPageNav,
+  selectedCategory,
+  ...rest
+}: Props) => {
+  const { accentColor } = useAppColorMode();
+  const [showDetails, setShowDetails] = useState(false);
+  const { setRequest } = useRequest();
 
   const Heading =
     "Listings' Requests (you can't find it? request it for someone to list, it just for you)";
 
-  const MoreInfo = (
+  const handleRequestClick = (req: Request) => {
+    setRequest(req);
+    setShowDetails(true);
+  };
+
+  return (
     <>
+      <Modal
+        title="Request Full Details"
+        content={<Details />}
+        isOpen={showDetails}
+        onModalClose={() => setShowDetails(false)}
+      />
       <Text fontSize={22} display={{ base: "block", md: "none" }} mb={1}>
         {Heading}
       </Text>
@@ -37,28 +44,15 @@ const RequestsPage = () => {
         color={accentColor}
         fontSize={20}
         cursor="pointer"
-        onClick={() => navigate("/listings")}
+        onClick={onListingsPageNav}
       >
         Tap to see what others have already listed
       </Text>
-    </>
-  );
-
-  return (
-    <>
-      <ScrollToTopBtn />
-      <NewRequestButton pageUrl="/requests" />
-      <GridPageContainer
-        onSelectCategory={setSelectedCategory}
-        selectedCategory={selectedCategory}
-        gridHeadingLabel={Heading}
-        MoreInfo={MoreInfo}
-      >
-        <RequestGrid
-          onRequestClick={navigateToDetails}
-          selectedCategory={selectedCategory}
-        />
-      </GridPageContainer>
+      <RequestGrid
+        {...rest}
+        onRequestClick={handleRequestClick}
+        selectedCategory={selectedCategory || null}
+      />
     </>
   );
 };

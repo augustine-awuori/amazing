@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Flex, Box, useDisclosure, IconButton } from "@chakra-ui/react";
 import { toast } from "react-toastify";
-import { BiDotsHorizontalRounded } from "react-icons/bi";
 
 import {
   BookmarkIcon,
@@ -12,20 +11,34 @@ import {
   Modal,
   RSVPForm,
   SearchInput,
+  SideBar,
   Text,
 } from "../components";
+import { CardSkeletons } from "../components/card";
 import { CreatedEvent } from "../services/events";
 import { useAppColorMode, useEvents } from "../hooks";
 import auth from "../services/auth";
-import UpcomingEvents from "../components/UpcomingEvent";
-import EventsPageSideBar from "../components/nav/EventsPageSideBar";
 import ThreeGridPage from "./ThreeGridPage";
-import { CardSkeletons } from "../components/card";
+import UpcomingEvents from "../components/UpcomingEvent";
+import { AiOutlinePicture } from "react-icons/ai";
+import { BsTicket } from "react-icons/bs";
+import {
+  BiCalendarEvent,
+  BiDotsHorizontalRounded,
+  BiHomeAlt,
+} from "react-icons/bi";
+
+const items = [
+  { icon: <BiHomeAlt />, label: "Events" },
+  { icon: <BsTicket />, label: "Tickets" },
+  { icon: <AiOutlinePicture />, label: "Posters" },
+  { icon: <BiDotsHorizontalRounded />, label: "More" },
+];
 
 const EventsPage = () => {
   const [query, setQuery] = useState("");
   const { events, setEvents, isLoading } = useEvents();
-  const [selectedItem, setSelectedItem] = useState("Home");
+  const [selectedItem, setSelectedItem] = useState("Events");
   const { accentColor } = useAppColorMode();
   const [Content, setContent] = useState<JSX.Element>();
   const [markedShown, setShowMarked] = useState(false);
@@ -35,8 +48,8 @@ const EventsPage = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [viewImage, setViewImage] = useState(false);
   const [createEvent, setCreateEvent] = useState(false);
+  const { onOpen, isOpen, onClose } = useDisclosure();
   const currentUser = auth.getCurrentUser();
-  const { onOpen, isOpen, ...otherDisclosureItems } = useDisclosure();
 
   useEffect(() => {
     setContent(renderContent());
@@ -107,7 +120,7 @@ const EventsPage = () => {
 
   const renderContent = () => {
     switch (selectedItem) {
-      case "Home":
+      case "Events":
         return (
           <>
             {Header}
@@ -159,20 +172,24 @@ const EventsPage = () => {
   };
 
   const handleItemClick = (label: string) => {
-    otherDisclosureItems.onClose();
+    onClose?.();
     setSelectedItem(label);
   };
 
   const handleEventCreation = () => {
     setCreateEvent(true);
-    otherDisclosureItems.onClose();
+    onClose?.();
   };
 
   const SideBarContent = (
-    <EventsPageSideBar
-      onItemClick={handleItemClick}
-      onEventCreation={handleEventCreation}
-      selectedItem={selectedItem}
+    <SideBar
+      Icon={<BiCalendarEvent />}
+      buttonLabel="New Event"
+      items={items}
+      onButtonClick={handleEventCreation}
+      onItemSelect={handleItemClick}
+      pageTitle="events"
+      selectedItemLabel={selectedItem}
     />
   );
 
@@ -239,6 +256,7 @@ const EventsPage = () => {
 
   return (
     <ThreeGridPage
+      onClose={onClose}
       OtherContents={Modals}
       MainContent={isLoading ? <CardSkeletons isLoading /> : Content}
       RightSideBarContent={RightSideBarContent}

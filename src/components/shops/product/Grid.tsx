@@ -44,11 +44,16 @@ const ShopsProductsGrid = ({
 
   if (error) return <ErrorMessage error={error} />;
 
-  if (!paginated.length && !isLoading) return <Info />;
+  if (!paginated.length && !isLoading)
+    return (
+      <Box w="100%" h="100%">
+        <Info />
+      </Box>
+    );
 
   return (
     <>
-      <Grid columns={{ sm: 1, md: 3, lg: 4 }}>
+      <Grid columns={{ sm: 1, md: 3 }}>
         <Skeleton isLoading={isLoading} />
         {paginated.map((product, index) => (
           <ProductDisplayCard

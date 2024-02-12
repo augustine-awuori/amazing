@@ -5,7 +5,14 @@ import { FaLocationArrow } from "react-icons/fa";
 
 import { Footer, Info, Grid, StartChatBtn, Text } from "../components";
 import { paginate } from "../utils/paginate";
-import { useNoGrid, useProducts, useReload, useShop, useShops } from "../hooks";
+import {
+  useCurrentUser,
+  useNoGrid,
+  useProducts,
+  useReload,
+  useShop,
+  useShops,
+} from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
 import { Product } from "../components/shops/product/Card";
@@ -35,6 +42,7 @@ const ShopPage = () => {
   const shopId = useParams().shopId;
   const { isLoading, products, productsCount } = useProducts(shopId);
   const helper = useShops();
+  const isTheShopOwner = useCurrentUser(shop.author._id);
   useNoGrid();
 
   useEffect(() => {
@@ -44,7 +52,7 @@ const ShopPage = () => {
 
     return () => setShop(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products.length, shopId]);
+  }, [products.length, shopId, isTheShopOwner]);
 
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
 

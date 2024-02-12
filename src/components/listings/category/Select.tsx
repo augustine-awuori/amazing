@@ -7,7 +7,7 @@ interface Props {
 }
 
 const CategorySelect = ({ register }: Props) => {
-  const { data: categories } = useCategories();
+  const { categories: categories } = useCategories();
 
   return <Select label="Category" options={categories} register={register} />;
 };
