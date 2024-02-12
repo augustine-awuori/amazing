@@ -64,7 +64,7 @@ export default function WithSubNav({ cartCount, user }: Props) {
         </Flex>
         <Flex align="center" cursor="pointer" onClick={() => navigate("/")}>
           <BsEmojiSmile />
-          {/* <Image src={logo} mr={1.5} w={5} /> */}
+          <Image src={logo} mr={1.5} w={5} />
           <Text
             ml={1}
             color={useColorModeValue("gray.800", "white")}

@@ -106,6 +106,7 @@ const ShopPage = () => {
       />
       {product && (
         <Modal
+          title="Product Image Updater"
           isOpen={showProductDetails}
           content={
             <ProductDetails info={product} onDone={switchShowProductDetails} />
