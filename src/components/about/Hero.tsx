@@ -18,7 +18,11 @@ const HeroSection = () => (
       gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
       alignItems="center"
     >
-      <Box textAlign={{ base: "center", md: "left" }} px={{ md: "1rem" }}>
+      <Box
+        textAlign={{ base: "center", md: "left" }}
+        px={{ md: "1rem" }}
+        pt={{ base: 5, lg: 0 }}
+      >
         <Heading
           as="h1"
           color="white"
@@ -27,10 +31,11 @@ const HeroSection = () => (
           mt={{ base: "8rem" }}
           mb={{ base: 13 }}
         >
-          Unveiling the Business App
+          Your Campus, Your Life
         </Heading>
         <Text fontSize="1.25rem" my={{ base: "3.5rem" }} color="whiteAlpha.700">
-          Discover Your Digital Playground for Campus Commerce
+          Dive into a dynamic community where every aspect of campus life comes
+          alive.
         </Text>
         <Button mb={{ base: "3.5rem" }} />
       </Box>
