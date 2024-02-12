@@ -1,7 +1,9 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { useState } from "react";
+import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { AiFillEdit, AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
+import { BiImageAdd } from "react-icons/bi";
 
-import { Button, Image, Text } from "../../../components";
+import { Button, Image, Modal, Text } from "../../../components";
 import { empty, figure } from "../../../utils";
 import { Product } from "./Card";
 import {
@@ -10,6 +12,8 @@ import {
   useCurrentUser,
   useTimestamp,
 } from "../../../hooks";
+import auth from "../../../services/auth";
+import ImageUpdater from "./ImageUpdater";
 
 interface Props {
   product: Product;
@@ -21,8 +25,10 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
   const { _id, image, price, name, shop, timestamp } = product || empty.product;
   const { accentColor } = useAppColorMode();
   const { tempTimestamp } = useTimestamp(timestamp, true);
+  const [isAddingImage, setAddingImage] = useState(false);
   const cart = useCart();
-  const isTheOwner = useCurrentUser(shop.author);
+  const isAuthorised =
+    useCurrentUser(shop.author) || auth.getCurrentUser()?.isAdmin;
 
   const isAdded = cart.hasProduct(_id);
 
@@ -30,18 +36,27 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
 
   const navigateToShop = () => onClick(shop._id);
 
-  const ComputedButton = isTheOwner ? (
-    <Button
-      backgroundColor={accentColor}
-      borderRadius="30px"
-      color="#fff"
-      leftIcon={<AiFillEdit />}
-      mt={2}
-      onClick={() => onEdit?.()}
-      w="100%"
-    >
-      Edit Product
-    </Button>
+  const ComputedButton = isAuthorised ? (
+    <Flex align="center" justify="space-between" mt={2}>
+      <Button
+        backgroundColor={accentColor}
+        borderRadius="30px"
+        color="#fff"
+        leftIcon={<AiFillEdit />}
+        onClick={() => onEdit?.()}
+        w="100%"
+      >
+        Edit Product
+      </Button>
+      <Box w={3} />
+      <IconButton
+        color="green.400"
+        icon={<BiImageAdd />}
+        borderRadius={15}
+        aria-label="button"
+        onClick={() => setAddingImage(true)}
+      />
+    </Flex>
   ) : (
     <Button
       _active={{ backgroundColor: accentColor, color: "white" }}
@@ -63,6 +78,18 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
 
   return (
     <Flex cursor="pointer" display={{ base: "flex", md: "block" }}>
+      <Modal
+        title="Product Image Updater"
+        isOpen={isAddingImage}
+        content={
+          <ImageUpdater
+            onDone={() => setAddingImage(false)}
+            product={product}
+          />
+        }
+        onModalClose={() => setAddingImage(false)}
+      />
+
       <Image
         _hover={{
           width: { sm: "62%", md: "100%" },
