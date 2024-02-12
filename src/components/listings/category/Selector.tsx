@@ -10,7 +10,7 @@ const CategorySelector = ({
   onSelectCategory,
   selectedCategory,
 }: CategorySelectorProps) => {
-  const { data: categories, error } = useCategories();
+  const { categories: categories, error } = useCategories();
 
   if (error) return null;
 

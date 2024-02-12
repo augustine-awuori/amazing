@@ -15,7 +15,7 @@ const CardSkeletons = ({ isLoading, height, pageSize }: Props) => (
     {isLoading && (
       <>
         {utils.getArrayUpTo(pageSize || 6).map((skeleton) => (
-          <Box mb={4}>
+          <Box mb={4} key={skeleton}>
             <CardContainer key={skeleton}>
               <CardSkeleton height={height} />
             </CardContainer>

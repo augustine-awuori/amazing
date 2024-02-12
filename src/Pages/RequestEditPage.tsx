@@ -15,7 +15,7 @@ const RequestEditPage = () => {
   const [error, setError] = useState("");
   const { errors, handleSubmit, register, reset } = useForm(requestSchema);
   const [isLoading, setLoading] = useState(false);
-  const { data: categories } = useCategories();
+  const { categories: categories } = useCategories();
   const { addRequest } = useRequests();
   const navigate = useNavigate();
   useNoGrid();

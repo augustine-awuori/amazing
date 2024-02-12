@@ -17,6 +17,7 @@ interface Props {
   listings: Listing[];
   selectedCategory: Category | null;
   onListingClick: (listing: Listing) => void;
+  searchQuery?: string;
 }
 
 const ListingGrid = ({
@@ -25,6 +26,7 @@ const ListingGrid = ({
   listings,
   onListingClick,
   selectedCategory,
+  searchQuery,
 }: Props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
@@ -35,31 +37,40 @@ const ListingGrid = ({
       )
     : listings;
 
-  const paginated = paginate<Listing>(filtered, currentPage, pageSize);
+  const queried = searchQuery
+    ? filtered.filter((listing) =>
+        listing.title.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : filtered;
+
+  const paginated = paginate<Listing>(queried, currentPage, pageSize);
 
   if (error) return <ErrorMessage error={error} />;
 
+  if (!paginated.length && !isLoading)
+    return (
+      <Box w="100%" h="100%">
+        <Info show={!isLoading} />
+      </Box>
+    );
+
   return (
     <>
-      <Grid>
+      <Grid columns={{ sm: 1, md: 2 }}>
         <CardSkeletons isLoading={isLoading} />
-        {paginated.length ? (
-          paginated.map((listing) => (
-            <CardContainer key={listing._id}>
-              <ListingCard
-                listing={listing}
-                onClick={() => onListingClick(listing)}
-              />
-            </CardContainer>
-          ))
-        ) : (
-          <Info show={!isLoading} />
-        )}
+        {paginated.map((listing) => (
+          <CardContainer key={listing._id}>
+            <ListingCard
+              listing={listing}
+              onClick={() => onListingClick(listing)}
+            />
+          </CardContainer>
+        ))}
       </Grid>
       <Box mt={5}>
         <Pagination
           currentPage={currentPage}
-          itemsCount={filtered.length}
+          itemsCount={queried.length}
           onPageChange={setCurrentPage}
           pageSize={pageSize}
         />

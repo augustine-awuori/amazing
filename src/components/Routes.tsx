@@ -13,7 +13,6 @@ import { User } from "../hooks/useUser";
 import {
   ListingDetailsPage,
   ListingsPage,
-  RequestDetailsPage,
   RequestEditPage,
   RequestsPage,
   AboutAppPage,
@@ -162,10 +161,6 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
                                                 Component={<ListingsPage />}
                                               />
                                             }
-                                          />
-                                          <Route
-                                            path="requests/:requestId"
-                                            element={<RequestDetailsPage />}
                                           />
                                           <Route
                                             path="requests/new"

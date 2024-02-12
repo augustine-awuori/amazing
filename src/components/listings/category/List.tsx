@@ -3,7 +3,7 @@ import { GridAsideList } from "../../common";
 import useCategories from "../../../hooks/useCategories";
 
 const CategoryList = ({ onSelectCategory, selectedCategory }: Props) => {
-  const { data: categories, error, isLoading } = useCategories();
+  const { categories: categories, error, isLoading } = useCategories();
 
   if (error) return null;
 

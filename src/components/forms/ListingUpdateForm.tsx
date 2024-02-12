@@ -20,7 +20,7 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { errors, handleSubmit, register } = useForm(listingSchema);
-  const { data: categories } = useCategories();
+  const { categories: categories } = useCategories();
   const [title, setTitle] = useState(listing?.title);
   const [price, setPrice] = useState(listing?.price);
   const [description, setDescription] = useState(listing?.description);

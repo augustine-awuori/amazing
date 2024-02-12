@@ -11,7 +11,7 @@ const UpcomingEvents = ({ events }: { events: CreatedEvent[] }) => {
           const turnOuts = event.turnOut.length;
 
           return (
-            <Box mb={2}>
+            <Box mb={2} key={index}>
               <Flex>
                 <Text>{index + 1}. </Text>
                 <Text noOfLines={2}>{event.title}</Text>

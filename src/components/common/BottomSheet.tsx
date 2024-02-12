@@ -1,17 +1,19 @@
 import {
   Modal,
   ModalBody,
+  ModalCloseButton,
   ModalContent,
   ModalOverlay,
-  UseDisclosureProps,
 } from "@chakra-ui/react";
 
-interface Props extends UseDisclosureProps {
+interface Props {
   Content: JSX.Element;
+  isOpen: boolean;
+  onClose?: () => void;
 }
 
 const BottomSheetModal = ({ Content, isOpen, onClose }: Props) => (
-  <Modal isOpen={isOpen ? true : false} onClose={() => onClose?.()} isCentered>
+  <Modal isOpen={isOpen} onClose={() => onClose?.()} isCentered>
     <ModalOverlay />
     <ModalContent
       position="fixed"
@@ -23,6 +25,7 @@ const BottomSheetModal = ({ Content, isOpen, onClose }: Props) => (
       padding={4}
       h="90vh"
     >
+      <ModalCloseButton onClick={() => onClose?.()} />
       <ModalBody pb={5}>{Content}</ModalBody>
     </ModalContent>
   </Modal>

@@ -1,11 +1,39 @@
-import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {
+  Box,
+  IconButton,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
+import { BiCalendarEvent, BiShoppingBag } from "react-icons/bi";
 
 import { fontFamily } from "../../data/typography";
-import { EventsPage, ListingsPage, ShopsPage } from "../../Pages";
+import { EventsPage, ShopsPage } from "../../Pages";
 import useAppColorMode from "../../hooks/useAppColorMode";
 
-const pages = [<ShopsPage />, <ListingsPage />, <EventsPage />];
-const tabs = ["Products", "Listings", "Events"];
+const TabButton = ({ icon }: { icon: JSX.Element }) => (
+  <IconButton
+    color="orange.400"
+    size="sm"
+    bg="inherit"
+    aria-label="icon"
+    icon={icon}
+  />
+);
+
+const pages = [<ShopsPage />, <EventsPage />];
+const tabs = [
+  {
+    label: "Mart",
+    icon: <TabButton icon={<BiShoppingBag />} />,
+  },
+  {
+    label: "Events",
+    icon: <TabButton icon={<BiCalendarEvent />} />,
+  },
+];
 
 const TopBar = () => {
   const { accentColor, color } = useAppColorMode();
@@ -22,9 +50,9 @@ const TopBar = () => {
           p={2}
           pb={0}
         >
-          {tabs.map((tab) => (
-            <Tab key={tab} letterSpacing={1} _active={{ color: accentColor }}>
-              {tab}
+          {tabs.map(({ icon, label }, index) => (
+            <Tab key={index} letterSpacing={1} _active={{ color: accentColor }}>
+              {icon} {label}
             </Tab>
           ))}
         </TabList>

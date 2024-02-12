@@ -7,7 +7,7 @@ import Button from "./HeroButton";
 const HeroSection = () => (
   <Box
     as="section"
-    bg="#000"
+    bg="gray.800"
     color="#7b858b"
     pb={{ base: "8rem", md: "8.5rem" }}
     clipPath="polygon(0% 0%, 100% 0%, 100% 90%, 0% 100%)"

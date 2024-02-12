@@ -15,7 +15,6 @@ export { default as ProfileListingsPage } from "./ProfileListingsPage";
 export { default as ProfilePage } from "./ProfilePage";
 export { default as ProfileRequestsPage } from "./ProfileRequestsPage";
 export { default as RegisterPage } from "./RegisterPage";
-export { default as RequestDetailsPage } from "./RequestDetailsPage";
 export { default as RequestEditPage } from "./RequestEditPage";
 export { default as RequestsPage } from "./RequestsPage";
 export { default as ShopEditPage } from "./ShopEditPage";

@@ -8,9 +8,16 @@ import UserAvatar from "../common/MediaQuery";
 interface Props {
   onClick: (request: Request) => void;
   request: Request;
+  titleNoOfLines?: number;
+  descriptionNoOfLines?: number;
 }
 
-export default function RequestCard({ onClick, request }: Props) {
+export default function RequestCard({
+  onClick,
+  request,
+  descriptionNoOfLines = 2,
+  titleNoOfLines = 1,
+}: Props) {
   const { author, category, description, timestamp, title } = request;
   const { accentColor, isDarkMode } = useAppColorMode();
   const { tempTimestamp } = useTimestamp(timestamp, true);
@@ -26,10 +33,10 @@ export default function RequestCard({ onClick, request }: Props) {
       <Box marginBottom={1.5}>
         <UserAvatar user={author} time={tempTimestamp} />
       </Box>
-      <Text fontWeight="bold" noOfLines={1}>
+      <Text fontWeight="bold" noOfLines={titleNoOfLines}>
         {title}
       </Text>
-      <Text marginBottom={1} noOfLines={2} fontSize="sm">
+      <Text marginBottom={1} noOfLines={descriptionNoOfLines} fontSize="sm">
         {description}
       </Text>
       <Text textAlign="center" color={accentColor} fontSize="sm">

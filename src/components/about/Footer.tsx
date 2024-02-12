@@ -2,7 +2,7 @@ import { Children, ReactNode } from "react";
 import { Box, Link, Grid, Flex, Image, FlexProps } from "@chakra-ui/react";
 
 import Text from "../../components/Text";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/logo.png";
 
 interface Children {
   children: ReactNode;
@@ -38,7 +38,7 @@ interface Data {
 }
 
 const data: Data[] = [
-  { heading: "Company", items: ["BABY Software Co", "Campus Mart LLC"] },
+  { heading: "Company", items: ["BABY Software Co", "Campus Life LLC"] },
   { heading: "Support", items: ["+254 7967 20289", "We Trust In God"] },
   {
     heading: "Domains",
@@ -74,7 +74,7 @@ const Footer = () => (
           marginTop="1rem"
           textAlign="center"
         >
-          &copy; 2023 Campus Mart
+          &copy; 2023 Campus Life
         </Text>
       </Flex>
     </Grid>

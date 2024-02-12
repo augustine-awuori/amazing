@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
-import { Grid, Info, ShopsTypesGridPageContainer } from "../components";
+import { Grid, Info } from "../components";
 import { MediaQueryUser } from "../components/common/MediaQuery";
 import { Pagination } from "../components/common";
 import { Type } from "../hooks/useTypes";
@@ -14,7 +14,7 @@ import useOrders from "../hooks/useOrders";
 const OrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
-  const [selectedType, setSelectedType] = useState<Type | null>(null);
+  const [selectedType] = useState<Type | null>(null);
   const user = auth.getCurrentUser();
   const { isLoading, orders } = useOrders(`${user?._id}`);
   const helper = useOrder();
@@ -37,32 +37,31 @@ const OrdersPage = () => {
 
   if (!user) return <Navigate to="/login" />;
 
-  return (
-    <ShopsTypesGridPageContainer
-      onSelectType={setSelectedType}
-      selectedType={selectedType}
-      gridHeadingLabel="My Orders"
-    >
-      <Grid>
-        {filtered.length ? (
-          filtered.map((order) => {
-            const { _id, products, timestamp } = order;
+  if (!filtered.length)
+    return (
+      <Box h="100%" w="100%">
+        <Info show={!isLoading} />
+      </Box>
+    );
 
-            return (
-              <OrderCard
-                key={_id}
-                count={products.length}
-                name={products[0].name}
-                image={products[0].image}
-                onClick={() => navigateToDetails(order)}
-                user={getUserFrom(order)}
-                timestamp={timestamp}
-              />
-            );
-          })
-        ) : (
-          <Info show={!isLoading} />
-        )}
+  return (
+    <>
+      <Grid>
+        {filtered.map((order) => {
+          const { _id, products, timestamp } = order;
+
+          return (
+            <OrderCard
+              key={_id}
+              count={products.length}
+              name={products[0].name}
+              image={products[0].image}
+              onClick={() => navigateToDetails(order)}
+              user={getUserFrom(order)}
+              timestamp={timestamp}
+            />
+          );
+        })}
       </Grid>
       <Box mt={5}>
         <Pagination
@@ -72,7 +71,7 @@ const OrdersPage = () => {
           pageSize={pageSize}
         />
       </Box>
-    </ShopsTypesGridPageContainer>
+    </>
   );
 };
 
