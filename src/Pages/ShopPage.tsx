@@ -87,7 +87,7 @@ const ShopPage = () => {
   if (!paginated.length && !isLoading) return <Info />;
 
   return (
-    <>
+    <Box px={{ base: 5 }}>
       {shop?._id && (
         <Modal
           isOpen={showProductForm}
@@ -158,7 +158,7 @@ const ShopPage = () => {
           </Footer>
         )}
       </Box>
-    </>
+    </Box>
   );
 };
 
