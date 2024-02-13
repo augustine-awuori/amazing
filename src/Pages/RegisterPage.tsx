@@ -10,29 +10,26 @@ import useForm from "../hooks/useForm";
 
 const schema = z.object({
   name: z.string().min(3, "Name should be between 3 & 100 characters").max(100),
-  username: z
-    .string()
-    .min(3, "Name should be between 3 & 50 characters")
-    .max(50),
   whatsapp: z
     .string()
     .includes("254")
     .min(12, "WhatsApp number doesn't include 254 or is less")
     .max(13),
+  phone: z.string(),
   password: z
     .string()
     .min(6, "Password should be between 6 & 100 characters")
     .max(100),
 });
 
-type FormData = z.infer<typeof schema>;
+export type NewUserData = z.infer<typeof schema>;
 
 const RegisterPage = () => {
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
   const { errors, handleSubmit, register } = useForm(schema);
 
-  const registerUser = async (info: FormData) => {
+  const registerUser = async (info: NewUserData) => {
     if (error) setError("");
 
     setLoading(true);
@@ -48,7 +45,8 @@ const RegisterPage = () => {
     if (jwt) authApi.loginWithJwt(jwt);
   };
 
-  const doSubmit = async (info: FormData) => {
+  const doSubmit = async (info: NewUserData) => {
+    setError("");
     const { data, headers, ok, problem } = await registerUser(info);
 
     if (!ok) return setError((data as DataError)?.error || problem);
@@ -69,14 +67,9 @@ const RegisterPage = () => {
     >
       <FormField
         error={errors.name}
-        label="Individual Name"
+        label="Full Name"
+        placeholder="Stacy Kim"
         name="name"
-        register={register}
-      />
-      <FormField
-        error={errors.username}
-        label="Username (for signing in)"
-        name="username"
         register={register}
       />
       <FormField
@@ -85,6 +78,14 @@ const RegisterPage = () => {
         placeholder="254"
         register={register}
         name="whatsapp"
+        type="number"
+      />
+      <FormField
+        error={errors.phone}
+        label="Other Phone Number"
+        placeholder="07"
+        register={register}
+        name="phone"
         type="number"
       />
       <FormField

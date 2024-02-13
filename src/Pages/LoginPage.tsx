@@ -59,7 +59,12 @@ const LoginPage = () => {
       title="Login"
       error={error}
     >
-      <FormField error={errors.username} label="Username" register={register} />
+      <FormField
+        error={errors.username}
+        label="Username"
+        register={register}
+        placeholder="stacykim"
+      />
       <FormField
         error={errors.password}
         label="Password"
