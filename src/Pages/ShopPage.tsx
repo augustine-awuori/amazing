@@ -77,11 +77,6 @@ const ShopPage = () => {
     setShowProductEditForm(true);
   };
 
-  const handleProductClick = (product: Product) => {
-    setProduct(product);
-    switchShowProductDetails();
-  };
-
   const FooterInfo = (
     <HStack>
       <FaLocationArrow />
@@ -114,7 +109,7 @@ const ShopPage = () => {
       />
       {product && (
         <Modal
-          title="Product Image Updater"
+          title="Product Viewer"
           isOpen={showProductDetails}
           content={
             <ProductDetails info={product} onDone={switchShowProductDetails} />
@@ -142,7 +137,6 @@ const ShopPage = () => {
             <DisplayCard
               key={index}
               product={product}
-              onClick={() => handleProductClick(product)}
               onEdit={() => handleEdit(product)}
             />
           ))}

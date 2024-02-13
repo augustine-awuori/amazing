@@ -28,6 +28,7 @@ import {
 import { Category } from "../hooks/useCategories";
 import { GridAsideList, Modal } from "../components/common";
 import { ListingsPage, RequestsPage } from "./";
+import { ShopSelectors } from "../components/listings";
 import { SideBarItem } from "../components/SideBar";
 import { useCategories, useProducts, useShops } from "../hooks";
 import MyOrdersPage from "./MyOrdersPage";
@@ -36,7 +37,6 @@ import ShowSelector from "../components/shops/ShowSelector";
 import ThreeGridPage from "./ThreeGridPage";
 import useShop, { Shop } from "../hooks/useShop";
 import useTypes, { Type } from "../hooks/useTypes";
-import { ShopSelectors } from "../components/listings";
 
 const items: SideBarItem[] = [
   { icon: <BiHomeAlt />, label: "Products" },
@@ -172,7 +172,6 @@ const ShopsPage = () => {
           currentPage={productsCurrentPage}
           error=""
           isLoading={productsLoading}
-          onClick={navigate}
           pageSize={pageSize}
           products={products}
           selectedType={selectedType}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Box, Flex, IconButton } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 import { AiFillEdit, AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
 import { BiImageAdd } from "react-icons/bi";
 
@@ -14,18 +15,20 @@ import {
 } from "../../../hooks";
 import auth from "../../../services/auth";
 import ImageUpdater from "./ImageUpdater";
+import ProductDetails from "./Details";
 
 interface Props {
   product: Product;
-  onClick: (shopId: string) => void;
   onEdit?: () => void;
 }
 
-const DisplayCard = ({ product, onClick, onEdit }: Props) => {
+const DisplayCard = ({ product, onEdit }: Props) => {
   const { _id, image, price, name, shop, timestamp } = product || empty.product;
   const { accentColor } = useAppColorMode();
   const { tempTimestamp } = useTimestamp(timestamp, true);
   const [isAddingImage, setAddingImage] = useState(false);
+  const [showProductDetails, setShowProductDetails] = useState(false);
+  const navigate = useNavigate();
   const cart = useCart();
   const isAuthorised =
     useCurrentUser(shop.author) || auth.getCurrentUser()?.isAdmin;
@@ -33,8 +36,6 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
   const isAdded = cart.hasProduct(_id);
 
   const handleClick = () => (isAdded ? cart.remove(_id) : cart.add(_id));
-
-  const navigateToShop = () => onClick(shop._id);
 
   const ComputedButton = isAuthorised ? (
     <Flex align="center" justify="space-between" mt={2}>
@@ -77,7 +78,25 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
   );
 
   return (
-    <Flex cursor="pointer" display={{ base: "flex", md: "block" }}>
+    <Flex
+      cursor="pointer"
+      display={{ base: "flex", md: "block" }}
+      onClick={() => setShowProductDetails(true)}
+    >
+      <Modal
+        title="Product Viewer"
+        isOpen={showProductDetails}
+        content={
+          <ProductDetails
+            info={product}
+            onDone={() => setShowProductDetails(false)}
+          />
+        }
+        onModalClose={() => setShowProductDetails(false)}
+        primaryBtnLabel="View Shop"
+        onPrimaryClick={() => navigate(`/shops/${product.shop._id}`)}
+      />
+
       <Modal
         title="Product Image Updater"
         isOpen={isAddingImage}
@@ -101,7 +120,6 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
         h={{ base: "8rem", md: "9.5rem" }}
         mr={{ base: 3, md: 5 }}
         objectFit="cover"
-        onClick={navigateToShop}
         src={image}
         transition="all 0.3s"
         w={{ sm: "60%", base: "70%", md: "100%" }}
@@ -112,12 +130,11 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
           fontWeight="extrabold"
           letterSpacing="1px"
           noOfLines={{ base: 2, md: 1 }}
-          onClick={navigateToShop}
           textTransform="capitalize"
         >
           {name}
         </Text>
-        <Flex justify="space-between" onClick={navigateToShop}>
+        <Flex justify="space-between">
           <Text color={accentColor} noOfLines={1}>
             Ksh {figure.addComma(price)}
           </Text>
@@ -130,7 +147,6 @@ const DisplayCard = ({ product, onClick, onEdit }: Props) => {
           color="gray.500"
           display={{ sm: "block", md: "none" }}
           noOfLines={1}
-          onClick={navigateToShop}
           textTransform="capitalize"
           transition="color 0.3s"
         >

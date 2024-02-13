@@ -13,7 +13,6 @@ import ProductDisplayCard from "./DisplayCard";
 interface Props extends PaginationProps {
   error: string | undefined;
   isLoading: boolean;
-  onClick: (shopId: string) => void;
   selectedType: Type | null;
   products: Product[];
   query?: string;
@@ -23,7 +22,6 @@ const ShopsProductsGrid = ({
   currentPage,
   error,
   isLoading,
-  onClick,
   onPageChange,
   pageSize,
   products,
@@ -56,11 +54,7 @@ const ShopsProductsGrid = ({
       <Grid columns={{ sm: 1, md: 3 }}>
         <Skeleton isLoading={isLoading} />
         {paginated.map((product, index) => (
-          <ProductDisplayCard
-            key={product._id + index}
-            product={product}
-            onClick={() => onClick(product.shop._id)}
-          />
+          <ProductDisplayCard key={product._id + index} product={product} />
         ))}
       </Grid>
       <Box mt={5}>
