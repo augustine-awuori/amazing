@@ -37,7 +37,6 @@ const ShopOrderPage = () => {
             currentPage={currentPage}
             error=""
             isLoading={isLoading}
-            onClick={() => {}}
             onPageChange={setCurrentPage}
             pageSize={pageSize}
             products={products || []}
