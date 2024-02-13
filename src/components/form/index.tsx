@@ -2,8 +2,9 @@ import { ReactNode, useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 
 import { FormHandleSubmit } from "../../hooks/useForm";
-import { Modal, PageContainer, Text } from "../";
 import { getLastWord } from "../../utils/format";
+import { Modal, Text } from "../";
+import { useNoGrid } from "../../hooks";
 import ErrorMessage from "./ErrorMessage";
 
 interface Props {
@@ -27,13 +28,12 @@ const Form = ({
   usePageContainer = true,
 }: Props) => {
   const [showExplanation, setExplanation] = useState(false);
-
-  const Container = usePageContainer ? PageContainer : Box;
+  useNoGrid();
 
   const handleModalVisibility = () => setExplanation(!showExplanation);
 
   return (
-    <Container>
+    <Box pt={usePageContainer ? 15 : 0} px={{ base: 5 }}>
       <Modal
         content={explanation}
         isOpen={showExplanation}
@@ -71,7 +71,7 @@ const Form = ({
           {children}
         </form>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

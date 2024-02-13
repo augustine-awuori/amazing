@@ -7,6 +7,7 @@ import { getControls } from "../../data/userControls";
 import { Item } from "../../components/common/Selector";
 import { MediaQueryUser } from "../../components/common/MediaQuery";
 import { useAppColorMode } from "../../hooks";
+import auth from "../../services/auth";
 import empty from "../../utils/empty";
 import MenuList from "../common/SelectorMenuList";
 
@@ -46,7 +47,9 @@ const UserButton = ({ user }: Props) => {
   return (
     <Menu>
       <Modal
-        content="Are you sure you want to sign out?"
+        content={`Are you sure you want to sign out? \nPlease remember your username "${
+          auth.getCurrentUser()?.username
+        }" Use it to login in next time, without the @ sign`}
         isOpen={showLogoutPrompt}
         onModalClose={handleModalClose}
         title="Signing Out ..."
