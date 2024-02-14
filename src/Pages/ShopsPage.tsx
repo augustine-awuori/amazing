@@ -17,6 +17,7 @@ import {
   BiReceipt,
   BiShoppingBag,
 } from "react-icons/bi";
+import { AiFillEdit, AiOutlineLogin } from "react-icons/ai";
 
 import { Item } from "../components/common/Selector";
 import {
@@ -24,6 +25,7 @@ import {
   ShopsGrid,
   CategorySelector,
   SideBar,
+  Text,
 } from "../components";
 import { Category } from "../hooks/useCategories";
 import { GridAsideList, Modal } from "../components/common";
@@ -31,6 +33,7 @@ import { ListingsPage, RequestsPage } from "./";
 import { ShopSelectors } from "../components/listings";
 import { SideBarItem } from "../components/SideBar";
 import { useCategories, useProducts, useShops } from "../hooks";
+import auth from "../services/auth";
 import MyOrdersPage from "./MyOrdersPage";
 import ShopsProductsGrid from "../components/shops/product/Grid";
 import ShowSelector from "../components/shops/ShowSelector";
@@ -68,6 +71,7 @@ const ShopsPage = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
   const [selectedShopId, setSelectedShopId] = useState("");
   const [selectShop, setSelectShop] = useState(false);
+  const [authRequested, setAuthRequest] = useState(false);
 
   useEffect(() => {
     setContent(renderContent());
@@ -273,12 +277,15 @@ const ShopsPage = () => {
       ? navigate(selectedShopId)
       : toast.info("Plese select a shop or create a new one");
 
+  const handleProductCreation = () =>
+    auth.getCurrentUser() ? setSelectShop(true) : setAuthRequest(true);
+
   const AppSideBar = (
     <SideBar
       Icon={<BiShoppingBag />}
       buttonLabel="New Product"
       items={items}
-      onButtonClick={() => setSelectShop(true)}
+      onButtonClick={handleProductCreation}
       onItemSelect={handleSideItemSelect}
       pageTitle="mart"
       selectedItemLabel={selectedSideItem}
@@ -296,23 +303,42 @@ const ShopsPage = () => {
   );
 
   const OtherComponents = (
-    <Modal
-      content={
-        <ShopSelectors
-          onShopSelect={setSelectedShopId}
-          selectedShop={selectedShopId}
-        />
-      }
-      isOpen={selectShop}
-      onModalClose={() => setSelectShop(false)}
-      title="To Which Shop?"
-      primaryBtnLabel="Select"
-      secondaryBtnLabel="Create New"
-      SecondaryLeftIcon={<BiPlusCircle />}
-      onPrimaryClick={handleShopSelection}
-      onSecondaryClick={() => navigate("new")}
-      subTitle="Select Shop"
-    />
+    <>
+      <Modal
+        content={
+          <Text>
+            Others need to know who the product belongs to. This is 'cause they
+            need to to contact you.
+          </Text>
+        }
+        isOpen={authRequested}
+        onModalClose={() => setAuthRequest(false)}
+        title="You're not logged in"
+        primaryBtnLabel="Sign In"
+        PrimaryLeftIcon={<AiOutlineLogin />}
+        secondaryBtnLabel="Sign Up"
+        SecondaryLeftIcon={<AiFillEdit />}
+        onPrimaryClick={() => navigate("/login")}
+        onSecondaryClick={() => navigate("/register")}
+      />
+      <Modal
+        content={
+          <ShopSelectors
+            onShopSelect={setSelectedShopId}
+            selectedShop={selectedShopId}
+          />
+        }
+        isOpen={selectShop}
+        onModalClose={() => setSelectShop(false)}
+        title="To Which Shop?"
+        primaryBtnLabel="Select"
+        secondaryBtnLabel="Create New"
+        SecondaryLeftIcon={<BiPlusCircle />}
+        onPrimaryClick={handleShopSelection}
+        onSecondaryClick={() => navigate("new")}
+        subTitle="Select Shop"
+      />
+    </>
   );
 
   return (

@@ -23,6 +23,7 @@ interface Props {
   isLoading?: boolean | undefined;
   content: ReactNode;
   primaryBtnLabel?: string;
+  PrimaryLeftIcon?: JSX.Element;
   secondaryBtnLabel?: string;
   SecondaryLeftIcon?: JSX.Element;
   onPrimaryClick?: () => void;
@@ -38,6 +39,7 @@ function AppModal({
   onPrimaryClick,
   onSecondaryClick,
   primaryBtnLabel,
+  PrimaryLeftIcon,
   secondaryBtnLabel,
   SecondaryLeftIcon,
   subTitle,
@@ -102,7 +104,7 @@ function AppModal({
               isLoading={isLoading}
               mr={3}
               onClick={handlePrimaryClick}
-              leftIcon={<CheckIcon />}
+              leftIcon={PrimaryLeftIcon || <CheckIcon />}
               type="submit"
               w="100%"
             >
