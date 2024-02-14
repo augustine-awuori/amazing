@@ -9,7 +9,7 @@ import apiClient from "../services/client";
 const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig) => {
   const [data, setData] = useState<T[]>([]);
   const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
     const controller = new AbortController();

@@ -42,7 +42,7 @@ const ShopPage = () => {
   const shopId = useParams().shopId;
   const { isLoading, products, productsCount } = useProducts(shopId);
   const helper = useShops();
-  const isTheShopOwner = useCurrentUser(shop.author._id);
+  const isTheShopOwner = useCurrentUser(shop.author?._id);
   useNoGrid();
 
   useEffect(() => {

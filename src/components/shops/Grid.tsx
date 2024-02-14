@@ -44,17 +44,19 @@ const ShopsGrid = ({
 
   if (error) return <ErrorMessage error={error} />;
 
-  if (!paginated.length && !isLoading) return <Info show={!isLoading} />;
-
   return (
     <>
       <Grid columns={{ sm: 1, md: 2 }}>
         <CardSkeletons isLoading={isLoading} pageSize={pageSize} />
-        {paginated.map((shop) => (
-          <CardContainer key={shop._id}>
-            <ShopCard shop={shop} onClick={() => onShopClick(shop)} />
-          </CardContainer>
-        ))}
+        {paginated.length ? (
+          paginated.map((shop) => (
+            <CardContainer key={shop._id}>
+              <ShopCard shop={shop} onClick={() => onShopClick(shop)} />
+            </CardContainer>
+          ))
+        ) : (
+          <Info show={!isLoading} />
+        )}
       </Grid>
       <Box mt={5}>
         <Pagination
