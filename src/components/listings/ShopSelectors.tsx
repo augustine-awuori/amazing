@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Flex, Spinner } from "@chakra-ui/react";
+import { Flex, Spinner } from "@chakra-ui/react";
 import { AiOutlineWarning } from "react-icons/ai";
 
 import { SearchInput, Text } from "../../components";
@@ -37,34 +37,31 @@ const ShopSelectors = ({ onShopSelect, selectedShop }: Props) => {
       </Flex>
     );
 
-  if (!filtered.length)
-    return (
-      <Flex align="center" justify="center">
-        <AiOutlineWarning />
-        <Text ml={1} textAlign="center" color="yellow.300">
-          Shops not found!
-        </Text>
-      </Flex>
-    );
-
   return (
-    <Box>
+    <>
       <SearchInput
         onTextChange={setQuery}
         placeholder="Search Shop"
         value={query}
       />
-      <Box>
-        {filtered.map((shop, index) => (
+      {filtered.length ? (
+        filtered.map((shop, index) => (
           <ShopSelector
             key={index}
             onClick={() => onShopSelect(shop._id)}
             selected={selectedShop === shop._id}
             shop={shop}
           />
-        ))}
-      </Box>
-    </Box>
+        ))
+      ) : (
+        <Flex align="center" justify="center">
+          <AiOutlineWarning />
+          <Text ml={1} textAlign="center" color="yellow.300">
+            None found!
+          </Text>
+        </Flex>
+      )}
+    </>
   );
 };
 
