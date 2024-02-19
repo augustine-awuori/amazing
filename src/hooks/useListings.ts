@@ -1,7 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { endpoint } from "../services/listings";
+import { getCacheData } from "../services/client";
 import { Listing } from "./useListing";
 import ListingsContext from "../contexts/ListingsContext";
 import service from "../services/listings";
@@ -9,13 +10,26 @@ import storage from "../utils/storage";
 import useData from "./useData";
 
 const useListings = () => {
-  const { data, error, isLoading } = useData<Listing>(endpoint);
+  const { data, error, ...rest } = useData<Listing>(endpoint);
   const { setListings } = useContext(ListingsContext);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    setListings(data);
+    rest.isLoading ? preLoadListings() : initListings();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data?.length]);
+
+  function initListings() {
+    setLoading(true);
+    setListings(data);
+    setLoading(false);
+  }
+
+  async function preLoadListings() {
+    setLoading(true);
+    setListings(await getCacheData<Listing>(endpoint));
+    setLoading(false);
+  }
 
   const updateListing = (listing: Listing) =>
     setListings(

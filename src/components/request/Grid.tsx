@@ -5,7 +5,7 @@ import { CardContainer, CardSkeletons } from "../card";
 import { Category } from "../../hooks/useCategories";
 import { paginate } from "../../utils/paginate";
 import { Request } from "../../hooks/useRequest";
-import { Info, Text } from "../../components";
+import { Text } from "../../components";
 import Grid from "../grid";
 import Pagination from "../common/Pagination";
 import RequestCard from "./Card";
@@ -45,13 +45,6 @@ const RequestGrid = ({
   const paginated = paginate<Request>(queried, currentPage, pageSize);
 
   if (error) return <Text>{error}</Text>;
-
-  if (!paginated.length && !isLoading)
-    return (
-      <Box w="100%" h="100%">
-        <Info show={!isLoading} />
-      </Box>
-    );
 
   return (
     <>

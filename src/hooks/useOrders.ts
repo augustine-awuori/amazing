@@ -24,7 +24,7 @@ const useOrders = (targetUrl?: string) => {
   useEffect(() => {
     if (!error) setOrders(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetUrl, isLoading]);
+  }, [targetUrl, data?.length]);
 
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,

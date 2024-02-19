@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { DataError } from "../services/client";
+import { DataError, getCacheData } from "../services/client";
 import { NewShop, Shop } from "./useShop";
 import { ShopFormData } from "../data/schemas";
 import cache from "../utils/cache";
@@ -11,13 +11,26 @@ import useData from "./useData";
 import storage from "../utils/storage";
 
 const useShops = () => {
-  const { data, error, isLoading } = useData<Shop>(endpoint);
+  const { data, error, ...rest } = useData<Shop>(endpoint);
   const { setShops, shops } = useContext(ShopsContext);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!error) setShops(data);
+    rest.isLoading ? preLoadShops() : initShops();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [data?.length]);
+
+  function initShops() {
+    setLoading(true);
+    setShops(error ? [] : data);
+    setLoading(false);
+  }
+
+  async function preLoadShops() {
+    setLoading(true);
+    if (rest.isLoading) setShops(await getCacheData<Shop>(endpoint));
+    setLoading(false);
+  }
 
   const getShops = () => (error ? [] : data);
 

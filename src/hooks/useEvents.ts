@@ -1,8 +1,8 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ApiResponse } from "apisauce";
 
-import { DataError } from "../services/client";
+import { DataError, getCacheData } from "../services/client";
 import { EventsContext } from "../contexts";
 import { EventFormDataWithDates } from "../data/schemas";
 import service, { CreatedEvent, endpoint } from "../services/events";
@@ -12,11 +12,26 @@ import useData from "./useData";
 const useEvents = () => {
   const { data, ...rest } = useData<CreatedEvent>(endpoint);
   const { events, setEvents } = useContext(EventsContext);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    setEvents(data);
+    rest.isLoading ? preLoadEvents() : initEvents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.length]);
+
+  function initEvents() {
+    setLoading(true);
+    setEvents(data);
+    setLoading(false);
+  }
+
+  async function preLoadEvents() {
+    setLoading(true);
+    const data = await getCacheData<CreatedEvent>(endpoint);
+    setLoading(false);
+
+    setEvents(data);
+  }
 
   const addEvent = (event: CreatedEvent) => setEvents([event, ...data]);
 
@@ -67,7 +82,8 @@ const useEvents = () => {
     deleteEvent,
     events: data || events,
     updateEvent,
-    ...rest,
+    error: rest.error,
+    isLoading,
     setEvents,
   };
 };

@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { DataError } from "../services/client";
+import { DataError, getCacheData } from "../services/client";
 import { endpoint, NewProduct } from "../services/products";
 import { Product } from "../components/shops/product/Card";
 import { ProductFormData } from "../data/schemas";
@@ -11,15 +11,28 @@ import storage from "../utils/storage";
 import useData from "./useData";
 
 const useProducts = (shopId: string | undefined) => {
-  const { data, error, isLoading } = useData<Product>(getApiEndpoint());
+  const { data, error, ...rest } = useData<Product>(getApiEndpoint());
   const { products, setProducts } = useContext(ProductsContext);
+  const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (products.length === data?.length) return;
-
-    if (!error && shopId) setProducts(mapQuantity(data));
+    rest.isLoading ? preLoadProducts() : initProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shopId, products.length]);
+  }, [shopId, products.length, data?.length]);
+
+  function initProducts() {
+    setLoading(true);
+    const res = !error && shopId ? data : [];
+    setProducts(mapQuantity(res));
+    setLoading(false);
+  }
+
+  async function preLoadProducts() {
+    setLoading(true);
+    const data = mapQuantity(await getCacheData<Product>(getApiEndpoint()));
+    setProducts(data);
+    setLoading(false);
+  }
 
   function mapQuantity(products: Product[]): Product[] {
     return products.map((p) => ({ ...p, quantity: 0 }));
@@ -88,7 +101,7 @@ const useProducts = (shopId: string | undefined) => {
   };
 
   const getProducts = () => {
-    if (error || (data as DataError)?.error || isLoading) return [];
+    if (error || (data as DataError)?.error || rest.isLoading) return [];
 
     return mapQuantity(data);
   };

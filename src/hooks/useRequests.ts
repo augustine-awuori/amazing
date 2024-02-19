@@ -1,7 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { DataError } from "../services/client";
+import { DataError, getCacheData } from "../services/client";
 import { endpoint } from "../services/requests";
 import { Request } from "./useRequest";
 import RequestsContext from "../contexts/RequestsContext";
@@ -9,16 +9,29 @@ import requestsService from "../services/requests";
 import useData from "./useData";
 
 const useRequests = () => {
-  const { data, error, isLoading } = useData<Request>(endpoint);
+  const { data, error, ...rest } = useData<Request>(endpoint);
   const context = useContext(RequestsContext);
+  const [isLoading, setLoading] = useState(true);
 
   const requests = context?.requests || data || [];
   const setRequests = context?.setRequests;
 
   useEffect(() => {
-    setRequests(data);
+    rest.isLoading ? preLoadRequests() : initRequests();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.length]);
+
+  function initRequests() {
+    setLoading(true);
+    setRequests(data);
+    setLoading(false);
+  }
+
+  async function preLoadRequests() {
+    setLoading(true);
+    setRequests(await getCacheData<Request>(endpoint));
+    setLoading(false);
+  }
 
   const addRequest = (request: Request) => setRequests([request, ...requests]);
 

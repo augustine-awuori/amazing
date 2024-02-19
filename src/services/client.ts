@@ -31,9 +31,13 @@ apiClient.get = async <T, U>(
     return response as ApiResponse<T, U>;
   }
 
-  const data = await cache.get(url);
+  const data = await getCacheData<T>(url);
   return (data ? { ok: true, data } : response) as ApiResponse<T, U>;
 };
+
+export async function getCacheData<T>(url: string) {
+  return ((await cache.get(url)) || []) as T[];
+}
 
 export interface DataError {
   error?: string;
