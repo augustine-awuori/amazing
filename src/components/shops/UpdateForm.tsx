@@ -6,7 +6,7 @@ import {
   TextAreaField as LocationField,
   SubmitButton,
 } from "../../components/form/index.ts";
-import { ShopFormData, shopSchema } from "../../data/schemas";
+import { shopSchema } from "../../data/schemas";
 import { Text } from "../../components/index.ts";
 import { useForm, useImages, useShop, useShops } from "../../hooks";
 import Selector from "../../components/forms/FormShopTypeSelector";
@@ -15,6 +15,10 @@ import ImageInputList from "../../components/common/ImageInputList.tsx";
 
 interface Props {
   onDone: () => void;
+}
+
+export interface UpdateShop extends FormData {
+  image: string;
 }
 
 const ShopUpdateForm = ({ onDone }: Props) => {
@@ -27,7 +31,7 @@ const ShopUpdateForm = ({ onDone }: Props) => {
   const [location, setLocation] = useState(shop?.location);
   const { images } = useImages(1);
 
-  const doSubmit = async (shopInfo: ShopFormData) => {
+  const doSubmit = async (shopInfo: UpdateShop) => {
     if (error) setError("");
     if (!shop?._id) return setError("App Error");
 

@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import { DataError, getCacheData } from "../services/client";
 import { NewShop, Shop } from "./useShop";
-import { ShopFormData } from "../data/schemas";
+import { UpdateShop } from "../components/shops/UpdateForm";
 import cache from "../utils/cache";
 import service, { endpoint } from "../services/shops";
 import ShopsContext from "../contexts/ShopsContext";
@@ -70,7 +70,7 @@ const useShops = () => {
   const updateShop = (shop: Shop) =>
     setShops(shops.map((s) => (s._id === shop._id ? shop : s)));
 
-  const update = async (shop: ShopFormData, shopId: string) => {
+  const update = async (shop: UpdateShop, shopId: string) => {
     const { data, ok, problem } = await service.update(shop, shopId);
 
     if (!ok) toast.error("Shop update failed!");
