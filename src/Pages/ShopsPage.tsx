@@ -40,6 +40,7 @@ import ShowSelector from "../components/shops/ShowSelector";
 import ThreeGridPage from "./ThreeGridPage";
 import useShop, { Shop } from "../hooks/useShop";
 import useTypes, { Type } from "../hooks/useTypes";
+import func from "../utils/funcs";
 
 const items: SideBarItem[] = [
   { icon: <BiHomeAlt />, label: "Products" },
@@ -280,12 +281,19 @@ const ShopsPage = () => {
   const handleProductCreation = () =>
     auth.getCurrentUser() ? setSelectShop(true) : setAuthRequest(true);
 
+  const handleItemCreation = () => {
+    if (selectedSideItem === "Products") return handleProductCreation();
+    if (selectedSideItem === "Requests") return navigate("/requests/new");
+    if (selectedSideItem === "Listings") return navigate("/listings/new");
+    toast.info("Add products to cart to order");
+  };
+
   const AppSideBar = (
     <SideBar
       Icon={<BiShoppingBag />}
-      buttonLabel="New Product"
+      buttonLabel={`New ${func.removeLastChar(selectedSideItem)}`}
       items={items}
-      onButtonClick={handleProductCreation}
+      onButtonClick={handleItemCreation}
       onItemSelect={handleSideItemSelect}
       pageTitle="mart"
       selectedItemLabel={selectedSideItem}

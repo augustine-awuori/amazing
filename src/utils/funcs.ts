@@ -8,4 +8,12 @@ function isOdd(number: number): boolean {
   return number % 2 !== 0;
 }
 
-export default { navTo, isOdd };
+function removeLastChar(plural: string): string {
+  let result = "";
+
+  for (let i = 0; i < plural.length - 1; i++) result += plural.charAt(i);
+
+  return result;
+}
+
+export default { navTo, isOdd, removeLastChar };
