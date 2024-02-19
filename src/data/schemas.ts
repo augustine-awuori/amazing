@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 export const shopSchema = z.object({
-  image: z.string(),
   name: z.string().min(3, "Name should be between 3 & 50 chars").max(50),
   location: z
     .string()
