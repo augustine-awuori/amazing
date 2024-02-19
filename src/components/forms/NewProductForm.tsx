@@ -46,7 +46,7 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
     const { error: message, ok } = await products.create(shop);
     setLoading(false);
     if (!ok) {
-      storage.deleteImage(shop.image);
+      await storage.deleteImage(shop.image);
       return setError(message);
     }
 

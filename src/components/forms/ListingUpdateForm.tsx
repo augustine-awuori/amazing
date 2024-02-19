@@ -51,7 +51,7 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
     if (!ok) {
       const error = (data as DataError)?.error;
       toast.error(`Listing update failed!`);
-      if (imagesUrl) storage.deleteImages(imagesUrl);
+      if (imagesUrl) await storage.deleteImages(imagesUrl);
       return setError(error || problem);
     }
 

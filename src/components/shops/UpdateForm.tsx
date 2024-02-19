@@ -47,7 +47,7 @@ const ShopUpdateForm = ({ onDone }: Props) => {
     if (res.ok) onDone();
     else {
       setError(res.error);
-      if (imageUrl) storage.deleteImage(imageUrl);
+      if (imageUrl) await storage.deleteImage(imageUrl);
     }
   };
 

@@ -65,7 +65,7 @@ const EventEditForm = ({ event, onDone }: Props) => {
       helper.addEvent(data as CreatedEvent);
     } else {
       setError((data as DataError)?.error || "Something went wrong");
-      storage.deleteImage(imageURL);
+      await storage.deleteImage(imageURL);
     }
   };
 

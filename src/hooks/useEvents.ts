@@ -48,7 +48,7 @@ const useEvents = () => {
 
     if (ok) {
       toast.success("Event deleted succcessfully");
-      storage.deleteImage(event.image);
+      await storage.deleteImage(event.image);
       onDone?.();
     } else {
       setEvents(previous);

@@ -32,7 +32,7 @@ const ImageUpdater = ({ onDone, product }: Props) => {
     const res = await helper.updateProductImage(product._id, newImageUrl);
 
     setProgress("Deleting unused image");
-    storage.deleteImage(res.ok ? product.image : newImageUrl);
+    await storage.deleteImage(res.ok ? product.image : newImageUrl);
     setSaving(false);
 
     return res;

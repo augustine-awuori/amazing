@@ -93,7 +93,7 @@ const useProducts = (shopId: string | undefined) => {
       toast.error("Product deletion terminated unsuccessfully!");
       error = (data as DataError)?.error || problem;
     } else {
-      if (found) storage.deleteImage(found.image);
+      if (found) await storage.deleteImage(found.image);
       toast("Product deleted succesfully!");
     }
 

@@ -55,7 +55,7 @@ const useListings = () => {
 
     const { ok } = await service.deleteListing(listingId);
     if (ok) {
-      if (found) storage.deleteImages(found.images);
+      if (found) await storage.deleteImages(found.images);
       return toast.done("Listing deleted successfully");
     }
 

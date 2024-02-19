@@ -59,8 +59,8 @@ const useShops = () => {
 
     if (ok) {
       toast.success("Shop deleted successfully");
-      shops.forEach((shop) => {
-        if (shop._id === shopId) storage.deleteImage(shop.image);
+      shops.forEach(async (shop) => {
+        if (shop._id === shopId) await storage.deleteImage(shop.image);
       });
     } else toast.error((data as DataError).error || problem);
 
