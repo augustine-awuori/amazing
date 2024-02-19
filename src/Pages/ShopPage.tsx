@@ -3,7 +3,7 @@ import { Box, HStack } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
 import { FaLocationArrow } from "react-icons/fa";
 
-import { Footer, Info, Grid, StartChatBtn, Text } from "../components";
+import { Footer, Grid, StartChatBtn, Text } from "../components";
 import { paginate } from "../utils/paginate";
 import {
   useCurrentUser,
@@ -83,8 +83,6 @@ const ShopPage = () => {
       <Text color="whiteAlpha.500">{shop.location || "Main Campus Area"}</Text>
     </HStack>
   );
-
-  if (!paginated.length && !isLoading) return <Info />;
 
   return (
     <Box px={{ base: 5 }}>
