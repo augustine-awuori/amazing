@@ -93,7 +93,7 @@ const FeaturesSection = () => (
         mb={5}
         textAlign="center"
       >
-        The Magic of Campus Mart
+        The Magic of Amazing
       </Heading>
       <Text color="gray.500" textAlign="center">
         How much can you show with a single glance? Can you risk it all on a

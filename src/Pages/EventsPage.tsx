@@ -67,7 +67,7 @@ const EventsPage = () => {
         <SearchInput
           onTextChange={setQuery}
           value={query}
-          placeholder="Search Campus Events"
+          placeholder="Search Amazing Events"
         />
       </Box>
       <IconButton

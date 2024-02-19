@@ -21,9 +21,8 @@ const Callout = () => (
           What's It All About?
         </Heading>
         <Text color="#fff" fontSize="1.2rem">
-          Campus Life's mission: digitally weave hearts, minds, and campuses.
-          Join our tech-driven journey—click the button and unite with our
-          vision.
+          Amazing's mission: digitally weave hearts, minds, and campuses. Join
+          our tech-driven journey—click the button and unite with our vision.
         </Text>
       </Box>
       <StartChatBtn phoneNumber={APP_PHONE_NUMBER} />

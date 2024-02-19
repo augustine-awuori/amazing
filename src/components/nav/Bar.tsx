@@ -17,7 +17,7 @@ interface Props {
 }
 
 export default function WithSubNav({ cartCount, user }: Props) {
-  const { accentColor, color } = useAppColorMode();
+  const { color } = useAppColorMode();
   const navigate = useNavigate();
 
   return (
@@ -64,10 +64,7 @@ export default function WithSubNav({ cartCount, user }: Props) {
             fontWeight="bold"
             fontSize={18}
           >
-            Campus
-          </Text>
-          <Text fontWeight="extrabold" fontSize={18} color={accentColor}>
-            Life
+            Amazing
           </Text>
         </Flex>
 

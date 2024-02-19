@@ -41,7 +41,7 @@ const SideBar = ({
               color={isDarkMode ? "inherit" : "gray.900"}
               fontWeight="extrabold"
             >
-              campus
+              amazing
             </Text>
             <Text
               fontWeight="extrabold"

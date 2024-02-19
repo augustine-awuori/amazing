@@ -38,11 +38,16 @@ interface Data {
 }
 
 const data: Data[] = [
-  { heading: "Company", items: ["BABY Software Co", "Campus Life LLC"] },
+  { heading: "Company", items: ["BABY Software Co", "Amazing LLC"] },
   { heading: "Support", items: ["+254 7967 20289", "We Trust In God"] },
   {
     heading: "Domains",
-    items: ["kisiiuniversemart.digital", "campusmart.site", "codewithmosh.com"],
+    items: [
+      "kisiiuniversemart.digital",
+      "campusmart.site",
+      "codewithmosh.com",
+      "campuslife.online",
+    ],
   },
 ];
 

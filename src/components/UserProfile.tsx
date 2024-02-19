@@ -55,7 +55,7 @@ const UserProfile = ({ user }: { user: MediaQueryUser }) => {
         </Badge>
       )}
       <Text my={2}>
-        {getFirstWord(user.name)} joined Campus Life on{" "}
+        {getFirstWord(user.name)} joined Amazing on{" "}
         {getDate(user?.timestamp || 0)} with a record of{" "}
         <Text color="blue.300">
           {listingsCount} listings, {requestsCount} requests and {shopsCount}{" "}
