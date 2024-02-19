@@ -52,7 +52,7 @@ const ShopPage = () => {
 
     return () => setShop(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products.length, shopId, isTheShopOwner]);
+  }, [products.length, shopId, isTheShopOwner, showProductForm]);
 
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
 
