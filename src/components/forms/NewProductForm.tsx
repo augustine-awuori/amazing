@@ -37,12 +37,12 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
   };
 
   const doSubmit = async (info: ProductFormData) => {
+    setLoading(true);
     if (error) setError("");
     if (!imagesCount) return setError("Select an image");
     const shop = await makeShopFrom(info);
     if (!user || !shop) return;
 
-    setLoading(true);
     const { error: message, ok } = await products.create(shop);
     setLoading(false);
     if (!ok) {
