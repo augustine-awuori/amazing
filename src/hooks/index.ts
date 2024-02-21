@@ -11,6 +11,7 @@ export { default as useListings } from "./useListings";
 export { default as useNoGrid } from "./useNoGrid";
 export { default as useOrder } from "./useOrder";
 export { default as useOrders } from "./useOrders";
+export { default as usePosters } from "./usePosters";
 export { default as useProducts } from "./useProducts";
 export { default as useProfileListings } from "./useProfileListings";
 export { default as useProfileRequests } from "./useProfileRequests";

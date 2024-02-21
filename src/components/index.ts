@@ -29,6 +29,7 @@ export { default as MediaQuery } from "./common/MediaQuery";
 export { default as Modal } from "./common/Modal";
 export { default as NavBar } from "./nav/Bar";
 export { default as NewItemButton } from "./NewItemButton";
+export { default as NewPosterForm } from "./NewPosterForm";
 export { default as PageContainer } from "./PageContainer";
 export { default as Paragraph } from "./common/Paragraph";
 export { default as ProfileActivities } from "./profile/Activities";

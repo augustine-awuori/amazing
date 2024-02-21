@@ -9,6 +9,7 @@ export { default as LogoutPage } from "./LogoutPage";
 export { default as NotFoundPage } from "./NotFoundPage";
 export { default as OrderPage } from "./OrderPage";
 export { default as OrdersPage } from "./MyOrdersPage";
+export { default as PostersPage } from "./PostersPage";
 export { default as MyShopsPage } from "./MyShopsPage";
 export { default as ProfileEditPage } from "./ProfileEditPage";
 export { default as ProfileListingsPage } from "./ProfileListingsPage";

@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
@@ -5,7 +6,6 @@ import { ListingGrid, Text } from "../components";
 import { endpoint } from "../services/listings";
 import { useAppColorMode, useListings } from "../hooks";
 import useListing, { Listing } from "../hooks/useListing";
-import { Box } from "@chakra-ui/react";
 
 interface Props {
   selectedCategory?: Category | null;
