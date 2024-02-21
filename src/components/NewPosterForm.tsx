@@ -11,7 +11,7 @@ const NewPosterForm = ({ onDone }: { onDone: () => void }) => {
 
   const helper = usePosters();
   const [loading, setLoading] = useState(false);
-  const { accentColor } = useAppColorMode();
+  const { accentColor, concAccentColor } = useAppColorMode();
 
   const doSubmit = async () => {
     if (error) setError("");
@@ -33,7 +33,12 @@ const NewPosterForm = ({ onDone }: { onDone: () => void }) => {
   return (
     <>
       <ImageInputList imagesLimit={1} />
-      <Button onClick={doSubmit} bg={accentColor} isLoading={loading}>
+      <Button
+        onClick={doSubmit}
+        bg={accentColor}
+        isLoading={loading}
+        _hover={{ bg: concAccentColor }}
+      >
         Save Poster
       </Button>
     </>
