@@ -16,7 +16,7 @@ const PostersPage = () => {
   const [showDetails, setShowDetails] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
-  const { posters } = usePosters();
+  const { posters, isLoading } = usePosters();
 
   const handleClick = (poster: Poster) => {
     setSelected(poster);
@@ -36,7 +36,7 @@ const PostersPage = () => {
         />
       )}
       <Grid columns={{ sm: 1, md: 2 }}>
-        <CardSkeletons isLoading={false} pageSize={4} />
+        <CardSkeletons isLoading={isLoading} pageSize={4} />
         {paginated.map((poster, index) => (
           <CardContainer key={index}>
             <Box cursor="pointer" onClick={() => handleClick(poster)}>
