@@ -7,11 +7,11 @@ import storage from "../utils/storage";
 
 const NewPosterForm = ({ onDone }: { onDone: () => void }) => {
   const [error, setError] = useState("");
-  const { images, imagesCount } = useImages(1);
+  const { images, imagesCount, removeAllImages } = useImages(1);
 
   const helper = usePosters();
   const [loading, setLoading] = useState(false);
-  const { accentColor } = useAppColorMode();
+  const { accentColor, concAccentColor } = useAppColorMode();
 
   const doSubmit = async () => {
     if (error) setError("");
@@ -23,8 +23,10 @@ const NewPosterForm = ({ onDone }: { onDone: () => void }) => {
     const res = await helper.addPoster({ image });
     setLoading(false);
 
-    if (res.ok) onDone();
-    else {
+    if (res.ok) {
+      onDone();
+      removeAllImages();
+    } else {
       setError("Poster couldn't be created");
       await storage.deleteImage(image);
     }
@@ -33,7 +35,12 @@ const NewPosterForm = ({ onDone }: { onDone: () => void }) => {
   return (
     <>
       <ImageInputList imagesLimit={1} />
-      <Button onClick={doSubmit} bg={accentColor} isLoading={loading}>
+      <Button
+        onClick={doSubmit}
+        bg={accentColor}
+        isLoading={loading}
+        _hover={{ bg: concAccentColor }}
+      >
         Save Poster
       </Button>
     </>

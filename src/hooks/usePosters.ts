@@ -10,12 +10,12 @@ import useData from "./useData";
 
 const usePosters = () => {
   const { data: posters, ...rest } = useData<Poster>(endpoint);
-  const { setPosters } = useContext(PostersContext);
+  const { setPosters, posters: retrieved } = useContext(PostersContext);
 
   useEffect(() => {
     setPosters(posters?.length ? posters : []);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [posters?.length]);
+  }, [posters?.length, retrieved.length]);
 
   const addPoster = async (poster: Poster) => {
     const res = await service.savePoster(poster);
