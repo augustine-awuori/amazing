@@ -158,7 +158,7 @@ const EventsPage = () => {
         return (
           <Box>
             {Header}
-            <PostersPage query={query} />
+            <PostersPage />
           </Box>
         );
       default:
