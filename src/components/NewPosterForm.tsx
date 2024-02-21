@@ -25,14 +25,17 @@ const NewPosterForm = ({ onDone }: { onDone: () => void }) => {
   const { images, imagesCount } = useImages(1);
   const { errors, handleSubmit, register } = useForm(schema);
   const helper = usePosters();
+  const [loading, setLoading] = useState(false);
 
   const doSubmit = async (info: FormData) => {
     if (error) setError("");
+    setLoading(true);
     if (!imagesCount) return setError("Please select an image");
 
     const image = await storage.saveImage(images[0]);
     if (!image) return setError("Image couldn't be saved");
     const res = await helper.addPoster({ ...info, image });
+    setLoading(false);
 
     if (res.ok) onDone();
     else {
@@ -68,7 +71,7 @@ const NewPosterForm = ({ onDone }: { onDone: () => void }) => {
         placeholder="What else do you have to say? (optional)"
         register={register}
       />
-      <SubmitButton label="Save Poster" isLoading={false} />
+      <SubmitButton label="Save Poster" isLoading={loading} />
     </Form>
   );
 };
