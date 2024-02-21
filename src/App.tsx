@@ -26,7 +26,7 @@ function App() {
           base: `"nav""main"`,
           lg: `"nav nav" "aside main"`,
         }}
-        templateColumns={{ base: "100%", lg: `${column} 1fr` }}
+        templateColumns="100%"
       >
         <GridItem area="nav">
           <NavBar user={user} cartCount={cartProducts.count} />

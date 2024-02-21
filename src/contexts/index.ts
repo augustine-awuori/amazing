@@ -8,6 +8,7 @@ export { default as ListingContext } from "./ListingContext";
 export { default as ListingsContext } from "./ListingsContext";
 export { default as OrderContext } from "./OrderContext";
 export { default as OrdersContext } from "./OrdersContext";
+export { default as PostersContext } from "./PostersContext";
 export { default as ProductsContext } from "./ProductsContext";
 export { default as ProfileListingsContext } from "./ProfileListingsContext";
 export { default as ProfileRequestsContext } from "./ProfileRequestsContext";

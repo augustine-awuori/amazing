@@ -9,6 +9,7 @@ import {
   EventEditForm,
   Image,
   Modal,
+  NewPosterForm,
   RSVPForm,
   SearchInput,
   SideBar,
@@ -27,18 +28,20 @@ import {
   BiDotsHorizontalRounded,
   BiHomeAlt,
 } from "react-icons/bi";
+import funcs from "../utils/funcs";
+import PostersPage from "./PostersPage";
 
 const items = [
+  { icon: <AiOutlinePicture />, label: "Posters" },
   { icon: <BiHomeAlt />, label: "Events" },
   { icon: <BsTicket />, label: "Tickets" },
-  { icon: <AiOutlinePicture />, label: "Posters" },
   { icon: <BiDotsHorizontalRounded />, label: "More" },
 ];
 
 const EventsPage = () => {
   const [query, setQuery] = useState("");
   const { events, setEvents, isLoading } = useEvents();
-  const [selectedItem, setSelectedItem] = useState("Events");
+  const [selectedItem, setSelectedItem] = useState("Posters");
   const { accentColor } = useAppColorMode();
   const [Content, setContent] = useState<JSX.Element>();
   const [markedShown, setShowMarked] = useState(false);
@@ -48,6 +51,7 @@ const EventsPage = () => {
   const [selectedImage, setSelectedImage] = useState("");
   const [viewImage, setViewImage] = useState(false);
   const [createEvent, setCreateEvent] = useState(false);
+  const [createPoster, setCreatePoster] = useState(false);
   const { onOpen, isOpen, onClose } = useDisclosure();
   const currentUser = auth.getCurrentUser();
 
@@ -67,7 +71,7 @@ const EventsPage = () => {
         <SearchInput
           onTextChange={setQuery}
           value={query}
-          placeholder="Search Amazing Events"
+          placeholder={`Search Amazing ${selectedItem}`}
         />
       </Box>
       <IconButton
@@ -154,9 +158,7 @@ const EventsPage = () => {
         return (
           <Box>
             {Header}
-            <Text textAlign="center" mt={5}>
-              No Posters are Posted
-            </Text>
+            <PostersPage query={query} />
           </Box>
         );
       default:
@@ -176,17 +178,21 @@ const EventsPage = () => {
     setSelectedItem(label);
   };
 
-  const handleEventCreation = () => {
-    setCreateEvent(true);
+  const handleEventCreation = () => setCreateEvent(true);
+
+  const handleItemCreation = () => {
     onClose?.();
+
+    if (selectedItem === "Events") handleEventCreation();
+    if (selectedItem === "Posters") setCreatePoster(true);
   };
 
   const SideBarContent = (
     <SideBar
       Icon={<BiCalendarEvent />}
-      buttonLabel="New Event"
+      buttonLabel={`New ${funcs.removeLastChar(selectedItem)}`}
       items={items}
-      onButtonClick={handleEventCreation}
+      onButtonClick={handleItemCreation}
       onItemSelect={handleItemClick}
       pageTitle="events"
       selectedItemLabel={selectedItem}
@@ -212,6 +218,12 @@ const EventsPage = () => {
 
   const Modals = (
     <>
+      <Modal
+        title="New Poster"
+        content={<NewPosterForm onDone={() => setCreatePoster(false)} />}
+        isOpen={createPoster}
+        onModalClose={() => setCreatePoster(false)}
+      />
       <Modal
         content={<EventEditForm onDone={() => setCreateEvent(false)} />}
         isOpen={createEvent}
