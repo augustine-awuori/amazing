@@ -82,7 +82,7 @@ const Chat = () => {
               {chat?.user?.displayName || chat?.user?.email || "amazing.chat"}
             </Text>
             <Text fontSize="xs" color={accentColor}>
-              {chat?.user?.email || "Select a chat to display"}
+              {chat?.user ? chat?.user.email : "Select a chat to display"}
             </Text>
           </Box>
         </Flex>
