@@ -60,13 +60,7 @@ const Chat = () => {
   };
 
   return (
-    <Box
-      w="100%"
-      pos="relative"
-      bg="white"
-      pt={{ base: 20, md: 0 }}
-      h={{ base: "100vh", md: "100%" }}
-    >
+    <Box w="100%" pos="relative" bg="white" pt={{ base: 20, md: 0 }} h="100%">
       {/* Header */}
       <Flex
         align="center"
