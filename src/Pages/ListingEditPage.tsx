@@ -12,7 +12,7 @@ import auth from "../services/auth";
 import CategorySelect from "../components/listings/category/Select";
 import ImageInputList from "../components/common/ImageInputList";
 import service from "../services/listings";
-import storage from "../utils/storage";
+import storage from "../db/image";
 
 const MAX_IMAGES = 3;
 

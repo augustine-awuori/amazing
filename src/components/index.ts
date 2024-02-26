@@ -31,6 +31,7 @@ export { default as NavBar } from "./nav/Bar";
 export { default as NewItemButton } from "./NewItemButton";
 export { default as NewPosterForm } from "./NewPosterForm";
 export { default as PageContainer } from "./PageContainer";
+export { default as PageTitle } from "./PageTitle";
 export { default as Paragraph } from "./common/Paragraph";
 export { default as ProfileActivities } from "./profile/Activities";
 export { default as ProfileActivity } from "./profile/Activity";

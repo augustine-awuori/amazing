@@ -6,7 +6,7 @@ import { getCacheData } from "../services/client";
 import { Listing } from "./useListing";
 import ListingsContext from "../contexts/ListingsContext";
 import service from "../services/listings";
-import storage from "../utils/storage";
+import storage from "../db/image";
 import useData from "./useData";
 
 const useListings = () => {

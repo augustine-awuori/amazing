@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from ".";
 import { ImageInputList } from "./common";
 import { useAppColorMode, useImages, usePosters } from "../hooks";
-import storage from "../utils/storage";
+import storage from "../db/image";
 
 const NewPosterForm = ({ onDone }: { onDone: () => void }) => {
   const [error, setError] = useState("");

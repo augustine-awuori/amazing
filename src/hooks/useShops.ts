@@ -8,7 +8,7 @@ import cache from "../utils/cache";
 import service, { endpoint } from "../services/shops";
 import ShopsContext from "../contexts/ShopsContext";
 import useData from "./useData";
-import storage from "../utils/storage";
+import storage from "../db/image";
 
 const useShops = () => {
   const { data, error, ...rest } = useData<Shop>(endpoint);

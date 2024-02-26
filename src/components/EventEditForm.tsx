@@ -12,7 +12,7 @@ import {
   SubmitButton,
   TextAreaField,
 } from "./form";
-import { storage } from "../utils";
+import storage from "../db/image";
 import { useEvents, useForm, useImages } from "../hooks";
 
 interface Props {

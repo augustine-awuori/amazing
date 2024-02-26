@@ -6,7 +6,7 @@ import { DataError, getCacheData } from "../services/client";
 import { EventsContext } from "../contexts";
 import { EventFormDataWithDates } from "../data/schemas";
 import service, { CreatedEvent, endpoint } from "../services/events";
-import storage from "../utils/storage";
+import storage from "../db/image";
 import useData from "./useData";
 
 const useEvents = () => {

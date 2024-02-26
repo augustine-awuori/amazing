@@ -8,8 +8,8 @@ import { ImageInputList } from "../../common";
 import { Button, Text } from "../../";
 import { useAppColorMode, useImages, useProducts } from "../../../hooks";
 import { DataError } from "../../../services/client";
-import { storage } from "../../../utils";
 import { Product } from "./Card";
+import storage from "../../../db/image";
 
 interface Props {
   product: Product;

@@ -6,10 +6,10 @@ import { Form, FormField, SubmitButton } from "../form";
 import { ImageInputList, Select } from "../common";
 import { Listing, ListingInfo } from "../../hooks/useListing";
 import { ListingFormData, listingSchema } from "../../data/schemas";
-import { storage } from "../../utils";
 import { Text } from "../../components";
 import { useCategories, useForm, useImages, useListings } from "../../hooks";
 import service from "../../services/listings";
+import storage from "../../db/image";
 
 interface Props {
   listing: Listing | undefined;

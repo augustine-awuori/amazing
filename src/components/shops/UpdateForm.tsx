@@ -10,7 +10,7 @@ import { shopSchema } from "../../data/schemas";
 import { Text } from "../../components/index.ts";
 import { useForm, useImages, useShop, useShops } from "../../hooks";
 import Selector from "../../components/forms/FormShopTypeSelector";
-import storage from "../../utils/storage.ts";
+import storage from "../../db/image";
 import ImageInputList from "../../components/common/ImageInputList.tsx";
 
 interface Props {

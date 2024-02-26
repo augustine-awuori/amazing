@@ -7,7 +7,7 @@ import { Product } from "../components/shops/product/Card";
 import { ProductFormData } from "../data/schemas";
 import ProductsContext from "../contexts/ProductsContext";
 import service from "../services/products";
-import storage from "../utils/storage";
+import storage from "../db/image";
 import useData from "./useData";
 
 const useProducts = (shopId: string | undefined) => {

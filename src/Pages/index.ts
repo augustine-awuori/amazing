@@ -1,5 +1,9 @@
 export { default as AboutAppPage } from "./AboutAppPage";
 export { default as AdminPage } from "./AdminPage";
+export { default as ChatsLoginPage } from "./ChatsLoginPage";
+export { default as ChatsPage } from "./ChatsPage";
+export { default as ChatsRegisterPage } from "./ChatsRegisterPage";
+export { default as ChatsAuthPage } from "./ChatsAuthPage";
 export { default as EventsPage } from "./EventsPage";
 export { default as ListingDetailsPage } from "./ListingDetailsPage";
 export { default as ListingEditPage } from "./ListingEditPage";

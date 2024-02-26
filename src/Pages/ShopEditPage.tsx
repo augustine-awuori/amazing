@@ -14,7 +14,7 @@ import { ShopFormData, shopSchema } from "../data/schemas";
 import { useForm, useImages, useNoGrid, useShops } from "../hooks";
 import auth from "../services/auth";
 import Selector from "../components/forms/FormShopTypeSelector";
-import storage from "../utils/storage";
+import storage from "../db/image";
 
 const MAX_IMAGES = 1;
 

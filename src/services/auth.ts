@@ -1,8 +1,10 @@
 import jwtDecode from "jwt-decode";
 
+import { ChatUser, UserInfo } from "../db/chat";
 import { User } from "../hooks/useUser";
 import client from "./client";
 
+const chatTokenKey = "chat-token";
 const tokenKey = "token";
 
 const getJwt = () => localStorage.getItem(tokenKey);
@@ -39,4 +41,24 @@ const getCurrentUser = () => {
   }
 };
 
-export default { getCurrentUser, getJwt, login, loginWithJwt, logout };
+const setChatUser = (user: ChatUser | UserInfo) =>
+  localStorage.setItem(chatTokenKey, JSON.stringify(user));
+
+const getChatUser = (): ChatUser | UserInfo | null => {
+  const data = localStorage.getItem(chatTokenKey);
+
+  return data ? JSON.parse(data) : data;
+};
+
+const removeChatUser = () => localStorage.removeItem(chatTokenKey);
+
+export default {
+  getChatUser,
+  getCurrentUser,
+  getJwt,
+  login,
+  loginWithJwt,
+  logout,
+  removeChatUser,
+  setChatUser,
+};

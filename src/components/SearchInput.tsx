@@ -45,7 +45,7 @@ const SearchInput = ({
             <IconButton
               borderRadius="30px"
               color="white"
-              icon={<AiOutlineSearch w={1} h={1} />}
+              icon={<AiOutlineSearch width={1} height={1} />}
               aria-label="search-icon"
               transition="opacity 0.3s"
             />

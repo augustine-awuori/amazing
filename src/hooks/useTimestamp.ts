@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import relativeTime from "dayjs/plugin/relativeTime";
 import dayjs from "dayjs";
 
+import { RawChatDataDate } from "../db/chat";
+
 dayjs.extend(relativeTime);
 
 export default (timestamp?: number, withoutSuffix?: boolean) => {
@@ -89,5 +91,20 @@ export default (timestamp?: number, withoutSuffix?: boolean) => {
     return `${formattedDate} ${formattedTime}`;
   }
 
-  return { getDate, getTimeFromNow, tempTimestamp, formatTimestamp };
+  const getTimeFromRawDate = (date: RawChatDataDate): string => {
+    const milliseconds = date?.seconds * 1000;
+
+    return new Date(milliseconds).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  return {
+    getDate,
+    getTimeFromNow,
+    getTimeFromRawDate,
+    tempTimestamp,
+    formatTimestamp,
+  };
 };

@@ -6,7 +6,7 @@ import { NewProduct } from "../../services/products";
 import { ProductFormData, productSchema } from "../../data/schemas";
 import { useForm, useImages, useProducts } from "../../hooks";
 import authApi from "../../services/auth";
-import storage from "../../utils/storage";
+import storage from "../../db/image";
 import ImageInputList from "../common/ImageInputList";
 
 const IMAGES_COUNT = 1;

@@ -12,6 +12,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { fontFamily } from "../../data/typography";
 import { FormRegister } from "../../hooks/useForm";
+import { useAppColorMode } from "../../hooks";
 import ErrorMessage, { AppFieldError } from "./ErrorMessage";
 
 interface Props extends InputProps {
@@ -32,14 +33,18 @@ const FormField = ({
   ...otherProps
 }: Props) => {
   const [isPasswordVisible, setPasswordVisibility] = useState(false);
+  const { accentColor } = useAppColorMode();
 
-  const inputName = name || label.toLowerCase();
+  const inputName = name || label?.toLowerCase();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     onChangeText?.(e.target.value);
 
   const togglePasswordVisibility = () =>
     setPasswordVisibility(!isPasswordVisible);
+
+  const getType = () =>
+    isPasswordVisible || inputName !== "password" ? "text" : "password";
 
   return (
     <FormControl marginBottom={4}>
@@ -51,7 +56,8 @@ const FormField = ({
           fontFamily={fontFamily}
           onChange={handleChange}
           placeholder={placeholder || label}
-          type={isPasswordVisible ? "text" : type}
+          type={getType()}
+          borderColor={accentColor}
         />
         {type === "password" && (
           <InputRightElement>
