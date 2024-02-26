@@ -64,7 +64,7 @@ export default function WithSubNav({ cartCount, user }: Props) {
             fontWeight="bold"
             fontSize={18}
           >
-            Amazing
+            amazing
           </Text>
         </Flex>
 
