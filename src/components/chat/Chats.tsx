@@ -34,7 +34,7 @@ const Chats = ({ query }: { query: string }) => {
 
   const handleUserClick = (user: UserInfo, chatId: string) => {
     setChat({ user, chatId });
-    if (isSmallScreen) navigate(`chats/${chatId}`);
+    if (isSmallScreen) navigate(`/chats/${chatId}`);
   };
 
   const queried = query
