@@ -1,15 +1,11 @@
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
-import { Navigate } from "react-router-dom";
 
 import { Chat, ChatList } from "../components/chat";
-import { useChat, useNoGrid } from "../hooks";
+import { useNoGrid } from "../hooks";
 
 const ChatsPage = () => {
-  const { user: chatUser } = useChat();
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
   useNoGrid();
-
-  if (!chatUser) return <Navigate to="/chats/auth" />;
 
   if (isSmallScreen)
     return (

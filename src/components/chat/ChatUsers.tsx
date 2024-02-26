@@ -27,6 +27,11 @@ const AppChatUsers = ({ query }: { query: string }) => {
   }
 
   const handleUserClick = async (chatUser: ChatUser) => {
+    if (!user) {
+      toast.info("Chatting awaits, login to continue!");
+      return navigate("/chats/auth");
+    }
+
     const currentUser = users.find(({ uid }) => uid === user?.uid);
 
     if (!chatUser || !currentUser) return toast.error("Error opening chat!");

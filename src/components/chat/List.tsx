@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { ChatIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 import { ChatUsers, Chats, ChatListOptions as Options } from ".";
 import { Avatar, Modal, PageTitle, SearchInput, Text } from "../";
@@ -13,6 +14,7 @@ const List = () => {
   const [selectedOption, setSelectedOption] = useState("chats");
   const [Component, setComponent] = useState<JSX.Element>();
   const { user } = useChat();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setComponent(renderComponent());
@@ -55,15 +57,17 @@ const List = () => {
         isOpen={showingProfile}
         onModalClose={() => setShowProfile(false)}
         title="Chat Profile"
-        primaryBtnLabel="Sign Out"
-        onPrimaryClick={() => chatAuth.signOutOfChat()}
+        primaryBtnLabel={user ? "Sign Out" : "Sign In"}
+        onPrimaryClick={() =>
+          user ? chatAuth.signOutOfChat() : navigate("/chats/auth")
+        }
       />
       <Flex align="center" justify="space-between" pt={2} px={1.5}>
         <PageTitle pageTitle="chats" Icon={<ChatIcon />} />
         <Avatar
           src={user?.photoURL || ""}
-          w={6}
-          h={6}
+          w={8}
+          h={8}
           borderRadius="100%"
           cursor="pointer"
           onClick={() => setShowProfile(true)}
