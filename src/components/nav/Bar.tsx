@@ -62,9 +62,9 @@ export default function WithSubNav({ cartCount, user }: Props) {
             mx={1.5}
             color={useColorModeValue("gray.800", "white")}
             fontWeight="bold"
-            fontSize={18}
+            fontSize={22}
           >
-            Amazing
+            amazing
           </Text>
         </Flex>
 
