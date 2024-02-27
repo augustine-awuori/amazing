@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Box, Flex, IconButton, Input } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Input, Spinner } from "@chakra-ui/react";
 import { InfoIcon } from "@chakra-ui/icons";
 import { BsSend } from "react-icons/bs";
+import { useParams } from "react-router-dom";
 
 import { Avatar, Text } from "../";
 import { hideScrollBarCss } from "../../data/general";
@@ -26,19 +27,22 @@ const Chat = () => {
   const { chat } = useChatDetails();
   const { accentColor } = useAppColorMode();
   const [text, setText] = useState("");
+  const [sending, setSending] = useState(false);
+  const params = useParams();
+  const chatId = chat?.chatId || params.chatId;
   const data = useRealTimeChat<{ messages: Message[] }>(
     CHATS_COLLECTION,
-    chat?.chatId
+    chatId
   );
   const [messages, setMessages] = useState<Message[]>([]);
   const { user } = useChat();
   useNoGrid();
 
   useEffect(() => {
-    if (data && chat?.chatId && Array.isArray(data?.messages))
+    if (data && chatId && Array.isArray(data?.messages))
       setMessages(data.messages);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, chat?.chatId]);
+  }, [data, chatId]);
 
   const userId = user?.uid;
 
@@ -48,9 +52,11 @@ const Chat = () => {
   };
 
   const handleMessageSend = async () => {
-    if (!text || !chat?.chatId || !user) return;
+    if (!text || !chat?.chatId || !user || sending) return;
 
+    setSending(true);
     await chatDb.sendMessage(chat.chatId, text, chat.user.uid, user.uid);
+    setSending(false);
 
     setText("");
   };
@@ -60,7 +66,7 @@ const Chat = () => {
   };
 
   return (
-    <Box w="100%" pos="relative" bg="white" pt={{ base: 20, md: 0 }} h="100%">
+    <Box w="100%" pos="relative" bg="white" h="100%" pt={{ base: 20 }}>
       {/* Header */}
       <Flex
         align="center"
@@ -97,7 +103,7 @@ const Chat = () => {
       </Flex>
 
       {/* Messages */}
-      <Box overflow="scroll" px={1} h="72vh" css={hideScrollBarCss} pb={1}>
+      <Box overflow="scroll" px={1} h="72vh" css={hideScrollBarCss}>
         {messages.map((message, index) => (
           <Message
             date={message.date}
@@ -109,7 +115,7 @@ const Chat = () => {
       </Box>
 
       {/* Footer */}
-      <Flex w="100%" align="center" pos="absolute" bg="gray" bottom={0} p={1}>
+      <Flex w="100%" align="center" bg="gray" bottom={0} p={1}>
         <Input
           borderColor="#fff"
           color="#fff"
@@ -120,7 +126,7 @@ const Chat = () => {
           value={text}
         />
         <IconButton
-          icon={<BsSend />}
+          icon={sending ? <Spinner /> : <BsSend />}
           aria-label="send-button"
           ml={1}
           onClick={handleMessageSend}
