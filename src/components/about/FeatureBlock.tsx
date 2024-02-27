@@ -64,7 +64,7 @@ const FeatureBlock = ({
         onClick={() => navigate(url)}
         _hover={{ color: "#fff", backgroundColor: accentColor }}
       >
-        Create One
+        Join Now
       </Button>
     </FeatureGridItem>
   );
