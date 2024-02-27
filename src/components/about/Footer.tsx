@@ -47,6 +47,7 @@ const data: Data[] = [
       "campusmart.site",
       "codewithmosh.com",
       "campuslife.online",
+      "amazing-website.online",
     ],
   },
 ];
@@ -79,7 +80,7 @@ const Footer = () => (
           marginTop="1rem"
           textAlign="center"
         >
-          &copy; 2023 Campus Life
+          &copy; 2023 Amazing
         </Text>
       </Flex>
     </Grid>

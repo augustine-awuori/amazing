@@ -64,7 +64,7 @@ const FeatureBlock = ({
         onClick={() => navigate(url)}
         _hover={{ color: "#fff", backgroundColor: accentColor }}
       >
-        Create One
+        Join Now
       </Button>
     </FeatureGridItem>
   );
@@ -93,11 +93,11 @@ const FeaturesSection = () => (
         mb={5}
         textAlign="center"
       >
-        The Magic of Amazing
+        Discover the Ease of Our Community
       </Heading>
       <Text color="gray.500" textAlign="center">
-        How much can you show with a single glance? Can you risk it all on a
-        fleeting moment? Ready to Embark?
+        Explore the features that make our community hassle-free and enjoyable.
+        Ready to join?
       </Text>
       {features.map((feature, index) => (
         <FeatureBlock key={index} {...feature} index={index} />

@@ -13,21 +13,21 @@ export interface Feature {
 export const features: Feature[] = [
   {
     description:
-      "Users with multiple items to sell or those looking to establish their brand can create a shop. Provide details like shop name, type, location, and an image. Your products will now shine on the home page!",
+      "Empower users to showcase and sell their products hassle-free. Whether it's a collection of items or a brand to establish, creating a shop is easy. Provide essential details like shop name, type, location, and an image, and let your products shine on the home page!",
     heading: "An Online Shop",
     image: shopImage,
     url: "/shops/new",
   },
   {
     description:
-      "A 'listing' is a detailed description or advertisement of an item users want to sell, exchange, or give away. Showcase what you have available with all the relevant information for potential buyers or interested parties.",
+      "Simplify the process of buying, selling, or exchanging items with detailed listings. A 'listing' offers a comprehensive description or advertisement of an item users want to sell, exchange, or give away. Showcase what you have available with all the relevant information for potential buyers or interested parties.",
     heading: "A Listing",
     image: listingImage,
     url: "/listings/new",
   },
   {
     description:
-      "The 'Request' feature allows users to make specific item requests, even if those items aren't listed. Express your needs, and others can respond with relevant listings. It's like making a wish and watching it come true!",
+      "Fulfill specific item requests hassle-free. The 'Request' feature allows users to express their needs, even for items not listed. It's like making a wish and watching it come true! Others can respond with relevant listings, making the process seamless and enjoyable for everyone.",
     heading: "A Request",
     image: requestImage,
     imageHeight: "70%",

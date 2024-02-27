@@ -1,5 +1,4 @@
 import { Box, Heading, Text, Grid } from "@chakra-ui/react";
-
 import { APP_PHONE_NUMBER } from "../../data/general";
 import { StartChatBtn } from "../../components";
 
@@ -18,11 +17,12 @@ const Callout = () => (
     >
       <Box textAlign={{ base: "center", md: "left" }} alignSelf="center">
         <Heading color="#fff" fontSize="3rem" mt={0} mb={3}>
-          What's It All About?
+          What's Our Mission?
         </Heading>
         <Text color="#fff" fontSize="1.2rem">
-          Amazing's mission: digitally weave hearts, minds, and campuses. Join
-          our tech-driven journey—click the button and unite with our vision.
+          At Amazing, we're on a mission to digitally unite hearts, minds, and
+          campuses. Join our tech-driven journey and be a part of our vision to
+          create a hassle-free community. Click the button below to get started!
         </Text>
       </Box>
       <StartChatBtn phoneNumber={APP_PHONE_NUMBER} />

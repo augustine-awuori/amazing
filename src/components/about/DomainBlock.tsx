@@ -12,11 +12,19 @@ const DomainBlock = () => {
   const handleComment = async () => {
     if (!input) return;
 
-    const { ok } = await service.addComment(input);
+    try {
+      const { ok } = await service.addComment(input);
 
-    if (!ok) return toast.error("Comment not sent!");
-    setInput("");
-    toast.success("Comment sent!");
+      if (ok) {
+        toast.success("Comment sent!");
+        setInput("");
+      } else {
+        toast.error("Comment not sent!");
+      }
+    } catch (error) {
+      console.error("Error while sending comment:", error);
+      toast.error("Failed to send comment!");
+    }
   };
 
   const InputRightElement = (
@@ -38,7 +46,7 @@ const DomainBlock = () => {
     <IconButton
       borderRadius="30px"
       color="green.200"
-      icon={<AiFillMessage w={1} h={1} />}
+      icon={<AiFillMessage width={6} height={6} />}
       aria-label="icon"
       transition="opacity 0.3s"
       _hover={{ color: "green.400" }}
@@ -54,14 +62,14 @@ const DomainBlock = () => {
     >
       <Container maxW="1140px" margin="0 auto">
         <Heading as="h2" color="#1b0760" textAlign="center" fontSize="2.4rem">
-          Leave Anonymous Comment
+          Leave an Anonymous Comment
         </Heading>
         <Text color="blackAlpha.500" textAlign="center" my={3}>
-          Any critic, feature request, advice?
+          Share your thoughts, feedback, or suggestions anonymously.
         </Text>
         <Box maxW="600px" margin="0 auto" mt={7}>
           <SearchInput
-            placeholder="Type your comment here"
+            placeholder="Type your anonymous message here"
             backgroundColor="gray.100"
             color="#1b0760"
             onTextChange={setInput}
