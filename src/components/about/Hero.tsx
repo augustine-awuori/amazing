@@ -31,11 +31,11 @@ const HeroSection = () => (
           mt={{ base: "8rem" }}
           mb={{ base: 13 }}
         >
-          Bridge the Gap, Together
+          Building a Hassle-Free Community
         </Heading>
         <Text fontSize="1.25rem" my={{ base: "3.5rem" }} color="whiteAlpha.700">
-          Immerse yourself in a vibrant community where every facet of your
-          journey unfolds.
+          Join our vibrant community where every aspect of your journey is
+          simplified and hassle-free.
         </Text>
         <Button mb={{ base: "3.5rem" }} />
       </Box>
