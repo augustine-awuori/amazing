@@ -74,6 +74,10 @@ const Chat = () => {
         px={2}
         justify="space-between"
         boxShadow="1px 0 10px #ccc"
+        position="sticky"
+        top={0}
+        zIndex={999}
+        bg="white"
       >
         <Flex align="center">
           <Avatar
@@ -103,7 +107,7 @@ const Chat = () => {
       </Flex>
 
       {/* Messages */}
-      <Box overflow="scroll" px={1} h="72vh" css={hideScrollBarCss}>
+      <Box overflow="scroll" px={1} h="72vh" css={hideScrollBarCss} pt={10}>
         {messages.map((message, index) => (
           <Message
             date={message.date}
