@@ -1,6 +1,7 @@
-import { ChatIcon } from "@chakra-ui/icons";
 import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { BiGroup, BiSolidContact } from "react-icons/bi";
+
+import { ChatIcon } from "../../components/icons";
 
 interface Option {
   Icon: JSX.Element;

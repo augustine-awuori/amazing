@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { hideScrollBarCss } from "../../data/general";
 import { Text } from "../";
 import {
-  useChat,
+  useChatUser,
   useChatDetails,
-  useRealTimeChat,
+  useRealTimeData,
   useTimestamp,
 } from "../../hooks";
 import AppChatUser from "./ChatUser";
@@ -16,21 +16,25 @@ import chatDb, {
   RawChat,
   RawChatData,
   UserInfo,
+  ChatUser,
 } from "../../db/chat";
 
 const Chats = ({ query }: { query: string }) => {
   const [chats, setChats] = useState<RawChatData[]>([]);
   const { getTimeFromRawDate } = useTimestamp();
   const { setChat, isLoading } = useChatDetails();
-  const { user } = useChat();
+  const { user } = useChatUser();
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
-  const rawData = useRealTimeChat<RawChat>(USER_CHATS_COLLECTION, user?.uid);
+  const rawData = useRealTimeData<RawChat>(
+    USER_CHATS_COLLECTION,
+    (user as ChatUser)?.uid
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
     setChats(chatDb.getCleanChats(rawData));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?.uid, rawData, isLoading, query]);
+  }, [(user as ChatUser)?.uid, rawData, isLoading, query]);
 
   const handleUserClick = (user: UserInfo, chatId: string) => {
     setChat({ user, chatId });
@@ -81,7 +85,7 @@ const Chats = ({ query }: { query: string }) => {
         .sort((a, b) => b?.date?.seconds - a?.date?.seconds)
         .map((chat, index) => {
           const { displayName, photoURL, uid } = chat.userInfo;
-          const chatId = chatDb.getCombinedUsersId(user.uid, uid);
+          const chatId = chatDb.getChatIdOf((user as ChatUser).uid, uid);
 
           return (
             <AppChatUser

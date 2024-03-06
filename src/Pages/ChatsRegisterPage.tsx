@@ -12,7 +12,7 @@ import {
 } from "../components/form";
 import { ImageInputList } from "../components/common";
 import { PageTitle, Text } from "../components";
-import { useAppColorMode, useChat, useForm, useImages } from "../hooks";
+import { useAppColorMode, useChatUser, useForm, useImages } from "../hooks";
 import { OrSeparator } from "../components/auth";
 import auth from "../services/auth";
 import chatDb from "../db/chat";
@@ -36,7 +36,7 @@ const ChatsLoginPage = () => {
   const { accentColor } = useAppColorMode();
   const { images, imagesCount } = useImages(IMAGE_INPUT_LIMIT);
   const navigate = useNavigate();
-  const chat = useChat();
+  const chat = useChatUser();
 
   const doSubmit = async ({ name, ...rest }: FormData) => {
     setLoading(true);

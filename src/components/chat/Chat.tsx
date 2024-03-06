@@ -8,12 +8,16 @@ import { Avatar, Text } from "../";
 import { hideScrollBarCss } from "../../data/general";
 import {
   useAppColorMode,
-  useChat,
+  useChatUser,
   useChatDetails,
   useNoGrid,
-  useRealTimeChat,
+  useRealTimeData,
 } from "../../hooks";
-import chatDb, { CHATS_COLLECTION, RawChatDataDate } from "../../db/chat";
+import chatDb, {
+  CHATS_COLLECTION,
+  ChatUser,
+  RawChatDataDate,
+} from "../../db/chat";
 import Message from "./Message";
 
 type Message = {
@@ -30,12 +34,12 @@ const Chat = () => {
   const [sending, setSending] = useState(false);
   const params = useParams();
   const chatId = chat?.chatId || params.chatId;
-  const data = useRealTimeChat<{ messages: Message[] }>(
+  const data = useRealTimeData<{ messages: Message[] }>(
     CHATS_COLLECTION,
     chatId
   );
   const [messages, setMessages] = useState<Message[]>([]);
-  const { user } = useChat();
+  const user = useChatUser().user as ChatUser;
   useNoGrid();
 
   useEffect(() => {

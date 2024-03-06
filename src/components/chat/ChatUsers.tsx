@@ -1,47 +1,13 @@
-import { useEffect, useState } from "react";
 import { Box } from "@chakra-ui/react";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
+import { ChatUser } from "../../db/chat";
 import { Text } from "..";
-import { useChat, useChatDetails } from "../../hooks";
+import { useChatUser, useChatDetails } from "../../hooks";
 import AppChatUser from "./ChatUser";
-import chat, { ChatUser } from "../../db/chat";
 
 const AppChatUsers = ({ query }: { query: string }) => {
-  const [users, setUsers] = useState<ChatUser[]>([]);
-  const [loading, setLoading] = useState(false);
-  const { user } = useChat();
-  const { setChat } = useChatDetails();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    initUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [users.length, query]);
-
-  async function initUsers() {
-    setLoading(true);
-    setUsers(await chat.getAllUsers());
-    setLoading(false);
-  }
-
-  const handleUserClick = async (chatUser: ChatUser) => {
-    if (!user) {
-      toast.info("Chatting awaits, login to continue!");
-      return navigate("/chats/auth");
-    }
-
-    const currentUser = users.find(({ uid }) => uid === user?.uid);
-
-    if (!chatUser || !currentUser) return toast.error("Error opening chat!");
-
-    await chat.getUserChatMessages(currentUser, chatUser);
-
-    const chatId = chat.getCombinedUsersId(currentUser.uid, chatUser.uid);
-    setChat({ user: chatUser, chatId });
-    navigate(`/chats/${chatId}`);
-  };
+  const { user } = useChatUser();
+  const { isLoadingUsers, onStartChat, users } = useChatDetails();
 
   const sortByDisplayName = (a: ChatUser, b: ChatUser) => {
     if (a.displayName && b.displayName)
@@ -62,23 +28,23 @@ const AppChatUsers = ({ query }: { query: string }) => {
     <Box>
       {queried
         .sort(sortByDisplayName)
-        .filter((u) => u.uid !== user?.uid)
+        .filter((u) => u.uid !== (user as ChatUser)?.uid)
         .map((user, index) => (
           <AppChatUser
             uid={user.uid}
             title={user.displayName}
             photoURL={user.photoURL}
             subTitle={user.email}
-            onClick={() => handleUserClick(user)}
+            onClick={() => onStartChat(user)}
             key={index}
           />
         ))}
-      {loading && (
+      {isLoadingUsers && (
         <Text textAlign="center" mt={5}>
           Loading chat users...
         </Text>
       )}
-      {!users.length && !loading && (
+      {!users.length && !isLoadingUsers && (
         <Text textAlign="center" mt={5}>
           Showing none
         </Text>

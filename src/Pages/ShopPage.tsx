@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box, HStack } from "@chakra-ui/react";
 import { useParams } from "react-router-dom";
-import { FaLocationArrow } from "react-icons/fa";
 
 import { Footer, Grid, StartChatBtn, Text } from "../components";
 import { paginate } from "../utils/paginate";
@@ -15,6 +14,7 @@ import {
 } from "../hooks";
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
+import { LocationIcon } from "../components/icons";
 import { Product } from "../components/shops/product/Card";
 import { Settings, ShopPageHeader as Header } from "../components/shops";
 import { Shop } from "../hooks/useShop";
@@ -79,8 +79,8 @@ const ShopPage = () => {
 
   const FooterInfo = (
     <HStack>
-      <FaLocationArrow />
-      <Text color="whiteAlpha.500">{shop.location || "Main Campus Area"}</Text>
+      <LocationIcon />
+      <Text color="green.100">{shop.location || "Main Campus Area"}</Text>
     </HStack>
   );
 
@@ -149,7 +149,7 @@ const ShopPage = () => {
           <Footer
             Info={FooterInfo}
             name={`${shop?.name} Shop`}
-            owner={`Shop Owner: ${shop?.author.name}`}
+            owner={`Shop Owner: ${shop?.author?.name}`}
             verified={shop?.author?.isVerified}
           >
             {phoneNumber && <StartChatBtn phoneNumber={phoneNumber} />}

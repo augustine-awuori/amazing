@@ -108,7 +108,6 @@ async function initChat(
   return await setDoc(doc(config.db, collectionName, id), docData);
 }
 
-// TODO: add this to google auth
 async function updateChatUser(userId: string, data: ChatUserData) {
   const { displayName, email, photoURL } = data;
 
@@ -129,7 +128,11 @@ const updateUserProfile = (
 ) => updateProfile(user, updates);
 
 async function updateChat(id: string, collectionName: string, data: object) {
-  return await updateDoc(doc(config.db, collectionName, id), data);
+  const res = await getChat(id, collectionName);
+
+  res.exists()
+    ? await updateDoc(doc(config.db, collectionName, id), data)
+    : await initChat(id, collectionName, data);
 }
 
 async function getChat(id: string, collectionName = CHATS_COLLECTION) {
@@ -179,17 +182,17 @@ const findUser = async (name: string) => {
   return found;
 };
 
-const getCombinedUsersId = (userId1: string, userId2: string) =>
+const getChatIdOf = (userId1: string, userId2: string) =>
   userId1 > userId2 ? userId1 + userId2 : userId2 + userId1;
 
-const getUserChatMessages = async <T>(user1: UserInfo, user2: UserInfo) => {
-  const combinedId = getCombinedUsersId(user1.uid, user2.uid);
+const prepareChatMessages = async <T>(user1: UserInfo, user2: UserInfo) => {
+  const chatId = getChatIdOf(user1.uid, user2.uid);
 
-  const res = await getChat(combinedId);
+  const res = await getChat(chatId);
   if (res.exists()) return res.data() as T;
 
   await Promise.all([
-    initChat(combinedId),
+    initChat(chatId),
     initUserChat(user1, user2),
     initUserChat(user2, user1),
   ]);
@@ -197,7 +200,7 @@ const getUserChatMessages = async <T>(user1: UserInfo, user2: UserInfo) => {
 
 async function initUserChat(user1: UserInfo, user2: UserInfo) {
   const { uid, displayName, photoURL } = user2;
-  const combinedId = getCombinedUsersId(user1.uid, uid);
+  const combinedId = getChatIdOf(user1.uid, uid);
 
   await updateChat(user1.uid, USER_CHATS_COLLECTION, {
     [combinedId + ".userInfo"]: { uid, displayName, photoURL },
@@ -240,15 +243,15 @@ const getCleanChats = (rawChats?: RawChat): RawChatData[] => {
 };
 
 export default {
-  getCleanChats,
   createUser,
   findUser,
   getAllUsers,
   getChat,
-  getCombinedUsersId,
-  getUserChatMessages,
+  getChatIdOf,
+  getCleanChats,
   initChat,
   initNewUserChat,
+  prepareChatMessages,
   sendMessage,
   signIn,
   signInWithGoogleRedirect,

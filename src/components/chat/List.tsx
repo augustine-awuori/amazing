@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import { Box, Flex } from "@chakra-ui/react";
-import { ChatIcon } from "@chakra-ui/icons";
 import { useNavigate } from "react-router-dom";
 
-import { ChatUsers, Chats, ChatListOptions as Options } from ".";
 import { Avatar, Modal, PageTitle, SearchInput, Text } from "../";
-import { useChat } from "../../hooks";
-import chatAuth from "../../db/chat";
+import { ChatsIcon } from "../../components/icons";
+import { ChatUsers, Chats, ChatListOptions as Options } from ".";
+import { useChatUser } from "../../hooks";
+import chatAuth, { ChatUser } from "../../db/chat";
 
 const List = () => {
   const [query, setQuery] = useState("");
   const [showingProfile, setShowProfile] = useState(false);
   const [selectedOption, setSelectedOption] = useState("chats");
   const [Component, setComponent] = useState<JSX.Element>();
-  const { user } = useChat();
+  const user = useChatUser().user as ChatUser;
   const navigate = useNavigate();
 
   useEffect(() => {
     setComponent(renderComponent());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedOption, user?.uid, query]);
+  }, [selectedOption, (user as ChatUser)?.uid, query]);
 
   function renderComponent(): JSX.Element {
     switch (selectedOption) {
@@ -63,7 +63,7 @@ const List = () => {
         }
       />
       <Flex align="center" justify="space-between" pt={2} px={1.5}>
-        <PageTitle pageTitle="chats" Icon={<ChatIcon />} />
+        <PageTitle pageTitle="chats" Icon={<ChatsIcon />} />
         <Avatar
           src={user?.photoURL || ""}
           w={8}

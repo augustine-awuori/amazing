@@ -1,8 +1,8 @@
 export { default as useAppColorMode } from "./useAppColorMode";
 export { default as useCart } from "./useCart";
 export { default as useCategories } from "./useCategories";
-export { default as useChat } from "./useChat";
 export { default as useChatDetails } from "./useChatDetails";
+export { default as useChatUser } from "./useChatUser";
 export { default as useCurrentUser } from "./useCurrentUser";
 export { default as useData } from "./useData";
 export { default as useEvents } from "./useEvents";
@@ -18,7 +18,7 @@ export { default as useProducts } from "./useProducts";
 export { default as useProfileListings } from "./useProfileListings";
 export { default as useProfileRequests } from "./useProfileRequests";
 export { default as useProfileUser } from "./useProfileUser";
-export { default as useRealTimeChat } from "./useRealTimeChat";
+export { default as useRealTimeData } from "./useRealTimeData";
 export { default as useReload } from "./useReload";
 export { default as useRequest } from "./useRequest";
 export { default as useRequests } from "./useRequests";

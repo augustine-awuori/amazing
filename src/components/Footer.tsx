@@ -23,7 +23,7 @@ const Footer = ({ children, name, Info, owner, verified }: Props) => {
             {owner && <Text>{owner}</Text>}
             <VerifiedIcon verified={verified} />
           </HStack>
-          <Text>&copy; 2023 {name}</Text>
+          <Text textTransform="capitalize">&copy; 2023 {name}</Text>
           {Info}
         </Box>
         <Box>{children}</Box>

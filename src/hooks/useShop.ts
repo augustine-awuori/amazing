@@ -1,5 +1,6 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useParams } from "react-router-dom";
 
 import { DataError } from "../services/client";
 import { Type } from "./useTypes";
@@ -37,6 +38,20 @@ export interface NewShop extends Common {
 
 const useShop = () => {
   const { setShop, shop } = useContext(ShopContext);
+  const shopId = useParams().shopId;
+
+  useEffect(() => {
+    init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shopId]);
+
+  async function init() {
+    if (!shopId) return;
+
+    const shop = await getShop(shopId);
+
+    if (shop) setShop(shop);
+  }
 
   const getShop = async (shopId: string) => {
     const { data, ok, problem } = await service.getShop(shopId);

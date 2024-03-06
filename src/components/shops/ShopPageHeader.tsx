@@ -1,16 +1,28 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { Box, HStack, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, HStack, useBreakpointValue } from "@chakra-ui/react";
 import { AiFillPlusCircle } from "react-icons/ai";
+import { BsXCircle } from "react-icons/bs";
+import GoogleButton from "react-google-button";
 
-import { Button, Heading, Modal } from "../../components";
+import { Heading, Modal, Text } from "../../components";
+import { ChatAccountsDisplay, SettingsSelector, ShopUpdateForm } from ".";
+import { ChatIcon } from "../../components/icons";
 import { endpoint } from "../../services/shops";
 import { Item } from "../../components/common/Selector";
 import { Setting } from "./SettingsSelector";
-import { useCurrentUser, useShop, useShops } from "../../hooks";
+import {
+  useChatUser,
+  useChatDetails,
+  useCurrentUser,
+  useShop,
+  useShops,
+} from "../../hooks";
 import auth from "../../services/auth";
-import SettingsSelector from "./SettingsSelector";
-import ShopUpdateForm from "./UpdateForm";
+import Button from "./ShopHeaderButton";
+import userService from "../../services/users";
+import useUser from "../../hooks/useUser";
 
 interface Props {
   onAddProduct: () => void;
@@ -21,15 +33,20 @@ interface Props {
 
 const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
   const { shop } = useShop();
+  const sellerId = shop?.author._id;
+  const shopOwnerDetails = useUser(sellerId);
+  const { setChat } = useChatDetails();
   const isTheAuthor = useCurrentUser(shop?.author._id);
-  const showIconsOnly = useBreakpointValue({ base: true, md: false });
   const [, setSetting] = useState<Item | null>(null);
   const [isDeleting, setDeleting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const currentUser = auth.getCurrentUser();
+  const [showChatsModal, setChatsModal] = useState(false);
+  const [showChatAccountPrompt, setShowChatAccountPrompt] = useState(false);
+  const chat = useChatUser();
   const helper = useShops();
   const navigate = useNavigate();
+  const isSmallScreen = useBreakpointValue({ base: true, md: false });
 
   const settings: Setting[] = [
     {
@@ -49,14 +66,91 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
     const ok = await helper.deleteShop(shop?._id);
     setDeleting(false);
 
-    if (!ok) return;
+    if (ok) {
+      setShowDeleteModal(false);
+      navigate(endpoint);
+    }
+  };
 
-    setShowDeleteModal(false);
-    navigate(endpoint);
+  const handleChat = () => {
+    const chatIds = shopOwnerDetails?.chatIds;
+    if (!chatIds) return toast.error("Couldn't load seller's chat account");
+
+    const ids = Object.values(chatIds);
+    if (ids.length > 1) return setChatsModal(true);
+    const chatId = ids[0];
+
+    setChat({
+      chatId,
+      user: {
+        displayName: shopOwnerDetails?.name || "Unknown",
+        email: "",
+        photoURL: shopOwnerDetails?.avatar || "",
+        uid: "",
+      },
+    });
+    navigate(isSmallScreen ? `/chats/${chatId}` : "/chats");
+  };
+
+  const handleChatSignUp = async () => {
+    await chat.signUpWithGoogleRedirect();
+
+    if (shopOwnerDetails?._id) await userService.resetToken();
+  };
+  console.log(shopOwnerDetails);
+  const ChatButton = (): JSX.Element => {
+    if (isTheAuthor && !shopOwnerDetails?.chatIds)
+      return (
+        <Box ml={3} borderRadius={12} overflow="hidden">
+          <GoogleButton label="Chat w/ Customers" onClick={handleChatSignUp} />
+        </Box>
+      );
+
+    if (!isTheAuthor && shopOwnerDetails?.chatIds)
+      return (
+        <Button onClick={handleChat} rightIcon={<ChatIcon />}>
+          View Chats
+        </Button>
+      );
+
+    return (
+      <Button
+        leftIcon={<BsXCircle size={12} />}
+        onClick={() =>
+          toast.info("Seller hasn't activated the chats yet! Keep checking!")
+        }
+      >
+        <ChatIcon />
+      </Button>
+    );
   };
 
   return (
     <HStack justifyContent="space-between" alignItems="center">
+      <Modal
+        content={
+          <Text textAlign="center">
+            Please, activate your chats to enable customers to reach out to you!
+          </Text>
+        }
+        isOpen={
+          isTheAuthor && !shopOwnerDetails?.chatIds && showChatAccountPrompt
+        }
+        onModalClose={() => setShowChatAccountPrompt(false)}
+        title="Chat Account Activation"
+      />
+      <Modal
+        content={
+          <ChatAccountsDisplay
+            onDoneAccountClick={() => setChatsModal(false)}
+            seller={shopOwnerDetails}
+          />
+        }
+        isOpen={showChatsModal}
+        onModalClose={() => setChatsModal(false)}
+        title="Select Chat Account"
+        secondaryBtnLabel="Close"
+      />
       <Modal
         content="Are you sure you want to permanently delete this shop and it's products? "
         isLoading={isDeleting}
@@ -82,25 +176,26 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
       >
         {shopName + "'s"} Products ({productsCount})
       </Heading>
-      <Box>
-        {(isTheAuthor || currentUser?.isAdmin) && (
+      <Flex align="center">
+        {(isTheAuthor || auth.getCurrentUser()?.isAdmin) && (
           <Box whiteSpace="nowrap">
             <SettingsSelector
               data={settings}
               onSelectItem={setSetting}
               onShowSettings={setSetting}
-              showIconsOnly={showIconsOnly}
+              showIconsOnly={isSmallScreen}
             />
             <Button
               rightIcon={<AiFillPlusCircle />}
               onClick={onAddProduct}
-              pl={showIconsOnly ? 1.5 : undefined}
+              ml={0}
             >
-              {showIconsOnly ? null : "Add Product"}
+              Add Product
             </Button>
           </Box>
         )}
-      </Box>
+        <ChatButton />
+      </Flex>
     </HStack>
   );
 };

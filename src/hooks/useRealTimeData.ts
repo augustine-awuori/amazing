@@ -3,7 +3,7 @@ import { onSnapshot, doc } from "firebase/firestore";
 
 import config from "../db/config";
 
-const useRealTimeChat = <T>(collectionName: string, id?: string) => {
+const useRealTimeData = <T>(collectionName: string, id?: string) => {
   const [data, setData] = useState<T>();
 
   useEffect(() => {
@@ -19,4 +19,4 @@ const useRealTimeChat = <T>(collectionName: string, id?: string) => {
   return data;
 };
 
-export default useRealTimeChat;
+export default useRealTimeData;

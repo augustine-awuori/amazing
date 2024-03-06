@@ -7,11 +7,10 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import { BiCalendarEvent, BiShoppingBag } from "react-icons/bi";
-import { ChatIcon } from "@chakra-ui/icons";
 
-import { fontFamily } from "../../data/typography";
 import { ChatsPage, EventsPage, ShopsPage } from "../../Pages";
+import { fontFamily } from "../../data/typography";
+import { ChatsIcon, EventsIcon, MartIcon } from "../../components/icons";
 import useAppColorMode from "../../hooks/useAppColorMode";
 
 const TabButton = ({ icon }: { icon: JSX.Element }) => (
@@ -28,15 +27,15 @@ const pages = [<ShopsPage />, <EventsPage />, <ChatsPage />];
 const tabs = [
   {
     label: "Mart",
-    icon: <TabButton icon={<BiShoppingBag />} />,
+    icon: <TabButton icon={<MartIcon />} />,
   },
   {
     label: "Events",
-    icon: <TabButton icon={<BiCalendarEvent />} />,
+    icon: <TabButton icon={<EventsIcon />} />,
   },
   {
     label: "Chats",
-    icon: <TabButton icon={<ChatIcon />} />,
+    icon: <TabButton icon={<ChatsIcon />} />,
   },
 ];
 
