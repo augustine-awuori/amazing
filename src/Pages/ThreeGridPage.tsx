@@ -6,7 +6,7 @@ import { useNoGrid } from "../hooks";
 
 interface Props {
   SideBarContent: JSX.Element;
-  RightSideBarContent: JSX.Element;
+  RightSideBarContent?: JSX.Element;
   isBottomSheetOpen: boolean;
   MainContent?: JSX.Element;
   OtherContents?: JSX.Element;
@@ -63,16 +63,18 @@ const ThreeGridPage = ({
           {MainContent}
         </Flex>
 
-        <Box
-          display={{ lg: "block", md: "none", base: "none" }}
-          width={{ base: "100%", md: "250px" }}
-          padding="20px"
-          overflowY="auto"
-          css={hideScrollBarCss}
-          mt={4}
-        >
-          {RightSideBarContent}
-        </Box>
+        {RightSideBarContent && (
+          <Box
+            display={{ lg: "block", md: "none", base: "none" }}
+            width={{ base: "100%", md: "250px" }}
+            padding="20px"
+            overflowY="auto"
+            css={hideScrollBarCss}
+            mt={4}
+          >
+            {RightSideBarContent}
+          </Box>
+        )}
       </Flex>
     </Box>
   );

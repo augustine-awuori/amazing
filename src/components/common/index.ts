@@ -1,4 +1,5 @@
 export { default as Avatar } from "./Avatar";
+export { default as BadgesList } from "./BadgesList";
 export { default as BottomSheet } from "./BottomSheet";
 export { default as BottomSheetOpener } from "./BottomSheetOpener";
 export { default as ColorSwitchMode } from "./ColorSwitchMode";

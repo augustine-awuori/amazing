@@ -28,7 +28,8 @@ import {
   Text,
 } from "../components";
 import { Category } from "../hooks/useCategories";
-import { GridAsideList, Modal } from "../components/common";
+import { BadgesList, Modal } from "../components/common";
+import { empty, funcs } from "../utils";
 import { ListingsPage, RequestsPage } from "./";
 import { ShopSelectors } from "../components/listings";
 import { SideBarItem } from "../components/SideBar";
@@ -40,7 +41,6 @@ import ShowSelector from "../components/shops/ShowSelector";
 import ThreeGridPage from "./ThreeGridPage";
 import useShop, { Shop } from "../hooks/useShop";
 import useTypes, { Type } from "../hooks/useTypes";
-import func from "../utils/funcs";
 
 const items: SideBarItem[] = [
   { icon: <BiHomeAlt />, label: "Products" },
@@ -53,18 +53,17 @@ const ShopsPage = () => {
   const navigate = useNavigate();
   const { setShop } = useShop();
   const { error, isLoading, shops } = useShops();
-  const [selectedType, setSelectedType] = useState<Type | null>(null);
+  const [selectedType, setSelectedType] = useState<Type>(empty.type);
   const [filter, setFilter] = useState<Item | null>(null);
   const { products, isLoading: productsLoading } = useProducts(undefined);
   const [productsCurrentPage, setProductsCurrentPage] = useState(1);
   const [shopsCurrentPage, setShopsCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
-  const pageSize = useBreakpointValue({ sm: 6, md: 9, lg: 6 }) || 6;
+  const pageSize = useBreakpointValue({ sm: 6, md: 9 }) || 6;
   const [selectedSideItem, setSelectedSideItem] = useState("Products");
   const [Content, setContent] = useState<JSX.Element>();
   const { categories } = useCategories();
   const { types } = useTypes();
-  const [rightSideBarItems, setRightBarContent] = useState<null | Item[]>();
   const [rightSideBarTitle, setRightSideBarTitle] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
     null
@@ -76,7 +75,7 @@ const ShopsPage = () => {
 
   useEffect(() => {
     setContent(renderContent());
-    setRightBarContent(renderRightSideBarContent());
+
     setRightSideBarTitle(renderRightSideBarTitle() || "");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -84,7 +83,8 @@ const ShopsPage = () => {
     filter,
     shops.length,
     products.length,
-    selectedCategory,
+    selectedCategory?._id,
+    types.length,
     selectedType,
     productsCurrentPage,
     shopsCurrentPage,
@@ -118,15 +118,20 @@ const ShopsPage = () => {
   const CommonHeader = (
     <Flex w="100%" align="center">
       <SearchInput
-        placeholder={`Search ${getHeadingLabel()}`}
+        placeholder={`Search ${getHeadingLabel()} (${selectedType?.label})`}
         onTextChange={handleTextChange}
         value={query}
         mr={3}
       />
+      <ShowSelector
+        name={filter?.label || "Products"}
+        onSelectItem={setFilter}
+        selectedItem={filter}
+      />
       <IconButton
         aria-label="button"
         icon={<BiDotsHorizontalRounded />}
-        mr={3}
+        ml={3}
         onClick={onOpen}
         borderRadius={10}
       />
@@ -134,27 +139,16 @@ const ShopsPage = () => {
   );
 
   const HeadingELement = (
-    <Flex
-      display={{ md: "flex", base: "block" }}
-      mt={{ sm: 5, md: 0 }}
-      w="100%"
-      align="center"
-    >
-      {CommonHeader}
-      <Flex>
-        <ShowSelector
-          name={filter?.label || "Products"}
-          onSelectItem={setFilter}
-          selectedItem={filter}
-        />
-        <Box display={{ lg: "none" }} ml={3}>
-          <CategorySelector
-            selectedCategory={selectedType}
-            onSelectCategory={setSelectedType}
-          />
-        </Box>
+    <Box mt={{ sm: 5, md: 0 }}>
+      <Flex display={{ md: "flex", base: "block" }} w="100%" align="center">
+        {CommonHeader}
       </Flex>
-    </Flex>
+      <BadgesList
+        list={types}
+        onItemSelect={setSelectedType}
+        selectedItem={selectedType}
+      />
+    </Box>
   );
 
   const MainContent = (
@@ -203,22 +197,6 @@ const ShopsPage = () => {
     }
   }
 
-  function renderRightSideBarContent() {
-    switch (selectedSideItem) {
-      case "Products":
-        return types;
-
-      case "Listings":
-        return categories;
-
-      case "Requests":
-        return categories;
-
-      default:
-        return null;
-    }
-  }
-
   function renderContent(): JSX.Element {
     switch (selectedSideItem) {
       case "Products":
@@ -258,15 +236,6 @@ const ShopsPage = () => {
     }
   }
 
-  const title = rightSideBarTitle.toLowerCase();
-
-  const handleRightSideBarItemSelect = (item: Item) => {
-    resetCurrentPage();
-    setQuery("");
-
-    title === "type" ? setSelectedType(item) : setSelectedCategory(item);
-  };
-
   const handleSideItemSelect = (label: string) => {
     onClose?.();
     setQuery("");
@@ -291,22 +260,12 @@ const ShopsPage = () => {
   const AppSideBar = (
     <SideBar
       Icon={<BiShoppingBag />}
-      buttonLabel={`New ${func.removeLastChar(selectedSideItem)}`}
+      buttonLabel={`New ${funcs.removeLastChar(selectedSideItem)}`}
       items={items}
       onButtonClick={handleItemCreation}
       onItemSelect={handleSideItemSelect}
       pageTitle="mart"
       selectedItemLabel={selectedSideItem}
-    />
-  );
-
-  const RightSideBarContent = (
-    <GridAsideList
-      heading={rightSideBarTitle}
-      isLoading={false}
-      items={rightSideBarItems || []}
-      onSelectItem={handleRightSideBarItemSelect}
-      selectedItem={title === "type" ? selectedType : selectedCategory}
     />
   );
 
@@ -352,7 +311,7 @@ const ShopsPage = () => {
   return (
     <ThreeGridPage
       onClose={onClose}
-      RightSideBarContent={RightSideBarContent}
+      // RightSideBarContent={RightSideBarContent}
       SideBarContent={AppSideBar}
       MainContent={Content}
       isBottomSheetOpen={isOpen}

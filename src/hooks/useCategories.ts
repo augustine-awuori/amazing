@@ -8,7 +8,7 @@ const useCategories = () => {
   const { data, error, isLoading } = useData<Category>(endpoint);
 
   return {
-    categories: [{ _id: "", label: "All Categories" }, ...data],
+    categories: [{ _id: "", label: "All" }, ...data],
     error,
     isLoading,
   };

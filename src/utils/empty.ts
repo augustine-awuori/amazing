@@ -4,6 +4,7 @@ import { Product } from "../components/shops/product/Card";
 import { Request } from "../hooks/useRequest";
 import { Shop, ShopProduct } from "../hooks/useShop";
 import { User } from "../hooks/useUser";
+import { Type } from "hooks/useTypes";
 
 const author: User = {
   _id: "",
@@ -74,11 +75,20 @@ const order: Order = {
   message: "",
 };
 
+const type: Type = {
+  _id: "",
+  label: "All Types",
+  icon: undefined,
+  rightIcon: undefined,
+  route: "",
+};
+
 export default {
   listing: { ...listing, paramsId: "listingId" },
   order: { ...order, paramsId: "orderId" },
   product: { ...product, paramsId: "" },
   request: { ...request, paramsId: "requestId" },
   shop: { ...shop, paramsId: "shopId" },
+  type,
   user: { ...author, paramsId: "userId" },
 };
