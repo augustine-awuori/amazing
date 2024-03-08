@@ -51,22 +51,26 @@ const BadgesList = ({
       mt={1}
       {...otherProps}
     >
-      {list.map((item, index) => (
-        <Text
-          key={index}
-          bg={selectedItem?._id === item._id ? accentColor : "gray.700"}
-          px={2}
-          py={2.45}
-          mr={2}
-          borderRadius={9}
-          cursor="pointer"
-          whiteSpace="nowrap"
-          _hover={{ bg: accentColor }}
-          onClick={() => onItemSelect(item)}
-        >
-          {item.label}
-        </Text>
-      ))}
+      {list.map((item, index) => {
+        const isSelected = selectedItem?._id === item._id;
+
+        return (
+          <Text
+            key={index}
+            bg={isSelected ? accentColor : "gray.700"}
+            px={2}
+            py={2.45}
+            mr={2}
+            borderRadius={9}
+            cursor="pointer"
+            whiteSpace="nowrap"
+            _hover={{ bg: isSelected ? accentColor : "gray.600" }}
+            onClick={() => onItemSelect(item)}
+          >
+            {item.label}
+          </Text>
+        );
+      })}
     </Flex>
   );
 };

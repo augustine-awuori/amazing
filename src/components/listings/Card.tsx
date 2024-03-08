@@ -22,7 +22,7 @@ const ListingCard = ({ listing, onClick }: Props) => {
   const { accentColor } = useAppColorMode();
 
   return (
-    <Card onClick={onClick}>
+    <Card onClick={onClick} w={10}>
       <Image src={listing.images[0]} />
       <Body>
         <Heading>{listing.title}</Heading>

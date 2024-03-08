@@ -56,7 +56,7 @@ const ListingGrid = ({
 
   return (
     <>
-      <Grid columns={{ sm: 1, md: 2 }}>
+      <Grid columns={{ sm: 1, md: 3 }}>
         <CardSkeletons isLoading={isLoading} />
         {paginated.map((listing) => (
           <CardContainer key={listing._id}>

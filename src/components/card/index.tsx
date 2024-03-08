@@ -1,12 +1,6 @@
-import { ReactNode } from "react";
-import { Card } from "@chakra-ui/react";
+import { Card, CardProps } from "@chakra-ui/react";
 
-interface Props {
-  children: ReactNode;
-  onClick: () => void;
-}
-
-const AppCard = ({ children, onClick }: Props) => (
+const AppCard = ({ children, onClick }: CardProps) => (
   <Card
     borderRadius={10}
     cursor="pointer"
