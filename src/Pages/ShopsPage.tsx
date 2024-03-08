@@ -56,8 +56,8 @@ const ShopsPage = () => {
   const pageSize = useBreakpointValue({ sm: 6, md: 9 }) || 6;
   const [selectedSideItem, setSelectedSideItem] = useState("Products");
   const [Content, setContent] = useState<JSX.Element>();
-  const { categories } = useCategories();
-  const { types } = useTypes();
+  const { categories, isLoading: categoriesLoading } = useCategories();
+  const { types, isLoading: typesLoading } = useTypes();
   const [selectedCategory, setSelectedCategory] = useState<Category>(
     empty.category
   );
@@ -111,12 +111,20 @@ const ShopsPage = () => {
     setQuery(text);
   };
 
+  const getSearchInputPlaceholder = (): string => {
+    let base = `Search ${getHeadingLabel()} `;
+
+    if (!showingProducts && !showCategories) return base;
+
+    return (base += showingProducts
+      ? `(${selectedType?.label})`
+      : `(${selectedCategory.label})`);
+  };
+
   const CommonHeader = (
     <Flex w="100%" align="center">
       <SearchInput
-        placeholder={`Search ${getHeadingLabel()} (${
-          showingProducts ? selectedType?.label : selectedCategory.label
-        })`}
+        placeholder={getSearchInputPlaceholder()}
         onTextChange={handleTextChange}
         value={query}
         mr={3}
@@ -142,6 +150,7 @@ const ShopsPage = () => {
         {CommonHeader}
       </Flex>
       <BadgesList
+        loading={showingProducts ? typesLoading : categoriesLoading}
         display={showingProducts || showCategories ? "flex" : "none"}
         list={showingProducts ? types : categories}
         onItemSelect={showingProducts ? setSelectedType : setSelectedCategory}

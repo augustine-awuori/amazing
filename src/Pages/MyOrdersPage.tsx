@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { Box } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+import { Box, Flex } from "@chakra-ui/react";
 
-import { Grid, Info } from "../components";
+import { Grid, Info, Text } from "../components";
 import { MediaQueryUser } from "../components/common/MediaQuery";
 import { Pagination } from "../components/common";
 import { Type } from "../hooks/useTypes";
+import { useAppColorMode, useOrders } from "../hooks";
 import auth from "../services/auth";
 import OrderCard from "../components/order/CardWithBadge";
 import useOrder, { Order } from "../hooks/useOrder";
-import useOrders from "../hooks/useOrders";
 
 const OrdersPage = () => {
+  const { accentColor } = useAppColorMode();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
   const [selectedType] = useState<Type | null>(null);
@@ -35,7 +36,20 @@ const OrdersPage = () => {
     navigate(order._id);
   };
 
-  if (!user) return <Navigate to="/login" />;
+  if (!user)
+    return (
+      <Flex mt={10} align="center" justify="center">
+        <Text
+          cursor="pointer"
+          mr={1}
+          color={accentColor}
+          onClick={() => navigate("/login")}
+        >
+          Login{" "}
+        </Text>
+        <Text textAlign="center"> to see your recieved and sent orders.</Text>
+      </Flex>
+    );
 
   if (!filtered.length)
     return (
