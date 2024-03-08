@@ -111,12 +111,20 @@ const ShopsPage = () => {
     setQuery(text);
   };
 
+  const getSearchInputPlaceholder = (): string => {
+    let base = `Search ${getHeadingLabel()} `;
+
+    if (!showingProducts && !showCategories) return base;
+
+    return (base += showingProducts
+      ? `(${selectedType?.label})`
+      : `(${selectedCategory.label})`);
+  };
+
   const CommonHeader = (
     <Flex w="100%" align="center">
       <SearchInput
-        placeholder={`Search ${getHeadingLabel()} (${
-          showingProducts ? selectedType?.label : selectedCategory.label
-        })`}
+        placeholder={getSearchInputPlaceholder()}
         onTextChange={handleTextChange}
         value={query}
         mr={3}
