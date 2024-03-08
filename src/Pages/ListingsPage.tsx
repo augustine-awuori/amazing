@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import { Category } from "../hooks/useCategories";
@@ -29,7 +28,7 @@ const ListingsPage = ({
   };
 
   return (
-    <Box px={5}>
+    <>
       <Text
         mb={3}
         fontSize={20}
@@ -47,7 +46,7 @@ const ListingsPage = ({
         onListingClick={navigateToDetails}
         selectedCategory={selectedCategory || null}
       />
-    </Box>
+    </>
   );
 };
 

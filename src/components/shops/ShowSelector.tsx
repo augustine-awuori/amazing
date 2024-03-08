@@ -1,3 +1,5 @@
+import { Box } from "@chakra-ui/react";
+
 import Selector, { Item } from "../common/Selector";
 
 interface FilterItem extends Item {
@@ -17,7 +19,9 @@ interface Props {
 }
 
 const ShowSelector = ({ ...otherProps }: Props) => (
-  <Selector data={filters} {...otherProps} />
+  <Box>
+    <Selector data={filters} {...otherProps} />
+  </Box>
 );
 
 export default ShowSelector;

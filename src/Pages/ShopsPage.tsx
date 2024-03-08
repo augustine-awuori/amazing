@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import {
   BiChair,
-  BiChat,
   BiDotsHorizontalRounded,
   BiHomeAlt,
   BiPlusCircle,
@@ -19,18 +18,13 @@ import {
 } from "react-icons/bi";
 import { AiFillEdit, AiOutlineLogin } from "react-icons/ai";
 
-import { Item } from "../components/common/Selector";
-import {
-  SearchInput,
-  ShopsGrid,
-  CategorySelector,
-  SideBar,
-  Text,
-} from "../components";
-import { Category } from "../hooks/useCategories";
 import { BadgesList, Modal } from "../components/common";
+import { Category } from "../hooks/useCategories";
+import { ChatIcon } from "../components/icons";
 import { empty, funcs } from "../utils";
+import { Item } from "../components/common/Selector";
 import { ListingsPage, RequestsPage } from "./";
+import { SearchInput, ShopsGrid, SideBar, Text } from "../components";
 import { ShopSelectors } from "../components/listings";
 import { SideBarItem } from "../components/SideBar";
 import { useCategories, useProducts, useShops } from "../hooks";
@@ -45,7 +39,7 @@ import useTypes, { Type } from "../hooks/useTypes";
 const items: SideBarItem[] = [
   { icon: <BiHomeAlt />, label: "Products" },
   { icon: <BiChair />, label: "Listings" },
-  { icon: <BiChat />, label: "Requests" },
+  { icon: <ChatIcon />, label: "Requests" },
   { icon: <BiReceipt />, label: "Orders" },
 ];
 
@@ -64,19 +58,22 @@ const ShopsPage = () => {
   const [Content, setContent] = useState<JSX.Element>();
   const { categories } = useCategories();
   const { types } = useTypes();
-  const [rightSideBarTitle, setRightSideBarTitle] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
-    null
+  const [selectedCategory, setSelectedCategory] = useState<Category>(
+    empty.category
   );
   const { onOpen, isOpen, onClose } = useDisclosure();
   const [selectedShopId, setSelectedShopId] = useState("");
   const [selectShop, setSelectShop] = useState(false);
   const [authRequested, setAuthRequest] = useState(false);
 
+  const showingShops = filter?.label.toLowerCase() === "shops";
+  const showingProducts = selectedSideItem.toLowerCase() === "products";
+  const showCategories =
+    selectedSideItem.toLowerCase() === "requests" ||
+    selectedSideItem.toLowerCase() === "listings";
+
   useEffect(() => {
     setContent(renderContent());
-
-    setRightSideBarTitle(renderRightSideBarTitle() || "");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     selectedSideItem,
@@ -85,10 +82,11 @@ const ShopsPage = () => {
     products.length,
     selectedCategory?._id,
     types.length,
-    selectedType,
+    selectedType._id,
     productsCurrentPage,
     shopsCurrentPage,
     query,
+    showingProducts,
   ]);
 
   const navigateToDetails = (shop: Shop) => {
@@ -96,12 +94,10 @@ const ShopsPage = () => {
     navigate(shop._id);
   };
 
-  const showingShops = filter?.label.toLowerCase() === "shops";
-
   const getHeadingLabel = (): string => {
     const shopsLabel = "Shops";
 
-    if (selectedSideItem.toLowerCase() === "products")
+    if (showingProducts)
       return showingShops ? shopsLabel : `${shopsLabel}' Products`;
 
     return selectedSideItem;
@@ -118,7 +114,9 @@ const ShopsPage = () => {
   const CommonHeader = (
     <Flex w="100%" align="center">
       <SearchInput
-        placeholder={`Search ${getHeadingLabel()} (${selectedType?.label})`}
+        placeholder={`Search ${getHeadingLabel()} (${
+          showingProducts ? selectedType?.label : selectedCategory.label
+        })`}
         onTextChange={handleTextChange}
         value={query}
         mr={3}
@@ -144,9 +142,10 @@ const ShopsPage = () => {
         {CommonHeader}
       </Flex>
       <BadgesList
-        list={types}
-        onItemSelect={setSelectedType}
-        selectedItem={selectedType}
+        display={showingProducts || showCategories ? "flex" : "none"}
+        list={showingProducts ? types : categories}
+        onItemSelect={showingProducts ? setSelectedType : setSelectedCategory}
+        selectedItem={showingProducts ? selectedType : selectedCategory}
       />
     </Box>
   );
@@ -181,22 +180,6 @@ const ShopsPage = () => {
     </>
   );
 
-  function renderRightSideBarTitle() {
-    switch (selectedSideItem) {
-      case "Products":
-        return "Type";
-
-      case "Listings":
-        return "Categories";
-
-      case "Requests":
-        return "Categories";
-
-      default:
-        return null;
-    }
-  }
-
   function renderContent(): JSX.Element {
     switch (selectedSideItem) {
       case "Products":
@@ -205,7 +188,7 @@ const ShopsPage = () => {
       case "Listings":
         return (
           <>
-            {CommonHeader}
+            {HeadingELement}
             <ListingsPage
               selectedCategory={selectedCategory}
               onRequestsPageNav={() => setSelectedSideItem("Requests")}
@@ -217,7 +200,7 @@ const ShopsPage = () => {
       case "Requests":
         return (
           <>
-            {CommonHeader}
+            {HeadingELement}
             <RequestsPage
               selectedCategory={selectedCategory}
               onListingsPageNav={() => setSelectedSideItem("Listings")}
@@ -240,6 +223,7 @@ const ShopsPage = () => {
     onClose?.();
     setQuery("");
     setSelectedSideItem(label);
+    setSelectedCategory(empty.category);
   };
 
   const handleShopSelection = () =>

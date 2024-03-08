@@ -8,7 +8,7 @@ const useTypes = () => {
   const { data, error, isLoading } = useData<Type>(endpoint);
 
   return {
-    types: [{ _id: "", label: "All Types" }, ...data],
+    types: [{ _id: "", label: "All" }, ...data],
     error,
     isLoading,
   };

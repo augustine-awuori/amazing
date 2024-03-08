@@ -1,10 +1,11 @@
-import { Order } from "../hooks/useOrder";
+import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
+import { Order } from "../hooks/useOrder";
 import { Product } from "../components/shops/product/Card";
 import { Request } from "../hooks/useRequest";
 import { Shop, ShopProduct } from "../hooks/useShop";
+import { Type } from "../hooks/useTypes";
 import { User } from "../hooks/useUser";
-import { Type } from "hooks/useTypes";
 
 const author: User = {
   _id: "",
@@ -83,7 +84,16 @@ const type: Type = {
   route: "",
 };
 
+const category: Category = {
+  _id: "",
+  label: "All Categories",
+  icon: undefined,
+  rightIcon: undefined,
+  route: "",
+};
+
 export default {
+  category,
   listing: { ...listing, paramsId: "listingId" },
   order: { ...order, paramsId: "orderId" },
   product: { ...product, paramsId: "" },
