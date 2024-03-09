@@ -29,26 +29,30 @@ const AppChatUser = ({
       borderRadius={4}
       bg={chat?.user.uid === uid ? "whiteAlpha.300" : "inherit"}
       cursor="pointer"
-      mt={0.5}
+      my={0.9}
       onClick={onClick}
-      p={0.5}
+      p={0.7}
       w="100%"
     >
       <Avatar
         src={photoURL || ""}
         objectFit="cover"
-        w={8}
-        h={8}
-        mr={1}
+        w={{ base: 12, md: 8 }}
+        h={{ base: 12, md: 8 }}
+        mr={{ base: 2, md: 1 }}
         borderRadius="full"
       />
       <Box flex={1}>
-        <Text fontSize="sm" noOfLines={1}>
+        <Text
+          fontSize={{ base: "md", md: "sm" }}
+          noOfLines={1}
+          fontWeight="extrabold"
+        >
           {title}
         </Text>
         {subTitle && (
           <Text
-            fontSize="xs"
+            fontSize={{ base: "sm", md: "xs" }}
             noOfLines={1}
             color="whiteAlpha.700"
             lineHeight={1.5}

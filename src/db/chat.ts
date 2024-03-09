@@ -237,7 +237,7 @@ const sendMessage = async ({ text, receiver, sender }: MessageToBeSent) => {
     messages: arrayUnion({
       id: v4(),
       text,
-      senderId: sender,
+      senderId: sender.uid,
       date: Timestamp.now(),
     }),
   });
@@ -245,12 +245,12 @@ const sendMessage = async ({ text, receiver, sender }: MessageToBeSent) => {
   updateChat(
     sender.uid,
     USER_CHATS_COLLECTION,
-    getUserChatData(chatId, sender, text)
+    getUserChatData(chatId, receiver, text)
   );
   updateChat(
     receiver.uid,
     USER_CHATS_COLLECTION,
-    getUserChatData(chatId, receiver, text)
+    getUserChatData(chatId, sender, text)
   );
 };
 
