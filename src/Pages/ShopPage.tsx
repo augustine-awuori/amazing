@@ -42,7 +42,7 @@ const ShopPage = () => {
   const shopId = useParams().shopId;
   const { isLoading, products, productsCount } = useProducts(shopId);
   const helper = useShops();
-  const isTheShopOwner = useCurrentUser(shop.author?._id);
+  const isTheSeller = useCurrentUser(shop.author?._id);
   useNoGrid();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const ShopPage = () => {
 
     return () => setShop(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products.length, shopId, isTheShopOwner, showProductForm]);
+  }, [products.length, shopId, isTheSeller, showProductForm]);
 
   const phoneNumber = shop?.author?.otherAccounts?.whatsapp;
 
@@ -148,9 +148,9 @@ const ShopPage = () => {
         {shop && (
           <Footer
             Info={FooterInfo}
-            name={`${shop?.name} Shop`}
-            owner={`Shop Owner: ${shop?.author?.name}`}
-            verified={shop?.author?.isVerified}
+            name={`${shop.name} Shop`}
+            owner={`Shop Owner: ${shop.author.name}`}
+            verified={shop.author.isVerified}
           >
             {phoneNumber && <StartChatBtn phoneNumber={phoneNumber} />}
           </Footer>

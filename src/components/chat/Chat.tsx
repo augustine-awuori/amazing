@@ -1,8 +1,15 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Box, Flex, IconButton, Input, Spinner } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  Input,
+  Spinner,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { InfoIcon } from "@chakra-ui/icons";
 import { BsSend } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Avatar, Text } from "../";
 import { hideScrollBarCss } from "../../data/general";
@@ -40,13 +47,17 @@ const Chat = () => {
   );
   const [messages, setMessages] = useState<Message[]>([]);
   const user = useChatUser().user as ChatUser;
+  const navigate = useNavigate();
   useNoGrid();
+
+  const isBigScreen = useBreakpointValue({ md: false, lg: true });
 
   useEffect(() => {
     if (data && chatId && Array.isArray(data?.messages))
       setMessages(data.messages);
+    if (isBigScreen) navigate("/chats");
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, chatId]);
+  }, [data, chatId, isBigScreen]);
 
   const userId = user?.uid;
 
@@ -55,18 +66,22 @@ const Chat = () => {
     setText(event.target.value);
   };
 
-  const handleMessageSend = async () => {
+  const handleSendMessage = async () => {
     if (!text || !chat?.chatId || !user || sending) return;
 
     setSending(true);
-    await chatDb.sendMessage(chat.chatId, text, chat.user.uid, user.uid);
+    await chatDb.sendMessage({
+      receiver: chat.user as ChatUser,
+      sender: user as ChatUser,
+      text,
+    });
     setSending(false);
 
     setText("");
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") handleMessageSend();
+    if (event.key === "Enter") handleSendMessage();
   };
 
   return (
@@ -137,7 +152,7 @@ const Chat = () => {
           icon={sending ? <Spinner /> : <BsSend />}
           aria-label="send-button"
           ml={1}
-          onClick={handleMessageSend}
+          onClick={handleSendMessage}
         />
       </Flex>
     </Box>
