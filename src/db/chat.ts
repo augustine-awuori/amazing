@@ -63,8 +63,8 @@ export type RawChat = {
 
 type MessageToBeSent = {
   text: string;
-  receiver: ChatUser;
-  sender: ChatUser;
+  receiver: UserInfo;
+  sender: UserInfo;
 };
 
 const USERS_COLLECTION = "users";
@@ -214,7 +214,11 @@ async function initUserChat(user1: UserInfo, user2: UserInfo) {
   );
 }
 
-function getUserChatData(chatId: string, user: ChatUser, text: string) {
+function getUserChatData(
+  chatId: string,
+  user: ChatUser | UserInfo,
+  text: string
+) {
   return {
     [chatId + ".lastMessage"]: { text },
     [chatId + ".date"]: serverTimestamp(),
