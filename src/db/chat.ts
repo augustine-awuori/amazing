@@ -237,7 +237,7 @@ const sendMessage = async ({ text, receiver, sender }: MessageToBeSent) => {
     messages: arrayUnion({
       id: v4(),
       text,
-      senderId: sender,
+      senderId: sender.uid,
       date: Timestamp.now(),
     }),
   });
