@@ -85,7 +85,13 @@ const Chat = () => {
   };
 
   return (
-    <Box w="100%" pos="relative" bg="white" h="100%" pt={{ base: 20, md: 0 }}>
+    <Box
+      w="100%"
+      pos="relative"
+      bg="white"
+      h="100%"
+      pt={{ base: "4rem", md: 0 }}
+    >
       {/* Header */}
       <Flex
         align="center"
@@ -140,6 +146,7 @@ const Chat = () => {
       {/* Footer */}
       <Flex w="100%" align="center" bg="gray" bottom={0} p={1}>
         <Input
+          autoFocus
           borderColor="#fff"
           color="#fff"
           flex={1}

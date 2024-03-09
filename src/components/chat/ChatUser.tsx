@@ -23,50 +23,52 @@ const AppChatUser = ({
   const { chat } = useChatDetails();
 
   return (
-    <Flex
-      _hover={{ bg: "whiteAlpha.300" }}
-      align="center"
-      borderRadius={4}
-      bg={chat?.user.uid === uid ? "whiteAlpha.300" : "inherit"}
-      cursor="pointer"
-      my={0.9}
-      onClick={onClick}
-      p={0.7}
-      w="100%"
-    >
-      <Avatar
-        src={photoURL || ""}
-        objectFit="cover"
-        w={{ base: 12, md: 8 }}
-        h={{ base: 12, md: 8 }}
-        mr={{ base: 2, md: 1 }}
-        borderRadius="full"
-      />
-      <Box flex={1}>
-        <Text
-          fontSize={{ base: "md", md: "sm" }}
-          noOfLines={1}
-          fontWeight="extrabold"
-        >
-          {title}
-        </Text>
-        {subTitle && (
+    <Box p={0.7} mb={1}>
+      <Flex
+        align="center"
+        _hover={{ bg: "whiteAlpha.300" }}
+        borderRadius={4}
+        bg={chat?.user.uid === uid ? "whiteAlpha.300" : "inherit"}
+        cursor="pointer"
+        my={0.9}
+        onClick={onClick}
+        w="100%"
+      >
+        <Avatar
+          src={photoURL || ""}
+          objectFit="cover"
+          w={{ base: 12, md: 8 }}
+          h={{ base: 12, md: 8 }}
+          mr={1}
+          p={{ base: 1 }}
+          borderRadius="full"
+        />
+        <Box flex={1}>
           <Text
-            fontSize={{ base: "sm", md: "xs" }}
+            fontSize={{ base: "md", md: "sm" }}
             noOfLines={1}
-            color="whiteAlpha.700"
-            lineHeight={1.5}
+            fontWeight="extrabold"
           >
-            {subTitle}
+            {title}
+          </Text>
+          {subTitle && (
+            <Text
+              fontSize={{ base: "sm", md: "xs" }}
+              noOfLines={1}
+              color="whiteAlpha.700"
+              lineHeight={1.5}
+            >
+              {subTitle}
+            </Text>
+          )}
+        </Box>
+        {extra && (
+          <Text fontSize="xs" ml={1}>
+            {extra}
           </Text>
         )}
-      </Box>
-      {extra && (
-        <Text fontSize="xs" ml={1}>
-          {extra}
-        </Text>
-      )}
-    </Flex>
+      </Flex>
+    </Box>
   );
 };
 
