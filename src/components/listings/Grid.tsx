@@ -32,14 +32,12 @@ const ListingGrid = ({
   const [pageSize] = useState(6);
 
   const filtered = selectedCategory?._id
-    ? listings.filter(
-        (listing) => listing.category._id === selectedCategory?._id
-      )
+    ? listings.filter(({ category }) => category._id === selectedCategory?._id)
     : listings;
 
   const queried = searchQuery
-    ? filtered.filter((listing) =>
-        listing.title.toLowerCase().includes(searchQuery.toLowerCase())
+    ? filtered.filter(({ title }) =>
+        title.toLowerCase().includes(searchQuery.toLowerCase())
       )
     : filtered;
 

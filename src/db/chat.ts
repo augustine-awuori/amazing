@@ -61,6 +61,12 @@ export type RawChat = {
   [combinedId: string]: RawChatData;
 };
 
+type MessageToBeSent = {
+  text: string;
+  receiver: ChatUser;
+  sender: ChatUser;
+};
+
 const USERS_COLLECTION = "users";
 export const CHATS_COLLECTION = "chats";
 export const USER_CHATS_COLLECTION = "user.chats";
@@ -199,37 +205,49 @@ const prepareChatMessages = async <T>(user1: UserInfo, user2: UserInfo) => {
 };
 
 async function initUserChat(user1: UserInfo, user2: UserInfo) {
-  const { uid, displayName, photoURL } = user2;
-  const combinedId = getChatIdOf(user1.uid, uid);
+  const chatId = getChatIdOf(user1.uid, user2.uid);
 
-  await updateChat(user1.uid, USER_CHATS_COLLECTION, {
-    [combinedId + ".userInfo"]: { uid, displayName, photoURL },
-    [combinedId + ".date"]: serverTimestamp(),
-  });
+  await updateChat(
+    user1.uid,
+    USER_CHATS_COLLECTION,
+    getUserChatData(chatId, user2 as ChatUser, "")
+  );
 }
 
-const sendMessage = async (
-  chatId: string,
-  text: string,
-  receiverId: string,
-  senderId: string
-) => {
+function getUserChatData(chatId: string, user: ChatUser, text: string) {
+  return {
+    [chatId + ".lastMessage"]: { text },
+    [chatId + ".date"]: serverTimestamp(),
+    [chatId + ".userInfo"]: {
+      uid: user.uid,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    },
+  };
+}
+
+const sendMessage = async ({ text, receiver, sender }: MessageToBeSent) => {
+  const chatId = getChatIdOf(receiver.uid, sender.uid);
+
   await updateChat(chatId, CHATS_COLLECTION, {
     messages: arrayUnion({
       id: v4(),
       text,
-      senderId,
+      senderId: sender,
       date: Timestamp.now(),
     }),
   });
 
-  const lastMessage = {
-    [chatId + ".lastMessage"]: { text },
-    [chatId + ".date"]: serverTimestamp(),
-  };
-
-  updateChat(senderId, USER_CHATS_COLLECTION, lastMessage);
-  updateChat(receiverId, USER_CHATS_COLLECTION, lastMessage);
+  updateChat(
+    sender.uid,
+    USER_CHATS_COLLECTION,
+    getUserChatData(chatId, sender, text)
+  );
+  updateChat(
+    receiver.uid,
+    USER_CHATS_COLLECTION,
+    getUserChatData(chatId, receiver, text)
+  );
 };
 
 const getCleanChats = (rawChats?: RawChat): RawChatData[] => {
