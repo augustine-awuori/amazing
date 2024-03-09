@@ -71,8 +71,8 @@ const Chat = () => {
 
     setSending(true);
     await chatDb.sendMessage({
-      receiver: chat.user as ChatUser,
-      sender: user as ChatUser,
+      receiver: chat.user,
+      sender: user,
       text,
     });
     setSending(false);
