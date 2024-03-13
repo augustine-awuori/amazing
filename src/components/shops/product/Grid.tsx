@@ -1,14 +1,15 @@
 import { Box } from "@chakra-ui/react";
 
-import Skeleton from "../product/Skeleton";
 import { paginate } from "../../../utils/paginate";
 import { Product } from "./Card";
 import { Type } from "../../../hooks/useTypes";
+import { useCart } from "../../../hooks";
 import ErrorMessage from "../../form/ErrorMessage";
 import Grid from "../../grid";
 import Info from "../../../components/Info";
 import Pagination, { PaginationProps } from "../../common/Pagination";
 import ProductDisplayCard from "./DisplayCard";
+import Skeleton from "../product/Skeleton";
 
 interface Props extends PaginationProps {
   error: string | undefined;
@@ -28,6 +29,8 @@ const ShopsProductsGrid = ({
   query,
   selectedType,
 }: Props) => {
+  const cart = useCart();
+
   const filtered = selectedType?._id
     ? products.filter((product) => product.shop.type === selectedType?._id)
     : products;
@@ -51,7 +54,7 @@ const ShopsProductsGrid = ({
 
   return (
     <>
-      <Grid columns={{ sm: 1, md: 3 }}>
+      <Grid columns={{ sm: 1, md: cart.count ? 3 : 4 }} spacing={5}>
         <Skeleton isLoading={isLoading} />
         {paginated.map((product, index) => (
           <ProductDisplayCard key={product._id + index} product={product} />

@@ -10,6 +10,7 @@ export { default as ImageInputList } from "./ImageInputList";
 export { default as ImagePicker } from "./ImagePicker";
 export { default as ImageSlider } from "./ImageSlider";
 export { default as MediaQuery } from "./MediaQuery";
+export { default as MenuContent } from "./MenuContent";
 export { default as Modal } from "./Modal";
 export { default as Pagination } from "./Pagination";
 export { default as Paragraph } from "./Paragraph";

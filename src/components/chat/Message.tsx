@@ -3,7 +3,7 @@ import { Box, Flex } from "@chakra-ui/react";
 
 import { RawChatDataDate } from "../../db/chat";
 import { Text } from "..";
-import { useTimestamp } from "../../hooks";
+import { useAppColorMode, useTimestamp } from "../../hooks";
 
 interface Props {
   isTheSender: boolean;
@@ -13,6 +13,7 @@ interface Props {
 
 const Message = ({ date, isTheSender, textMessage }: Props) => {
   const { getTimeFromRawDate } = useTimestamp();
+  const { accentColor } = useAppColorMode();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const Message = ({ date, isTheSender, textMessage }: Props) => {
         borderRadius={7}
         borderBottomRightRadius={isTheSender ? 0 : 5}
         borderBottomLeftRadius={isTheSender ? 5 : 0}
-        bg={isTheSender ? "dodgerblue" : "gray"}
+        bg={isTheSender ? accentColor : "gray"}
         display="inline-flex"
       >
         <Text>{textMessage}</Text>
@@ -35,7 +36,7 @@ const Message = ({ date, isTheSender, textMessage }: Props) => {
       <Text
         fontSize="xs"
         textTransform="lowercase"
-        color={isTheSender ? "dodgerblue" : "gray"}
+        color={isTheSender ? accentColor : "gray"}
       >
         {getTimeFromRawDate(date)}
       </Text>

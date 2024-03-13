@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu, MenuButton } from "@chakra-ui/react";
 
-import { Avatar, Modal } from "../../components/common";
+import { Avatar, MenuContent, Modal } from "../../components/common";
 import { getControls } from "../../data/userControls";
 import { Item } from "../../components/common/Selector";
 import { MediaQueryUser } from "../../components/common/MediaQuery";
 import { useAppColorMode } from "../../hooks";
 import auth from "../../services/auth";
 import empty from "../../utils/empty";
-import MenuList from "../common/SelectorMenuList";
 
 interface Props {
   user: MediaQueryUser | null | undefined;
@@ -45,7 +43,7 @@ const UserButton = ({ user }: Props) => {
   const handleModalClose = () => setShowLogoutPrompt(false);
 
   return (
-    <Menu>
+    <>
       <Modal
         content={`Are you sure you want to sign out? \nPlease remember your username "${
           auth.getCurrentUser()?.username
@@ -58,11 +56,14 @@ const UserButton = ({ user }: Props) => {
         onPrimaryClick={() => navigate("/logout")}
         onSecondaryClick={handleModalClose}
       />
-      <MenuButton>
-        <Avatar name={name} size={{ base: "xs", md: "sm" }} src={avatar} />
-      </MenuButton>
-      <MenuList data={controls} onSelectItem={handleSelection} />
-    </Menu>
+      <MenuContent
+        Button={
+          <Avatar name={name} size={{ base: "xs", md: "sm" }} src={avatar} />
+        }
+        data={controls}
+        onSelectItem={handleSelection}
+      />
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ const Grid = ({
   columns = { sm: 1, md: 2, lg: 3, xl: 4 },
   ...otherProps
 }: SimpleGridProps) => (
-  <SimpleGrid {...otherProps} columns={columns} paddingY=".7rem" spacing={6}>
+  <SimpleGrid columns={columns} paddingY=".7rem" spacing={6} {...otherProps}>
     {children}
   </SimpleGrid>
 );
