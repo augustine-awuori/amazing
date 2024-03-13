@@ -1,54 +1,14 @@
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { useState } from "react";
 import { Box, Table, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
 
 import { Button, Heading, Modal, Text } from "..";
-import { figure } from "../../utils";
-import { Product } from "./product/Card";
-import useCart from "../../hooks/useCart";
-
-export interface BagProduct extends Product {
-  deleted: boolean;
-}
+import { useCart, useNoGrid } from "../../hooks";
 
 const CartTable = () => {
-  const [addedProducts, setCartProducts] = useState<BagProduct[]>([]);
   const [modalOpen, setModalVisibility] = useState(false);
   const [productId, setProductId] = useState("");
   const cart = useCart();
-
-  const cartProducts = cart.getProducts();
-
-  useEffect(() => {
-    setCartProducts(
-      cartProducts.map((p) => ({ ...p, deleted: false, quantity: 1 }))
-    );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cartProducts.length]);
-
-  const handleIncrease = (id: string) => {
-    const updated = addedProducts.map((p) => {
-      if (p._id === id) p.quantity += 1;
-
-      return p;
-    });
-
-    setCartProducts(updated);
-  };
-
-  const handleDecrease = (id: string) => {
-    const updated = addedProducts.map((p) => {
-      if (p._id !== id) return p;
-
-      p.quantity === 1
-        ? toast.info("Delete it if you really wanna")
-        : (p.quantity -= 1);
-
-      return p;
-    });
-
-    setCartProducts(updated);
-  };
+  useNoGrid();
 
   const handleRemoval = () => {
     setModalVisibility(false);
@@ -56,8 +16,8 @@ const CartTable = () => {
   };
 
   const handleAbort = (): void => {
-    setCartProducts(
-      addedProducts.map((p) => {
+    cart.setProducts(
+      cart.products.map((p) => {
         if (p.deleted) p.deleted = false;
 
         return p;
@@ -65,15 +25,6 @@ const CartTable = () => {
     );
 
     setModalVisibility(false);
-  };
-
-  const getGrandTotal = () => {
-    const grandTotal = addedProducts.reduce(
-      (total, { price, quantity }) => total + price * quantity,
-      0
-    );
-
-    return figure.roundToTwoDecimalPlaces(grandTotal);
   };
 
   if (!cart.count)
@@ -103,7 +54,7 @@ const CartTable = () => {
       />
       <Heading my={3}>Shopping Cart</Heading>
       <Box whiteSpace="nowrap" overflowX="auto">
-        <Table w="100%">
+        <Table>
           <Thead>
             <Tr>
               <Th>Name</Th>
@@ -115,7 +66,7 @@ const CartTable = () => {
             </Tr>
           </Thead>
           <Tbody>
-            {addedProducts.map(({ _id, name, price, quantity }, index) => (
+            {cart.products.map(({ _id, name, price, quantity }, index) => (
               <Tr key={index}>
                 <Td>
                   <Text isTruncated maxW="150px">
@@ -125,12 +76,12 @@ const CartTable = () => {
                 <Td>{quantity}</Td>
                 <Td fontWeight="bold">{price * quantity}</Td>
                 <Td p={0}>
-                  <Button size="sm" onClick={() => handleDecrease(_id)}>
+                  <Button size="sm" onClick={() => cart.decrementQuantity(_id)}>
                     -
                   </Button>
                 </Td>
                 <Td p={0}>
-                  <Button size="sm" onClick={() => handleIncrease(_id)}>
+                  <Button size="sm" onClick={() => cart.incrementQuantity(_id)}>
                     +
                   </Button>
                 </Td>
@@ -155,7 +106,7 @@ const CartTable = () => {
               <Td>Grand Total</Td>
               <Td />
               <Td fontWeight="extrabold" color="orange.400">
-                {getGrandTotal()}
+                {cart.getGrandTotal()}
               </Td>
               <Td />
               <Td />

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Box, Flex, Skeleton, SkeletonText } from "@chakra-ui/react";
 
 const DisplayCardSkeleton = ({ isLoading }: { isLoading: boolean }) => {
-  const [skeletons] = useState([1, 2, 3, 4, 5, 6]);
+  const [skeletons] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
 
   if (!isLoading) return null;
 

@@ -3,13 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { ApiResponse } from "apisauce";
 import { toast } from "react-toastify";
 
-import { DataError, Response, appBaseUrl } from "../services/client";
+import { DataError, Response } from "../services/client";
 import { NewOrder, Order } from "./useOrder";
 import { Product } from "../components/shops/product/Card";
 import OrdersContext from "../contexts/OrdersContext";
 import service from "../services/orders";
 import useData from "./useData";
-import util from "../utils/funcs";
 import useCart from "./useCart";
 
 type ShopsProducts = { [shopId: string]: Product[] };
@@ -66,14 +65,10 @@ const useOrders = (targetUrl?: string) => {
     return processResponse(response);
   };
 
-  const sendWhatsAppNotification = (orderId: string, message: string) =>
-    util.navTo(`${appBaseUrl}notifications/orders/${orderId}`, message);
-
   const makeShopOrder = async (prods: Product[], message: string) => {
-    const { data, ok } = await makeOrder(prods, message);
-    ok
-      ? sendWhatsAppNotification((data as Order)._id, message)
-      : setSuccess(ok);
+    const { ok } = await makeOrder(prods, message);
+
+    if (!ok) setSuccess(ok);
   };
 
   const getShopsProducts = (): ShopsProducts => {

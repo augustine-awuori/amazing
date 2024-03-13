@@ -27,8 +27,9 @@ import { ListingsPage, RequestsPage } from "./";
 import { SearchInput, ShopsGrid, SideBar, Text } from "../components";
 import { ShopSelectors } from "../components/listings";
 import { SideBarItem } from "../components/SideBar";
-import { useCategories, useProducts, useShops } from "../hooks";
+import { useCart, useCategories, useProducts, useShops } from "../hooks";
 import auth from "../services/auth";
+import SideCart from "../components/products/CartPreview";
 import MyOrdersPage from "./MyOrdersPage";
 import ShopsProductsGrid from "../components/shops/product/Grid";
 import ShowSelector from "../components/shops/ShowSelector";
@@ -53,7 +54,7 @@ const ShopsPage = () => {
   const [productsCurrentPage, setProductsCurrentPage] = useState(1);
   const [shopsCurrentPage, setShopsCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
-  const pageSize = useBreakpointValue({ sm: 6, md: 9 }) || 6;
+  const pageSize = useBreakpointValue({ sm: 6, md: 12 }) || 6;
   const [selectedSideItem, setSelectedSideItem] = useState("Products");
   const [Content, setContent] = useState<JSX.Element>();
   const { categories, isLoading: categoriesLoading } = useCategories();
@@ -65,6 +66,9 @@ const ShopsPage = () => {
   const [selectedShopId, setSelectedShopId] = useState("");
   const [selectShop, setSelectShop] = useState(false);
   const [authRequested, setAuthRequest] = useState(false);
+  const cart = useCart();
+  const shopsPageSize =
+    useBreakpointValue({ base: pageSize, lg: 12 }) || pageSize;
 
   const showingShops = filter?.label.toLowerCase() === "shops";
   const showingProducts = selectedSideItem.toLowerCase() === "products";
@@ -76,6 +80,7 @@ const ShopsPage = () => {
     setContent(renderContent());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
+    cart.count,
     selectedSideItem,
     filter,
     shops.length,
@@ -179,7 +184,7 @@ const ShopsPage = () => {
           currentPage={productsCurrentPage}
           error=""
           isLoading={productsLoading}
-          pageSize={pageSize}
+          pageSize={shopsPageSize}
           products={products}
           selectedType={selectedType}
           onPageChange={setProductsCurrentPage}
@@ -304,7 +309,7 @@ const ShopsPage = () => {
   return (
     <ThreeGridPage
       onClose={onClose}
-      // RightSideBarContent={RightSideBarContent}
+      RightSideBarContent={cart.count ? <SideCart /> : undefined}
       SideBarContent={AppSideBar}
       MainContent={Content}
       isBottomSheetOpen={isOpen}

@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Spinner } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { FaPaperPlane } from "react-icons/fa";
 import { z } from "zod";
 
-import { Button, Modal, PageContainer } from "../components";
+import { Button, Modal } from "../components";
 import { useCart, useForm, useOrders } from "../hooks";
 import auth from "../services/auth";
 import CartTable from "../components/shops/ShoppingCartTable";
@@ -53,7 +53,7 @@ const ShoppingCartPage = () => {
     auth.getCurrentUser() ? setShowModal(true) : setAuthModal(true);
 
   return (
-    <PageContainer>
+    <Box pt="4rem" maxW="700px" mx="auto">
       {isLoading && <Spinner />}
       <Modal
         content="The shop owners need to know who you are. If you don't have time to login just 'Start Chat' them on WhatsApp"
@@ -87,7 +87,7 @@ const ShoppingCartPage = () => {
           Send Order
         </Button>
       )}
-    </PageContainer>
+    </Box>
   );
 };
 

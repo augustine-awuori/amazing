@@ -1,18 +1,15 @@
 import { useState } from "react";
-import { Box, Flex, IconButton } from "@chakra-ui/react";
+import { Box, Flex, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { AiFillEdit, AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
-import { BiImageAdd } from "react-icons/bi";
+import { FaShoppingBag } from "react-icons/fa";
+import { BsCartCheck } from "react-icons/bs";
+import { BiCartAdd, BiHomeAlt2, BiImageAdd } from "react-icons/bi";
 
 import { Button, Image, Modal, Text } from "../../../components";
 import { empty, figure } from "../../../utils";
 import { Product } from "./Card";
-import {
-  useAppColorMode,
-  useCart,
-  useCurrentUser,
-  useTimestamp,
-} from "../../../hooks";
+import { useAppColorMode, useCart, useCurrentUser } from "../../../hooks";
 import auth from "../../../services/auth";
 import ImageUpdater from "./ImageUpdater";
 import ProductDetails from "./Details";
@@ -23,16 +20,15 @@ interface Props {
 }
 
 const DisplayCard = ({ product, onEdit }: Props) => {
-  const { _id, image, price, name, shop, timestamp } = product || empty.product;
+  const { _id, image, price, name, shop } = product || empty.product;
   const { accentColor } = useAppColorMode();
-  const { tempTimestamp } = useTimestamp(timestamp, true);
   const [isAddingImage, setAddingImage] = useState(false);
   const [showProductDetails, setShowProductDetails] = useState(false);
   const navigate = useNavigate();
   const cart = useCart();
   const isAuthorised =
     useCurrentUser(shop.author) || auth.getCurrentUser()?.isAdmin;
-
+  const isBigScreen = useBreakpointValue({ sm: false, md: true });
   const isAdded = cart.hasProduct(_id);
 
   const handleClick = () => (isAdded ? cart.remove(_id) : cart.add(_id));
@@ -67,6 +63,7 @@ const DisplayCard = ({ product, onEdit }: Props) => {
       borderRadius="30px"
       borderWidth="2px"
       color={isAdded ? "white" : accentColor}
+      display={{ sm: "block", md: "none" }}
       leftIcon={isAdded ? <AiOutlineCheck /> : <AiOutlinePlus />}
       mt={2}
       onClick={handleClick}
@@ -77,12 +74,8 @@ const DisplayCard = ({ product, onEdit }: Props) => {
     </Button>
   );
 
-  return (
-    <Flex
-      cursor="pointer"
-      display={{ base: "flex", md: "block" }}
-      onClick={() => setShowProductDetails(true)}
-    >
+  const Modals = () => (
+    <>
       <Modal
         title="Product Viewer"
         isOpen={showProductDetails}
@@ -93,8 +86,11 @@ const DisplayCard = ({ product, onEdit }: Props) => {
           />
         }
         onModalClose={() => setShowProductDetails(false)}
-        primaryBtnLabel="View Shop"
-        onPrimaryClick={() => navigate(`/shops/${product.shop._id}`)}
+        primaryBtnLabel="View Product"
+        secondaryBtnLabel="View Shop"
+        PrimaryLeftIcon={<FaShoppingBag />}
+        SecondaryLeftIcon={<BiHomeAlt2 />}
+        onSecondaryClick={() => navigate(`/shops/${product.shop._id}`)}
       />
 
       <Modal
@@ -108,24 +104,81 @@ const DisplayCard = ({ product, onEdit }: Props) => {
         }
         onModalClose={() => setAddingImage(false)}
       />
+    </>
+  );
 
-      <Image
+  return (
+    <Flex cursor="pointer" display={{ base: "flex", md: "block" }}>
+      <Modals />
+      <Box
         _hover={{
           width: { sm: "62%", md: "100%" },
-          borderRadius: ".3rem",
+          borderRadius: ".4rem",
           transform: "scale(1.05)",
           transition: "ease .3s",
         }}
-        borderRadius=".2rem"
-        h={{ base: "8rem", md: "9.5rem" }}
-        mr={{ base: 3, md: 5 }}
-        objectFit="cover"
-        src={image}
-        transition="all 0.3s"
-        w={{ sm: "60%", base: "70%", md: "100%" }}
-      />
-      <Box py={1} display="block" w="100%" mx={1.5}>
+        display="block"
+        pos="relative"
+        mx={1.5}
+        position="relative"
+        w="100%"
+      >
+        {isBigScreen && (
+          <IconButton
+            _hover={{ color: "whiteAlpha.900" }}
+            aria-label="Add"
+            boxShadow="1px 1px 1px #ccc"
+            bg={isAdded ? accentColor : "gray.300"}
+            borderRadius="full"
+            color="whiteAlpha"
+            icon={isAdded ? <BsCartCheck /> : <BiCartAdd />}
+            onClick={handleClick}
+            pos="absolute"
+            right={2}
+            top={1.5}
+          />
+        )}
+        <Image
+          onClick={() => setShowProductDetails(true)}
+          borderRadius=".4rem"
+          h={{ base: "8rem", md: "10.5rem" }}
+          mr={{ base: 3, md: 5 }}
+          objectFit="cover"
+          src={image}
+          transition="all 0.3s"
+          w="100%"
+        />
+        <Box
+          onClick={() => setShowProductDetails(true)}
+          bg="gray.300"
+          borderBottomRadius=".3rem"
+          bottom={0}
+          display={{ base: "none", md: "block" }}
+          left={0}
+          position="absolute"
+          textAlign="center"
+          w="100%"
+        >
+          <Text
+            fontSize="1rem"
+            fontWeight="bold"
+            letterSpacing="1px"
+            noOfLines={1}
+            textTransform="capitalize"
+          >
+            {name}
+          </Text>
+        </Box>
+      </Box>
+      <Box
+        pt={1}
+        display="block"
+        w="100%"
+        mx={1.5}
+        onClick={() => setShowProductDetails(true)}
+      >
         <Text
+          display={{ sm: "block", md: "none" }}
           fontSize="1.25rem"
           fontWeight="extrabold"
           letterSpacing="1px"
@@ -134,14 +187,14 @@ const DisplayCard = ({ product, onEdit }: Props) => {
         >
           {name}
         </Text>
-        <Flex justify="space-between">
-          <Text color={accentColor} noOfLines={1}>
-            Ksh {figure.addComma(price)}
-          </Text>
-          <Text color="gray.400" fontSize="sm">
-            {tempTimestamp}
-          </Text>
-        </Flex>
+        <Text
+          _hover={{ fontWeight: "extrabold" }}
+          color={accentColor}
+          noOfLines={1}
+          textAlign={{ base: "left", md: "center" }}
+        >
+          Ksh {figure.addComma(price)}
+        </Text>
         <Text
           _hover={{ color: "whiteAlpha.700" }}
           color="gray.500"
