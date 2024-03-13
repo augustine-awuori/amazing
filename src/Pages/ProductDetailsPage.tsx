@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Divider, Flex } from "@chakra-ui/react";
+import { Box, Divider, Flex, SkeletonText } from "@chakra-ui/react";
 import { FaHandshake } from "react-icons/fa";
 import { BsTruck } from "react-icons/bs";
 import { FaUndo } from "react-icons/fa";
@@ -30,11 +30,11 @@ const ProductDetailsPage = () => {
   const navigate = useNavigate();
   const { accentColor, concAccentColor } = useAppColorMode();
   const orderHelper = useOrders();
-  const { info: product, request } = useReload<Product>(
-    null,
-    empty.product,
-    service.getProduct
-  );
+  const {
+    info: product,
+    request,
+    isLoading,
+  } = useReload<Product>(null, empty.product, service.getProduct);
 
   const { _id, image, name, description, price, shop, quantity } = product;
   const isAdded = cart.hasProduct(_id);
@@ -107,10 +107,17 @@ const ProductDetailsPage = () => {
   };
 
   return (
-    <Box pt={20} px={{ lg: 10, md: 5 }} mx="auto">
-      <Grid columns={{ sm: 1, md: 2 }}>
-        <Image src={image} w="100%" objectFit="contain" borderRadius={7} />
-        <Box>
+    <Box pt="4rem">
+      <Grid columns={{ sm: 1, md: 2 }} mx="auto">
+        <Image
+          px={{ base: 3 }}
+          src={image}
+          w="100%"
+          objectFit="contain"
+          borderRadius={{ md: 7, base: 10 }}
+        />
+        <Box px={{ base: 5 }}>
+          {isLoading && <SkeletonText mb={1} />}
           <Text
             fontWeight="extrabold"
             textTransform="capitalize"
