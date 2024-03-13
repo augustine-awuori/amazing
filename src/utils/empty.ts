@@ -96,7 +96,7 @@ export default {
   category,
   listing: { ...listing, paramsId: "listingId" },
   order: { ...order, paramsId: "orderId" },
-  product: { ...product, paramsId: "" },
+  product: { ...product, paramsId: "productId" },
   request: { ...request, paramsId: "requestId" },
   shop: { ...shop, paramsId: "shopId" },
   type,

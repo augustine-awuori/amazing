@@ -27,6 +27,7 @@ import {
   NotFoundPage,
   OrderPage,
   OrdersPage,
+  ProductDetailsPage,
   ProfileEditPage,
   ProfileListingsPage,
   ProfilePage,
@@ -269,6 +270,10 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
                                               <Route
                                                 path="/shops/shopping-cart"
                                                 element={<ShoppingCartPage />}
+                                              />
+                                              <Route
+                                                path="/shops/:shopId/:productId"
+                                                element={<ProductDetailsPage />}
                                               />
                                               <Route
                                                 path="/shops/:shopId"

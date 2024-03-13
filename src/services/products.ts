@@ -24,4 +24,7 @@ const deleteProductBy = (productId: string) =>
 const updateImage = (productId: string, image: string) =>
   client.patch(`${endpoint}/image/${productId}`, { image });
 
-export default { create, deleteProductBy, update, updateImage };
+const getProduct = (productId: string) =>
+  client.get(`${endpoint}/single/${productId}`);
+
+export default { create, deleteProductBy, getProduct, update, updateImage };

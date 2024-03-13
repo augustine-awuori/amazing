@@ -2,9 +2,13 @@ import { useState } from "react";
 import { Box, Flex, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { AiFillEdit, AiOutlineCheck, AiOutlinePlus } from "react-icons/ai";
-import { FaShoppingBag } from "react-icons/fa";
 import { BsCartCheck } from "react-icons/bs";
-import { BiCartAdd, BiHomeAlt2, BiImageAdd } from "react-icons/bi";
+import {
+  BiLinkExternal,
+  BiCartAdd,
+  BiHomeAlt2,
+  BiImageAdd,
+} from "react-icons/bi";
 
 import { Button, Image, Modal, Text } from "../../../components";
 import { empty, figure } from "../../../utils";
@@ -33,6 +37,9 @@ const DisplayCard = ({ product, onEdit }: Props) => {
   const isAdded = cart.hasProduct(_id);
 
   const handleClick = () => (isAdded ? cart.remove(_id) : cart.add(_id));
+
+  const viewAllProductDetails = () =>
+    navigate(`/shops/${product.shop._id}/${product._id}`);
 
   const ComputedButton = userIsAuthorised ? (
     <Flex align="center" justify="space-between" mt={2}>
@@ -89,7 +96,8 @@ const DisplayCard = ({ product, onEdit }: Props) => {
         onModalClose={() => setShowProductDetails(false)}
         primaryBtnLabel="View Product"
         secondaryBtnLabel="View Shop"
-        PrimaryLeftIcon={<FaShoppingBag />}
+        onPrimaryClick={viewAllProductDetails}
+        PrimaryLeftIcon={<BiLinkExternal />}
         SecondaryLeftIcon={<BiHomeAlt2 />}
         onSecondaryClick={() => navigate(`/shops/${product.shop._id}`)}
       />
