@@ -149,7 +149,7 @@ const ShopPage = () => {
           <Footer
             Info={FooterInfo}
             name={`${shop.name} Shop`}
-            owner={`Shop Owner: ${shop.author.name}`}
+            owner={`Seller: ${shop.author.name}`}
             verified={shop.author.isVerified}
           >
             {phoneNumber && <StartChatBtn phoneNumber={phoneNumber} />}

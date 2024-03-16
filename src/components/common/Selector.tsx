@@ -8,6 +8,7 @@ export interface Item {
   _id: string;
   icon?: JSX.Element;
   label: string;
+  onClick?: () => void;
   rightIcon?: JSX.Element;
   route?: string;
 }

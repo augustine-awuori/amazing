@@ -10,10 +10,18 @@ import {
   BiImageAdd,
 } from "react-icons/bi";
 
-import { Button, Image, Modal, Text } from "../../../components";
+import { Button, Image, Modal, Text } from "../../";
+import { DeleteIcon } from "../../icons";
 import { empty, figure } from "../../../utils";
+import { Item } from "../../common/Selector";
+import { MenuContent } from "../../common";
 import { Product } from "./Card";
-import { useAppColorMode, useCart, useCurrentUser } from "../../../hooks";
+import {
+  useAppColorMode,
+  useCart,
+  useCurrentUser,
+  useProducts,
+} from "../../../hooks";
 import auth from "../../../services/auth";
 import ImageUpdater from "./ImageUpdater";
 import ProductDetails from "./Details";
@@ -23,8 +31,13 @@ interface Props {
   onEdit?: () => void;
 }
 
+interface EditOption extends Item {
+  onClick: () => void;
+}
+
 const DisplayCard = ({ product, onEdit }: Props) => {
   const { _id, image, price, name, shop } = product || empty.product;
+  const { deleteProductById } = useProducts(undefined);
   const { accentColor } = useAppColorMode();
   const [isAddingImage, setAddingImage] = useState(false);
   const [showProductDetails, setShowProductDetails] = useState(false);
@@ -36,32 +49,43 @@ const DisplayCard = ({ product, onEdit }: Props) => {
   const isBigScreen = useBreakpointValue({ sm: false, md: true });
   const isAdded = cart.hasProduct(_id);
 
+  const productEditOptions: EditOption[] = [
+    {
+      _id: "",
+      label: "Edit Details",
+      icon: <AiFillEdit />,
+      onClick: () => onEdit?.(),
+    },
+    {
+      _id: "",
+      label: "Change Product Image",
+      icon: <BiImageAdd />,
+      onClick: () => setAddingImage(true),
+    },
+    {
+      _id: "",
+      label: "Delete Product",
+      icon: <DeleteIcon />,
+      onClick: () => deleteProductById(_id),
+    },
+  ];
+
   const handleClick = () => (isAdded ? cart.remove(_id) : cart.add(_id));
 
   const viewAllProductDetails = () =>
     navigate(`/shops/${product.shop._id}/${product._id}`);
 
   const ComputedButton = userIsAuthorised ? (
-    <Flex align="center" justify="space-between" mt={2}>
-      <Button
-        backgroundColor={accentColor}
-        borderRadius="30px"
-        color="#fff"
-        leftIcon={<AiFillEdit />}
-        onClick={() => onEdit?.()}
-        w="100%"
-      >
-        Edit Product
-      </Button>
-      <Box w={3} />
-      <IconButton
-        color="green.400"
-        icon={<BiImageAdd />}
-        borderRadius={15}
-        aria-label="button"
-        onClick={() => setAddingImage(true)}
-      />
-    </Flex>
+    <MenuContent
+      Button={
+        <Button w="100%" mt={3}>
+          Edit Product
+        </Button>
+      }
+      buttonWidth="100%"
+      data={productEditOptions}
+      onSelectItem={(item) => item?.onClick?.()}
+    />
   ) : (
     <Button
       _active={{ backgroundColor: accentColor, color: "white" }}
@@ -179,41 +203,37 @@ const DisplayCard = ({ product, onEdit }: Props) => {
           </Text>
         </Box>
       </Box>
-      <Box
-        pt={1}
-        display="block"
-        w="100%"
-        mx={1.5}
-        onClick={() => setShowProductDetails(true)}
-      >
-        <Text
-          display={{ sm: "block", md: "none" }}
-          fontSize="1.25rem"
-          fontWeight="extrabold"
-          letterSpacing="1px"
-          noOfLines={{ base: 2, md: 1 }}
-          textTransform="capitalize"
-        >
-          {name}
-        </Text>
-        <Text
-          _hover={{ fontWeight: "extrabold" }}
-          color={accentColor}
-          noOfLines={1}
-          textAlign={{ base: "left", md: "center" }}
-        >
-          Ksh {figure.addComma(price)}
-        </Text>
-        <Text
-          _hover={{ color: "whiteAlpha.700" }}
-          color="gray.500"
-          display={{ sm: "block", md: "none" }}
-          noOfLines={1}
-          textTransform="capitalize"
-          transition="color 0.3s"
-        >
-          {shop.name} Shop
-        </Text>
+      <Box pt={1} display="block" w="100%" mx={1.5}>
+        <Box onClick={() => setShowProductDetails(true)}>
+          <Text
+            display={{ sm: "block", md: "none" }}
+            fontSize="1.25rem"
+            fontWeight="extrabold"
+            letterSpacing="1px"
+            noOfLines={{ base: 2, md: 1 }}
+            textTransform="capitalize"
+          >
+            {name}
+          </Text>
+          <Text
+            _hover={{ fontWeight: "extrabold" }}
+            color={accentColor}
+            noOfLines={1}
+            textAlign={{ base: "left", md: "center" }}
+          >
+            Ksh {figure.addComma(price)}
+          </Text>
+          <Text
+            _hover={{ color: "whiteAlpha.700" }}
+            color="gray.500"
+            display={{ sm: "block", md: "none" }}
+            noOfLines={1}
+            textTransform="capitalize"
+            transition="color 0.3s"
+          >
+            {shop.name} Shop
+          </Text>
+        </Box>
         {ComputedButton}
       </Box>
     </Flex>
