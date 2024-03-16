@@ -4,25 +4,38 @@ import { Box, Divider, Flex, SkeletonText } from "@chakra-ui/react";
 import { FaHandshake } from "react-icons/fa";
 import { BsTruck } from "react-icons/bs";
 import { FaUndo } from "react-icons/fa";
+import { BiHomeAlt } from "react-icons/bi";
 
 import { empty, figure } from "../utils";
 import { Button, Grid, Image, Text } from "../components";
+import { DeleteIcon } from "../components/icons";
+import { MenuContent } from "../components/common";
 import { Product } from "../components/shops/product/Card";
 import {
   useAppColorMode,
   useCart,
+  useCurrentUser,
   useNoGrid,
   useOrders,
+  useProducts,
   useReload,
 } from "../hooks";
+import auth from "../services/auth";
 import service from "../services/products";
-import { BiHomeAlt } from "react-icons/bi";
 
 interface InfoProps {
   description: string;
   Icon: JSX.Element;
   title: string;
 }
+
+const deleteActions = [
+  {
+    _id: "",
+    label: "Delete Product Permanently?",
+    icon: <DeleteIcon />,
+  },
+];
 
 const ProductDetailsPage = () => {
   useNoGrid();
@@ -35,14 +48,26 @@ const ProductDetailsPage = () => {
     request,
     isLoading,
   } = useReload<Product>(null, empty.product, service.getProduct);
-
-  const { _id, image, name, description, price, shop, quantity } = product;
-  const isAdded = cart.hasProduct(_id);
+  const isSeller = useCurrentUser(product.shop?.author);
+  const { deleteProductById } = useProducts(undefined);
 
   useEffect(() => {
     request();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (!product._id && !isLoading)
+    return (
+      <Box pt="7rem">
+        <Text textAlign="center">Network Error!</Text>
+        <Text color={accentColor} onClick={request}>
+          Retry
+        </Text>
+      </Box>
+    );
+
+  const { _id, image, name, description, price, shop, quantity } = product;
+  const isAdded = cart.hasProduct(_id);
 
   const Info = ({ description, Icon, title }: InfoProps) => (
     <Flex align="center" px={4} py={3}>
@@ -59,6 +84,13 @@ const ProductDetailsPage = () => {
   const makeOrder = async () => {
     cart.add(_id);
     await orderHelper.makeShopsOrders("");
+  };
+
+  const visitShop = () => navigate(`/shops/${shop._id}`);
+
+  const deleteProduct = async () => {
+    const { ok } = await deleteProductById(_id);
+    if (ok) visitShop();
   };
 
   const CartButton = (): JSX.Element => {
@@ -117,15 +149,18 @@ const ProductDetailsPage = () => {
           borderRadius={{ md: 7, base: 10 }}
         />
         <Box px={{ base: 5 }}>
-          {isLoading && <SkeletonText mb={1} />}
-          <Text
-            fontWeight="extrabold"
-            textTransform="capitalize"
-            fontSize={30}
-            mb={4}
-          >
-            {name}
-          </Text>
+          {isLoading && !name ? (
+            <SkeletonText mb={1.5} />
+          ) : (
+            <Text
+              fontWeight="extrabold"
+              textTransform="capitalize"
+              fontSize={30}
+              mb={4}
+            >
+              {name}
+            </Text>
+          )}
           <Text mb={3}>{description}</Text>
           <Divider />
           <Text color={accentColor} fontSize={25}>
@@ -136,37 +171,57 @@ const ProductDetailsPage = () => {
             <Text ml={2} color="green.400" fontSize="sm">
               Negotiable
             </Text>
-            <Text mx={2}>.</Text>
-            <Flex
-              cursor="pointer"
-              align="center"
-              onClick={() => navigate(`/shops/${shop._id}`)}
-            >
+            <Text mx={2} mb={2}>
+              .
+            </Text>
+            <Flex cursor="pointer" align="center" onClick={visitShop}>
               <BiHomeAlt />
               <Text
                 _hover={{ color: concAccentColor }}
                 color={accentColor}
                 fontSize="sm"
+                noOfLines={1}
                 ml={1}
               >
-                Visit shop
+                Visit shop by {product.author?.name}
               </Text>
             </Flex>
           </Flex>
           <Divider mt={2} />
-          <Flex py={5} w="100%" align="center" justify="space-between">
-            <Button
-              _hover={{ bg: concAccentColor }}
-              onClick={makeOrder}
-              w="100%"
-              borderRadius={20}
-              bg={accentColor}
-            >
-              Order Now
-            </Button>
-            <Box w={7} />
-            <CartButton />
-          </Flex>
+          {isSeller || auth.getCurrentUser()?.isAdmin ? (
+            <MenuContent
+              Button={
+                <Button
+                  my={5}
+                  w="100%"
+                  borderRadius={20}
+                  bg="red.300"
+                  _hover={{ bg: "red.600" }}
+                >
+                  Delete Product
+                </Button>
+              }
+              data={deleteActions}
+              buttonWidth="100%"
+              onSelectItem={deleteProduct}
+            />
+          ) : (
+            <>
+              <Flex py={5} w="100%" align="center" justify="space-between">
+                <Button
+                  _hover={{ bg: concAccentColor }}
+                  onClick={makeOrder}
+                  w="100%"
+                  borderRadius={20}
+                  bg={accentColor}
+                >
+                  Order Now
+                </Button>
+                <Box w={7} />
+                <CartButton />
+              </Flex>
+            </>
+          )}
           <Box border="1px solid gray" borderRadius={5} py={3}>
             <Info
               Icon={<BsTruck />}

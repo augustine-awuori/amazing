@@ -5,11 +5,13 @@ import { EditIcon } from "@chakra-ui/icons";
 import { Image, Text } from "../../";
 import { ShopProduct } from "../../../hooks/useShop";
 import { useAppColorMode } from "../../../hooks";
+import { User } from "../../../hooks/useUser";
 import Button, { ProductCardBtnFuncs } from "./CardButton";
 import figure from "../../../utils/figure";
 
 export interface Product {
   _id: string;
+  author: User;
   description: string;
   image: string;
   name: string;

@@ -97,7 +97,7 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
 
     if (shopOwnerDetails?._id) await userService.resetToken();
   };
-  console.log(shopOwnerDetails);
+
   const ChatButton = (): JSX.Element => {
     if (isTheAuthor && !shopOwnerDetails?.chatIds)
       return (

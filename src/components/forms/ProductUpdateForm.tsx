@@ -39,7 +39,7 @@ const ProductUpdateForm = ({ onDone, product }: Props) => {
     setShowModal(false);
 
     if (!product) return;
-    const { ok, error } = await service.deleteProductBy(product._id);
+    const { ok, error } = await service.deleteProductById(product._id);
     if (!ok) setError(error);
   };
 

@@ -4,11 +4,16 @@ import SelectorMenuList, { MenuListProps } from "./SelectorMenuList";
 
 interface Props extends MenuListProps {
   Button: JSX.Element;
+  buttonWidth?: string;
 }
 
-const MenuContent = ({ Button, ...otherProps }: Props) => (
+const MenuContent = ({
+  Button,
+  buttonWidth = "auto",
+  ...otherProps
+}: Props) => (
   <Menu>
-    <MenuButton>{Button}</MenuButton>
+    <MenuButton w={buttonWidth}>{Button}</MenuButton>
     <SelectorMenuList {...otherProps} />
   </Menu>
 );

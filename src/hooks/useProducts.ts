@@ -74,10 +74,11 @@ const useProducts = (shopId: string | undefined) => {
     return { error, ok };
   };
 
-  const deleteProductBy = async (productId: string) => {
+  const deleteProductById = async (productId: string) => {
     const initial = [...products];
     let found: Product | undefined;
 
+    toast.loading("Deleting product...");
     setProducts(
       initial.filter((p) => {
         if (p._id === productId) found = p;
@@ -87,10 +88,14 @@ const useProducts = (shopId: string | undefined) => {
     );
 
     const { data, ok, problem } = await service.deleteProductBy(productId);
+    toast.dismiss();
     let error = "";
     if (!ok) {
       setProducts(initial);
-      toast.error("Product deletion terminated unsuccessfully!");
+      toast.error(
+        (data as DataError).error ||
+          "Product deletion terminated unsuccessfully!"
+      );
       error = (data as DataError)?.error || problem;
     } else {
       if (found) await storage.deleteImage(found.image);
@@ -116,7 +121,7 @@ const useProducts = (shopId: string | undefined) => {
   return {
     addProduct,
     create,
-    deleteProductBy,
+    deleteProductById,
     isLoading,
     products: result,
     productsCount: result.length,
