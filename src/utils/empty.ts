@@ -4,6 +4,7 @@ import { Order } from "../hooks/useOrder";
 import { Product } from "../components/shops/product/Card";
 import { Request } from "../hooks/useRequest";
 import { Shop, ShopProduct } from "../hooks/useShop";
+import { Status } from "../hooks/useStatus";
 import { Type } from "../hooks/useTypes";
 import { User } from "../hooks/useUser";
 
@@ -58,6 +59,7 @@ const shopProduct: ShopProduct = {
 
 const product: Product = {
   _id: "",
+  author,
   description: "",
   image: "",
   name: "",
@@ -92,6 +94,8 @@ const category: Category = {
   route: "",
 };
 
+const status: Status = { _id: "", color: "orange", label: "All" };
+
 export default {
   category,
   listing: { ...listing, paramsId: "listingId" },
@@ -99,6 +103,7 @@ export default {
   product: { ...product, paramsId: "productId" },
   request: { ...request, paramsId: "requestId" },
   shop: { ...shop, paramsId: "shopId" },
+  status: { ...status },
   type,
   user: { ...author, paramsId: "userId" },
 };

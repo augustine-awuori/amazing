@@ -82,7 +82,7 @@ const ShopsPage = () => {
   }, [
     cart.count,
     selectedSideItem,
-    filter,
+    filter?._id,
     shops.length,
     products.length,
     selectedCategory?._id,
@@ -91,7 +91,6 @@ const ShopsPage = () => {
     productsCurrentPage,
     shopsCurrentPage,
     query,
-    showingProducts,
   ]);
 
   const navigateToDetails = (shop: Shop) => {
@@ -134,11 +133,13 @@ const ShopsPage = () => {
         value={query}
         mr={3}
       />
-      <ShowSelector
-        name={filter?.label || "Products"}
-        onSelectItem={setFilter}
-        selectedItem={filter}
-      />
+      {showingProducts && (
+        <ShowSelector
+          name={filter?.label || "Products"}
+          onSelectItem={setFilter}
+          selectedItem={filter}
+        />
+      )}
       <IconButton
         aria-label="button"
         icon={<BiDotsHorizontalRounded />}

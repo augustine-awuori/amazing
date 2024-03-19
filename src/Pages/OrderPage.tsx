@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 
 import { DismissableInfo, Pagination } from "../components/common";
-import { Grid, Heading, PageContainer } from "../components";
+import { Grid, Heading } from "../components";
 import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils/paginate";
 import { Product } from "../components/shops/product/Card";
-import { useOrder, useReload } from "../hooks";
+import { useNoGrid, useOrder, useReload } from "../hooks";
 import CardSkeletons from "../components/card/Skeletons";
 import empty from "../utils/empty";
 import OrderProductCard from "../components/order/ProductCard";
@@ -22,6 +23,7 @@ const OrderPage = () => {
     request,
   } = useReload<Order>(info, empty.order, service.getOrder);
   const navigate = useNavigate();
+  useNoGrid();
 
   useEffect(() => {
     request();
@@ -34,7 +36,7 @@ const OrderPage = () => {
   if (!order._id) return <>{navigate(-1)}</>;
 
   return (
-    <PageContainer>
+    <Box pt="4rem" px={5}>
       <DismissableInfo info={order.message} />
       <Heading mb={3}>
         Products Ordered on {new Date(order?.timestamp).toLocaleDateString()}
@@ -51,7 +53,7 @@ const OrderPage = () => {
         onPageChange={setCurrentPage}
         pageSize={pageSize}
       />
-    </PageContainer>
+    </Box>
   );
 };
 

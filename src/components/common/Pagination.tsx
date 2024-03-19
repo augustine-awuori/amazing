@@ -1,4 +1,4 @@
-import { HStack, Box } from "@chakra-ui/react";
+import { HStack, Box, BoxProps } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import _ from "lodash";
 
@@ -10,7 +10,7 @@ export interface PaginationProps {
   pageSize: number;
 }
 
-interface Props extends PaginationProps {
+interface Props extends PaginationProps, BoxProps {
   itemsCount: number;
 }
 
@@ -19,6 +19,7 @@ const Pagination = ({
   currentPage,
   onPageChange,
   pageSize,
+  ...boxProps
 }: Props) => {
   const pagesCount = Math.ceil(itemsCount / pageSize);
   if (pagesCount === 1) return null;
@@ -28,7 +29,7 @@ const Pagination = ({
   const canGoNext = currentPage < pagesCount;
 
   return (
-    <Box maxW="100%" overflowX="auto" mb={4}>
+    <Box maxW="100%" overflowX="auto" mb={4} {...boxProps}>
       <HStack spacing={4} justify="center" align="center">
         {canGoPrevious && (
           <Button

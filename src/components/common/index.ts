@@ -19,3 +19,4 @@ export { default as ScrollToTopBtn } from "./ScrollToTopBtn";
 export { default as Select } from "./Select";
 export { default as Selector } from "./Selector";
 export { default as TextInput } from "./TextInput";
+export { default as Thead } from "./Thead";

@@ -18,3 +18,4 @@ export { default as RequestContext } from "./RequestContext";
 export { default as RequestsContext } from "./RequestsContext";
 export { default as ShopContext } from "./ShopContext";
 export { default as ShopsContext } from "./ShopsContext";
+export { default as StatusContext } from "./StatusContext";
