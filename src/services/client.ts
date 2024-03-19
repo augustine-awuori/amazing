@@ -3,7 +3,7 @@ import { ApiResponse, create, HEADERS } from "apisauce";
 import auth from "./auth";
 import cache from "../utils/cache";
 
-export const appBaseUrl = "https://campusmart.site/";
+export const appBaseUrl = "https://amazing-website.online/";
 export const authTokenKey = "x-auth-token";
 export interface Headers extends HEADERS {}
 

@@ -2,39 +2,31 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
 
-import { Grid, Info, Text } from "../components";
-import { MediaQueryUser } from "../components/common/MediaQuery";
-import { Pagination } from "../components/common";
-import { Type } from "../hooks/useTypes";
+import { BadgesList, Pagination } from "../components/common";
+import { empty } from "../utils";
+import { Heading, Info, Text } from "../components";
+import { Order } from "../hooks/useOrder";
+import { paginate } from "../utils/paginate";
 import { useAppColorMode, useOrders } from "../hooks";
 import auth from "../services/auth";
-import OrderCard from "../components/order/CardWithBadge";
-import useOrder, { Order } from "../hooks/useOrder";
+import OrdersTable from "../components/order/OrdersTable";
+import useStatus, { Status } from "../hooks/useStatus";
 
 const OrdersPage = () => {
-  const { accentColor } = useAppColorMode();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
-  const [selectedType] = useState<Type | null>(null);
+  const [selectedStatus, setSelectedStatus] = useState<Status>(empty.status);
+  const { accentColor } = useAppColorMode();
   const user = auth.getCurrentUser();
   const { isLoading, orders } = useOrders(`${user?._id}`);
-  const helper = useOrder();
+  const { status, isLoading: statusLoading } = useStatus();
   const navigate = useNavigate();
 
-  const getUserFrom = ({ shop }: Order): MediaQueryUser => ({
-    avatar: shop.image,
-    isVerified: shop.isVerified,
-    name: shop.name,
-  });
-
-  const filtered = selectedType?._id
-    ? orders.filter((order) => order.shop.type === selectedType)
+  const filtered = selectedStatus._id
+    ? orders.filter((order) => order.status._id === selectedStatus._id)
     : orders;
 
-  const navigateToDetails = (order: Order) => {
-    helper.setOrder(order);
-    navigate(order._id);
-  };
+  const paginated = paginate<Order>(filtered, currentPage, pageSize);
 
   if (!user)
     return (
@@ -45,13 +37,13 @@ const OrdersPage = () => {
           color={accentColor}
           onClick={() => navigate("/login")}
         >
-          Login{" "}
+          Login
         </Text>
         <Text textAlign="center"> to see your recieved and sent orders.</Text>
       </Flex>
     );
 
-  if (!filtered.length)
+  if (!paginated.length)
     return (
       <Box h="100%" w="100%">
         <Info show={!isLoading} />
@@ -60,31 +52,25 @@ const OrdersPage = () => {
 
   return (
     <>
-      <Grid>
-        {filtered.map((order) => {
-          const { _id, products, timestamp } = order;
-
-          return (
-            <OrderCard
-              key={_id}
-              count={products.length}
-              name={products[0].name}
-              image={products[0].image}
-              onClick={() => navigateToDetails(order)}
-              user={getUserFrom(order)}
-              timestamp={timestamp}
-            />
-          );
-        })}
-      </Grid>
-      <Box mt={5}>
-        <Pagination
-          currentPage={currentPage}
-          itemsCount={filtered.length}
-          onPageChange={setCurrentPage}
-          pageSize={pageSize}
-        />
-      </Box>
+      <BadgesList
+        list={status}
+        loading={statusLoading}
+        onItemSelect={(status) => setSelectedStatus(status as Status)}
+        selectedItem={selectedStatus}
+      />
+      {selectedStatus._id && (
+        <Heading mt={8} textAlign="center">
+          Showing {filtered.length} "{selectedStatus.label}" orders
+        </Heading>
+      )}
+      <OrdersTable orders={filtered} mt={8} />
+      <Pagination
+        currentPage={currentPage}
+        itemsCount={filtered.length}
+        mt={5}
+        onPageChange={setCurrentPage}
+        pageSize={pageSize}
+      />
     </>
   );
 };

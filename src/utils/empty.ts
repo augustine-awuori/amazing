@@ -4,6 +4,7 @@ import { Order } from "../hooks/useOrder";
 import { Product } from "../components/shops/product/Card";
 import { Request } from "../hooks/useRequest";
 import { Shop, ShopProduct } from "../hooks/useShop";
+import { Status } from "../hooks/useStatus";
 import { Type } from "../hooks/useTypes";
 import { User } from "../hooks/useUser";
 
@@ -58,6 +59,7 @@ const shopProduct: ShopProduct = {
 
 const product: Product = {
   _id: "",
+  author,
   description: "",
   image: "",
   name: "",
@@ -67,11 +69,14 @@ const product: Product = {
   timestamp: 0,
 };
 
+const status: Status = { _id: "", color: "orange", label: "All" };
+
 const order: Order = {
   buyer: { ...author, canceled: false, hasShop: false, seen: false },
   _id: "",
   products: [],
   shop,
+  status,
   timestamp: 52086,
   message: "",
 };
@@ -99,6 +104,7 @@ export default {
   product: { ...product, paramsId: "productId" },
   request: { ...request, paramsId: "requestId" },
   shop: { ...shop, paramsId: "shopId" },
+  status: { ...status },
   type,
   user: { ...author, paramsId: "userId" },
 };

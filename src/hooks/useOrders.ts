@@ -6,18 +6,20 @@ import { toast } from "react-toastify";
 import { DataError, Response } from "../services/client";
 import { NewOrder, Order } from "./useOrder";
 import { Product } from "../components/shops/product/Card";
+import { useCart, useData, useStatus } from ".";
 import OrdersContext from "../contexts/OrdersContext";
 import service from "../services/orders";
-import useData from "./useData";
-import useCart from "./useCart";
 
 type ShopsProducts = { [shopId: string]: Product[] };
+
+const PENDING_ORDER_STATUS = "65f7f5babfb2e60edd3733a1";
 
 const useOrders = (targetUrl?: string) => {
   const { data, error, isLoading } = useData<Order>(`orders/${targetUrl}`);
   const { setOrders } = useContext(OrdersContext);
   const [success, setSuccess] = useState(true);
   const navigate = useNavigate();
+  const { status } = useStatus();
   const cart = useCart();
 
   useEffect(() => {
@@ -29,6 +31,9 @@ const useOrders = (targetUrl?: string) => {
     message,
     products: products.map((p) => p._id),
     shop: products[0].shop._id,
+    status:
+      status.find((s) => s.label.toLowerCase().includes("pending"))?._id ||
+      PENDING_ORDER_STATUS,
   });
 
   const processResponse = (res: ApiResponse<unknown, unknown>): Response => {
