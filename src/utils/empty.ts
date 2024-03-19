@@ -97,6 +97,8 @@ const category: Category = {
   route: "",
 };
 
+const status: Status = { _id: "", color: "orange", label: "All" };
+
 export default {
   category,
   listing: { ...listing, paramsId: "listingId" },
