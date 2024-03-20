@@ -43,7 +43,7 @@ const OrdersPage = () => {
       </Flex>
     );
 
-  if (!paginated.length)
+  if (!orders.length)
     return (
       <Box h="100%" w="100%">
         <Info show={!isLoading} />
@@ -63,7 +63,7 @@ const OrdersPage = () => {
           Showing {filtered.length} "{selectedStatus.label}" orders
         </Heading>
       )}
-      <OrdersTable orders={filtered} mt={8} />
+      <OrdersTable orders={paginated} mt={8} />
       <Pagination
         currentPage={currentPage}
         itemsCount={filtered.length}
