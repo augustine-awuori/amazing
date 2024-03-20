@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex, Spinner } from "@chakra-ui/react";
 
 import { BadgesList, Pagination } from "../components/common";
 import { empty } from "../utils";
-import { Heading, Info, Text } from "../components";
+import { Heading, Text } from "../components";
 import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils/paginate";
 import { useAppColorMode, useOrders } from "../hooks";
@@ -18,7 +18,7 @@ const OrdersPage = () => {
   const [selectedStatus, setSelectedStatus] = useState<Status>(empty.status);
   const { accentColor } = useAppColorMode();
   const user = auth.getCurrentUser();
-  const { isLoading, orders } = useOrders(`${user?._id}`);
+  const { isLoading: ordersLoading, orders } = useOrders(`${user?._id}`);
   const { status, isLoading: statusLoading } = useStatus();
   const navigate = useNavigate();
 
@@ -43,13 +43,6 @@ const OrdersPage = () => {
       </Flex>
     );
 
-  if (!orders.length)
-    return (
-      <Box h="100%" w="100%">
-        <Info show={!isLoading} />
-      </Box>
-    );
-
   return (
     <>
       <BadgesList
@@ -63,7 +56,14 @@ const OrdersPage = () => {
           Showing {filtered.length} "{selectedStatus.label}" orders
         </Heading>
       )}
-      <OrdersTable orders={paginated} mt={8} />
+      {ordersLoading && <Spinner mt={10} alignSelf="center" />}
+      {orders.length ? (
+        <OrdersTable orders={paginated} mt={8} />
+      ) : (
+        <Text textAlign="center" mt={8}>
+          You've not placed any orders yet! Add products to start...
+        </Text>
+      )}
       <Pagination
         currentPage={currentPage}
         itemsCount={filtered.length}
