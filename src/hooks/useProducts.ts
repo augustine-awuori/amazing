@@ -10,7 +10,7 @@ import service from "../services/products";
 import storage from "../db/image";
 import useData from "./useData";
 
-const useProducts = (shopId: string | undefined) => {
+const useProducts = (shopId?: string) => {
   const { data, error, ...rest } = useData<Product>(getApiEndpoint());
   const { products, setProducts } = useContext(ProductsContext);
   const [isLoading, setLoading] = useState(true);

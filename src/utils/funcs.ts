@@ -16,4 +16,8 @@ function removeLastChar(plural: string): string {
   return result;
 }
 
-export default { navTo, isOdd, removeLastChar };
+function getBoolean(value: unknown): boolean {
+  return value ? true : false;
+}
+
+export default { navTo, isOdd, getBoolean, removeLastChar };

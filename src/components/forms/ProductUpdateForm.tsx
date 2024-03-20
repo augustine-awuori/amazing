@@ -7,7 +7,7 @@ import { ProductFormData, productSchema } from "../../data/schemas";
 import { useForm, useProducts, useShop } from "../../hooks";
 
 interface Props {
-  product: Product | undefined;
+  product?: Product;
   onDone: () => void;
 }
 

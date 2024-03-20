@@ -37,7 +37,7 @@ interface EditOption extends Item {
 
 const DisplayCard = ({ product, onEdit }: Props) => {
   const { _id, image, price, name, shop } = product || empty.product;
-  const { deleteProductById } = useProducts(undefined);
+  const { deleteProductById } = useProducts();
   const { accentColor } = useAppColorMode();
   const [isAddingImage, setAddingImage] = useState(false);
   const [showProductDetails, setShowProductDetails] = useState(false);
@@ -106,8 +106,8 @@ const DisplayCard = ({ product, onEdit }: Props) => {
     </Button>
   );
 
-  const Modals = () => (
-    <>
+  return (
+    <Flex cursor="pointer" display={{ base: "flex", md: "block" }}>
       <Modal
         title="Product Viewer"
         isOpen={showProductDetails}
@@ -125,7 +125,6 @@ const DisplayCard = ({ product, onEdit }: Props) => {
         SecondaryLeftIcon={<BiHomeAlt2 />}
         onSecondaryClick={() => navigate(`/shops/${product.shop._id}`)}
       />
-
       <Modal
         title="Product Image Updater"
         isOpen={isAddingImage}
@@ -137,12 +136,6 @@ const DisplayCard = ({ product, onEdit }: Props) => {
         }
         onModalClose={() => setAddingImage(false)}
       />
-    </>
-  );
-
-  return (
-    <Flex cursor="pointer" display={{ base: "flex", md: "block" }}>
-      <Modals />
       <Box
         _hover={{
           width: { sm: "62%", md: "100%" },

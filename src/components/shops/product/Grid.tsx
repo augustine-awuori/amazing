@@ -1,18 +1,21 @@
+import { useState } from "react";
 import { Box } from "@chakra-ui/react";
 
+import { funcs } from "../../../utils";
+import { Info, Grid } from "../..";
+import { Modal } from "../../common";
 import { paginate } from "../../../utils/paginate";
 import { Product } from "./Card";
+import { ProductUpdateForm } from "../../forms";
 import { Type } from "../../../hooks/useTypes";
 import { useCart } from "../../../hooks";
 import ErrorMessage from "../../form/ErrorMessage";
-import Grid from "../../grid";
-import Info from "../../../components/Info";
 import Pagination, { PaginationProps } from "../../common/Pagination";
 import ProductDisplayCard from "./DisplayCard";
 import Skeleton from "../product/Skeleton";
 
 interface Props extends PaginationProps {
-  error: string | undefined;
+  error?: string;
   isLoading: boolean;
   selectedType: Type | null;
   products: Product[];
@@ -29,7 +32,14 @@ const ShopsProductsGrid = ({
   query,
   selectedType,
 }: Props) => {
+  const [product, setProduct] = useState<Product | undefined>();
+  const [showProduct, setShowProduct] = useState(false);
   const cart = useCart();
+
+  const handleEdit = (p: Product) => {
+    setProduct(p);
+    setShowProduct(true);
+  };
 
   const filtered = selectedType?._id
     ? products.filter((product) => product.shop.type === selectedType?._id)
@@ -54,10 +64,24 @@ const ShopsProductsGrid = ({
 
   return (
     <>
+      <Modal
+        content={
+          <ProductUpdateForm
+            product={product}
+            onDone={() => setShowProduct(false)}
+          />
+        }
+        isOpen={funcs.getBoolean(showProduct && product)}
+        onModalClose={() => setShowProduct(false)}
+      />
       <Grid columns={{ sm: 1, md: cart.count ? 3 : 4 }} spacing={5}>
         <Skeleton isLoading={isLoading} />
         {paginated.map((product, index) => (
-          <ProductDisplayCard key={product._id + index} product={product} />
+          <ProductDisplayCard
+            key={index}
+            product={product}
+            onEdit={() => handleEdit(product)}
+          />
         ))}
       </Grid>
       <Box mt={5}>
