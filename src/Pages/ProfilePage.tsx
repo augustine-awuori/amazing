@@ -14,12 +14,7 @@ import {
   Stack,
 } from "@chakra-ui/react";
 
-import {
-  Button,
-  ProfileActivities,
-  PageContainer,
-  StartChatBtn,
-} from "../components";
+import { Button, ProfileActivities, StartChatBtn } from "../components";
 import {
   useAppColorMode,
   useCurrentUser,
@@ -75,17 +70,8 @@ const ProfilePage = () => {
     aboutMe ||
     "Passionate learner and aspiring enthusiast. Eager to connect, share ideas, and collaborate with fellow students. Avid reader, curious thinker, and open to new experiences. Let's chat and explore the world of knowledge together! ";
 
-  const Aside = (
-    <ProfileActivities
-      userId={_id}
-      visibility="lg"
-      onListingsClick={navigateToListings}
-      onRequestsClick={navigateToRequests}
-    />
-  );
-
   return (
-    <PageContainer Aside={Aside} mt={{ base: 7 }}>
+    <Box mt="4rem">
       <Container maxW="container.lg" pb={8} pt={1}>
         <Flex>
           <Avatar name={name} src={avatar} size="lg" mr={3} mb={2} />
@@ -148,7 +134,7 @@ const ProfilePage = () => {
           userId={_id}
         />
       </Container>
-    </PageContainer>
+    </Box>
   );
 };
 
