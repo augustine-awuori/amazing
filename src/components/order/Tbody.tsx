@@ -1,6 +1,7 @@
 import { Avatar, Box, Flex, Tbody as AppTbody, Td, Tr } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
+import { LocationIcon } from "../icons";
 import { Text } from "..";
 import { useTimestamp } from "../../hooks";
 import useOrder, { Order } from "../../hooks/useOrder";
@@ -23,6 +24,8 @@ const Tbody = ({ orders }: Props) => {
     <AppTbody>
       {orders.map((order, index) => {
         const { products, shop, status, timestamp } = order;
+        const { image, name } = shop;
+        const location = shop.location;
 
         return (
           <Tr
@@ -33,18 +36,32 @@ const Tbody = ({ orders }: Props) => {
           >
             <Td>
               <Flex align="center">
-                <Avatar src={shop.image} name={shop.name} size="xs" mr={2} />
-                <Text noOfLines={1} fontSize="sm">
-                  {shop.name}
-                </Text>
-                {shop.location && <Text>{shop.location}</Text>}
+                <Avatar
+                  src={image}
+                  name={name}
+                  size={location ? "sm" : "xs"}
+                  mr={2}
+                />
+                <Box>
+                  <Text noOfLines={1} fontSize="sm" textTransform="capitalize">
+                    {name}
+                  </Text>
+                  {location && (
+                    <Flex align="center">
+                      <LocationIcon size={10} color="whiteAlpha.500" />
+                      <Text color="whiteAlpha.500" fontSize="xs" ml={1}>
+                        {location}
+                      </Text>
+                    </Flex>
+                  )}
+                </Box>
               </Flex>
             </Td>
             <Td>{products.length}</Td>
             <Td>
               <Box
                 bg={`${status.color}.100`}
-                p={1.5}
+                px={1.5}
                 color={`${status.color}.500`}
                 fontWeight="bold"
                 borderRadius={15}

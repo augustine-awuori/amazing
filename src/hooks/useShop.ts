@@ -9,7 +9,7 @@ import service from "../services/shops";
 import ShopContext from "../contexts/ShopContext";
 
 interface Common {
-  location: string;
+  location?: string;
   name: string;
 }
 

@@ -14,7 +14,7 @@ import useStatus, { Status } from "../hooks/useStatus";
 
 const OrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(6);
+  const [pageSize] = useState(4);
   const [selectedStatus, setSelectedStatus] = useState<Status>(empty.status);
   const { accentColor } = useAppColorMode();
   const user = auth.getCurrentUser();
