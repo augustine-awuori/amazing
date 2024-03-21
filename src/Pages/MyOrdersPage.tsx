@@ -23,7 +23,7 @@ const OrdersPage = () => {
   const navigate = useNavigate();
 
   const filtered = selectedStatus._id
-    ? orders.filter((order) => order.status._id === selectedStatus._id)
+    ? orders.filter(({ status }) => status._id === selectedStatus._id)
     : orders;
 
   const paginated = paginate<Order>(filtered, currentPage, pageSize);
