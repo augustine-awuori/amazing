@@ -225,7 +225,7 @@ const ProductDetailsPage = () => {
           <Box border="1px solid gray" borderRadius={5} py={3}>
             <Info
               Icon={<BsTruck />}
-              description={shop.location}
+              description={shop?.location || ""}
               title="Meet-up for delivery"
             />
             <Divider />
