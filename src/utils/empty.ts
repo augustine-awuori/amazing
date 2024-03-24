@@ -72,13 +72,15 @@ const product: Product = {
 const status: Status = { _id: "", color: "orange", label: "All" };
 
 const order: Order = {
-  buyer: { ...author, canceled: false, hasShop: false, seen: false },
   _id: "",
+  buyer: { ...author },
+  canceled: false,
+  message: "",
   products: [],
+  seen: false,
   shop,
   status,
   timestamp: 52086,
-  message: "",
 };
 
 const type: Type = {

@@ -23,14 +23,13 @@ import { Category } from "../hooks/useCategories";
 import { ChatIcon } from "../components/icons";
 import { empty, funcs } from "../utils";
 import { Item } from "../components/common/Selector";
-import { ListingsPage, RequestsPage } from "./";
+import { ListingsPage, RequestsPage, OrdersDashPage } from "./";
 import { SearchInput, ShopsGrid, SideBar, Text } from "../components";
 import { ShopSelectors } from "../components/listings";
 import { SideBarItem } from "../components/SideBar";
 import { useCart, useCategories, useProducts, useShops } from "../hooks";
 import auth from "../services/auth";
 import SideCart from "../components/products/CartPreview";
-import MyOrdersPage from "./MyOrdersPage";
 import ShopsProductsGrid from "../components/shops/product/Grid";
 import ShowSelector from "../components/shops/ShowSelector";
 import ThreeGridPage from "./ThreeGridPage";
@@ -228,7 +227,7 @@ const ShopsPage = () => {
         return (
           <>
             {CommonHeader}
-            <MyOrdersPage />
+            <OrdersDashPage />
           </>
         );
     }

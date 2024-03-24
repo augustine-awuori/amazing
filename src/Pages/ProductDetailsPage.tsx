@@ -49,7 +49,7 @@ const ProductDetailsPage = () => {
     isLoading,
   } = useReload<Product>(null, empty.product, service.getProduct);
   const isSeller = useCurrentUser(product.shop?.author);
-  const { deleteProductById } = useProducts(undefined);
+  const { deleteProductById } = useProducts();
 
   useEffect(() => {
     request();

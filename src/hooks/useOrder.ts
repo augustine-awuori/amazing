@@ -6,15 +6,11 @@ import { Shop } from "./useShop";
 import { User } from "./useUser";
 import OrderContext from "../contexts/OrderContext";
 
-interface Buyer extends User {
-  canceled: boolean;
-  hasShop: boolean;
-  seen: boolean;
-}
-
 export interface Order {
+  canceled: boolean;
+  seen: boolean;
   _id: string;
-  buyer: Buyer;
+  buyer: User;
   message?: string;
   products: Product[];
   shop: Shop;

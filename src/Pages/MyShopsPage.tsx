@@ -1,20 +1,20 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 
-import { ShopsGrid, ShopsTypesGridPageContainer } from "../components";
-import { Type } from "../hooks/useTypes";
+import { Heading, ShopsGrid, Text } from "../components";
+import { useData, useNoGrid } from "../hooks";
 import auth from "../services/auth";
-import useData from "../hooks/useData";
 import useShop, { Shop } from "../hooks/useShop";
 
 const MyShopsPage = () => {
   const user = auth.getCurrentUser();
-  const { data: shops, error, isLoading } = useData<Shop>(`shops/${user?._id}`);
-  const [selectedType, setSelectedType] = useState<Type | null>(null);
-  const navigate = useNavigate();
-  const { setShop } = useShop();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
+  const { data: shops, error, isLoading } = useData<Shop>(`shops/${user?._id}`);
+  const { setShop } = useShop();
+  const navigate = useNavigate();
+  useNoGrid();
 
   const navigateToDetails = (shop: Shop) => {
     setShop(shop);
@@ -24,11 +24,13 @@ const MyShopsPage = () => {
   if (!user) return <Navigate to="/" />;
 
   return (
-    <ShopsTypesGridPageContainer
-      onSelectType={setSelectedType}
-      selectedType={selectedType}
-      gridHeadingLabel="My Shops"
-    >
+    <Box pt="4.5rem" px={10}>
+      <Heading as="h1" textAlign="center">
+        My Shops
+      </Heading>
+      <Text color="whiteAlpha.500" mt={3} textAlign="center" mb={8}>
+        Select shop to see the orders made to it
+      </Text>
       <ShopsGrid
         currentPage={currentPage}
         error={error}
@@ -36,10 +38,10 @@ const MyShopsPage = () => {
         onPageChange={setCurrentPage}
         onShopClick={navigateToDetails}
         pageSize={pageSize}
-        selectedType={selectedType}
+        selectedType={null}
         shops={shops}
       />
-    </ShopsTypesGridPageContainer>
+    </Box>
   );
 };
 

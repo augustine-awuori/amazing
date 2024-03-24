@@ -1,71 +1,61 @@
 import { useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { Box } from "@chakra-ui/react";
+import { Navigate, useParams } from "react-router-dom";
+import { Box, Spinner } from "@chakra-ui/react";
 
-import { Grid, Info, ShopsTypesGridPageContainer } from "../components";
-import { MediaQueryUser } from "../components/common/MediaQuery";
-import { Pagination } from "../components/common";
-import { Type } from "../hooks/useTypes";
-import { useOrders, useShop } from "../hooks";
+import { empty } from "../utils";
+import { Heading, Text } from "../components";
+import { OrdersTable } from "../components/shops";
+import { BadgesList, Pagination } from "../components/common";
+import { Order } from "../hooks/useOrder";
+import { paginate } from "../utils/paginate";
+import { Status } from "../hooks/useStatus";
+import { useNoGrid, useOrders, useStatus } from "../hooks";
 import auth from "../services/auth";
-import OrderCard from "../components/order/CardWithBadge";
-import useOrder, { Order } from "../hooks/useOrder";
 
 const OrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(6);
-  const [selectedType, setSelectedType] = useState<Type | null>(null);
+  const [pageSize] = useState(4);
+  const [selectedStatus, setSelectedStatus] = useState<Status>(empty.status);
   const { isLoading, orders } = useOrders(`${useParams().shopId}`);
-  const { shop } = useShop();
-  const helper = useOrder();
-  const navigate = useNavigate();
+  const { status, isLoading: statusLoading } = useStatus();
+  useNoGrid();
 
-  const getUserFrom = ({ buyer }: Order): MediaQueryUser => ({
-    avatar: buyer.avatar,
-    isVerified: buyer.isVerified,
-    name: buyer.name,
-  });
-
-  const filtered = selectedType?._id
-    ? orders.filter((order) => order.shop.type === selectedType)
+  const filtered = selectedStatus._id
+    ? orders.filter(({ status }) => status._id === selectedStatus._id)
     : orders;
 
-  const navigateToDetails = (order: Order) => {
-    helper.setOrder(order);
-    navigate(order._id);
+  const paginated = paginate<Order>(filtered, currentPage, pageSize);
+
+  const handleStatusSelect = (status: Status) => {
+    setCurrentPage(1);
+    setSelectedStatus(status);
   };
 
   if (!auth.getCurrentUser()) return <Navigate to="/login" />;
 
-  const shopName = shop?.name ? `${shop.name}'s ` : "";
-
   return (
-    <ShopsTypesGridPageContainer
-      onSelectType={setSelectedType}
-      selectedType={selectedType}
-      gridHeadingLabel={`${shopName}Shop Orders`}
-    >
-      <Grid>
-        {filtered.length ? (
-          filtered.map((order) => {
-            const { _id, products, timestamp } = order;
-
-            return (
-              <OrderCard
-                key={_id}
-                count={products.length}
-                name={products[0].name}
-                image={products[0].image}
-                onClick={() => navigateToDetails(order)}
-                user={getUserFrom(order)}
-                timestamp={timestamp}
-              />
-            );
-          })
-        ) : (
-          <Info show={!isLoading} />
-        )}
-      </Grid>
+    <Box pt="4.5rem" px={10}>
+      <Heading as="h1" textAlign="center">
+        My Shop Orders
+      </Heading>
+      <Text color="whiteAlpha.500" mt={3} textAlign="center" mb={8}>
+        The orders others placed to my shop
+      </Text>
+      <BadgesList
+        list={status}
+        loading={statusLoading}
+        onItemSelect={(status) => handleStatusSelect(status as Status)}
+        selectedItem={selectedStatus}
+      />
+      {isLoading && <Spinner mt={10} alignSelf="center" alignItems="center" />}
+      {paginated.length ? (
+        <OrdersTable mt={5} orders={paginated} />
+      ) : (
+        <Text textAlign="center" mt={8}>
+          You've no "{selectedStatus._id && selectedStatus.label.toLowerCase()}"
+          orders made to your shop
+        </Text>
+      )}
       <Box mt={5}>
         <Pagination
           currentPage={currentPage}
@@ -74,7 +64,7 @@ const OrdersPage = () => {
           pageSize={pageSize}
         />
       </Box>
-    </ShopsTypesGridPageContainer>
+    </Box>
   );
 };
 
