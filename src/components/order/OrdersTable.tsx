@@ -1,7 +1,6 @@
-import { Box, Table, TableProps } from "@chakra-ui/react";
+import { TableProps } from "@chakra-ui/react";
 
-import { scrollBarModifierCss } from "../../data/general";
-import { Thead } from "../common";
+import { Table, Thead } from "../common";
 import { Order } from "../../hooks/useOrder";
 import Tbody from "./Tbody";
 
@@ -9,15 +8,11 @@ interface Props extends TableProps {
   orders: Order[];
 }
 
-const headings = ["Shop", "Products", "Status", "Ordered Date"];
-
 const OrdersTable = ({ orders, ...tableProps }: Props) => (
-  <Box whiteSpace="nowrap" overflowX="auto" css={scrollBarModifierCss}>
-    <Table {...tableProps}>
-      <Thead headings={headings} />
-      <Tbody orders={orders} />
-    </Table>
-  </Box>
+  <Table {...tableProps}>
+    <Thead headings={["Shop", "Products", "Status", "Ordered Date"]} />
+    <Tbody orders={orders} />
+  </Table>
 );
 
 export default OrdersTable;

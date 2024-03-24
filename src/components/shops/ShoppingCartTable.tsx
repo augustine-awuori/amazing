@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Box, Table, Tbody, Td, Tfoot, Th, Thead, Tr } from "@chakra-ui/react";
+import { Tbody, Td, Tfoot, Tr } from "@chakra-ui/react";
 
 import { Button, Heading, Modal, Text } from "..";
+import { Table, Thead } from "../common";
 import { useCart, useNoGrid } from "../../hooks";
 
 const CartTable = () => {
@@ -53,68 +54,57 @@ const CartTable = () => {
         secondaryBtnLabel="Abort"
       />
       <Heading my={3}>Shopping Cart</Heading>
-      <Box whiteSpace="nowrap" overflowX="auto">
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>Name</Th>
-              <Th>Qty</Th>
-              <Th>Total</Th>
-              <Th />
-              <Th />
-              <Th />
-            </Tr>
-          </Thead>
-          <Tbody>
-            {cart.products.map(({ _id, name, price, quantity }, index) => (
-              <Tr key={index}>
-                <Td>
-                  <Text isTruncated maxW="150px">
-                    {name}
-                  </Text>
-                </Td>
-                <Td>{quantity}</Td>
-                <Td fontWeight="bold">{price * quantity}</Td>
-                <Td p={0}>
-                  <Button size="sm" onClick={() => cart.decrementQuantity(_id)}>
-                    -
-                  </Button>
-                </Td>
-                <Td p={0}>
-                  <Button size="sm" onClick={() => cart.incrementQuantity(_id)}>
-                    +
-                  </Button>
-                </Td>
-                <Td p={0}>
-                  <Button
-                    bgColor="tomato"
-                    _hover={{ bgColor: "red.500" }}
-                    size="sm"
-                    onClick={() => {
-                      setModalVisibility(true);
-                      setProductId(_id);
-                    }}
-                  >
-                    x
-                  </Button>
-                </Td>
-              </Tr>
-            ))}
-          </Tbody>
-          <Tfoot>
-            <Tr>
-              <Td>Grand Total</Td>
-              <Td />
-              <Td fontWeight="extrabold" color="orange.400">
-                {cart.getGrandTotal()}
+      <Table>
+        <Thead headings={["Name", "Qty", "Total", "", "", ""]} />
+        <Tbody>
+          {cart.products.map(({ _id, name, price, quantity }, index) => (
+            <Tr key={index}>
+              <Td>
+                <Text isTruncated maxW="150px">
+                  {name}
+                </Text>
               </Td>
-              <Td />
-              <Td />
-              <Td />
+              <Td>{quantity}</Td>
+              <Td fontWeight="bold">{price * quantity}</Td>
+              <Td p={0}>
+                <Button size="sm" onClick={() => cart.decrementQuantity(_id)}>
+                  -
+                </Button>
+              </Td>
+              <Td p={0}>
+                <Button size="sm" onClick={() => cart.incrementQuantity(_id)}>
+                  +
+                </Button>
+              </Td>
+              <Td p={0}>
+                <Button
+                  bgColor="tomato"
+                  _hover={{ bgColor: "red.500" }}
+                  size="sm"
+                  onClick={() => {
+                    setModalVisibility(true);
+                    setProductId(_id);
+                  }}
+                >
+                  x
+                </Button>
+              </Td>
             </Tr>
-          </Tfoot>
-        </Table>
-      </Box>
+          ))}
+        </Tbody>
+        <Tfoot>
+          <Tr>
+            <Td>Grand Total</Td>
+            <Td />
+            <Td fontWeight="extrabold" color="orange.400">
+              {cart.getGrandTotal()}
+            </Td>
+            <Td />
+            <Td />
+            <Td />
+          </Tr>
+        </Tfoot>
+      </Table>
     </>
   );
 };
