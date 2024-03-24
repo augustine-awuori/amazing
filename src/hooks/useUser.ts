@@ -17,8 +17,9 @@ export interface CompleteUser extends User {
 
 export interface User {
   _id: string;
-  aboutMe: string;
+  aboutMe?: string;
   avatar: string;
+  chatIds?: { [email: string]: string };
   isAdmin: boolean;
   isVerified: boolean;
   name: string;

@@ -23,6 +23,7 @@ import {
   ListingsPage,
   LoginPage,
   LogoutPage,
+  MyOrdersPage,
   MyShopsPage,
   NotFoundPage,
   OrderPage,
@@ -196,21 +197,26 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
                                                   path="requests"
                                                   element={<RequestsPage />}
                                                 />
+
                                                 <Route
-                                                  path="shops/my-orders/:orderId"
+                                                  path="/shops/my-orders/:orderId"
                                                   element={<OrderPage />}
                                                 />
                                                 <Route
-                                                  path="my-shops-orders/orders"
+                                                  path="/shops/orders"
                                                   element={<MyShopsPage />}
                                                 />
                                                 <Route
-                                                  path="orders/my-shops/:shopId"
+                                                  path="/shops/orders/:shopId"
                                                   element={<ShopOrders />}
                                                 />
                                                 <Route
-                                                  path="orders/my-shops/:shopId/:orderId"
+                                                  path="/shops/orders/:shopId/:orderId"
                                                   element={<ShopOrderPage />}
+                                                />
+                                                <Route
+                                                  path="/shops/orders/my"
+                                                  element={<MyOrdersPage />}
                                                 />
                                                 <Route
                                                   path="about-app"
