@@ -32,7 +32,7 @@ const headings = ["Product", "Price", "Quantity", "Total"];
 
 const ShopOrderPage = () => {
   const { data, isLoading } = useData(`orders/single/${useParams().orderId}`);
-  const { _id, message, buyer, status, timestamp, products } =
+  const { message, buyer, status, timestamp, products } =
     data as unknown as Order;
   const { tempTimestamp, getDate } = useTimestamp(timestamp);
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,9 +54,6 @@ const ShopOrderPage = () => {
   return (
     <Box pt="5rem" px={10}>
       <Flex align="center" mb={5}>
-        <Text as="h1" mr={3}>
-          Order Id: {_id}
-        </Text>
         <CalendarIcon mr={2} />
         {getDate(timestamp)} ({tempTimestamp})
       </Flex>
