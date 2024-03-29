@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 import { authApi } from "../services";
-import { NewUserData } from "../Pages/RegisterPage";
+import { NewUserData } from "../pages/RegisterPage";
 import { UpdatableUserInfo } from "../hooks/useUser";
 import client, { DataError } from "./client";
 

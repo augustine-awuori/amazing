@@ -8,7 +8,7 @@ import { Avatar, BadgesList, Pagination, Thead } from "../components/common";
 import { CartProduct } from "../hooks/useCart";
 import { ChatIcon, LocationIcon } from "../components/icons";
 import { empty, format, funcs } from "../utils";
-import { Grid, Image, Scrollable, Text } from "../components";
+import { Grid, Image, Text } from "../components";
 import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils/paginate";
 import { Product } from "../components/shops/product/Card";
@@ -102,34 +102,31 @@ const ShopOrderPage = () => {
               Order in "{selectedStatus.label.toLowerCase()}" status
             </Text>
           </Flex>
-          <Scrollable p={3}>
-            <Table>
-              <Thead headings={headings} />
-              <Box my={2} />
-              <Tbody>
-                {paginated.map(({ image, name, price, quantity }, index) => (
-                  <Tr key={index}>
-                    <Td>
-                      <Flex align="center">
-                        <Image
-                          src={image}
-                          w="2.5rem"
-                          h="2.5rem"
-                          borderRadius={7}
-                          mr={3}
-                        />
-                        <Text fontSize="sm" noOfLines={1}>
-                          {name}
-                        </Text>
-                      </Flex>
-                    </Td>
-                    <Td>{quantity || 1}</Td>
-                    <Td>{price * (quantity || 1)}</Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </Scrollable>
+          <Table>
+            <Thead headings={headings} />
+            <Tbody mt={4}>
+              {paginated.map(({ image, name, price, quantity }, index) => (
+                <Tr key={index}>
+                  <Td>
+                    <Flex align="center">
+                      <Image
+                        src={image}
+                        w="2.5rem"
+                        h="2.5rem"
+                        borderRadius={7}
+                        mr={3}
+                      />
+                      <Text fontSize="sm" noOfLines={1}>
+                        {name}
+                      </Text>
+                    </Flex>
+                  </Td>
+                  <Td>{quantity || 1}</Td>
+                  <Td>{price * (quantity || 1)}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
           <Pagination
             currentPage={currentPage}
             itemsCount={products.length}

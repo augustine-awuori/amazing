@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import { Poster } from "../Pages/PostersPage";
+import { Poster } from "../pages/PostersPage";
 
 interface PostersContextValue {
   posters: Poster[];

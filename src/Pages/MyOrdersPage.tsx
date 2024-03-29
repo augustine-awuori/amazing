@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { BadgesList, Pagination, Thead } from "../components/common";
 import { empty } from "../utils";
-import { Heading, Image, Scrollable, Text } from "../components";
+import { Heading, Image, Text } from "../components";
 import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils/paginate";
 import { useNoGrid, useOrders, useTimestamp } from "../hooks";
@@ -62,49 +62,47 @@ const MyOrdersPage = () => {
         selectedItem={selectedStatus}
       />
       {paginated.length ? (
-        <Scrollable p={3}>
-          <Table>
-            <Thead headings={["Shop", "Products", "Status", "Ordered Date"]} />
-            <Box my={2} />
-            <Tbody>
-              {paginated.map(
-                ({ _id, products, shop, status, timestamp }, index) => (
-                  <Tr key={index} onClick={() => navigate(_id)}>
-                    <Td>
-                      <Flex align="center">
-                        <Image
-                          src={shop.image}
-                          w="2.5rem"
-                          h="2.5rem"
-                          borderRadius={7}
-                          mr={3}
-                        />
-                        <Text fontSize="sm" noOfLines={1}>
-                          {shop.name}
-                        </Text>
-                      </Flex>
-                    </Td>
-                    <Td>{products.length}</Td>
-                    <Td>
-                      <Box
-                        bg={`${status.color}.100`}
-                        px={1.5}
-                        color={`${status.color}.500`}
-                        fontWeight="bold"
-                        borderRadius={15}
-                      >
-                        <Text textAlign="center" fontSize="sm">
-                          {status.label}
-                        </Text>
-                      </Box>
-                    </Td>
-                    <Td>{getDate(timestamp)}</Td>
-                  </Tr>
-                )
-              )}
-            </Tbody>
-          </Table>
-        </Scrollable>
+        <Table>
+          <Thead headings={["Shop", "Products", "Status", "Ordered Date"]} />
+          <Box my={2} />
+          <Tbody>
+            {paginated.map(
+              ({ _id, products, shop, status, timestamp }, index) => (
+                <Tr key={index} onClick={() => navigate(_id)}>
+                  <Td>
+                    <Flex align="center">
+                      <Image
+                        src={shop.image}
+                        w="2.5rem"
+                        h="2.5rem"
+                        borderRadius={7}
+                        mr={3}
+                      />
+                      <Text fontSize="sm" noOfLines={1}>
+                        {shop.name}
+                      </Text>
+                    </Flex>
+                  </Td>
+                  <Td>{products.length}</Td>
+                  <Td>
+                    <Box
+                      bg={`${status.color}.100`}
+                      px={1.5}
+                      color={`${status.color}.500`}
+                      fontWeight="bold"
+                      borderRadius={15}
+                    >
+                      <Text textAlign="center" fontSize="sm">
+                        {status.label}
+                      </Text>
+                    </Box>
+                  </Td>
+                  <Td>{getDate(timestamp)}</Td>
+                </Tr>
+              )
+            )}
+          </Tbody>
+        </Table>
       ) : (
         <Text textAlign="center" mt={8}>
           You've not placed {filterMessage} orders yet! Add products to start...

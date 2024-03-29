@@ -23,7 +23,7 @@ import { Category } from "../hooks/useCategories";
 import { ChatIcon } from "../components/icons";
 import { empty, funcs } from "../utils";
 import { Item } from "../components/common/Selector";
-import { ListingsPage, RequestsPage, OrdersDashPage } from "./";
+import { ListingsPage, RequestsPage, OrdersDashPage } from ".";
 import { SearchInput, ShopsGrid, SideBar, Text } from "../components";
 import { ShopSelectors } from "../components/listings";
 import { SideBarItem } from "../components/SideBar";
