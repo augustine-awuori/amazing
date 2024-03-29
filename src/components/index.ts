@@ -39,6 +39,7 @@ export { default as RequestCard } from "./request/Card";
 export { default as RequestGrid } from "./request/Grid";
 export { default as Routes } from "./Routes";
 export { default as RSVPForm } from "./RSVPForm";
+export { default as Scrollable } from "./Scrollable";
 export { default as ScrollToTopBtn } from "./common/ScrollToTopBtn";
 export { default as SearchInput } from "./SearchInput";
 export { default as SeenIcon } from "./SeenIcon";

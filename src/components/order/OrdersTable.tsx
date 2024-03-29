@@ -1,7 +1,8 @@
 import { TableProps } from "@chakra-ui/react";
 
-import { Table, Thead } from "../common";
+import { Thead } from "../common";
 import { Order } from "../../hooks/useOrder";
+import Table from "../common/table/Table";
 import Tbody from "./Tbody";
 
 interface Props extends TableProps {

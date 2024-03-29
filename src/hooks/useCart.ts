@@ -81,7 +81,7 @@ const useCart = () => {
     setCartProducts(updated);
   };
 
-  const getGrandTotal = () => {
+  const getProductsGrandTotal = (cartProducts: CartProduct[]) => {
     const grandTotal = cartProducts.reduce(
       (total, { price, quantity }) => total + price * quantity,
       0
@@ -90,13 +90,16 @@ const useCart = () => {
     return figure.addComma(figure.roundToTwoDecimalPlaces(grandTotal));
   };
 
+  const getCartGrandTotal = () => getProductsGrandTotal(cartProducts);
+
   return {
     add,
     clear,
-    decrementQuantity,
     count,
-    getGrandTotal,
+    decrementQuantity,
+    getCartGrandTotal,
     getProducts,
+    getProductsGrandTotal,
     hasProduct,
     incrementQuantity,
     products: cartProducts,

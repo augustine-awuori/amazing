@@ -2,8 +2,9 @@ import { useState } from "react";
 import { Tbody, Td, Tfoot, Tr } from "@chakra-ui/react";
 
 import { Button, Heading, Modal, Text } from "..";
-import { Table, Thead } from "../common";
+import { Thead } from "../common";
 import { useCart, useNoGrid } from "../../hooks";
+import Table from "../common/table/Table";
 
 const CartTable = () => {
   const [modalOpen, setModalVisibility] = useState(false);
@@ -97,7 +98,7 @@ const CartTable = () => {
             <Td>Grand Total</Td>
             <Td />
             <Td fontWeight="extrabold" color="orange.400">
-              {cart.getGrandTotal()}
+              {cart.getCartGrandTotal()}
             </Td>
             <Td />
             <Td />

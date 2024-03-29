@@ -114,7 +114,7 @@ const SideCart = () => {
           p={2}
           _hover={{ bg: "orange.400", borderRadius: 7 }}
         >
-          Ksh {cart.getGrandTotal()}
+          Ksh {cart.getCartGrandTotal()}
         </Text>
       </Flex>
       <Divider mb={3} />

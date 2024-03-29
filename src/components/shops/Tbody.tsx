@@ -1,8 +1,9 @@
-import { Avatar, Box, Flex, Tbody as AppTbody, Td, Tr } from "@chakra-ui/react";
+import { Avatar, Box, Flex, Tbody as AppTbody, Td } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
 import { Text } from "..";
 import { useTimestamp } from "../../hooks";
+import Tr from "../common/table/Tr";
 import useOrder, { Order } from "../../hooks/useOrder";
 
 interface Props {
@@ -26,12 +27,7 @@ const Tbody = ({ orders }: Props) => {
         const { avatar, name, username } = buyer;
 
         return (
-          <Tr
-            _hover={{ bg: "gray.900" }}
-            cursor="pointer"
-            onClick={() => navigateToDetails(order)}
-            key={index}
-          >
+          <Tr onClick={() => navigateToDetails(order)} key={index}>
             <Td>
               <Flex align="center">
                 <Avatar src={avatar} name={name} size="sm" mr={2} />

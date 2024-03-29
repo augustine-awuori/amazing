@@ -12,31 +12,33 @@ import service from "../services/orders";
 
 type ShopsProducts = { [shopId: string]: Product[] };
 
-const PENDING_ORDER_STATUS = "65f7f5babfb2e60edd3733a1";
+const PENDING_ORDER_STATUS_ID = "65f7f5babfb2e60edd3733a1";
 
 const useOrders = (targetUrl?: string) => {
-  const { data, error, isLoading } = useData<Order>(`orders/${targetUrl}`);
-  const { setOrders } = useContext(OrdersContext);
   const [success, setSuccess] = useState(true);
-  const navigate = useNavigate();
+  const { data, error, isLoading } = useData<Order>(`/orders/${targetUrl}`);
+  const { setOrders } = useContext(OrdersContext);
   const { status } = useStatus();
   const cart = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!error) setOrders(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [targetUrl, data?.length]);
+  }, [targetUrl, error]);
+
+  const getPendingOrderStatusId = () =>
+    status.find((s) => s.label.toLowerCase().includes("pending"))?._id ||
+    PENDING_ORDER_STATUS_ID;
 
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,
     products: products.map((p) => p._id),
     shop: products[0].shop._id,
-    status:
-      status.find((s) => s.label.toLowerCase().includes("pending"))?._id ||
-      PENDING_ORDER_STATUS,
+    status: getPendingOrderStatusId(),
   });
 
-  const processResponse = (res: ApiResponse<unknown, unknown>): Response => {
+  const process = (res: ApiResponse<unknown, unknown>): Response => {
     const { data, ok, problem } = res;
 
     ok
@@ -65,9 +67,7 @@ const useOrders = (targetUrl?: string) => {
     if (!isStateValid(products))
       return { data: null, ok: false, problem: "CLIENT_ERROR" };
 
-    const response = await service.makeOrder(prepOrder(products, message));
-
-    return processResponse(response);
+    return process(await service.makeOrder(prepOrder(products, message)));
   };
 
   const makeShopOrder = async (prods: Product[], message: string) => {
@@ -100,7 +100,27 @@ const useOrders = (targetUrl?: string) => {
     } else toast.error("Something went wrong! Some orders aren't placed");
   };
 
-  return { isLoading, orders: data, makeOrder, makeShopsOrders };
+  const updateOrder = async (orderId: string, update: object) => {
+    toast.loading("Updating order status...");
+    const res = await service.updateOrder(orderId, update);
+    toast.dismiss();
+
+    res.ok
+      ? toast.success("Order status updated successfully!")
+      : toast.error(
+          (res.data as DataError).error || "Order status update failed"
+        );
+
+    return res;
+  };
+
+  return {
+    ordersLoading: isLoading,
+    orders: data,
+    makeOrder,
+    makeShopsOrders,
+    updateOrder,
+  };
 };
 
 export default useOrders;

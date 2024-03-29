@@ -1,14 +1,16 @@
 import { useState } from "react";
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Flex, Spinner, Tbody, Td } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-import { BadgesList, Pagination } from "../components/common";
+import { BadgesList, Pagination, Thead } from "../components/common";
 import { empty } from "../utils";
-import { Heading, Text } from "../components";
+import { Heading, Image, Scrollable, Text } from "../components";
 import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils/paginate";
-import { useNoGrid, useOrders } from "../hooks";
+import { useNoGrid, useOrders, useTimestamp } from "../hooks";
 import auth from "../services/auth";
-import OrdersTable from "../components/order/OrdersTable";
+import Table from "../components/common/table/Table";
+import Tr from "../components/common/table/Tr";
 import useStatus, { Status } from "../hooks/useStatus";
 
 const MyOrdersPage = () => {
@@ -16,21 +18,35 @@ const MyOrdersPage = () => {
   const [pageSize] = useState(4);
   const [selectedStatus, setSelectedStatus] = useState<Status>(empty.status);
   const user = auth.getCurrentUser();
-  const { isLoading: ordersLoading, orders } = useOrders(`${user?._id}`);
+  const { ordersLoading, orders } = useOrders(`${user?._id}`);
   const { status, isLoading: statusLoading } = useStatus();
+  const { getDate } = useTimestamp();
+  const navigate = useNavigate();
   useNoGrid();
+
+  const handleStatusSelect = (status: Status) => {
+    setSelectedStatus(status);
+    setCurrentPage(1);
+  };
 
   const filtered = selectedStatus._id
     ? orders.filter(({ status }) => status._id === selectedStatus._id)
     : orders;
 
+  const filterMessage = selectedStatus._id
+    ? `"${selectedStatus.label.toLowerCase()}"`
+    : "any";
+
   const paginated = paginate<Order>(filtered, currentPage, pageSize);
 
   return (
     <Box pt="4.5rem" px={10}>
-      <Heading as="h1" textAlign="center">
-        My Orders
-      </Heading>
+      <Flex align="center" justify="center">
+        <Heading as="h1" textAlign="center">
+          My Orders
+        </Heading>
+        {ordersLoading && <Spinner ml={2} size="sm" />}
+      </Flex>
       <Text color="whiteAlpha.500" mt={3} textAlign="center" mb={8}>
         The orders I placed myself to other shops
       </Text>
@@ -42,19 +58,56 @@ const MyOrdersPage = () => {
       <BadgesList
         list={status}
         loading={statusLoading}
-        onItemSelect={(status) => setSelectedStatus(status as Status)}
+        onItemSelect={(status) => handleStatusSelect(status as Status)}
         selectedItem={selectedStatus}
       />
-      {ordersLoading && (
-        <Spinner mt={10} alignSelf="center" alignItems="center" />
-      )}
       {paginated.length ? (
-        <OrdersTable orders={paginated} mt={5} />
+        <Scrollable p={3}>
+          <Table>
+            <Thead headings={["Shop", "Products", "Status", "Ordered Date"]} />
+            <Box my={2} />
+            <Tbody>
+              {paginated.map(
+                ({ _id, products, shop, status, timestamp }, index) => (
+                  <Tr key={index} onClick={() => navigate(_id)}>
+                    <Td>
+                      <Flex align="center">
+                        <Image
+                          src={shop.image}
+                          w="2.5rem"
+                          h="2.5rem"
+                          borderRadius={7}
+                          mr={3}
+                        />
+                        <Text fontSize="sm" noOfLines={1}>
+                          {shop.name}
+                        </Text>
+                      </Flex>
+                    </Td>
+                    <Td>{products.length}</Td>
+                    <Td>
+                      <Box
+                        bg={`${status.color}.100`}
+                        px={1.5}
+                        color={`${status.color}.500`}
+                        fontWeight="bold"
+                        borderRadius={15}
+                      >
+                        <Text textAlign="center" fontSize="sm">
+                          {status.label}
+                        </Text>
+                      </Box>
+                    </Td>
+                    <Td>{getDate(timestamp)}</Td>
+                  </Tr>
+                )
+              )}
+            </Tbody>
+          </Table>
+        </Scrollable>
       ) : (
         <Text textAlign="center" mt={8}>
-          You've not placed "
-          {selectedStatus._id ? selectedStatus.label.toLowerCase() : "any"}"
-          orders yet! Add products to start...
+          You've not placed {filterMessage} orders yet! Add products to start...
         </Text>
       )}
       <Pagination

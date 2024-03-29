@@ -29,7 +29,7 @@ const Pagination = ({
   const canGoNext = currentPage < pagesCount;
 
   return (
-    <Box maxW="100%" overflowX="auto" mb={4} {...boxProps}>
+    <Box maxW="100%" overflowX="auto" mb={4} {...boxProps} mt={5}>
       <HStack spacing={4} justify="center" align="center">
         {canGoPrevious && (
           <Button

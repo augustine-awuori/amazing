@@ -1,67 +1,46 @@
 import { useEffect, useState } from "react";
-import { Box, Flex, Spinner, Table, Tbody, Td } from "@chakra-ui/react";
+import { Box, Flex, Spinner, Tbody, Td } from "@chakra-ui/react";
+import { CalendarIcon, ChatIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { useNavigate, useParams } from "react-router-dom";
 import { BsWhatsapp } from "react-icons/bs";
-import { CalendarIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
-import { Avatar, BadgesList, Pagination, Thead } from "../components/common";
+import { Avatar, Grid, Image, Text } from "../components";
 import { CartProduct } from "../hooks/useCart";
-import { ChatIcon, LocationIcon } from "../components/icons";
-import { empty, format, funcs } from "../utils";
-import { Grid, Image, Scrollable, Text } from "../components";
 import { Order } from "../hooks/useOrder";
-import { paginate } from "../utils/paginate";
+import { useCart, useData, useTimestamp, useWhatsAppRedirect } from "../hooks";
+import { empty, format, funcs } from "../utils";
+import { LocationIcon } from "../components/icons";
+import { Pagination, Thead } from "../components/common";
 import { Product } from "../components/shops/product/Card";
-import {
-  useCart,
-  useData,
-  useNoGrid,
-  useOrders,
-  useTimestamp,
-  useWhatsAppRedirect,
-} from "../hooks";
+import { paginate } from "../utils/paginate";
+import Table from "../components/common/table/Table";
 import Tr from "../components/common/table/Tr";
-import useStatus, { Status } from "../hooks/useStatus";
 
 const headings = ["Product", "Quantity", "Total"];
 
-const ShopOrderPage = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [orderedProducts, setOrderedProducts] = useState<CartProduct[]>([]);
-  const [pageSize] = useState(4);
-  const { data, isLoading } = useData(`orders/single/${useParams().orderId}`);
-  const { _id, message, buyer, status, timestamp, products } =
-    data as unknown as Order;
-  const [selectedStatus, setSelectedStatus] = useState<Status>(
-    status || empty.status
+const MyOrderPage = () => {
+  const { data, error, isLoading } = useData(
+    `orders/single/${useParams().orderId}`
   );
-  const [validStatus, setValidStatus] = useState<Status[]>([]);
-  const { status: allStatus } = useStatus();
-  const { tempTimestamp, getDate } = useTimestamp(timestamp);
-  const { url } = useWhatsAppRedirect(buyer?.otherAccounts?.whatsapp);
+  const order = Array.isArray(data) ? empty.order : (data as unknown as Order);
+  const { getDate, tempTimestamp } = useTimestamp();
+  const [orderedProducts, setOrderedProducts] = useState<CartProduct[]>([]);
+  const { _id, message, shop, status, timestamp, products } =
+    data as unknown as Order;
+  const seller = order?.shop?.author;
+  const sellerWhatsApp = seller?.otherAccounts?.whatsapp;
+  const { url } = useWhatsAppRedirect(sellerWhatsApp);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize] = useState(4);
   const cart = useCart();
   const navigate = useNavigate();
-  const helper = useOrders();
-  useNoGrid();
 
   useEffect(() => {
     setOrderedProducts(
       (products || []).map((p) => ({ ...p, quantity: 1, deleted: false }))
     );
-    setValidStatus(getValidOrderStatus());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products?.length, selectedStatus?._id]);
-
-  const getValidOrderStatus = (): Status[] =>
-    allStatus.filter((s) => s._id) as Status[];
-
-  const handleStatusSelect = async (status: Status) => {
-    const prevStatus = selectedStatus;
-
-    setSelectedStatus(status);
-    const { ok } = await helper.updateOrder(_id, { status: status._id });
-    if (!ok) setSelectedStatus(prevStatus);
-  };
+  }, [products?.length, error, Array.isArray(data)]);
 
   const paginated = paginate<Product>(products, currentPage, pageSize);
 
@@ -69,6 +48,15 @@ const ShopOrderPage = () => {
     return (
       <Flex align="center" justify="center" pt="4.5rem">
         <Text mr={1}>Fetching order... </Text> <Spinner size="xs" />
+      </Flex>
+    );
+
+  if (!_id)
+    return (
+      <Flex pt="8rem" align="center" justify="center">
+        <Text color="yellow.200">
+          Error Fetching Order, Check your internet connection
+        </Text>
       </Flex>
     );
 
@@ -80,11 +68,6 @@ const ShopOrderPage = () => {
           {getDate(timestamp)} ({tempTimestamp})
         </Text>
       </Flex>
-      <BadgesList
-        list={validStatus}
-        onItemSelect={(item) => handleStatusSelect(item as Status)}
-        selectedItem={selectedStatus || status}
-      />
       <Grid templateColumns={{ sm: "1fr", md: "65% 1fr" }}>
         <Box border="1px solid gray" borderRadius={5}>
           <Flex
@@ -94,42 +77,36 @@ const ShopOrderPage = () => {
             p={5}
             w="100%"
           >
-            <Text
-              fontWeight="extrabold"
-              fontSize={20}
-              color={selectedStatus.color}
-            >
-              Order in "{selectedStatus.label.toLowerCase()}" status
+            <Text fontWeight="extrabold" fontSize={20} color={status.color}>
+              Order in "{status.label.toLowerCase()}" status
             </Text>
           </Flex>
-          <Scrollable p={3}>
-            <Table>
-              <Thead headings={headings} />
-              <Box my={2} />
-              <Tbody>
-                {paginated.map(({ image, name, price, quantity }, index) => (
-                  <Tr key={index}>
-                    <Td>
-                      <Flex align="center">
-                        <Image
-                          src={image}
-                          w="2.5rem"
-                          h="2.5rem"
-                          borderRadius={7}
-                          mr={3}
-                        />
-                        <Text fontSize="sm" noOfLines={1}>
-                          {name}
-                        </Text>
-                      </Flex>
-                    </Td>
-                    <Td>{quantity || 1}</Td>
-                    <Td>{price * (quantity || 1)}</Td>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </Scrollable>
+          <Table>
+            <Thead headings={headings} />
+            <Box my={2} />
+            <Tbody>
+              {paginated.map(({ image, name, price, quantity }, index) => (
+                <Tr key={index}>
+                  <Td>
+                    <Flex align="center">
+                      <Image
+                        src={image}
+                        w="2.5rem"
+                        h="2.5rem"
+                        borderRadius={7}
+                        mr={3}
+                      />
+                      <Text fontSize="sm" noOfLines={1}>
+                        {name}
+                      </Text>
+                    </Flex>
+                  </Td>
+                  <Td>{quantity || 1}</Td>
+                  <Td>{price * (quantity || 1)}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
           <Pagination
             currentPage={currentPage}
             itemsCount={products.length}
@@ -146,7 +123,7 @@ const ShopOrderPage = () => {
         <Box border="1px solid gray" borderRadius={5}>
           <Flex borderBottom="1px solid gray" p={5}>
             <Text fontWeight="extrabold" fontSize={20}>
-              Customer Profile
+              Shop Profile
             </Text>
           </Flex>
           <Flex
@@ -155,7 +132,7 @@ const ShopOrderPage = () => {
             borderBottom="1px solid gray"
             cursor="pointer"
             justify="space-between"
-            onClick={() => navigate(`/profile/${buyer._id}`)}
+            onClick={() => navigate(`/shops/${shop._id}`)}
             px={3}
             py={2}
           >
@@ -163,14 +140,14 @@ const ShopOrderPage = () => {
               <Avatar
                 borderRadius="full"
                 mr={2}
-                name={buyer.name}
+                name={shop.name}
                 size="sm"
-                src={buyer.avatar}
+                src={shop.image}
               />
               <Box>
-                <Text fontSize="sm">{buyer.name}</Text>
+                <Text fontSize="sm">{shop.name}</Text>
                 <Text color="whiteAlpha.600" fontSize="xs">
-                  {buyer.username}
+                  {shop.location}
                 </Text>
               </Box>
             </Flex>
@@ -189,7 +166,7 @@ const ShopOrderPage = () => {
             <Flex align="center">
               <BsWhatsapp color="green" />
               <Text ml={2} color="whiteAlpha.600">
-                {format.phoneNumber(buyer.otherAccounts.whatsapp)}
+                {format.phoneNumber(sellerWhatsApp) || "WhatsApp Chat"}
               </Text>
             </Flex>
           </Box>
@@ -223,4 +200,4 @@ const ShopOrderPage = () => {
   );
 };
 
-export default ShopOrderPage;
+export default MyOrderPage;

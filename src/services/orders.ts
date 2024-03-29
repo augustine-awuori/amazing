@@ -11,4 +11,7 @@ const getOrder = (orderId: string) => client.get(orderId);
 
 const getShopOrders = (shopId: string) => client.get(`/shop/${shopId}`);
 
-export default { getMyOrders, getOrder, getShopOrders, makeOrder };
+const updateOrder = (orderId: string, update: object) =>
+  client.patch(`${endpoint}/${orderId}`, update);
+
+export default { getMyOrders, getOrder, getShopOrders, makeOrder, updateOrder };
