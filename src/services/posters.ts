@@ -1,4 +1,4 @@
-import { Poster } from "../pages/PostersPage";
+import { Poster } from "../Pages/PostersPage";
 import client from "./client";
 
 export const endpoint = "/posters";

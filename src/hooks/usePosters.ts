@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import { DataError } from "../services/client";
 import { endpoint } from "../services/posters";
-import { Poster } from "../pages/PostersPage";
+import { Poster } from "../Pages/PostersPage";
 import PostersContext from "../contexts/PostersContext";
 import service from "../services/posters";
 import useData from "./useData";

@@ -42,7 +42,7 @@ import {
   ShopPage,
   ShoppingCartPage,
   ShopsPage,
-} from "../pages";
+} from "../Pages";
 import {
   BagContext,
   BagsContext,
@@ -67,7 +67,7 @@ import {
 import { Chat } from "../components/chat";
 import { CheckScreenWidth, RedirectRoot } from "../navigation";
 import { CreatedEvent } from "../services/events";
-import { Poster } from "../pages/PostersPage";
+import { Poster } from "../Pages/PostersPage";
 import { Status } from "../hooks/useStatus";
 import CartContext, { Cart } from "../contexts/CartContext";
 import ChatContext, { ChatDetails } from "../contexts/ChatContext";

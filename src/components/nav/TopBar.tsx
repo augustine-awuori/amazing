@@ -8,7 +8,7 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 
-import { ChatsPage, EventsPage, ShopsPage } from "../../pages";
+import { ChatsPage, EventsPage, ShopsPage } from "../../Pages";
 import { fontFamily } from "../../data/typography";
 import { ChatsIcon, EventsIcon, MartIcon } from "../../components/icons";
 import useAppColorMode from "../../hooks/useAppColorMode";
