@@ -4,7 +4,7 @@ import { ApiResponse } from "apisauce";
 import { toast } from "react-toastify";
 
 import { DataError, Response } from "../services/client";
-import { NewOrder, Order } from "./useOrder";
+import { NewOrder, NewOrderProducts, Order } from "./useOrder";
 import { Product } from "../hooks/useProducts";
 import { useCart, useData, useStatus } from ".";
 import OrdersContext from "../contexts/OrdersContext";
@@ -31,9 +31,19 @@ const useOrders = (targetUrl?: string) => {
     status.find((s) => s.label.toLowerCase().includes("pending"))?._id ||
     PENDING_ORDER_STATUS_ID;
 
+  const prepOrderProducts = (products: Product[]): NewOrderProducts => {
+    const result: NewOrderProducts = {};
+
+    products.forEach((p) => {
+      result[p._id] = cart.getProductQuantity(p._id);
+    });
+
+    return result;
+  };
+
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,
-    products: products.map((p) => p._id),
+    products: prepOrderProducts(products),
     shop: products[0].shop._id,
     status: getPendingOrderStatusId(),
   });

@@ -18,9 +18,13 @@ export interface Order {
   timestamp: number;
 }
 
+export interface NewOrderProducts {
+  [productId: string]: number;
+}
+
 export interface NewOrder {
   message?: string;
-  products: string[];
+  products: NewOrderProducts;
   shop: string;
   status: string;
 }
