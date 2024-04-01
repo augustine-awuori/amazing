@@ -5,7 +5,6 @@ import { Bag, ProductsIds } from "../contexts/BagContext";
 import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
 import { Order } from "../hooks/useOrder";
-import { Product } from "./shops/product/Card";
 import { Request } from "../hooks/useRequest";
 import { Shop } from "../hooks/useShop";
 import { ShopProduct } from "../contexts/BagsContext";
@@ -27,7 +26,6 @@ import {
   MyOrdersPage,
   MyShopsPage,
   NotFoundPage,
-  OrderPage,
   ProductDetailsPage,
   ProfileEditPage,
   ProfileListingsPage,
@@ -68,6 +66,7 @@ import { Chat } from "../components/chat";
 import { CheckScreenWidth, RedirectRoot } from "../navigation";
 import { CreatedEvent } from "../services/events";
 import { Poster } from "../Pages/PostersPage";
+import { Product } from "../hooks/useProducts";
 import { Status } from "../hooks/useStatus";
 import CartContext, { Cart } from "../contexts/CartContext";
 import ChatContext, { ChatDetails } from "../contexts/ChatContext";
@@ -197,11 +196,6 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
                                                 <Route
                                                   path="requests"
                                                   element={<RequestsPage />}
-                                                />
-
-                                                <Route
-                                                  path="/shops/my-orders/:orderId"
-                                                  element={<OrderPage />}
                                                 />
                                                 <Route
                                                   path="/shops/orders"

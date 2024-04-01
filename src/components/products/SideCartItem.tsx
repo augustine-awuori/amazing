@@ -7,7 +7,7 @@ import { figure } from "../../utils";
 import { Image, Text } from "..";
 import { Item } from "../common/Selector";
 import { MenuContent } from "../common";
-import { Product } from "../shops/product/Card";
+import { Product } from "../../hooks/useProducts";
 import { useAppColorMode, useCart } from "../../hooks";
 
 interface Props extends Product {
@@ -23,6 +23,8 @@ const SideCartItem = ({
   const { accentColor } = useAppColorMode();
   const [expanded, setExpanded] = useState(false);
   const cart = useCart();
+
+  const quantity = cart.getProductQuantity(product._id);
 
   const getDeleteActions = (prod: Product): Item[] => [
     {
@@ -51,7 +53,7 @@ const SideCartItem = ({
           </Box>
         </Flex>
         <Box>
-          <Badge>{product.quantity}</Badge>
+          <Badge>{quantity}</Badge>
         </Box>
       </Flex>
       {expanded && (
@@ -64,7 +66,7 @@ const SideCartItem = ({
               onClick={() => onQuantityDecrement(product._id)}
             />
             <Text fontSize="xs" mx={2}>
-              {product.quantity}
+              {quantity}
             </Text>
             <IconButton
               size="xs"

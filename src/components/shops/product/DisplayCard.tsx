@@ -15,7 +15,7 @@ import { DeleteIcon } from "../../icons";
 import { empty, figure } from "../../../utils";
 import { Item } from "../../common/Selector";
 import { MenuContent } from "../../common";
-import { Product } from "./Card";
+import { Product } from "../../../hooks/useProducts";
 import {
   useAppColorMode,
   useCart,

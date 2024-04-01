@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
-import { Product } from "../components/shops/product/Card";
-import { Status } from "./useStatus";
+import { Product } from "../hooks/useProducts";
 import { Shop } from "./useShop";
+import { Status } from "./useStatus";
 import { User } from "./useUser";
 import OrderContext from "../contexts/OrderContext";
 

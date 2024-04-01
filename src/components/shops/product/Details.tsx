@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 
 import { Button, Image, Text } from "../../../components";
 import { figure } from "../../../utils";
-import { Product } from "./Card";
+import { Product } from "../../../hooks/useProducts";
 import { useAppColorMode } from "../../../hooks";
 
 interface Props {

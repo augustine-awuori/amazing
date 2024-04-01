@@ -4,11 +4,11 @@ import { Box, Center, Flex, Spinner } from "@chakra-ui/react";
 import { BiSave } from "react-icons/bi";
 import { toast } from "react-toastify";
 
-import { ImageInputList } from "../../common";
 import { Button, Text } from "../../";
-import { useAppColorMode, useImages, useProducts } from "../../../hooks";
 import { DataError } from "../../../services/client";
-import { Product } from "./Card";
+import { ImageInputList } from "../../common";
+import { Product } from "../../../hooks/useProducts";
+import { useAppColorMode, useImages, useProducts } from "../../../hooks";
 import storage from "../../../db/image";
 
 interface Props {

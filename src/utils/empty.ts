@@ -1,7 +1,7 @@
 import { Category } from "../hooks/useCategories";
 import { Listing } from "../hooks/useListing";
 import { Order } from "../hooks/useOrder";
-import { Product } from "../components/shops/product/Card";
+import { Product } from "../hooks/useProducts";
 import { Request } from "../hooks/useRequest";
 import { Shop, ShopProduct } from "../hooks/useShop";
 import { Status } from "../hooks/useStatus";
@@ -64,7 +64,6 @@ const product: Product = {
   image: "",
   name: "",
   price: 100,
-  quantity: 0,
   shop: shopProduct,
   timestamp: 0,
 };

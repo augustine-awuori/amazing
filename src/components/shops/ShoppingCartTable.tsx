@@ -58,15 +58,15 @@ const CartTable = () => {
       <Table>
         <Thead headings={["Name", "Qty", "Total", "", "", ""]} />
         <Tbody>
-          {cart.products.map(({ _id, name, price, quantity }, index) => (
+          {cart.products.map(({ _id, name, price }, index) => (
             <Tr key={index}>
               <Td>
                 <Text isTruncated maxW="150px">
                   {name}
                 </Text>
               </Td>
-              <Td>{quantity}</Td>
-              <Td fontWeight="bold">{price * quantity}</Td>
+              <Td>{cart.getProductQuantity(_id)}</Td>
+              <Td fontWeight="bold">{price * cart.getProductQuantity(_id)}</Td>
               <Td p={0}>
                 <Button size="sm" onClick={() => cart.decrementQuantity(_id)}>
                   -

@@ -10,7 +10,7 @@ import { empty, figure } from "../utils";
 import { Button, Grid, Image, Text } from "../components";
 import { DeleteIcon } from "../components/icons";
 import { MenuContent } from "../components/common";
-import { Product } from "../components/shops/product/Card";
+import { Product } from "../hooks/useProducts";
 import {
   useAppColorMode,
   useCart,
@@ -66,7 +66,8 @@ const ProductDetailsPage = () => {
       </Box>
     );
 
-  const { _id, image, name, description, price, shop, quantity } = product;
+  const { _id, image, name, description, price, shop } = product;
+  const quantity = cart.getProductQuantity(_id);
   const isAdded = cart.hasProduct(_id);
 
   const Info = ({ description, Icon, title }: InfoProps) => (

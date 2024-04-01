@@ -11,7 +11,7 @@ import { useCart, useData, useTimestamp, useWhatsAppRedirect } from "../hooks";
 import { empty, format, funcs } from "../utils";
 import { LocationIcon } from "../components/icons";
 import { Pagination, Thead } from "../components/common";
-import { Product } from "../components/shops/product/Card";
+import { Product } from "../hooks/useProducts";
 import { paginate } from "../utils/paginate";
 import Table from "../components/common/table/Table";
 import Tr from "../components/common/table/Tr";
@@ -85,26 +85,30 @@ const MyOrderPage = () => {
             <Thead headings={headings} />
             <Box my={2} />
             <Tbody>
-              {paginated.map(({ image, name, price, quantity }, index) => (
-                <Tr key={index}>
-                  <Td>
-                    <Flex align="center">
-                      <Image
-                        src={image}
-                        w="2.5rem"
-                        h="2.5rem"
-                        borderRadius={7}
-                        mr={3}
-                      />
-                      <Text fontSize="sm" noOfLines={1}>
-                        {name}
-                      </Text>
-                    </Flex>
-                  </Td>
-                  <Td>{quantity || 1}</Td>
-                  <Td>{price * (quantity || 1)}</Td>
-                </Tr>
-              ))}
+              {paginated.map(({ _id, image, name, price }, index) => {
+                const quantity = cart.getProductQuantity(_id);
+
+                return (
+                  <Tr key={index}>
+                    <Td>
+                      <Flex align="center">
+                        <Image
+                          src={image}
+                          w="2.5rem"
+                          h="2.5rem"
+                          borderRadius={7}
+                          mr={3}
+                        />
+                        <Text fontSize="sm" noOfLines={1}>
+                          {name}
+                        </Text>
+                      </Flex>
+                    </Td>
+                    <Td>{quantity || 1}</Td>
+                    <Td>{price * (quantity || 1)}</Td>
+                  </Tr>
+                );
+              })}
             </Tbody>
           </Table>
           <Pagination

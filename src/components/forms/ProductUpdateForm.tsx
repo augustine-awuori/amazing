@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Button, Modal, Text } from "../../components";
 import { Form, FormField, SubmitButton } from "../../components/form";
-import { Product } from "../shops/product/Card";
+import { Product } from "../../hooks/useProducts";
 import { ProductFormData, productSchema } from "../../data/schemas";
 import { useForm, useProducts, useShop } from "../../hooks";
 

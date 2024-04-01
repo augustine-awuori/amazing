@@ -5,7 +5,7 @@ import { funcs } from "../../../utils";
 import { Info, Grid } from "../..";
 import { Modal } from "../../common";
 import { paginate } from "../../../utils/paginate";
-import { Product } from "./Card";
+import { Product } from "../../../hooks/useProducts";
 import { ProductUpdateForm } from "../../forms";
 import { Type } from "../../../hooks/useTypes";
 import { useCart } from "../../../hooks";

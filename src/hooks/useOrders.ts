@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import { DataError, Response } from "../services/client";
 import { NewOrder, Order } from "./useOrder";
-import { Product } from "../components/shops/product/Card";
+import { Product } from "../hooks/useProducts";
 import { useCart, useData, useStatus } from ".";
 import OrdersContext from "../contexts/OrdersContext";
 import service from "../services/orders";

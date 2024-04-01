@@ -14,7 +14,6 @@ export { default as MyOrderPage } from "./MyOrderPage";
 export { default as MyOrdersPage } from "./MyOrdersPage";
 export { default as MyShopsPage } from "./MyShopsPage";
 export { default as NotFoundPage } from "./NotFoundPage";
-export { default as OrderPage } from "./OrderPage";
 export { default as OrdersDashPage } from "./OrdersDashPage";
 export { default as PostersPage } from "./PostersPage";
 export { default as ProductDetailsPage } from "./ProductDetailsPage";

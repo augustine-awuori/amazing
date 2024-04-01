@@ -3,12 +3,24 @@ import { toast } from "react-toastify";
 
 import { DataError, getCacheData } from "../services/client";
 import { endpoint, NewProduct } from "../services/products";
-import { Product } from "../components/shops/product/Card";
 import { ProductFormData } from "../data/schemas";
+import { ShopProduct } from "./useShop";
+import { User } from "./useUser";
 import ProductsContext from "../contexts/ProductsContext";
 import service from "../services/products";
 import storage from "../db/image";
 import useData from "./useData";
+
+export interface Product {
+  _id: string;
+  author: User;
+  description: string;
+  image: string;
+  name: string;
+  price: number;
+  shop: ShopProduct;
+  timestamp: number;
+}
 
 const useProducts = (shopId?: string) => {
   const { data, error, ...rest } = useData<Product>(getApiEndpoint());

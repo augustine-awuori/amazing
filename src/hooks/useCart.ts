@@ -2,9 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import { figure } from "../utils";
-import { Product } from "../components/shops/product/Card";
 import CartContext from "../contexts/CartContext";
-import useProducts from "./useProducts";
+import useProducts, { Product } from "./useProducts";
 
 export interface CartProduct extends Product {
   deleted: boolean;
@@ -13,7 +12,7 @@ export interface CartProduct extends Product {
 const useCart = () => {
   const context = useContext(CartContext);
   const [cartProducts, setCartProducts] = useState<CartProduct[]>([]);
-  const { products } = useProducts(undefined);
+  const { products } = useProducts();
 
   const count = context.cartProducts.count;
   const results = getProducts();
@@ -27,7 +26,7 @@ const useCart = () => {
     const { count, ids } = { ...context.cartProducts };
 
     if (hasProduct(productId)) return;
-    ids[productId] = productId;
+    ids[productId] = 1;
 
     context.setCartProducts({ count: count + 1, ids });
   };
@@ -51,39 +50,35 @@ const useCart = () => {
     const found: CartProduct[] = [];
 
     products.forEach((p) => {
-      if (hasProduct(p._id)) found.push({ ...p, deleted: false, quantity: 1 });
+      if (hasProduct(p._id)) found.push({ ...p, deleted: false });
     });
 
     return found;
   }
 
+  const getProductQuantity = (productId: string): number =>
+    context.cartProducts.ids[productId];
+
   const incrementQuantity = (productId: string) => {
-    const updated = cartProducts.map((p) => {
-      if (p._id === productId) p.quantity += 1;
+    const prevQuantity = context.cartProducts.ids[productId];
 
-      return p;
-    });
-
-    setCartProducts(updated);
+    const ids = { ...context.cartProducts.ids, [productId]: prevQuantity + 1 };
+    context.setCartProducts({ count: context.cartProducts.count, ids });
   };
 
-  const decrementQuantity = (id: string) => {
-    const updated = cartProducts.map((p) => {
-      if (p._id !== id) return p;
+  const decrementQuantity = (productId: string) => {
+    const prevQuantity = context.cartProducts.ids[productId];
 
-      p.quantity === 1
-        ? toast.info("Delete it if you really wanna remove")
-        : (p.quantity -= 1);
+    if (prevQuantity === 1)
+      return toast.info("Delete it if you really wanna remove");
 
-      return p;
-    });
-
-    setCartProducts(updated);
+    const ids = { ...context.cartProducts.ids, [productId]: prevQuantity - 1 };
+    context.setCartProducts({ count: context.cartProducts.count, ids });
   };
 
   const getProductsGrandTotal = (cartProducts: CartProduct[]) => {
     const grandTotal = cartProducts.reduce(
-      (total, { price, quantity }) => total + price * quantity,
+      (total, { _id, price }) => total + price * getProductQuantity(_id),
       0
     );
 
@@ -98,6 +93,7 @@ const useCart = () => {
     count,
     decrementQuantity,
     getCartGrandTotal,
+    getProductQuantity,
     getProducts,
     getProductsGrandTotal,
     hasProduct,

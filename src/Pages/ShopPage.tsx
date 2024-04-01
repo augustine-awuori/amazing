@@ -15,7 +15,7 @@ import {
 import { Modal, Pagination, ScrollToTopBtn } from "../components/common";
 import { NewProductForm, ProductUpdateForm } from "../components/forms";
 import { LocationIcon } from "../components/icons";
-import { Product } from "../components/shops/product/Card";
+import { Product } from "../hooks/useProducts";
 import { Settings, ShopPageHeader as Header } from "../components/shops";
 import { Shop } from "../hooks/useShop";
 import Skeletons from "../components/shops/product/Skeleton";

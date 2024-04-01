@@ -27,7 +27,7 @@ import {
   useTimestamp,
 } from "../hooks";
 import { Listing } from "../hooks/useListing";
-import { Product } from "../components/shops/product/Card";
+import { Product } from "../hooks/useProducts";
 import { ShopSelectors } from "../components/listings";
 import auth from "../services/auth";
 import ListingUpdateForm from "../components/forms/ListingUpdateForm";

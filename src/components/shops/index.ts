@@ -3,8 +3,6 @@ export { default as CartTable } from "./ShoppingCartTable";
 export { default as ChatAccountsDisplay } from "./ChatAccountsDisplay";
 export { default as Grid } from "./Grid";
 export { default as OrdersTable } from "./OrdersTable";
-export { default as ProductCard } from "./product/Card";
-export { default as ProductCardButton } from "./product/CardButton";
 export { default as Settings } from "./Settings";
 export { default as SettingsSelector } from "./SettingsSelector";
 export { default as ShopPageHeader } from "./ShopPageHeader";

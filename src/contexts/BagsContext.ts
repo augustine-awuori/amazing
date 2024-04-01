@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-import { Product } from "../components/shops/product/Card";
+import { Product } from "../hooks/useProducts";
 
 export type ShopProduct = { [shopId: string]: Product[] };
 
