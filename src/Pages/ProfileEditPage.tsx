@@ -16,7 +16,7 @@ const ProfileEditPage = () => {
   const { errors, handleSubmit, register, reset } = useForm(profileEditSchema);
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { profileUser, getChangedInfo } = useProfileUser();
+  const { profileUser } = useProfileUser();
   const isTheOwner = useCurrentUser(userId);
   const [name, setName] = useState(profileUser?.name || "");
   const [username, setUsername] = useState(profileUser?.username || "");
@@ -49,7 +49,7 @@ const ProfileEditPage = () => {
     }
 
     setLoading(true);
-    const response = await usersApi.updateUserInfo(checkUsername(info), userId);
+    const response = await usersApi.updateUserInfo(checkUsername(info));
     setLoading(false);
 
     return response;
@@ -58,10 +58,14 @@ const ProfileEditPage = () => {
   const doSubmit = async (userInfo: ProfileEditFormData) => {
     if (!isTheOwner) return navigate("/");
 
-    const { data, ok, problem } = await updateInfo(getChangedInfo(userInfo));
-    if (!ok) return setError((data as DataError)?.error || problem);
+    const { data, ok, problem } = await updateInfo(userInfo);
+    if (!ok) {
+      toast.error("Profile update failed");
+      return setError((data as DataError)?.error || problem);
+    }
 
     toast.success("Changes saved");
+    navigate(`/profile/${userId}`);
     reset();
   };
 

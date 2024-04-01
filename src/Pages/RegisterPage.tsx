@@ -15,7 +15,6 @@ const schema = z.object({
     .includes("254")
     .min(12, "WhatsApp number doesn't include 254 or is less")
     .max(13),
-  phone: z.string(),
   password: z
     .string()
     .min(6, "Password should be between 6 & 100 characters")
@@ -78,14 +77,6 @@ const RegisterPage = () => {
         placeholder="254"
         register={register}
         name="whatsapp"
-        type="number"
-      />
-      <FormField
-        error={errors.phone}
-        label="Other Phone Number"
-        placeholder="07"
-        register={register}
-        name="phone"
         type="number"
       />
       <FormField
