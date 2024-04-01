@@ -32,7 +32,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const { getDate } = useTimestamp();
   const params = useParams();
-  const isTheUser = useCurrentUser(params.userId);
+  const isTheCurrentUser = useCurrentUser(params.userId);
   const { accentColor } = useAppColorMode();
   const { info, isLoading, request } = useReload<User>(
     profileUser,
@@ -43,7 +43,7 @@ const ProfilePage = () => {
   useEffect(() => {
     request();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [profileUser]);
 
   const {
     _id,
@@ -122,7 +122,7 @@ const ProfilePage = () => {
             </HStack>
           </Stack>
         </SimpleGrid>
-        {isTheUser && (
+        {isTheCurrentUser && (
           <Button marginTop={3} onClick={editProfile}>
             Edit Profile
           </Button>

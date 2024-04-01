@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import { ProfileEditFormData, profileEditSchema } from "../data/schemas";
-import { UpdatableUserInfo } from "../hooks/useUser";
+import { UpdatableUserInfo, User } from "../hooks/useUser";
 import { useCurrentUser, useForm, useProfileUser } from "../hooks";
 import usersApi from "../services/users";
 
@@ -16,7 +16,7 @@ const ProfileEditPage = () => {
   const { errors, handleSubmit, register, reset } = useForm(profileEditSchema);
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { profileUser } = useProfileUser();
+  const { profileUser, setProfileUser } = useProfileUser();
   const isTheOwner = useCurrentUser(userId);
   const [name, setName] = useState(profileUser?.name || "");
   const [username, setUsername] = useState(profileUser?.username || "");
@@ -41,15 +41,22 @@ const ProfileEditPage = () => {
     return info;
   }
 
-  const updateInfo = async (info: UpdatableUserInfo) => {
-    if (!userId) {
-      const problem = "App Error!";
-      setError(problem);
-      return { data: null, ok: false, problem };
-    }
+  const populate = (info: UpdatableUserInfo) => {
+    const { instagram, name, twitter, username, whatsapp, youtube } =
+      checkUsername(info);
 
+    return {
+      name,
+      username,
+      otherAccounts: { instagram, twitter, whatsapp, youtube },
+    };
+  };
+
+  const updateInfo = async (info: UpdatableUserInfo) => {
     setLoading(true);
-    const response = await usersApi.updateUserInfo(checkUsername(info));
+    toast.loading("Saving changes to the database...");
+    const response = await usersApi.updateUserInfo(populate(info));
+    toast.dismiss();
     setLoading(false);
 
     return response;
@@ -65,6 +72,7 @@ const ProfileEditPage = () => {
     }
 
     toast.success("Changes saved");
+    setProfileUser(data as User);
     navigate(`/profile/${userId}`);
     reset();
   };
