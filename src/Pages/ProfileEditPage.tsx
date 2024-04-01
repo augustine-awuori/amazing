@@ -49,7 +49,7 @@ const ProfileEditPage = () => {
     }
 
     setLoading(true);
-    const response = await usersApi.updateUserInfo(checkUsername(info), userId);
+    const response = await usersApi.updateUserInfo(checkUsername(info));
     setLoading(false);
 
     return response;
