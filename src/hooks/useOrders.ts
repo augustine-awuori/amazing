@@ -4,7 +4,7 @@ import { ApiResponse } from "apisauce";
 import { toast } from "react-toastify";
 
 import { DataError, Response } from "../services/client";
-import { NewOrder, NewOrderProducts, Order } from "./useOrder";
+import { NewOrder, OrderProducts, Order } from "./useOrder";
 import { Product } from "../hooks/useProducts";
 import { useCart, useData, useStatus } from ".";
 import OrdersContext from "../contexts/OrdersContext";
@@ -31,16 +31,16 @@ const useOrders = (targetUrl?: string) => {
     status.find((s) => s.label.toLowerCase().includes("pending"))?._id ||
     PENDING_ORDER_STATUS_ID;
 
-  const prepOrderProducts = (products: Product[]): NewOrderProducts => {
-    const result: NewOrderProducts = {};
+  const prepOrderProducts = (products: Product[]): OrderProducts => {
+    const result: OrderProducts = {};
 
-    products.forEach((p) => {
-      result[p._id] = cart.getProductQuantity(p._id);
+    products.forEach(({ _id }) => {
+      result[_id] = cart.getProductQuantity(_id);
     });
 
     return result;
   };
-
+  //TODO: Display orders products with their qty
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,
     products: prepOrderProducts(products),
@@ -58,7 +58,7 @@ const useOrders = (targetUrl?: string) => {
     return { data, ok, problem };
   };
 
-  const isStateValid = (products: Product[]): boolean => {
+  const isOrderStateValid = (products: Product[]): boolean => {
     if (products.length) return true;
 
     const message = !products.length
@@ -74,7 +74,7 @@ const useOrders = (targetUrl?: string) => {
     products: Product[],
     message = ""
   ): Promise<Response> => {
-    if (!isStateValid(products))
+    if (!isOrderStateValid(products))
       return { data: null, ok: false, problem: "CLIENT_ERROR" };
 
     return process(await service.makeOrder(prepOrder(products, message)));

@@ -2,18 +2,15 @@ import { useEffect, useState } from "react";
 import { Box, Flex, Spinner, Table, Tbody, Td } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BsWhatsapp } from "react-icons/bs";
-import { CalendarIcon, ChevronRightIcon } from "@chakra-ui/icons";
+import { CalendarIcon } from "@chakra-ui/icons";
 
-import { Avatar, BadgesList, Pagination, Thead } from "../components/common";
-import { CartProduct } from "../hooks/useCart";
+import { BadgesList, Pagination, Thead } from "../components/common";
 import { ChatIcon, LocationIcon } from "../components/icons";
 import { empty, format, funcs } from "../utils";
-import { Grid, Image, Text } from "../components";
-import { Order } from "../hooks/useOrder";
+import { Grid, Text } from "../components";
 import { paginate } from "../utils/paginate";
-import { Product } from "../hooks/useProducts";
+import { ProductDisplay, Profile } from "../components/order";
 import {
-  useCart,
   useData,
   useNoGrid,
   useOrders,
@@ -21,13 +18,14 @@ import {
   useWhatsAppRedirect,
 } from "../hooks";
 import Tr from "../components/common/table/Tr";
+import useOrder, { Order, OrderedProduct } from "../hooks/useOrder";
 import useStatus, { Status } from "../hooks/useStatus";
 
 const headings = ["Product", "Quantity", "Total"];
 
 const ShopOrderPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [orderedProducts, setOrderedProducts] = useState<CartProduct[]>([]);
+  const [orderedProducts, setOrderedProducts] = useState<OrderedProduct[]>([]);
   const [pageSize] = useState(4);
   const { data, isLoading } = useData(`orders/single/${useParams().orderId}`);
   const { _id, message, buyer, status, timestamp, products } =
@@ -39,18 +37,17 @@ const ShopOrderPage = () => {
   const { status: allStatus } = useStatus();
   const { tempTimestamp, getDate } = useTimestamp(timestamp);
   const { url } = useWhatsAppRedirect(buyer?.otherAccounts?.whatsapp);
-  const cart = useCart();
+  const { getOrderedProducts, getOrderedProductsGrandTotal } = useOrder();
   const navigate = useNavigate();
   const helper = useOrders();
   useNoGrid();
 
   useEffect(() => {
-    setOrderedProducts(
-      (products || []).map((p) => ({ ...p, quantity: 1, deleted: false }))
-    );
+    if (products) setOrderedProducts(getOrderedProducts(products));
     setValidStatus(getValidOrderStatus());
+    setSelectedStatus(status);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products?.length, selectedStatus?._id]);
+  }, [products?.length, selectedStatus?._id, status._id]);
 
   const getValidOrderStatus = (): Status[] =>
     allStatus.filter((s) => s._id) as Status[];
@@ -63,7 +60,11 @@ const ShopOrderPage = () => {
     if (!ok) setSelectedStatus(prevStatus);
   };
 
-  const paginated = paginate<Product>(products, currentPage, pageSize);
+  const paginated = paginate<OrderedProduct>(
+    orderedProducts,
+    currentPage,
+    pageSize
+  );
 
   if (isLoading)
     return (
@@ -105,42 +106,27 @@ const ShopOrderPage = () => {
           <Table>
             <Thead headings={headings} />
             <Tbody mt={4}>
-              {paginated.map(({ _id, image, name, price }, index) => {
-                const quantity = cart.getProductQuantity(_id);
-
-                return (
-                  <Tr key={index}>
-                    <Td>
-                      <Flex align="center">
-                        <Image
-                          src={image}
-                          w="2.5rem"
-                          h="2.5rem"
-                          borderRadius={7}
-                          mr={3}
-                        />
-                        <Text fontSize="sm" noOfLines={1}>
-                          {name}
-                        </Text>
-                      </Flex>
-                    </Td>
-                    <Td>{quantity || 1}</Td>
-                    <Td>{price * (quantity || 1)}</Td>
-                  </Tr>
-                );
-              })}
+              {paginated.map(({ image, name, price, quantity }, index) => (
+                <Tr key={index}>
+                  <Td>
+                    <ProductDisplay image={image} name={name} />
+                  </Td>
+                  <Td>{quantity}</Td>
+                  <Td>{price * quantity}</Td>
+                </Tr>
+              ))}
             </Tbody>
           </Table>
           <Pagination
             currentPage={currentPage}
-            itemsCount={products.length}
+            itemsCount={orderedProducts.length}
             mt={5}
             onPageChange={setCurrentPage}
             pageSize={pageSize}
           />
-          <Box mt={4} px={3}>
+          <Box my={4} px={3}>
             <Text>
-              Grand Total: {cart.getProductsGrandTotal(orderedProducts)}
+              Grand Total: {getOrderedProductsGrandTotal(orderedProducts)}
             </Text>
           </Box>
         </Box>
@@ -150,33 +136,12 @@ const ShopOrderPage = () => {
               Customer Profile
             </Text>
           </Flex>
-          <Flex
-            _hover={{ bg: "gray.700" }}
-            align="center"
-            borderBottom="1px solid gray"
-            cursor="pointer"
-            justify="space-between"
+          <Profile
             onClick={() => navigate(`/profile/${buyer._id}`)}
-            px={3}
-            py={2}
-          >
-            <Flex>
-              <Avatar
-                borderRadius="full"
-                mr={2}
-                name={buyer.name}
-                size="sm"
-                src={buyer.avatar}
-              />
-              <Box>
-                <Text fontSize="sm">{buyer.name}</Text>
-                <Text color="whiteAlpha.600" fontSize="xs">
-                  {buyer.username}
-                </Text>
-              </Box>
-            </Flex>
-            <ChevronRightIcon />
-          </Flex>
+            image={buyer.avatar}
+            title={buyer.name}
+            subTitle={buyer.username}
+          />
           <Box
             _hover={{ bg: "gray.700" }}
             borderBottom="1px solid gray"
