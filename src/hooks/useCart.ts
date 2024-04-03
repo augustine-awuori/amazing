@@ -76,8 +76,8 @@ const useCart = () => {
     context.setCartProducts({ count: context.cartProducts.count, ids });
   };
 
-  const getProductsGrandTotal = (cartProducts: CartProduct[]) => {
-    const grandTotal = cartProducts.reduce(
+  const getProductsGrandTotal = (products: CartProduct[]) => {
+    const grandTotal = products.reduce(
       (total, { _id, price }) => total + price * getProductQuantity(_id),
       0
     );

@@ -75,7 +75,7 @@ const order: Order = {
   buyer: { ...author },
   canceled: false,
   message: "",
-  products: [],
+  products: {},
   seen: false,
   shop,
   status,

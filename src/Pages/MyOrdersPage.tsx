@@ -4,9 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 import { BadgesList, Pagination, Thead } from "../components/common";
 import { empty } from "../utils";
-import { Heading, Image, Text } from "../components";
+import { Heading, Text } from "../components";
 import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils/paginate";
+import { MediaQuery, StatusBadge } from "../components/order";
 import { useNoGrid, useOrders, useTimestamp } from "../hooks";
 import auth from "../services/auth";
 import Table from "../components/common/table/Table";
@@ -70,32 +71,15 @@ const MyOrdersPage = () => {
               ({ _id, products, shop, status, timestamp }, index) => (
                 <Tr key={index} onClick={() => navigate(_id)}>
                   <Td>
-                    <Flex align="center">
-                      <Image
-                        src={shop.image}
-                        w="2.5rem"
-                        h="2.5rem"
-                        borderRadius={7}
-                        mr={3}
-                      />
-                      <Text fontSize="sm" noOfLines={1}>
-                        {shop.name}
-                      </Text>
-                    </Flex>
+                    <MediaQuery
+                      image={shop.image}
+                      title={shop.name}
+                      subTitle={shop.location}
+                    />
                   </Td>
-                  <Td>{products.length}</Td>
+                  <Td>{Object.keys(products).length}</Td>
                   <Td>
-                    <Box
-                      bg={`${status.color}.100`}
-                      px={1.5}
-                      color={`${status.color}.500`}
-                      fontWeight="bold"
-                      borderRadius={15}
-                    >
-                      <Text textAlign="center" fontSize="sm">
-                        {status.label}
-                      </Text>
-                    </Box>
+                    <StatusBadge status={status} />
                   </Td>
                   <Td>{getDate(timestamp)}</Td>
                 </Tr>

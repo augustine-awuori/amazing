@@ -1,19 +1,18 @@
 import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { Box, Flex, Spinner, Tbody, Td, Th, Thead } from "@chakra-ui/react";
+import { Box, Flex, Spinner, Tbody, Td } from "@chakra-ui/react";
 
-import { Avatar, BadgesList, Pagination } from "../components/common";
+import { BadgesList, Pagination, Thead } from "../components/common";
 import { empty } from "../utils";
 import { Heading, Text } from "../components";
 import { paginate } from "../utils/paginate";
 import { Status } from "../hooks/useStatus";
+import { MediaQuery, StatusBadge } from "../components/order";
 import { useNoGrid, useOrders, useStatus, useTimestamp } from "../hooks";
 import auth from "../services/auth";
 import Table from "../components/common/table/Table";
 import Tr from "../components/common/table/Tr";
 import useOrder, { Order } from "../hooks/useOrder";
-
-const tableHeadings = ["Customer", "Products", "Status", "Ordered Date"];
 
 const OrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -67,51 +66,22 @@ const OrdersPage = () => {
       />
       {paginated.length ? (
         <Table mt={3}>
-          <Thead>
-            {tableHeadings.map((heading) => (
-              <Th key={heading}>{heading}</Th>
-            ))}
-          </Thead>
+          <Thead
+            headings={["Customer", "Products", "Status", "Ordered Date"]}
+          />
           <Tbody>
             {paginated.map((order) => (
               <Tr key={order._id} onClick={() => navigateToDetails(order)}>
                 <Td>
-                  <Flex align="center">
-                    <Avatar
-                      src={order.buyer.avatar}
-                      name={order.buyer.name}
-                      size="sm"
-                      mr={2}
-                    />
-                    <Box>
-                      <Text
-                        noOfLines={1}
-                        fontSize="sm"
-                        textTransform="capitalize"
-                      >
-                        {order.buyer.name}
-                      </Text>
-                      <Flex align="center">
-                        <Text color="whiteAlpha.500" fontSize="xs" ml={1}>
-                          {order.buyer.username}
-                        </Text>
-                      </Flex>
-                    </Box>
-                  </Flex>
+                  <MediaQuery
+                    image={order.buyer.avatar}
+                    title={order.buyer.name}
+                    subTitle={order.buyer.username}
+                  />
                 </Td>
-                <Td>{order.products.length}</Td>
+                <Td>{Object.keys(order.products).length}</Td>
                 <Td>
-                  <Box
-                    bg={`${order.status.color}.100`}
-                    px={1.5}
-                    color={`${order.status.color}.500`}
-                    fontWeight="bold"
-                    borderRadius={15}
-                  >
-                    <Text textAlign="center" fontSize="sm">
-                      {order.status.label}
-                    </Text>
-                  </Box>
+                  <StatusBadge status={order.status} />
                 </Td>
                 <Td>{getDate(order.timestamp)}</Td>
               </Tr>

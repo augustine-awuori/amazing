@@ -130,11 +130,15 @@ const useProducts = (shopId?: string) => {
 
   const result = getProducts();
 
+  const getProduct = async (productId: string) =>
+    await service.getProduct(productId);
+
   return {
     addProduct,
     create,
     deleteProductById,
     isLoading,
+    getProduct,
     products: result,
     productsCount: result.length,
     setProducts,
