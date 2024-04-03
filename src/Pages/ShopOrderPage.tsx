@@ -47,7 +47,7 @@ const ShopOrderPage = () => {
     setValidStatus(getValidOrderStatus());
     setSelectedStatus(status);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products?.length, selectedStatus?._id, status._id]);
+  }, [products?.length, selectedStatus?._id, status?._id]);
 
   const getValidOrderStatus = (): Status[] =>
     allStatus.filter((s) => s._id) as Status[];
@@ -98,9 +98,9 @@ const ShopOrderPage = () => {
             <Text
               fontWeight="extrabold"
               fontSize={20}
-              color={selectedStatus.color}
+              color={selectedStatus?.color}
             >
-              Order in "{selectedStatus.label.toLowerCase()}" status
+              Order in "{selectedStatus?.label?.toLowerCase()}" status
             </Text>
           </Flex>
           <Table>
