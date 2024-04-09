@@ -17,7 +17,8 @@ const ShopAdminItem = ({ shop }: { shop: Shop }) => {
       <Flex px={3}>
         <Text>Shop Type:_</Text>
         <Text color="orange.400">
-          {`  ${shop.type.label}`} <ChevronDownIcon />
+          {/* {`  ${shop.type.label}`} */}
+          <ChevronDownIcon />
         </Text>
       </Flex>
       {shop.location && (

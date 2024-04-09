@@ -47,7 +47,7 @@ const shop: Shop = {
   isVerified: false,
   name: "",
   location: "",
-  type: { _id: "", label: "" },
+  types: {},
   views: 0,
 };
 
