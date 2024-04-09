@@ -35,16 +35,16 @@ const useShops = () => {
   const getShops = () => (error ? [] : data);
 
   const create = async (info: NewShop) => {
-    const { data, ok, problem } = await service.create(info);
-    const error = (data as DataError)?.error || problem || "UNKNOWN_ERROR";
+    const res = await service.create(info);
+    const error = (data as DataError)?.error || res.problem || "UNKNOWN_ERROR";
 
-    if (!ok) toast.error(`Failed! ${error}`);
+    if (!res.ok) toast.error(`Failed! ${error}`);
     else {
-      setShops([data as Shop, ...shops]);
+      setShops([res.data as Shop, ...shops]);
       toast.success("Shop created successfully!");
     }
 
-    return { data, ok, error };
+    return { ...res, error };
   };
 
   const deleteShop = async (shopId: string | undefined): Promise<boolean> => {

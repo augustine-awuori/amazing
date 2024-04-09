@@ -6,7 +6,6 @@ export const shopSchema = z.object({
     .string()
     .min(3, "Location description should be btn 3 & 255 chars")
     .max(255),
-  type: z.string().min(2),
 });
 
 export type ShopFormData = z.infer<typeof shopSchema>;
