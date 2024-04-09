@@ -1,5 +1,5 @@
 import { ReactNode, useState } from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, BoxProps, Flex } from "@chakra-ui/react";
 
 import { FormHandleSubmit } from "../../hooks/useForm";
 import { getLastWord } from "../../utils/format";
@@ -7,7 +7,7 @@ import { Modal, Text } from "../";
 import { useNoGrid } from "../../hooks";
 import ErrorMessage from "./ErrorMessage";
 
-interface Props {
+interface Props extends BoxProps {
   children: ReactNode;
   error?: string;
   explanation?: string;
@@ -26,6 +26,7 @@ const Form = ({
   onSubmit,
   title,
   usePageContainer = true,
+  ...otherProps
 }: Props) => {
   const [showExplanation, setExplanation] = useState(false);
   useNoGrid();
@@ -33,7 +34,7 @@ const Form = ({
   const handleModalVisibility = () => setExplanation(!showExplanation);
 
   return (
-    <Box pt={usePageContainer ? 15 : 0} px={{ base: 5 }}>
+    <Box pt={usePageContainer ? 15 : 0} px={{ base: 5 }} {...otherProps}>
       <Modal
         content={explanation}
         isOpen={showExplanation}

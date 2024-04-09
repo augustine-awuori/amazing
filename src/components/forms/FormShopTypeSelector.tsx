@@ -7,7 +7,7 @@ import useTypes from "../../hooks/useTypes";
 interface Props extends SelectProps {
   register: FormRegister;
 }
-
+//TODO: Check whether it's used, if not delete it
 const FormShopTypeSelector = ({ register, ...otherProps }: Props) => {
   const { types } = useTypes();
 

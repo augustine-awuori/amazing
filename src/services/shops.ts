@@ -1,6 +1,5 @@
 import client from "./client";
 import { NewShop } from "../hooks/useShop";
-import { UpdateShop } from "../components/shops/UpdateForm";
 
 export const endpoint = "/shops";
 
@@ -10,7 +9,7 @@ const deleteShop = (shopId: string) => client.delete(`${endpoint}/${shopId}`);
 
 const getShop = (shopId: string) => client.get(`${endpoint}/${shopId}`);
 
-const update = (shop: UpdateShop, shopId: string) =>
+const update = (shop: object, shopId: string) =>
   client.patch(`${endpoint}/${shopId}`, shop);
 
 const incViews = (shopId: string) =>

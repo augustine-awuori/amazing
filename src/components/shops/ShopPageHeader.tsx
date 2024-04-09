@@ -6,6 +6,7 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { BsXCircle } from "react-icons/bs";
 import GoogleButton from "react-google-button";
 
+import { empty } from "../../utils";
 import { Heading, Modal, Text } from "../../components";
 import { ChatAccountsDisplay, SettingsSelector, ShopUpdateForm } from ".";
 import { ChatIcon } from "../../components/icons";
@@ -32,11 +33,11 @@ interface Props {
 }
 
 const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
-  const { shop } = useShop();
-  const sellerId = shop?.author._id;
+  const shop = useShop().shop || empty.shop;
+  const sellerId = shop?.author?._id;
   const shopOwnerDetails = useUser(sellerId);
   const { setChat } = useChatDetails();
-  const isTheAuthor = useCurrentUser(shop?.author._id);
+  const isTheAuthor = useCurrentUser(shop?.author?._id);
   const [, setSetting] = useState<Item | null>(null);
   const [isDeleting, setDeleting] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

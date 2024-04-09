@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-import { figure } from "../utils";
+import { figure, funcs } from "../utils";
 import CartContext from "../contexts/CartContext";
 import useProducts, { Product } from "./useProducts";
 
@@ -43,7 +43,7 @@ const useCart = () => {
   const clear = () => context.setCartProducts({ count: 0, ids: {} });
 
   function hasProduct(productId: string): boolean {
-    return context.cartProducts.ids[productId] ? true : false;
+    return funcs.getBoolean(context.cartProducts.ids[productId]);
   }
 
   function getProducts(): CartProduct[] {

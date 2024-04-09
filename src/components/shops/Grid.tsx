@@ -31,7 +31,7 @@ const ShopsGrid = ({
   query,
 }: Props) => {
   const filtered = selectedType?._id
-    ? shops.filter((shop) => shop.type._id === selectedType._id)
+    ? shops.filter((shop) => shop.types[selectedType._id])
     : shops;
 
   const queried = query

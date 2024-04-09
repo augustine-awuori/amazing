@@ -2,17 +2,17 @@ import { useState } from "react";
 import { Box, Flex, Spinner, Tbody, Td } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-import { BadgesList, Pagination, Thead } from "../components/common";
+import { Pagination, Thead } from "../components/common";
 import { empty } from "../utils";
 import { Heading, Text } from "../components";
 import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils/paginate";
-import { MediaQuery, StatusBadge } from "../components/order";
+import { MediaQuery, StatusBadge, StatusBadgesList } from "../components/order";
+import { Status } from "../hooks/useStatus";
 import { useNoGrid, useOrders, useTimestamp } from "../hooks";
 import auth from "../services/auth";
 import Table from "../components/common/table/Table";
 import Tr from "../components/common/table/Tr";
-import useStatus, { Status } from "../hooks/useStatus";
 
 const MyOrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,7 +20,6 @@ const MyOrdersPage = () => {
   const [selectedStatus, setSelectedStatus] = useState<Status>(empty.status);
   const user = auth.getCurrentUser();
   const { ordersLoading, orders } = useOrders(`${user?._id}`);
-  const { status, isLoading: statusLoading } = useStatus();
   const { getDate } = useTimestamp();
   const navigate = useNavigate();
   useNoGrid();
@@ -56,11 +55,9 @@ const MyOrdersPage = () => {
           Showing {filtered.length} "{selectedStatus.label}" orders
         </Heading>
       )}
-      <BadgesList
-        list={status}
-        loading={statusLoading}
-        onItemSelect={(status) => handleStatusSelect(status as Status)}
-        selectedItem={selectedStatus}
+      <StatusBadgesList
+        onStatusSelect={handleStatusSelect}
+        selectedStatus={selectedStatus}
       />
       {paginated.length ? (
         <Table>

@@ -8,3 +8,4 @@ export { default as SettingsSelector } from "./SettingsSelector";
 export { default as ShopPageHeader } from "./ShopPageHeader";
 export { default as ShopUpdateForm } from "./UpdateForm";
 export { default as Tbody } from "./Tbody";
+export { default as ShopTypesSelector } from "./TypesSelector";

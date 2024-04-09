@@ -1,4 +1,6 @@
 export { default as Avatar } from "./Avatar";
+export { default as Badge } from "./Badge";
+export { default as BadgeSkeletons } from "./BadgeSkeletons";
 export { default as BadgesList } from "./BadgesList";
 export { default as BottomSheet } from "./BottomSheet";
 export { default as BottomSheetOpener } from "./BottomSheetOpener";
@@ -14,9 +16,9 @@ export { default as MenuContent } from "./MenuContent";
 export { default as Modal } from "./Modal";
 export { default as Pagination } from "./Pagination";
 export { default as Paragraph } from "./Paragraph";
-export { default as SelectorMenuList } from "./SelectorMenuList";
 export { default as ScrollToTopBtn } from "./ScrollToTopBtn";
 export { default as Select } from "./Select";
 export { default as Selector } from "./Selector";
+export { default as SelectorMenuList } from "./SelectorMenuList";
 export { default as TextInput } from "./TextInput";
 export { default as Thead } from "./Thead";

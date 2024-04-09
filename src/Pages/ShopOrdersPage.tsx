@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Box, Flex, Spinner, Tbody, Td } from "@chakra-ui/react";
 
-import { BadgesList, Pagination, Thead } from "../components/common";
 import { empty } from "../utils";
 import { Heading, Text } from "../components";
 import { paginate } from "../utils/paginate";
+import { Pagination, Thead } from "../components/common";
 import { Status } from "../hooks/useStatus";
-import { MediaQuery, StatusBadge } from "../components/order";
-import { useNoGrid, useOrders, useStatus, useTimestamp } from "../hooks";
+import { MediaQuery, StatusBadge, StatusBadgesList } from "../components/order";
+import { useNoGrid, useOrders, useTimestamp } from "../hooks";
 import auth from "../services/auth";
 import Table from "../components/common/table/Table";
 import Tr from "../components/common/table/Tr";
@@ -19,9 +19,8 @@ const OrdersPage = () => {
   const [pageSize] = useState(4);
   const [selectedStatus, setSelectedStatus] = useState<Status>(empty.status);
   const { ordersLoading, orders } = useOrders(useParams().shopId);
-  const { status, isLoading: statusLoading } = useStatus();
-  const { getDate } = useTimestamp();
   const navigate = useNavigate();
+  const time = useTimestamp();
   const helper = useOrder();
   useNoGrid();
 
@@ -58,11 +57,9 @@ const OrdersPage = () => {
       <Text color="whiteAlpha.500" mt={3} textAlign="center" mb={8}>
         The orders others placed to my shop
       </Text>
-      <BadgesList
-        list={status}
-        loading={statusLoading}
-        onItemSelect={(status) => handleStatusSelect(status as Status)}
-        selectedItem={selectedStatus}
+      <StatusBadgesList
+        onStatusSelect={handleStatusSelect}
+        selectedStatus={selectedStatus}
       />
       {paginated.length ? (
         <Table mt={3}>
@@ -83,7 +80,7 @@ const OrdersPage = () => {
                 <Td>
                   <StatusBadge status={order.status} />
                 </Td>
-                <Td>{getDate(order.timestamp)}</Td>
+                <Td>{time.getDate(order.timestamp)}</Td>
               </Tr>
             ))}
           </Tbody>

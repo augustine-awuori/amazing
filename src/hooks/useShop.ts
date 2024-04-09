@@ -3,25 +3,28 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 
 import { DataError } from "../services/client";
-import { Type } from "./useTypes";
 import { User } from "./useUser";
 import service from "../services/shops";
 import ShopContext from "../contexts/ShopContext";
 
-interface Common {
+type Common = {
   location?: string;
   name: string;
-}
+};
 
-interface ShopBase {
+type ShopBase = {
   _id: string;
   image: string;
   isVerified: boolean;
-}
+};
+
+export type NewShopTypes = {
+  [id: string]: string;
+};
 
 export interface Shop extends Common, ShopBase {
   author: User;
-  type: Type;
+  types: NewShopTypes;
   views: number;
 }
 
@@ -32,13 +35,13 @@ export interface ShopProduct extends Common, ShopBase {
 
 export interface NewShop extends Common {
   image: string;
-  type: string;
+  types: NewShopTypes;
   name: string;
 }
 
 const useShop = () => {
   const { setShop, shop } = useContext(ShopContext);
-  const shopId = useParams().shopId;
+  const { shopId } = useParams();
 
   useEffect(() => {
     init();
