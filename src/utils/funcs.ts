@@ -1,3 +1,6 @@
+import { NewShopTypes } from "../hooks/useShop";
+import { ShopTypes } from "../components/shops/TypesSelector";
+
 const addMessageToUrl = (url: string, text = "") =>
   text ? `${url} . ${text}` : url;
 
@@ -20,4 +23,16 @@ function getBoolean(value: unknown): boolean {
   return value ? true : false;
 }
 
-export default { navTo, isOdd, getBoolean, removeLastChar };
+export const prepShopTypes = (
+  selectedShopTypes: ShopTypes | NewShopTypes
+): NewShopTypes => {
+  const result: NewShopTypes = {};
+
+  Object.keys(selectedShopTypes).forEach((id) => {
+    result[id] = id;
+  });
+
+  return result;
+};
+
+export default { navTo, prepShopTypes, isOdd, getBoolean, removeLastChar };

@@ -8,7 +8,8 @@ import {
   SubmitButton,
 } from "../components/form";
 import { ImageInputList } from "../components/common";
-import { NewShopTypes as NewShopTypes, Shop } from "../hooks/useShop";
+import { prepShopTypes } from "../utils/funcs";
+import { Shop } from "../hooks/useShop";
 import { ShopFormData, shopSchema } from "../data/schemas";
 import { Type } from "../hooks/useTypes";
 import { useForm, useImages, useNoGrid, useShops } from "../hooks";
@@ -31,20 +32,14 @@ const ShopEditPage = () => {
   const navigate = useNavigate();
   useNoGrid();
 
-  const prepTypes = (): NewShopTypes => {
-    const result: NewShopTypes = {};
-
-    Object.keys(selectedShopTypes).forEach((id) => {
-      result[id] = id;
-    });
-
-    return result;
-  };
-
   const createShop = async (info: ShopFormData) => {
     setLoading(true);
     const image = await storage.saveImage(images[0]);
-    const res = await shops.create({ ...info, image, types: prepTypes() });
+    const res = await shops.create({
+      ...info,
+      image,
+      types: prepShopTypes(selectedShopTypes),
+    });
     setLoading(false);
 
     if (!res.ok) await storage.deleteImage(image);

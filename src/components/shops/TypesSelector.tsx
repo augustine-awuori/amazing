@@ -3,6 +3,7 @@ import { Flex, FlexProps } from "@chakra-ui/react";
 import { Badge, BadgeSkeletons } from "../common";
 import { funcs } from "../../utils";
 import { hideScrollBarCss } from "../../data/general";
+import { NewShopTypes } from "../../hooks/useShop";
 import { Text } from "..";
 import { useAppColorMode } from "../../hooks";
 import useTypes, { Type } from "../../hooks/useTypes";
@@ -13,7 +14,7 @@ export type ShopTypes = {
 
 interface Props {
   onTypeSelect: (type: Type) => void;
-  selectedTypes: ShopTypes;
+  selectedTypes: ShopTypes | NewShopTypes;
 }
 
 const Container = ({ children }: FlexProps) => (

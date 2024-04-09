@@ -6,18 +6,22 @@ import {
   TextAreaField as LocationField,
   SubmitButton,
 } from "../../components/form/index.ts";
+import { NewShopTypes } from "../../hooks/useShop.ts";
+import { prepShopTypes } from "../../utils/funcs.ts";
 import { shopSchema } from "../../data/schemas";
 import { Text } from "../../components/index.ts";
+import { Type } from "../../hooks/useTypes.ts";
 import { useForm, useImages, useShop, useShops } from "../../hooks";
-import Selector from "../../components/forms/FormShopTypeSelector";
-import storage from "../../db/image";
 import ImageInputList from "../../components/common/ImageInputList.tsx";
+import ShopTypesSelector from "./TypesSelector.tsx";
+import storage from "../../db/image";
 
 interface Props {
   onDone: () => void;
 }
 
 export interface UpdateShop extends FormData {
+  types: NewShopTypes;
   image: string;
 }
 
@@ -26,14 +30,29 @@ const ShopUpdateForm = ({ onDone }: Props) => {
   const [error, setError] = useState("");
   const { errors, register, handleSubmit } = useForm(shopSchema);
   const { shop } = useShop();
+  const [selectedShopTypes, setSelectedShopTypes] = useState<NewShopTypes>(
+    shop?.types || {}
+  );
   const helper = useShops();
   const [name, setName] = useState(shop?.name);
   const [location, setLocation] = useState(shop?.location);
   const { images } = useImages(1);
 
+  const handleTypeSelect = (type: Type) => {
+    if (!selectedShopTypes[type._id])
+      setSelectedShopTypes({ ...selectedShopTypes, [type._id]: type._id });
+    else {
+      const newTypes = { ...selectedShopTypes };
+      delete newTypes[type._id];
+      setSelectedShopTypes(newTypes);
+    }
+  };
+
   const doSubmit = async (shopInfo: UpdateShop) => {
     if (error) setError("");
     if (!shop?._id) return setError("App Error");
+    if (!Object.keys(selectedShopTypes).length)
+      return setError("Please select at least one shop type");
 
     setLoading(true);
     const image = images[0];
@@ -41,7 +60,8 @@ const ShopUpdateForm = ({ onDone }: Props) => {
     if (image) imageUrl = await storage.saveImage(image);
     if (imageUrl) shopInfo.image = imageUrl;
 
-    const res = await helper.update(shopInfo, shop._id);
+    const types = prepShopTypes(selectedShopTypes);
+    const res = await helper.update({ ...shopInfo, types }, shop._id);
     setLoading(false);
 
     if (res.ok) onDone();
@@ -70,7 +90,10 @@ const ShopUpdateForm = ({ onDone }: Props) => {
         textTransform="capitalize"
         value={name}
       />
-      <Selector mb={2} register={register} />
+      <ShopTypesSelector
+        onTypeSelect={handleTypeSelect}
+        selectedTypes={selectedShopTypes}
+      />
       <LocationField
         error={errors.location}
         label="Location"
