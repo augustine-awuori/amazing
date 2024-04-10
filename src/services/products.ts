@@ -5,7 +5,7 @@ export interface NewProduct {
   description: string;
   name: string;
   price: string;
-  image: string;
+  images: string[];
   shop: string;
 }
 
@@ -15,7 +15,7 @@ const getProductURL = (productId: string) => `${endpoint}/${productId}`;
 
 const create = (product: NewProduct) => client.post(endpoint, product);
 
-const update = (info: { name: string; price: string }, productId: string) =>
+const update = (info: object, productId: string) =>
   client.patch(getProductURL(productId), info);
 
 const deleteProductBy = (productId: string) =>

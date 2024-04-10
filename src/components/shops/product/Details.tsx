@@ -11,7 +11,7 @@ interface Props {
 }
 
 const ProductDetails = ({
-  info: { description, name, image, price },
+  info: { description, name, images, price },
 }: Props) => {
   const { accentColor, concAccentColor } = useAppColorMode();
 
@@ -22,7 +22,7 @@ const ProductDetails = ({
         h="100%"
         mb={2}
         objectFit="contain"
-        src={image}
+        src={images[0]}
       />
       <Text
         color={accentColor}

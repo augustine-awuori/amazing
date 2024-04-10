@@ -36,7 +36,7 @@ interface EditOption extends Item {
 }
 
 const DisplayCard = ({ product, onEdit }: Props) => {
-  const { _id, image, price, name, shop } = product || empty.product;
+  const { _id, images, price, name, shop } = product || empty.product;
   const { deleteProductById } = useProducts();
   const { accentColor } = useAppColorMode();
   const [isAddingImage, setAddingImage] = useState(false);
@@ -170,7 +170,7 @@ const DisplayCard = ({ product, onEdit }: Props) => {
           h={{ base: "8rem", md: "10.5rem" }}
           mr={{ base: 3, md: 5 }}
           objectFit="cover"
-          src={image}
+          src={images[0]}
           transition="all 0.3s"
           w="100%"
         />

@@ -9,7 +9,7 @@ import authApi from "../../services/auth";
 import storage from "../../db/image";
 import ImageInputList from "../common/ImageInputList";
 
-const IMAGES_COUNT = 1;
+const IMAGES_COUNT = 3;
 
 interface Props {
   onDone: () => void;
@@ -27,11 +27,22 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
   const makeShopFrom = async (
     info: ProductFormData
   ): Promise<NewProduct | undefined> => {
+    if (!user) return;
+
+    const imgs: string[] = [];
+    const promises = images.map(async (image) => {
+      const url = await storage.saveImage(image);
+      imgs.push(url);
+
+      return url;
+    });
+    await Promise.all([promises]);
+
     if (user)
       return {
         ...info,
         author: user._id,
-        image: await storage.saveImage(images[0]),
+        images: imgs,
         shop: shopId,
       };
   };
@@ -45,8 +56,10 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
 
     const { error: message, ok } = await products.create(shop);
     setLoading(false);
+
     if (!ok) {
-      await storage.deleteImage(shop.image);
+      shop.images.forEach(async (img) => await storage.deleteImage(img));
+
       return setError(message);
     }
 

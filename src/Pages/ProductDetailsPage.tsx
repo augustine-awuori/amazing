@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Box, Divider, Flex, SkeletonText } from "@chakra-ui/react";
 import { FaHandshake } from "react-icons/fa";
@@ -50,11 +50,15 @@ const ProductDetailsPage = () => {
   } = useReload<Product>(null, empty.product, service.getProduct);
   const isSeller = useCurrentUser(product.shop?.author);
   const { deleteProductById } = useProducts();
+  const [selectedImage, setSelectedImage] = useState(
+    product?.images?.[0] || ""
+  );
 
   useEffect(() => {
     request();
+    if (!selectedImage) setSelectedImage(product?.images?.[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [product?.images?.length]);
 
   if (!product._id && !isLoading)
     return (
@@ -66,7 +70,7 @@ const ProductDetailsPage = () => {
       </Box>
     );
 
-  const { _id, image, name, description, price, shop } = product;
+  const { _id, images, name, description, price, shop } = product;
   const quantity = cart.getProductQuantity(_id);
   const isAdded = cart.hasProduct(_id);
 
@@ -142,13 +146,30 @@ const ProductDetailsPage = () => {
   return (
     <Box pt="4rem">
       <Grid columns={{ sm: 1, md: 2 }} mx="auto">
-        <Image
-          px={{ base: 3 }}
-          src={image}
-          w="100%"
-          objectFit="contain"
-          borderRadius={{ md: 7, base: 10 }}
-        />
+        <Box>
+          <Image
+            px={{ base: 3 }}
+            src={selectedImage}
+            w="100%"
+            objectFit="contain"
+            borderRadius={{ md: 7, base: 10 }}
+          />
+          <Flex m={5}>
+            {(images || []).map((image) => (
+              <Image
+                border={selectedImage === image ? "2px solid orange" : "none"}
+                borderRadius={10}
+                cursor="pointer"
+                h={20}
+                key={image}
+                mr={3}
+                objectFit="cover"
+                onClick={() => setSelectedImage(image)}
+                src={image}
+              />
+            ))}
+          </Flex>
+        </Box>
         <Box px={{ base: 5 }}>
           {isLoading && !name ? (
             <SkeletonText mb={1.5} />

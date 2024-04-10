@@ -61,7 +61,7 @@ const product: Product = {
   _id: "",
   author,
   description: "",
-  image: "",
+  images: [],
   name: "",
   price: 100,
   shop: shopProduct,

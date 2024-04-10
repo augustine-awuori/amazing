@@ -15,7 +15,7 @@ export interface Product {
   _id: string;
   author: User;
   description: string;
-  image: string;
+  images: string[];
   name: string;
   price: number;
   shop: ShopProduct;
@@ -110,7 +110,7 @@ const useProducts = (shopId?: string) => {
       );
       error = (data as DataError)?.error || problem;
     } else {
-      if (found) await storage.deleteImage(found.image);
+      found?.images?.forEach(async (image) => await storage.deleteImage(image));
       toast("Product deleted succesfully!");
     }
 
