@@ -85,10 +85,10 @@ const MyOrderPage = () => {
           <Table>
             <Thead headings={headings} />
             <Tbody mt={4}>
-              {paginated.map(({ image, name, price, quantity }, index) => (
+              {paginated.map(({ images, name, price, quantity }, index) => (
                 <Tr key={index}>
                   <Td>
-                    <ProductDisplay image={image} name={name} />
+                    <ProductDisplay image={images[0]} name={name} />
                   </Td>
                   <Td>{quantity}</Td>
                   <Td>{price * quantity}</Td>

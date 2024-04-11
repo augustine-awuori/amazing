@@ -42,7 +42,7 @@ const SideCartItem = ({
         justify="space-between"
       >
         <Flex>
-          <Image src={product.image} h={9} w={9} mr={2} borderRadius={5} />
+          <Image src={product.images[0]} h={9} w={9} mr={2} borderRadius={5} />
           <Box>
             <Text textTransform="capitalize" noOfLines={1} fontSize="sm">
               {product.name}

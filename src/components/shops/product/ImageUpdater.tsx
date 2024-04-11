@@ -8,7 +8,8 @@ import { Button, Text } from "../../";
 import { DataError } from "../../../services/client";
 import { ImageInputList } from "../../common";
 import { Product } from "../../../hooks/useProducts";
-import { useAppColorMode, useImages, useProducts } from "../../../hooks";
+import { useAppColorMode, useImages } from "../../../hooks";
+import service from "../../../services/products";
 import storage from "../../../db/image";
 
 interface Props {
@@ -16,23 +17,39 @@ interface Props {
   onDone: () => void;
 }
 
+const MAX_IMAGES_INPUT_COUNT = 3;
+
 const ImageUpdater = ({ onDone, product }: Props) => {
   const { accentColor, concAccentColor } = useAppColorMode();
-  const { images } = useImages(1);
+  const { images } = useImages(MAX_IMAGES_INPUT_COUNT);
   const [saving, setSaving] = useState(false);
   const [progress, setProgress] = useState("");
-  const helper = useProducts(undefined);
+
+  const prepImages = (): string[] => {
+    const imgs: string[] = [];
+
+    Promise.all([
+      images.map(async (image) => {
+        const result = await storage.saveImage(image);
+        imgs.push(result);
+
+        return result;
+      }),
+    ]);
+
+    return imgs;
+  };
 
   const updateImage = async (): Promise<ApiResponse<unknown, unknown>> => {
     setSaving(true);
     setProgress("Saving image");
-    const newImageUrl = await storage.saveImage(images[0]);
+    const newImagesUrl = prepImages();
 
     setProgress("Updating product image");
-    const res = await helper.updateProductImage(product._id, newImageUrl);
+    const res = await service.update({ images: newImagesUrl }, product._id);
 
     setProgress("Deleting unused image");
-    await storage.deleteImage(res.ok ? product.image : newImageUrl);
+    await storage.deleteImages(res.ok ? product.images : newImagesUrl);
     setSaving(false);
 
     return res;
@@ -55,7 +72,11 @@ const ImageUpdater = ({ onDone, product }: Props) => {
   return (
     <>
       <Box position="relative">
-        <ImageInputList imagesLimit={1} />
+        <Text textAlign="center">
+          The selected images will replace the existing. If none is selected,
+          the previous images will persist
+        </Text>
+        <ImageInputList imagesLimit={MAX_IMAGES_INPUT_COUNT} />
         {saving && (
           <Center
             borderRadius={10}
