@@ -5,6 +5,7 @@ import { Form, FormField, SubmitButton } from "../../components/form";
 import { Product } from "../../hooks/useProducts";
 import { ProductFormData, productSchema } from "../../data/schemas";
 import { useForm, useProducts, useShop } from "../../hooks";
+import storage from "../../db/image";
 
 interface Props {
   product?: Product;
@@ -16,10 +17,10 @@ const ProductUpdateForm = ({ onDone, product }: Props) => {
   const [isLoading, setLoading] = useState(false);
   const [name, setName] = useState(product?.name);
   const [price, setPrice] = useState(product?.price);
+  const [showModal, setShowModal] = useState(false);
   const { errors, handleSubmit, register, reset } = useForm(productSchema);
   const { shop } = useShop();
   const service = useProducts(shop?._id);
-  const [showModal, setShowModal] = useState(false);
 
   const doSubmit = async (info: ProductFormData) => {
     if (error) setError("");
@@ -37,10 +38,15 @@ const ProductUpdateForm = ({ onDone, product }: Props) => {
   const handleDelete = async () => {
     onDone();
     setShowModal(false);
+    if (!product) return setError("App error!");
 
-    if (!product) return;
     const { ok, error } = await service.deleteProductById(product._id);
-    if (!ok) setError(error);
+
+    ok
+      ? product.images.forEach(
+          async (image) => await storage.deleteImage(image)
+        )
+      : setError(error);
   };
 
   return (
