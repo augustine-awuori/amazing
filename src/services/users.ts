@@ -1,8 +1,8 @@
 import { toast } from "react-toastify";
 
-import { authApi } from "../services";
 import { NewUserData } from "../Pages/RegisterPage";
 import { UpdatableUserInfo } from "../hooks/useUser";
+import authApi from "./auth";
 import client, { DataError } from "./client";
 
 export const endpoint = "/users";

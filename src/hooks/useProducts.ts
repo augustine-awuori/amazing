@@ -5,6 +5,7 @@ import { DataError, getCacheData } from "../services/client";
 import { endpoint, NewProduct } from "../services/products";
 import { ProductFormData } from "../data/schemas";
 import { ShopProduct } from "./useShop";
+import { Type } from "./useTypes";
 import { User } from "./useUser";
 import ProductsContext from "../contexts/ProductsContext";
 import service from "../services/products";
@@ -20,6 +21,7 @@ export interface Product {
   price: number;
   shop: ShopProduct;
   timestamp: number;
+  type: Type;
 }
 
 const useProducts = (shopId?: string) => {
@@ -63,7 +65,7 @@ const useProducts = (shopId?: string) => {
       toast("Product has been saved successfully");
     } else {
       error = (newProduct as DataError)?.error || problem;
-      toast.error("Product not saved!");
+      toast.error(error || "Product not saved!");
     }
 
     return { error, ok };

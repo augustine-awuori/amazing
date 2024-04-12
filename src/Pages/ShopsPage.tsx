@@ -291,6 +291,7 @@ const ShopsPage = () => {
           <ShopSelectors
             onShopSelect={setSelectedShopId}
             selectedShop={selectedShopId}
+            onDoneShopSelect={handleShopSelection}
           />
         }
         isOpen={selectShop}

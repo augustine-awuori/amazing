@@ -6,6 +6,7 @@ import { Footer, Grid, StartChatBtn, Text } from "../components";
 import { paginate } from "../utils/paginate";
 import {
   useCurrentUser,
+  useImages,
   useNoGrid,
   useProducts,
   useReload,
@@ -43,6 +44,7 @@ const ShopPage = () => {
   const { isLoading, products, productsCount } = useProducts(shopId);
   const helper = useShops();
   const isTheSeller = useCurrentUser(shop.author?._id);
+  const { removeAllImages } = useImages(0);
   useNoGrid();
 
   useEffect(() => {
@@ -62,7 +64,10 @@ const ShopPage = () => {
 
   const paginated = paginate<Product>(products, currentPage, PAGE_SIZE);
 
-  const switchShowProductForm = () => setShowProductForm(!showProductForm);
+  const switchShowProductForm = () => {
+    if (!showProductForm) removeAllImages();
+    setShowProductForm(!showProductForm);
+  };
 
   const switchShowProductUpdateForm = () =>
     setShowProductEditForm(!showProductUpdateForm);

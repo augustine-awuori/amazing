@@ -1,16 +1,16 @@
-import { Box, Flex, Radio } from "@chakra-ui/react";
+import { Box, Flex, FlexProps, Radio } from "@chakra-ui/react";
 import { CheckIcon, ChevronRightIcon } from "@chakra-ui/icons";
 
 import { Text, Image } from "../../components";
 import { Shop } from "../../hooks/useShop";
 
-interface Props {
+interface Props extends FlexProps {
   onClick: () => void;
   selected: boolean;
   shop: Shop;
 }
 
-const ShopSelector = ({ onClick, selected, shop }: Props) => (
+const ShopSelector = ({ onClick, selected, shop, ...otherProps }: Props) => (
   <Flex
     _hover={{ bg: "gray.600" }}
     align="center"
@@ -21,6 +21,7 @@ const ShopSelector = ({ onClick, selected, shop }: Props) => (
     onClick={onClick}
     p={2}
     transition="all 0.3s"
+    {...otherProps}
   >
     {selected ? <CheckIcon mr={2} /> : <Radio size="md" mr={2} />}
     <Image

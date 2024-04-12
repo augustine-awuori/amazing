@@ -9,7 +9,7 @@ import authApi from "../../services/auth";
 import storage from "../../db/image";
 import ImageInputList from "../common/ImageInputList";
 
-const IMAGES_COUNT = 3;
+const MAX_IMAGES_INPUT = 3;
 
 interface Props {
   onDone: () => void;
@@ -18,7 +18,7 @@ interface Props {
 
 const NewProductForm = ({ onDone, shopId }: Props) => {
   const { errors, handleSubmit, register, reset } = useForm(productSchema);
-  const { imagesCount, images, removeAllImages } = useImages(IMAGES_COUNT);
+  const { imagesCount, images, removeAllImages } = useImages(MAX_IMAGES_INPUT);
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const user = authApi.getCurrentUser();
@@ -29,20 +29,18 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
   ): Promise<NewProduct | undefined> => {
     if (!user) return;
 
-    const imgs: string[] = [];
-    const promises = images.map(async (image) => {
-      const url = await storage.saveImage(image);
-      imgs.push(url);
-
-      return url;
-    });
-    await Promise.all([promises]);
+    const imagesUrl = await storage.saveImages(images);
+    if (!imagesUrl.length) {
+      setError("Error saving images");
+      setLoading(false);
+      return;
+    }
 
     if (user)
       return {
         ...info,
         author: user._id,
-        images: imgs,
+        images: imagesUrl,
         shop: shopId,
       };
   };
@@ -78,7 +76,7 @@ const NewProductForm = ({ onDone, shopId }: Props) => {
       title="New Product"
       usePageContainer={false}
     >
-      <ImageInputList imagesLimit={IMAGES_COUNT} />
+      <ImageInputList imagesLimit={MAX_IMAGES_INPUT} />
       <FormField
         error={errors.name}
         label="Name"

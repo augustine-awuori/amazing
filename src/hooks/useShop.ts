@@ -30,7 +30,7 @@ export interface Shop extends Common, ShopBase {
 
 export interface ShopProduct extends Common, ShopBase {
   author: string;
-  type: string;
+  types: NewShopTypes;
 }
 
 export interface NewShop extends Common {

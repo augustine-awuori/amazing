@@ -9,11 +9,16 @@ import { useShops } from "../../hooks";
 import auth from "../../services/auth";
 
 interface Props {
+  onDoneShopSelect: () => void;
   onShopSelect: (shopId: string) => void;
   selectedShop: string;
 }
 
-const ShopSelectors = ({ onShopSelect, selectedShop }: Props) => {
+const ShopSelectors = ({
+  onDoneShopSelect,
+  onShopSelect,
+  selectedShop,
+}: Props) => {
   const { shops: allShops, isLoading } = useShops();
   const [query, setQuery] = useState("");
 
@@ -50,6 +55,7 @@ const ShopSelectors = ({ onShopSelect, selectedShop }: Props) => {
             key={index}
             onClick={() => onShopSelect(shop._id)}
             selected={selectedShop === shop._id}
+            onDoubleClick={onDoneShopSelect}
             shop={shop}
           />
         ))
