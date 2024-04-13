@@ -42,7 +42,7 @@ const ShopsProductsGrid = ({
   };
 
   const filtered = selectedType?._id
-    ? products.filter((product) => product.shop.type === selectedType?._id)
+    ? products.filter((product) => product?.type?._id === selectedType?._id)
     : products;
 
   const queried = query

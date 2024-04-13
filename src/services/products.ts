@@ -7,6 +7,7 @@ export interface NewProduct {
   price: string;
   images: string[];
   shop: string;
+  type: string;
 }
 
 export const endpoint = "/products";

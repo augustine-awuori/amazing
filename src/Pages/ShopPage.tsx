@@ -96,7 +96,7 @@ const ShopPage = () => {
           isOpen={showProductForm}
           onModalClose={switchShowProductForm}
           content={
-            <NewProductForm onDone={switchShowProductForm} shopId={shop._id} />
+            <NewProductForm onDone={switchShowProductForm} shop={shop} />
           }
         />
       )}

@@ -8,7 +8,7 @@ interface Props extends FlexProps {
   list: BadgeItem[];
   loading?: boolean;
   onItemSelect: (item: BadgeItem) => void;
-  selectedItem: BadgeItem | null;
+  selectedItem: BadgeItem | null | undefined;
 }
 
 const BadgesList = ({
