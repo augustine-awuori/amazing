@@ -42,10 +42,8 @@ const ShopsProductsGrid = ({
   };
 
   const filtered = selectedType?._id
-    ? products.filter((product) =>
-        product.type
-          ? product.type._id === selectedType?._id
-          : product.shop.types[selectedType._id]
+    ? products.filter(({ shop, type }) =>
+        type ? type._id === selectedType?._id : shop.types[selectedType._id]
       )
     : products;
 
