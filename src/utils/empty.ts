@@ -5,7 +5,7 @@ import { Product } from "../hooks/useProducts";
 import { Request } from "../hooks/useRequest";
 import { Shop, ShopProduct } from "../hooks/useShop";
 import { Status } from "../hooks/useStatus";
-import { Type } from "../hooks/useTypes";
+import { ProductType } from "../hooks/useProductTypes";
 import { User } from "../hooks/useUser";
 
 const author: User = {
@@ -82,7 +82,7 @@ const order: Order = {
   timestamp: 52086,
 };
 
-const type: Type = {
+const type: ProductType = {
   _id: "",
   label: "All Types",
   icon: undefined,

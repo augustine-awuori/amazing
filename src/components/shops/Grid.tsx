@@ -3,7 +3,7 @@ import { Box } from "@chakra-ui/react";
 import { CardContainer, CardSkeletons } from "../card";
 import { paginate } from "../../utils/paginate";
 import { Shop } from "../../hooks/useShop";
-import { Type } from "../../hooks/useTypes";
+import { ProductType } from "../../hooks/useProductTypes";
 import ErrorMessage from "../form/ErrorMessage";
 import Grid from "../grid";
 import Info from "../../components/Info";
@@ -14,7 +14,7 @@ interface Props extends PaginationProps {
   error: string | undefined;
   isLoading: boolean;
   onShopClick: (shop: Shop) => void;
-  selectedType: Type | null;
+  selectedType: ProductType | null;
   shops: Shop[];
   query?: string;
 }

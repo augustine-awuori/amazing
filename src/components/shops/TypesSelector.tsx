@@ -6,14 +6,14 @@ import { hideScrollBarCss } from "../../data/general";
 import { NewShopTypes } from "../../hooks/useShop";
 import { Text } from "..";
 import { useAppColorMode } from "../../hooks";
-import useTypes, { Type } from "../../hooks/useTypes";
+import useProductTypes, { ProductType } from "../../hooks/useProductTypes";
 
 export type ShopTypes = {
-  [typeId: string]: Type;
+  [typeId: string]: ProductType;
 };
 
 interface Props {
-  onTypeSelect: (type: Type) => void;
+  onTypeSelect: (type: ProductType) => void;
   selectedTypes: ShopTypes | NewShopTypes;
 }
 
@@ -30,7 +30,7 @@ const Container = ({ children }: FlexProps) => (
 
 const ShopTypesSelector = ({ onTypeSelect, selectedTypes }: Props) => {
   const { accentColor } = useAppColorMode();
-  const { types, isLoading } = useTypes();
+  const { types, isLoading } = useProductTypes();
 
   if (isLoading) return <BadgeSkeletons />;
 

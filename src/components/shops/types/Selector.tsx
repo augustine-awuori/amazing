@@ -1,16 +1,16 @@
 import { Selector } from "../../common";
-import useTypes, { Type } from "../../../hooks/useTypes";
+import useProductTypes, { ProductType } from "../../../hooks/useProductTypes";
 
 export interface ShopTypeSelectorProps {
-  onSelectType: (type: Type) => void;
-  selectedType: Type | null;
+  onSelectType: (type: ProductType) => void;
+  selectedType: ProductType | null;
 }
 
 const ShopTypeSelector = ({
   onSelectType,
   selectedType,
 }: ShopTypeSelectorProps) => {
-  const { types } = useTypes();
+  const { types } = useProductTypes();
 
   return (
     <Selector

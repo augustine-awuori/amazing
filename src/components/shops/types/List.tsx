@@ -1,9 +1,9 @@
 import { GridAsideList } from "../../common";
 import { ShopTypeSelectorProps as Props } from "./Selector";
-import useTypes from "../../../hooks/useTypes";
+import useProductTypes from "../../../hooks/useProductTypes";
 
 const TypeList = ({ onSelectType, selectedType }: Props) => {
-  const { types, isLoading } = useTypes();
+  const { types, isLoading } = useProductTypes();
 
   return (
     <GridAsideList

@@ -10,7 +10,7 @@ import { NewShopTypes } from "../../hooks/useShop.ts";
 import { prepShopTypes } from "../../utils/funcs.ts";
 import { shopSchema } from "../../data/schemas";
 import { Text } from "../../components/index.ts";
-import { Type } from "../../hooks/useTypes.ts";
+import { ProductType } from "../../hooks/useProductTypes.ts";
 import { useForm, useImages, useShop, useShops } from "../../hooks";
 import ImageInputList from "../../components/common/ImageInputList.tsx";
 import ShopTypesSelector from "./TypesSelector.tsx";
@@ -38,7 +38,7 @@ const ShopUpdateForm = ({ onDone }: Props) => {
   const [location, setLocation] = useState(shop?.location);
   const { images } = useImages(1);
 
-  const handleTypeSelect = (type: Type) => {
+  const handleTypeSelect = (type: ProductType) => {
     if (!selectedShopTypes[type._id])
       setSelectedShopTypes({ ...selectedShopTypes, [type._id]: type._id });
     else {

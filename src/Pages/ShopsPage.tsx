@@ -34,7 +34,7 @@ import ShopsProductsGrid from "../components/shops/product/Grid";
 import ShowSelector from "../components/shops/ShowSelector";
 import ThreeGridPage from "./ThreeGridPage";
 import useShop, { Shop } from "../hooks/useShop";
-import useTypes, { Type } from "../hooks/useTypes";
+import useProductTypes, { ProductType } from "../hooks/useProductTypes";
 
 const items: SideBarItem[] = [
   { icon: <BiHomeAlt />, label: "Products" },
@@ -47,7 +47,7 @@ const ShopsPage = () => {
   const navigate = useNavigate();
   const { setShop } = useShop();
   const { error, isLoading, shops } = useShops();
-  const [selectedType, setSelectedType] = useState<Type>(empty.type);
+  const [selectedType, setSelectedType] = useState<ProductType>(empty.type);
   const [filter, setFilter] = useState<Item | null>(null);
   const { products, isLoading: productsLoading } = useProducts(undefined);
   const [productsCurrentPage, setProductsCurrentPage] = useState(1);
@@ -57,7 +57,7 @@ const ShopsPage = () => {
   const [selectedSideItem, setSelectedSideItem] = useState("Products");
   const [Content, setContent] = useState<JSX.Element>();
   const { categories, isLoading: categoriesLoading } = useCategories();
-  const { types, isLoading: typesLoading } = useTypes();
+  const { types, isLoading: typesLoading } = useProductTypes();
   const [selectedCategory, setSelectedCategory] = useState<Category>(
     empty.category
   );
