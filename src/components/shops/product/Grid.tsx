@@ -7,7 +7,7 @@ import { Modal } from "../../common";
 import { paginate } from "../../../utils/paginate";
 import { Product } from "../../../hooks/useProducts";
 import { ProductUpdateForm } from "../../forms";
-import { Type } from "../../../hooks/useTypes";
+import { ProductType } from "../../../hooks/useProductTypes";
 import { useCart } from "../../../hooks";
 import ErrorMessage from "../../form/ErrorMessage";
 import Pagination, { PaginationProps } from "../../common/Pagination";
@@ -17,7 +17,7 @@ import Skeleton from "../product/Skeleton";
 interface Props extends PaginationProps {
   error?: string;
   isLoading: boolean;
-  selectedType: Type | null;
+  selectedType: ProductType | null;
   products: Product[];
   query?: string;
 }

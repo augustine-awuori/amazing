@@ -158,6 +158,7 @@ const ListingDetailsPage = () => {
           <ShopSelectors
             onShopSelect={setSelectedShop}
             selectedShop={selectedShop}
+            onDoneShopSelect={convertListingToProduct}
           />
         }
         title="Select Shop"

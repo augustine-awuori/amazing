@@ -2,10 +2,10 @@ import { endpoint } from "../services/types";
 import { Item } from "../components/common/Selector";
 import useData from "./useData";
 
-export interface Type extends Item {}
+export interface ProductType extends Item {}
 
-const useTypes = () => {
-  const { data, error, isLoading } = useData<Type>(endpoint);
+const useProductTypes = () => {
+  const { data, error, isLoading } = useData<ProductType>(endpoint);
 
   return {
     types: [{ _id: "", label: "All" }, ...data],
@@ -14,4 +14,4 @@ const useTypes = () => {
   };
 };
 
-export default useTypes;
+export default useProductTypes;

@@ -5,7 +5,7 @@ import { DataError, getCacheData } from "../services/client";
 import { endpoint, NewProduct } from "../services/products";
 import { ProductFormData } from "../data/schemas";
 import { ShopProduct } from "./useShop";
-import { Type } from "./useTypes";
+import { ProductType } from "./useProductTypes";
 import { User } from "./useUser";
 import ProductsContext from "../contexts/ProductsContext";
 import service from "../services/products";
@@ -21,7 +21,7 @@ export interface Product {
   price: number;
   shop: ShopProduct;
   timestamp: number;
-  type: Type;
+  type: ProductType;
 }
 
 const useProducts = (shopId?: string) => {

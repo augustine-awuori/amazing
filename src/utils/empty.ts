@@ -5,7 +5,7 @@ import { Product } from "../hooks/useProducts";
 import { Request } from "../hooks/useRequest";
 import { Shop, ShopProduct } from "../hooks/useShop";
 import { Status } from "../hooks/useStatus";
-import { Type } from "../hooks/useTypes";
+import { ProductType } from "../hooks/useProductTypes";
 import { User } from "../hooks/useUser";
 
 const author: User = {
@@ -54,7 +54,7 @@ const shop: Shop = {
 const shopProduct: ShopProduct = {
   ...shop,
   author: "",
-  type: "",
+  types: {},
 };
 
 const product: Product = {
@@ -66,6 +66,7 @@ const product: Product = {
   price: 100,
   shop: shopProduct,
   timestamp: 0,
+  type: { _id: "", label: "" },
 };
 
 const status: Status = { _id: "", color: "orange", label: "All" };
@@ -82,7 +83,7 @@ const order: Order = {
   timestamp: 52086,
 };
 
-const type: Type = {
+const type: ProductType = {
   _id: "",
   label: "All Types",
   icon: undefined,

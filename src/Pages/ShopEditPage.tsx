@@ -11,7 +11,7 @@ import { ImageInputList } from "../components/common";
 import { prepShopTypes } from "../utils/funcs";
 import { Shop } from "../hooks/useShop";
 import { ShopFormData, shopSchema } from "../data/schemas";
-import { Type } from "../hooks/useTypes";
+import { ProductType } from "../hooks/useProductTypes";
 import { useForm, useImages, useNoGrid, useShops } from "../hooks";
 import auth from "../services/auth";
 import ShopTypesSelector, {
@@ -61,7 +61,7 @@ const ShopEditPage = () => {
     navigate(`/shops/${(data as Shop)._id}`);
   };
 
-  const handleTypeSelect = (type: Type) => {
+  const handleTypeSelect = (type: ProductType) => {
     if (!selectedShopTypes[type._id])
       setSelectedShopTypes({ ...selectedShopTypes, [type._id]: type });
     else {

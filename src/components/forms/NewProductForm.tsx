@@ -11,7 +11,7 @@ import { useForm, useImages, useProducts } from "../../hooks";
 import authApi from "../../services/auth";
 import ImageInputList from "../common/ImageInputList";
 import storage from "../../db/image";
-import useTypes, { Type } from "../../hooks/useTypes";
+import useProductTypes, { ProductType } from "../../hooks/useProductTypes";
 
 const MAX_IMAGES_INPUT = 3;
 
@@ -24,9 +24,9 @@ const NewProductForm = ({ onDone, shop }: Props) => {
   const { errors, handleSubmit, register, reset } = useForm(productSchema);
   const { imagesCount, images, removeAllImages } = useImages(MAX_IMAGES_INPUT);
   const [isLoading, setLoading] = useState(false);
-  const [types, setTypes] = useState<Type[]>([]);
-  const [selectedType, setSelectedType] = useState<Type>();
-  const { types: allTypes } = useTypes();
+  const [types, setTypes] = useState<ProductType[]>([]);
+  const [selectedType, setSelectedType] = useState<ProductType>();
+  const { types: allTypes } = useProductTypes();
   const [error, setError] = useState("");
   const user = authApi.getCurrentUser();
   const helper = useProducts(shop._id);
@@ -37,7 +37,7 @@ const NewProductForm = ({ onDone, shop }: Props) => {
   }, [shop._id]);
 
   function initShopTypes() {
-    const types: Type[] = [];
+    const types: ProductType[] = [];
 
     allTypes.forEach((type) => {
       if (shop.types[type._id]) types.push(type);
