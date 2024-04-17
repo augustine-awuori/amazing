@@ -54,8 +54,13 @@ const NewProductForm = ({ onDone, shop }: Props) => {
       return;
     }
 
-    if (!types.length || !user) {
-      setError("App Error! Refresh page!");
+    if (!user) {
+      setError("User not detected! If you're logged in try reloading the app");
+      return;
+    }
+
+    if (!types.length) {
+      setError("Select the product type!");
       return;
     }
 
