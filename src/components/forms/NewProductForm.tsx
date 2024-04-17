@@ -34,7 +34,7 @@ const NewProductForm = ({ onDone, shop }: Props) => {
   useEffect(() => {
     initShopTypes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shop._id]);
+  }, [shop._id, allTypes.length]);
 
   function initShopTypes() {
     const types: ProductType[] = [];
