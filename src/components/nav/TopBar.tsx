@@ -43,7 +43,7 @@ const TopBar = () => {
   const { accentColor, color } = useAppColorMode();
 
   return (
-    <Box display={{ sm: "block", md: "none" }} mt={14}>
+    <Box display={{ sm: "block", md: "none" }}>
       <Tabs isFitted variant="enclosed">
         <TabList
           fontFamily={fontFamily}

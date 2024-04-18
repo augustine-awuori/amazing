@@ -15,7 +15,6 @@ const ChatsAuthPage = () => {
 
   return (
     <Flex
-      pt={20}
       align="center"
       justify="center"
       direction="column"

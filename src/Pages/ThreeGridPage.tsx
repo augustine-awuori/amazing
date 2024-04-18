@@ -34,7 +34,7 @@ const ThreeGridPage = ({
         isOpen={isBottomSheetOpen}
         onClose={onClose}
       />
-      <Flex height="100vh" pt={{ base: 3, md: 10 }}>
+      <Flex height="100vh">
         <Box
           width={{ base: "100%", md: "20%" }}
           color="white"
