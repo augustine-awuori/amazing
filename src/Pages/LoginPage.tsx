@@ -4,7 +4,7 @@ import { z } from "zod";
 import { toast } from "react-toastify";
 
 import { DataError } from "../services/client";
-import { Form, FormField, SubmitButton } from "../components/form";
+import { Container, Form, FormField, SubmitButton } from "../components/form";
 import authApi from "../services/auth";
 import useForm from "../hooks/useForm";
 
@@ -53,27 +53,24 @@ const LoginPage = () => {
   if (authApi.getCurrentUser()) return <Navigate to="/" />;
 
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      title="Login"
-      error={error}
-    >
-      <FormField
-        error={errors.username}
-        label="Username"
-        register={register}
-        placeholder="stacykim"
-      />
-      <FormField
-        error={errors.password}
-        label="Password"
-        placeholder="******"
-        register={register}
-        type="password"
-      />
-      <SubmitButton label="Sign In" isLoading={isLoading} />
-    </Form>
+    <Container title="Sign In">
+      <Form handleSubmit={handleSubmit} onSubmit={doSubmit} error={error}>
+        <FormField
+          error={errors.username}
+          label="Username"
+          register={register}
+          placeholder="stacykim"
+        />
+        <FormField
+          error={errors.password}
+          label="Password"
+          placeholder="******"
+          register={register}
+          type="password"
+        />
+        <SubmitButton label="Sign In" isLoading={isLoading} />
+      </Form>
+    </Container>
   );
 };
 
