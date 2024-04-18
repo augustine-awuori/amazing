@@ -15,7 +15,6 @@ interface Props extends BoxProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onSubmit: (values: any) => void;
   title?: string;
-  usePageContainer?: boolean;
 }
 
 const Form = ({
@@ -25,7 +24,6 @@ const Form = ({
   handleSubmit,
   onSubmit,
   title,
-  usePageContainer = true,
   ...otherProps
 }: Props) => {
   const [showExplanation, setExplanation] = useState(false);
@@ -34,7 +32,7 @@ const Form = ({
   const handleModalVisibility = () => setExplanation(!showExplanation);
 
   return (
-    <Box pt={usePageContainer ? 15 : 0} px={{ base: 5 }} {...otherProps}>
+    <Box px={{ base: 5 }} {...otherProps}>
       <Modal
         content={explanation}
         isOpen={showExplanation}

@@ -38,11 +38,7 @@ const RSVPForm = ({ eventId, onDone }: Props) => {
   };
 
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      usePageContainer={false}
-    >
+    <Form handleSubmit={handleSubmit} onSubmit={doSubmit}>
       <ErrorMessage error={error} />
       <FormField error={errors.name} label="Name" register={register} />
       <FormField

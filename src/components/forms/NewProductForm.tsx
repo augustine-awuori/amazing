@@ -117,7 +117,6 @@ const NewProductForm = ({ onDone, shop }: Props) => {
       handleSubmit={handleSubmit}
       onSubmit={doSubmit}
       title="New Product"
-      usePageContainer={false}
     >
       <ImageInputList imagesLimit={MAX_IMAGES_INPUT} />
       <Text mt={0} mb={2}>

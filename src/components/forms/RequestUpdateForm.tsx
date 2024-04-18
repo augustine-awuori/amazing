@@ -51,12 +51,7 @@ const RequestUpdateForm = ({ onDone, request }: Props) => {
   };
 
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      error={error}
-      usePageContainer={false}
-    >
+    <Form handleSubmit={handleSubmit} onSubmit={doSubmit} error={error}>
       <FormField
         error={errors.title}
         label="Title"

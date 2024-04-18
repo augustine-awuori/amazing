@@ -72,12 +72,7 @@ const ShopUpdateForm = ({ onDone }: Props) => {
   };
 
   return (
-    <Form
-      error={error}
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      usePageContainer={false}
-    >
+    <Form error={error} handleSubmit={handleSubmit} onSubmit={doSubmit}>
       <ImageInputList imagesLimit={1} />
       <Text color="yellow.200" textAlign="center">
         Select image ONLY when changing it

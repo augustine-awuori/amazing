@@ -70,11 +70,7 @@ const EventEditForm = ({ event, onDone }: Props) => {
   };
 
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      usePageContainer={false}
-    >
+    <Form handleSubmit={handleSubmit} onSubmit={doSubmit}>
       {!event && <ImageInputList imagesLimit={1} />}
       <ErrorMessage error={error} visible={error} />
       <DatePicker

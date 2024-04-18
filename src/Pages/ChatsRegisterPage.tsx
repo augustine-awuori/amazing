@@ -80,7 +80,6 @@ const ChatsLoginPage = () => {
           handleSubmit={handleSubmit}
           onSubmit={doSubmit}
           error={error}
-          usePageContainer={false}
           title="Hint"
           explanation="The email password doesn't have to be that of google. Come up with a new password that you can remember"
         >

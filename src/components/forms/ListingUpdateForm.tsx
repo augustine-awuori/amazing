@@ -61,12 +61,7 @@ const ListingEditForm = ({ listing, onDone }: Props) => {
   };
 
   return (
-    <Form
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      error={error}
-      usePageContainer={false}
-    >
+    <Form handleSubmit={handleSubmit} onSubmit={doSubmit} error={error}>
       <ImageInputList imagesLimit={3} />
       <Text textAlign="center" color="yellow.200">
         ONLY modify what you wan' change

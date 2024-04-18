@@ -5,7 +5,7 @@ import { z } from "zod";
 
 import { authApi, usersApi } from "../services";
 import { authTokenKey, DataError, Headers } from "../services/client";
-import { Form, FormField, SubmitButton } from "../components/form";
+import { Container, Form, FormField, SubmitButton } from "../components/form";
 import useForm from "../hooks/useForm";
 
 const schema = z.object({
@@ -58,36 +58,33 @@ const RegisterPage = () => {
   if (authApi.getCurrentUser()) return <Navigate to="/" />;
 
   return (
-    <Form
-      error={error}
-      handleSubmit={handleSubmit}
-      onSubmit={doSubmit}
-      title="Register"
-    >
-      <FormField
-        error={errors.name}
-        label="Full Name"
-        placeholder="Stacy Kim"
-        name="name"
-        register={register}
-      />
-      <FormField
-        error={errors.whatsapp}
-        label="WhatsApp Number"
-        placeholder="254"
-        register={register}
-        name="whatsapp"
-        type="number"
-      />
-      <FormField
-        error={errors.password}
-        label="Password"
-        placeholder="******"
-        register={register}
-        type="password"
-      />
-      <SubmitButton label="Sign Up" isLoading={isLoading} />
-    </Form>
+    <Container title="Sign Up" pt="4rem">
+      <Form error={error} handleSubmit={handleSubmit} onSubmit={doSubmit}>
+        <FormField
+          error={errors.name}
+          label="Full Name"
+          placeholder="Stacy Kim"
+          name="name"
+          register={register}
+        />
+        <FormField
+          error={errors.whatsapp}
+          label="WhatsApp Number"
+          placeholder="254"
+          register={register}
+          name="whatsapp"
+          type="number"
+        />
+        <FormField
+          error={errors.password}
+          label="Password"
+          placeholder="******"
+          register={register}
+          type="password"
+        />
+        <SubmitButton label="Sign Up" isLoading={isLoading} />
+      </Form>
+    </Container>
   );
 };
 

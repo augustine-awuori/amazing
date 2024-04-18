@@ -66,7 +66,6 @@ const ProductUpdateForm = ({ onDone, product }: Props) => {
         handleSubmit={handleSubmit}
         onSubmit={doSubmit}
         title="Update Product"
-        usePageContainer={false}
       >
         <FormField
           error={errors.name}

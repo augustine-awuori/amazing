@@ -55,12 +55,7 @@ const ChatsLoginPage = () => {
         mx="auto"
       >
         <PageTitle Icon={<BiChat />} pageTitle="Chats" />
-        <Form
-          handleSubmit={handleSubmit}
-          onSubmit={doSubmit}
-          error={error}
-          usePageContainer={false}
-        >
+        <Form handleSubmit={handleSubmit} onSubmit={doSubmit} error={error}>
           <FormField
             error={errors.email}
             label="Email address"
