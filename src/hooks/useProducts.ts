@@ -30,26 +30,29 @@ const useProducts = (shopId?: string) => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    rest.isLoading ? preLoadProducts() : initProducts();
+    loadProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shopId, products.length, data?.length]);
 
-  function initProducts() {
+  const loadProducts = async () => {
+    const cached = await cachedProducts();
+    if (cached.length && rest.isLoading) return setProducts(cached);
+
     setLoading(true);
-    const res = !error && shopId ? data : [];
-    setProducts(mapQuantity(res));
+    setProducts(retrievedProducts());
     setLoading(false);
+  };
+
+  function retrievedProducts() {
+    return !error && shopId ? data : [];
   }
 
-  async function preLoadProducts() {
+  async function cachedProducts() {
     setLoading(true);
-    const data = mapQuantity(await getCacheData<Product>(getApiEndpoint()));
-    setProducts(data);
+    const data = await getCacheData<Product>(getApiEndpoint());
     setLoading(false);
-  }
 
-  function mapQuantity(products: Product[]): Product[] {
-    return products.map((p) => ({ ...p, quantity: 0 }));
+    return data;
   }
 
   function getApiEndpoint() {
@@ -122,7 +125,7 @@ const useProducts = (shopId?: string) => {
   const getProducts = () => {
     if (error || (data as DataError)?.error || rest.isLoading) return [];
 
-    return mapQuantity(data);
+    return data;
   };
 
   const addProduct = (product: Product) => setProducts([product, ...products]);
