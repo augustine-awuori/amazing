@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 import { NavBar, Routes } from "./components";
 import { CartProducts } from "./contexts/CartContext";
@@ -31,7 +31,12 @@ function App() {
         <GridItem area="nav">
           <NavBar user={user} cartCount={cartProducts.count} />
         </GridItem>
-        <Routes cartProducts={cartProducts} setCartProducts={setCartProducts} />
+        <Box pt="4rem">
+          <Routes
+            cartProducts={cartProducts}
+            setCartProducts={setCartProducts}
+          />
+        </Box>
       </Grid>
     </ColumnContext.Provider>
   );

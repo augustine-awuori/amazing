@@ -44,7 +44,7 @@ const ChatsLoginPage = () => {
   if (chat.user) return <Navigate to="/chats" />;
 
   return (
-    <Box pt={20} w="100%">
+    <Box w="100%">
       <Flex
         align="center"
         justify="center"

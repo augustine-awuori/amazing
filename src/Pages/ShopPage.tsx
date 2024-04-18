@@ -126,7 +126,7 @@ const ShopPage = () => {
         content={<Settings />}
         onModalClose={switchShowSettings}
       />
-      <Box pt={20} px={{ md: 5, lg: 7 }} pb={4}>
+      <Box px={{ md: 5, lg: 7 }} pb={4}>
         <ScrollToTopBtn />
         <Header
           onAddProduct={switchShowProductForm}
