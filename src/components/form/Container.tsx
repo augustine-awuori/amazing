@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, Flex, FlexProps, Link } from "@chakra-ui/react";
+import { Box, Flex, FlexProps } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
-import { Heading } from "..";
+import { Heading, Text } from "..";
 import { useAppColorMode } from "../../hooks";
 
 interface Props extends FlexProps {
@@ -11,6 +12,7 @@ interface Props extends FlexProps {
 
 const Container = ({ children, title, ...otherProps }: Props) => {
   const { accentColor } = useAppColorMode();
+  const navigate = useNavigate();
 
   const query = title.toLowerCase();
   const isSignUpTitle = query.includes("up") || query.includes("register");
@@ -37,14 +39,14 @@ const Container = ({ children, title, ...otherProps }: Props) => {
           <Heading size="md">{title} to Amazing</Heading>
         </Box>
         <Box my="4">{children}</Box>
-        <Box textAlign="center" mt="2">
-          <Link
-            color={accentColor}
-            href={isSignUpTitle ? "/login" : "/register"}
-          >
-            {statement} {isSignUpTitle ? "Sign In" : "Sign Up"}
-          </Link>
-        </Box>
+        <Text
+          cursor="pointer"
+          textAlign="center"
+          color={accentColor}
+          onClick={() => navigate(isSignUpTitle ? "/login" : "/register")}
+        >
+          {statement} {isSignUpTitle ? "Sign In" : "Sign Up"}
+        </Text>
       </Box>
     </Flex>
   );
