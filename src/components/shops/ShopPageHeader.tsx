@@ -81,6 +81,8 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
     if (ids.length > 1) return setChatsModal(true);
     const chatId = ids[0];
 
+    if (!auth.getCurrentUser()?.chatIds) return handleChatSignUp();
+
     setChat({
       chatId,
       user: {
@@ -93,11 +95,11 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
     navigate(isSmallScreen ? `/chats/${chatId}` : "/chats");
   };
 
-  const handleChatSignUp = async () => {
+  async function handleChatSignUp() {
     await chat.signUpWithGoogleRedirect();
 
     if (shopOwnerDetails?._id) await userService.resetToken();
-  };
+  }
 
   const ChatButton = (): JSX.Element => {
     if (isTheAuthor && !shopOwnerDetails?.chatIds)
