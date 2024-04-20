@@ -81,6 +81,7 @@ const ShopOrderPage = () => {
           {getDate(timestamp)} ({tempTimestamp})
         </Text>
       </Flex>
+      <Text>Info Tip: Tap on Status to change the order status</Text>
       <BadgesList
         list={validStatus}
         onItemSelect={(item) => handleStatusSelect(item as Status)}

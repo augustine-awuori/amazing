@@ -70,7 +70,7 @@ const ProductDetailsPage = () => {
       </Box>
     );
 
-  const { _id, images, name, description, price, shop } = product;
+  const { _id, images, name, description, price, shop, type } = product;
   const quantity = cart.getProductQuantity(_id);
   const isAdded = cart.hasProduct(_id);
 
@@ -187,6 +187,9 @@ const ProductDetailsPage = () => {
           <Divider />
           <Text color={accentColor} fontSize={25}>
             Ksh {figure.addComma(price)}
+          </Text>
+          <Text color={accentColor} fontWeight="bold">
+            {type.label}
           </Text>
           <Flex align="center">
             <FaHandshake />
