@@ -63,7 +63,7 @@ const TopBar = () => {
 
         <TabPanels>
           {pages.map((page, index) => (
-            <TabPanel key={index} px={0} pt={0}>
+            <TabPanel key={index} px={0} pt={5}>
               {page}
             </TabPanel>
           ))}
