@@ -31,7 +31,7 @@ function App() {
         <GridItem area="nav">
           <NavBar user={user} cartCount={cartProducts.count} />
         </GridItem>
-        <Box pt="4rem">
+        <Box pt={{ base: "4rem", md: "2.1rem" }}>
           <Routes
             cartProducts={cartProducts}
             setCartProducts={setCartProducts}
