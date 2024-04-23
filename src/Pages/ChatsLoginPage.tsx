@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { BiChat } from "react-icons/bi";
 import { z } from "zod";
 
@@ -44,17 +44,25 @@ const ChatsLoginPage = () => {
   if (chat.user) return <Navigate to="/chats" />;
 
   return (
-    <Box w="100%">
+    <Flex
+      alignItems="center"
+      height="100vh"
+      justifyContent="center"
+      mt="3rem"
+      w="100%"
+    >
       <Flex
         align="center"
-        justify="center"
-        direction="column"
         alignItems="center"
-        mt={5}
+        borderRadius="lg"
+        borderWidth="1px"
+        boxShadow="lg"
+        direction="column"
+        justify="center"
+        justifyContent="center"
         maxW="400px"
-        mx="auto"
       >
-        <PageTitle Icon={<BiChat />} pageTitle="Chats" />
+        <PageTitle Icon={<BiChat />} mt={5} pageTitle="Chats" />
         <Form handleSubmit={handleSubmit} onSubmit={doSubmit} error={error}>
           <FormField
             error={errors.email}
@@ -83,7 +91,7 @@ const ChatsLoginPage = () => {
           />
         </Form>
       </Flex>
-    </Box>
+    </Flex>
   );
 };
 

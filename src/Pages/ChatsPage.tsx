@@ -22,7 +22,7 @@ const ChatsPage = () => {
     );
 
   return (
-    <Flex h="100vh" pt={5} bg="#ccc" px={2} borderRadius={10} pb={2}>
+    <Flex h="100vh" pt={10} bg="#ccc" px={2} borderRadius={10} pb={2}>
       <Box h="100%" w="30%" borderLeftRadius={10} bg="gray" overflowY="hidden">
         <ChatList />
       </Box>

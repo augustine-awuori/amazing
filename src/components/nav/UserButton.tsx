@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaUserPlus } from "react-icons/fa";
+import { IconButton } from "@chakra-ui/react";
 
 import { Avatar, MenuContent, Modal } from "../../components/common";
 import { getControls } from "../../data/userControls";
@@ -24,10 +26,7 @@ const UserButton = ({ user }: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?._id, isDarkMode]);
 
-  const { name, avatar }: MediaQueryUser = user || {
-    ...empty.user,
-    name: "?",
-  };
+  const { name, avatar }: MediaQueryUser = user || empty.user;
 
   function initAuthControls() {
     setControls(getControls(user, isDarkMode));
@@ -41,6 +40,20 @@ const UserButton = ({ user }: Props) => {
   };
 
   const handleModalClose = () => setShowLogoutPrompt(false);
+
+  const UserAvatar = () => {
+    if (!name)
+      return (
+        <IconButton
+          size="sm"
+          borderRadius="full"
+          icon={<FaUserPlus name={name} />}
+          aria-label="user-button"
+        />
+      );
+
+    return <Avatar name={name} size={{ base: "xs", md: "sm" }} src={avatar} />;
+  };
 
   return (
     <>
@@ -57,9 +70,7 @@ const UserButton = ({ user }: Props) => {
         onSecondaryClick={handleModalClose}
       />
       <MenuContent
-        Button={
-          <Avatar name={name} size={{ base: "xs", md: "sm" }} src={avatar} />
-        }
+        Button={<UserAvatar />}
         data={controls}
         onSelectItem={handleSelection}
       />

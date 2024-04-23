@@ -189,7 +189,7 @@ const ProductDetailsPage = () => {
             Ksh {figure.addComma(price)}
           </Text>
           <Text color={accentColor} fontWeight="bold">
-            {type.label}
+            {type?.label}
           </Text>
           <Flex align="center">
             <FaHandshake />
