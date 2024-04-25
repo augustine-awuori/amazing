@@ -60,7 +60,7 @@ const Chats = ({ query }: { query: string }) => {
   if (!user)
     return (
       <Container>
-        <Text textAlign="center">Loading your login details...</Text>
+        <Text textAlign="center">You need to sign in to see your chats</Text>
       </Container>
     );
 
