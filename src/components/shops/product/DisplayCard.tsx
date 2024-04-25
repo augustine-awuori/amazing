@@ -203,7 +203,7 @@ const DisplayCard = ({ product, onEdit }: Props) => {
             fontSize="1.25rem"
             fontWeight="extrabold"
             letterSpacing="1px"
-            noOfLines={{ base: 2, md: 1 }}
+            noOfLines={1}
             textTransform="capitalize"
           >
             {name}
