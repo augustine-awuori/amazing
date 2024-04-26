@@ -32,8 +32,8 @@ import funcs from "../utils/funcs";
 import PostersPage from "./PostersPage";
 
 const items = [
-  { icon: <AiOutlinePicture />, label: "Posters" },
   { icon: <BiHomeAlt />, label: "Events" },
+  { icon: <AiOutlinePicture />, label: "Posters" },
   { icon: <BsTicket />, label: "Tickets" },
   { icon: <BiDotsHorizontalRounded />, label: "More" },
 ];
@@ -41,7 +41,7 @@ const items = [
 const EventsPage = () => {
   const [query, setQuery] = useState("");
   const { events, setEvents, isLoading } = useEvents();
-  const [selectedItem, setSelectedItem] = useState("Posters");
+  const [selectedItem, setSelectedItem] = useState("Events");
   const { accentColor } = useAppColorMode();
   const [Content, setContent] = useState<JSX.Element>();
   const [markedShown, setShowMarked] = useState(false);
