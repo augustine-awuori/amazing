@@ -129,7 +129,7 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
   };
 
   return (
-    <HStack justifyContent="space-between" alignItems="center">
+    <HStack justifyContent="space-between" alignItems="center" pt="4rem">
       <Modal
         content={
           <Text textAlign="center">

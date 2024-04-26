@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Flex, Box, useDisclosure, IconButton } from "@chakra-ui/react";
 import { toast } from "react-toastify";
+import { AiOutlinePicture } from "react-icons/ai";
+import { BsTicket } from "react-icons/bs";
+import {
+  BiCalendarEvent,
+  BiDotsHorizontalRounded,
+  BiHomeAlt,
+} from "react-icons/bi";
 
 import {
   BookmarkIcon,
@@ -19,19 +26,12 @@ import { CardSkeletons } from "../components/card";
 import { CreatedEvent } from "../services/events";
 import { useAppColorMode, useEvents } from "../hooks";
 import auth from "../services/auth";
-import ThreeGridPage from "./ThreeGridPage";
-import UpcomingEvents from "../components/UpcomingEvent";
-import { AiOutlinePicture } from "react-icons/ai";
-import { BsTicket } from "react-icons/bs";
-import {
-  BiCalendarEvent,
-  BiDotsHorizontalRounded,
-  BiHomeAlt,
-} from "react-icons/bi";
 import funcs from "../utils/funcs";
 import PostersPage from "./PostersPage";
+import ThreeGridPage from "./ThreeGridPage";
+import UpcomingEvents from "../components/UpcomingEvent";
 
-const items = [
+const sideItems = [
   { icon: <BiHomeAlt />, label: "Events" },
   { icon: <AiOutlinePicture />, label: "Posters" },
   { icon: <BsTicket />, label: "Tickets" },
@@ -193,7 +193,7 @@ const EventsPage = () => {
     <SideBar
       Icon={<BiCalendarEvent />}
       buttonLabel={`New ${funcs.removeLastChar(selectedItem)}`}
-      items={items}
+      items={sideItems}
       onButtonClick={handleItemCreation}
       onItemSelect={handleItemClick}
       pageTitle="events"
