@@ -154,8 +154,8 @@ const ShopPage = () => {
           <Footer
             Info={FooterInfo}
             name={`${shop.name} Shop`}
-            owner={`Seller: ${shop.author.name}`}
-            verified={shop.author.isVerified}
+            owner={`Seller: ${shop.author?.name}`}
+            verified={shop.author?.isVerified}
           >
             {phoneNumber && <StartChatBtn phoneNumber={phoneNumber} />}
           </Footer>
