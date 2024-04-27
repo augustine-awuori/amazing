@@ -7,9 +7,9 @@ export const appBaseUrl = "https://amazing-website.online/";
 export const authTokenKey = "x-auth-token";
 export interface Headers extends HEADERS {}
 
-const apiClient = create({
-  baseURL: "https://campus-mart-site.onrender.com/api",
-});
+export const backendURL = "campus-mart-site.onrender.com/api";
+
+const apiClient = create({ baseURL: `https://${backendURL}` });
 
 apiClient.addAsyncRequestTransform(async (request) => {
   const authToken = auth.getJwt();

@@ -3,6 +3,7 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 import { NavBar, Routes } from "./components";
 import { CartProducts } from "./contexts/CartContext";
+import { registerServiceWorker } from "./utils/serviceWorker";
 import { User } from "./hooks/useUser";
 import auth from "./services/auth";
 import ColumnContext from "./contexts/ColumnContext";
@@ -16,8 +17,13 @@ function App() {
   });
 
   useEffect(() => {
-    setUser(auth.getCurrentUser());
+    initInfo();
   }, []);
+
+  const initInfo = async () => {
+    setUser(auth.getCurrentUser());
+    await registerServiceWorker();
+  };
 
   return (
     <ColumnContext.Provider value={{ column, setColumn }}>

@@ -9,6 +9,7 @@ import { Request, populate } from "../hooks/useRequest";
 import { requestSchema, RequestFormData } from "../data/schemas";
 import { useCategories, useForm, useNoGrid, useRequests } from "../hooks";
 import { authApi, requests as requestsApi } from "../services";
+import notificationsService from "../services/notifications";
 import Select from "../components/common/Select";
 
 const RequestEditPage = () => {
@@ -40,6 +41,10 @@ const RequestEditPage = () => {
 
     addRequest(data as Request);
     toast("Request created successfully!");
+    await notificationsService.notifyAll({
+      body: `Someone is asking if you have a ${info.title}`,
+      title: "Amazing Requests",
+    });
     reset();
     navigate("/");
   };
