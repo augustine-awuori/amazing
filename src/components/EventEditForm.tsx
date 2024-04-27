@@ -12,8 +12,9 @@ import {
   SubmitButton,
   TextAreaField,
 } from "./form";
-import storage from "../db/image";
 import { useEvents, useForm, useImages } from "../hooks";
+import storage from "../db/image";
+import notificationsService from "../services/notifications";
 
 interface Props {
   event?: CreatedEvent;
@@ -63,6 +64,10 @@ const EventEditForm = ({ event, onDone }: Props) => {
       removeAllImages();
       onDone();
       helper.addEvent(data as CreatedEvent);
+      await notificationsService.notifyAll({
+        body: "New Event has just been posted",
+        title: "See this new event",
+      });
     } else {
       setError((data as DataError)?.error || "Something went wrong");
       await storage.deleteImage(imageURL);
