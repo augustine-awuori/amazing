@@ -18,6 +18,7 @@ import {
 } from "react-icons/bi";
 import { AiFillEdit, AiOutlineLogin } from "react-icons/ai";
 
+import { BadgeItem } from "../components/common/Badge";
 import { BadgesList, Modal } from "../components/common";
 import { Category } from "../hooks/useCategories";
 import { ChatIcon } from "../components/icons";
@@ -90,6 +91,8 @@ const ShopsPage = () => {
     productsCurrentPage,
     shopsCurrentPage,
     query,
+    shopsCurrentPage,
+    productsCurrentPage,
   ]);
 
   const navigateToDetails = (shop: Shop) => {
@@ -123,6 +126,11 @@ const ShopsPage = () => {
       ? `(${selectedType?.label})`
       : `(${selectedCategory.label})`);
   };
+
+  function handleTypeSelection(item: BadgeItem) {
+    showingProducts ? setSelectedType(item) : setSelectedCategory(item);
+    showingProducts ? setProductsCurrentPage(1) : setShopsCurrentPage(1);
+  }
 
   const CommonHeader = (
     <Flex w="100%" align="center">
@@ -158,7 +166,7 @@ const ShopsPage = () => {
         loading={showingProducts ? typesLoading : categoriesLoading}
         display={showingProducts || showCategories ? "flex" : "none"}
         list={showingProducts ? types : categories}
-        onItemSelect={showingProducts ? setSelectedType : setSelectedCategory}
+        onItemSelect={handleTypeSelection}
         selectedItem={showingProducts ? selectedType : selectedCategory}
       />
     </Box>
