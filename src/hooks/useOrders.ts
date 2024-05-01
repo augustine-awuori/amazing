@@ -7,6 +7,8 @@ import { DataError, Response } from "../services/client";
 import { NewOrder, OrderProducts, Order } from "./useOrder";
 import { Product } from "../hooks/useProducts";
 import { useCart, useData, useStatus } from ".";
+import auth from "../services/auth";
+import notificationsService from "../services/notifications";
 import OrdersContext from "../contexts/OrdersContext";
 import service from "../services/orders";
 
@@ -40,7 +42,7 @@ const useOrders = (targetUrl?: string) => {
 
     return result;
   };
-  //TODO: Display orders products with their qty
+
   const prepOrder = (products: Product[], message: string): NewOrder => ({
     message,
     products: prepOrderProducts(products),
@@ -51,9 +53,14 @@ const useOrders = (targetUrl?: string) => {
   const process = (res: ApiResponse<unknown, unknown>): Response => {
     const { data, ok, problem } = res;
 
-    ok
-      ? toast.success("Order placed successfully!")
-      : toast.error((data as DataError)?.error || problem);
+    if (ok) {
+      toast.success("Order placed successfully!");
+      notificationsService.create({
+        title: "Amazing Mart",
+        description: `${auth.getCurrentUser()?.name} has placed an order`,
+        to: (data as Order).shop.author._id,
+      });
+    } else toast.error((data as DataError)?.error || problem);
 
     return { data, ok, problem };
   };

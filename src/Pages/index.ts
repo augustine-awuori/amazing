@@ -13,6 +13,7 @@ export { default as LogoutPage } from "./LogoutPage";
 export { default as MyOrderPage } from "./MyOrderPage";
 export { default as MyOrdersPage } from "./MyOrdersPage";
 export { default as MyShopsPage } from "./MyShopsPage";
+export { default as NotificationsPage } from "./NotificationsPage";
 export { default as NotFoundPage } from "./NotFoundPage";
 export { default as OrdersDashPage } from "./OrdersDashPage";
 export { default as PostersPage } from "./PostersPage";

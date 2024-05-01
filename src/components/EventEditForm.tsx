@@ -14,7 +14,7 @@ import {
 } from "./form";
 import { useEvents, useForm, useImages } from "../hooks";
 import storage from "../db/image";
-import notificationsService from "../services/notifications";
+import notificationsService from "../services/pushNotifications";
 
 interface Props {
   event?: CreatedEvent;
@@ -67,6 +67,7 @@ const EventEditForm = ({ event, onDone }: Props) => {
       await notificationsService.notifyAll({
         body: "New Event has just been posted",
         title: "See this new event",
+        image: imageURL,
       });
     } else {
       setError((data as DataError)?.error || "Something went wrong");

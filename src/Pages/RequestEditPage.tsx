@@ -9,7 +9,7 @@ import { Request, populate } from "../hooks/useRequest";
 import { requestSchema, RequestFormData } from "../data/schemas";
 import { useCategories, useForm, useNoGrid, useRequests } from "../hooks";
 import { authApi, requests as requestsApi } from "../services";
-import notificationsService from "../services/notifications";
+import notificationsService from "../services/pushNotifications";
 import Select from "../components/common/Select";
 
 const RequestEditPage = () => {

@@ -17,7 +17,7 @@ import auth from "../services/auth";
 import ShopTypesSelector, {
   ShopTypes,
 } from "../components/shops/TypesSelector";
-import notificationsService from "../services/notifications";
+import notificationsService from "../services/pushNotifications";
 import storage from "../db/image";
 
 const MAX_IMAGES = 1;
