@@ -69,7 +69,6 @@ const ShopsPage = () => {
   const cart = useCart();
   const shopsPageSize =
     useBreakpointValue({ base: pageSize, lg: 12 }) || pageSize;
-
   const showingShops = filter?.label.toLowerCase() === "shops";
   const showingProducts = selectedSideItem.toLowerCase() === "products";
   const showCategories =

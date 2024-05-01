@@ -7,6 +7,7 @@ export { default as EventsContext } from "./EventsContext";
 export { default as ImagesContext } from "./ImagesContext";
 export { default as ListingContext } from "./ListingContext";
 export { default as ListingsContext } from "./ListingsContext";
+export { default as NotificationsContext } from "./NotificationsContext";
 export { default as OrderContext } from "./OrderContext";
 export { default as OrdersContext } from "./OrdersContext";
 export { default as PostersContext } from "./PostersContext";

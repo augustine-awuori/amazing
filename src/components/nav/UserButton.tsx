@@ -1,24 +1,26 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
-import { IconButton } from "@chakra-ui/react";
+import { Badge, IconButton } from "@chakra-ui/react";
+import { BiBell } from "react-icons/bi";
 
 import { Avatar, MenuContent, Modal } from "../../components/common";
+import { empty, funcs } from "../../utils";
 import { getControls } from "../../data/userControls";
 import { Item } from "../../components/common/Selector";
 import { MediaQueryUser } from "../../components/common/MediaQuery";
-import { useAppColorMode } from "../../hooks";
+import { useAppColorMode, useNotifications } from "../../hooks";
 import auth from "../../services/auth";
-import empty from "../../utils/empty";
 
 interface Props {
   user: MediaQueryUser | null | undefined;
 }
 
 const UserButton = ({ user }: Props) => {
-  const { isDarkMode, toggleColorMode } = useAppColorMode();
   const [controls, setControls] = useState<Item[]>([]);
   const [showLogoutPrompt, setShowLogoutPrompt] = useState(false);
+  const { count } = useNotifications();
+  const { isDarkMode, toggleColorMode } = useAppColorMode();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,7 +31,16 @@ const UserButton = ({ user }: Props) => {
   const { name, avatar }: MediaQueryUser = user || empty.user;
 
   function initAuthControls() {
-    setControls(getControls(user, isDarkMode));
+    const notificationItem: Item = {
+      _id: "",
+      label: "Notifications",
+      icon: <BiBell size={20} />,
+      route: "/notifications",
+      rightIcon: <Badge borderRadius="full">{count}</Badge>,
+    };
+
+    const controls = getControls(user, isDarkMode);
+    setControls(funcs.insertAtIndex<Item>(controls, 1, notificationItem));
   }
 
   const handleSelection = (item: Item) => {

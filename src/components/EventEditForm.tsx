@@ -14,7 +14,7 @@ import {
 } from "./form";
 import { useEvents, useForm, useImages } from "../hooks";
 import storage from "../db/image";
-import notificationsService from "../services/notifications";
+import notificationsService from "../services/pushNotifications";
 
 interface Props {
   event?: CreatedEvent;

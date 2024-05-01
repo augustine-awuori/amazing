@@ -5,7 +5,10 @@ interface ImagesContextType {
   setImages: Dispatch<SetStateAction<File[]>>;
 }
 
-const ImagesContext = createContext<ImagesContextType | undefined>(undefined);
+const ImagesContext = createContext<ImagesContextType>({
+  images: [],
+  setImages: () => {},
+});
 
 ImagesContext.displayName = "Images Context";
 

@@ -35,4 +35,17 @@ export const prepShopTypes = (
   return result;
 };
 
-export default { navTo, prepShopTypes, isOdd, getBoolean, removeLastChar };
+function insertAtIndex<T>(array: T[], index: number, element: T): T[] {
+  if (index < 0 || index > array.length) return array;
+
+  return [...array.slice(0, index), element, ...array.slice(index)];
+}
+
+export default {
+  insertAtIndex,
+  navTo,
+  prepShopTypes,
+  isOdd,
+  getBoolean,
+  removeLastChar,
+};

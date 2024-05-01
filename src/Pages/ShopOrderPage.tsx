@@ -17,6 +17,7 @@ import {
   useTimestamp,
   useWhatsAppRedirect,
 } from "../hooks";
+import notificationsService from "../services/notifications";
 import Tr from "../components/common/table/Tr";
 import useOrder, { Order, OrderedProduct } from "../hooks/useOrder";
 import useStatus, { Status } from "../hooks/useStatus";
@@ -28,7 +29,7 @@ const ShopOrderPage = () => {
   const [orderedProducts, setOrderedProducts] = useState<OrderedProduct[]>([]);
   const [pageSize] = useState(4);
   const { data, isLoading } = useData(`orders/single/${useParams().orderId}`);
-  const { _id, message, buyer, status, timestamp, products } =
+  const { _id, message, buyer, status, timestamp, products, shop } =
     data as unknown as Order;
   const [selectedStatus, setSelectedStatus] = useState<Status>(
     status || empty.status
@@ -57,7 +58,13 @@ const ShopOrderPage = () => {
 
     setSelectedStatus(status);
     const { ok } = await helper.updateOrder(_id, { status: status._id });
-    if (!ok) setSelectedStatus(prevStatus);
+    if (!ok) return setSelectedStatus(prevStatus);
+
+    notificationsService.create({
+      description: `Your order has been ${status.label}`,
+      title: `${shop.name} from Amazing App`,
+      to: buyer._id,
+    });
   };
 
   const paginated = paginate<OrderedProduct>(

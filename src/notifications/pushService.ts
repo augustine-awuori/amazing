@@ -2,7 +2,7 @@ import {
   getReadyServiceWorker,
   urlBase64ToUint8Array,
 } from "../utils/serviceWorker";
-import service from "../services/notifications";
+import service from "../services/pushNotifications";
 
 // TODO: Find secret place to put this
 const publicKey =
