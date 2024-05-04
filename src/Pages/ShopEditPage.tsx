@@ -59,6 +59,7 @@ const ShopEditPage = () => {
     await notificationsService.notifyAll({
       body: "Oh! Visit the new online shop",
       title: "Amazing Shop",
+      image: (data as Shop).image
     });
 
     removeAllImages();
