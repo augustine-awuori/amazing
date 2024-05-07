@@ -6,6 +6,7 @@ import { Image } from "../";
 import { User } from "../../hooks/useUser";
 import Cart from "./Cart";
 import DesktopNav from "./Desktop";
+import NotificationBell from "./NotificationBell";
 import Text from "../../components/Text";
 import logo from "../../assets/logo.png";
 import useAppColorMode from "../../hooks/useAppColorMode";
@@ -78,6 +79,7 @@ export default function WithSubNav({ cartCount, user }: Props) {
         </Flex>
 
         <Flex align="center" ml={{ base: 0, md: 4 }}>
+         <NotificationBell />
           <Cart cartCount={cartCount} />
           <UserButton user={user} />
         </Flex>
