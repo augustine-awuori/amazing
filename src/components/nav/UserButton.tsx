@@ -39,8 +39,10 @@ const UserButton = ({ user }: Props) => {
       rightIcon: <Badge borderRadius="full">{count}</Badge>,
     };
 
-    const controls = getControls(user, isDarkMode);
-    setControls(funcs.insertAtIndex<Item>(controls, 1, notificationItem));
+    const computed = auth.getCurrentUser()
+      ? funcs.insertAtIndex<Item>(controls, 1, notificationItem)
+      : getControls(user, isDarkMode);
+    setControls(computed);
   }
 
   const handleSelection = (item: Item) => {
