@@ -8,7 +8,7 @@ import { paginate } from "../utils/paginate";
 import { Pagination, Thead } from "../components/common";
 import { Status } from "../hooks/useStatus";
 import { MediaQuery, StatusBadge, StatusBadgesList } from "../components/order";
-import { useNoGrid, useOrders, useTimestamp } from "../hooks";
+import { useOrders, useTimestamp } from "../hooks";
 import auth from "../services/auth";
 import Table from "../components/common/table/Table";
 import Tr from "../components/common/table/Tr";
@@ -22,7 +22,6 @@ const OrdersPage = () => {
   const navigate = useNavigate();
   const time = useTimestamp();
   const helper = useOrder();
-  useNoGrid();
 
   const handleStatusSelect = (status: Status) => {
     setCurrentPage(1);

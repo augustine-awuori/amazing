@@ -12,7 +12,6 @@ import { paginate } from "../utils/paginate";
 import { ProductDisplay, Profile } from "../components/order";
 import {
   useData,
-  useNoGrid,
   useOrders,
   useTimestamp,
   useWhatsAppRedirect,
@@ -41,7 +40,6 @@ const ShopOrderPage = () => {
   const { getOrderedProducts, getOrderedProductsGrandTotal } = useOrder();
   const navigate = useNavigate();
   const helper = useOrders();
-  useNoGrid();
 
   useEffect(() => {
     if (products) setOrderedProducts(getOrderedProducts(products));

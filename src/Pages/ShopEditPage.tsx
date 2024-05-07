@@ -12,7 +12,7 @@ import { prepShopTypes } from "../utils/funcs";
 import { Shop } from "../hooks/useShop";
 import { ShopFormData, shopSchema } from "../data/schemas";
 import { ProductType } from "../hooks/useProductTypes";
-import { useForm, useImages, useNoGrid, useShops } from "../hooks";
+import { useForm, useImages, useShops } from "../hooks";
 import auth from "../services/auth";
 import ShopTypesSelector, {
   ShopTypes,
@@ -31,7 +31,6 @@ const ShopEditPage = () => {
   const shops = useShops();
   const user = auth.getCurrentUser();
   const navigate = useNavigate();
-  useNoGrid();
 
   const createShop = async (info: ShopFormData) => {
     setLoading(true);

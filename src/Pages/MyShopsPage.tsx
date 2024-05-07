@@ -3,7 +3,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
 import { Heading, ShopsGrid, Text } from "../components";
-import { useData, useNoGrid } from "../hooks";
+import { useData } from "../hooks";
 import auth from "../services/auth";
 import useShop, { Shop } from "../hooks/useShop";
 
@@ -14,7 +14,6 @@ const MyShopsPage = () => {
   const { data: shops, error, isLoading } = useData<Shop>(`shops/${user?._id}`);
   const { setShop } = useShop();
   const navigate = useNavigate();
-  useNoGrid();
 
   const navigateToDetails = (shop: Shop) => {
     setShop(shop);

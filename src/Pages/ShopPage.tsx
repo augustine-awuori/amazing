@@ -7,7 +7,6 @@ import { paginate } from "../utils/paginate";
 import {
   useCurrentUser,
   useImages,
-  useNoGrid,
   useProducts,
   useReload,
   useShop,
@@ -45,7 +44,6 @@ const ShopPage = () => {
   const helper = useShops();
   const isTheSeller = useCurrentUser(shop.author?._id);
   const { removeAllImages } = useImages(0);
-  useNoGrid();
 
   useEffect(() => {
     request();

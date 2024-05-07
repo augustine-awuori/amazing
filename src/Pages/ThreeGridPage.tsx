@@ -2,7 +2,6 @@ import { Box, Flex } from "@chakra-ui/react";
 
 import { BottomSheet, BottomSheetOpener } from "../components/common";
 import { hideScrollBarCss } from "../data/general";
-import { useNoGrid } from "../hooks";
 
 interface Props {
   SideBarContent: JSX.Element;
@@ -23,8 +22,6 @@ const ThreeGridPage = ({
   SideBarContent,
   onClose,
 }: Props) => {
-  useNoGrid();
-
   return (
     <Box pos="relative">
       {OtherContents}

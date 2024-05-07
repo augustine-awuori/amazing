@@ -3,13 +3,12 @@ import { BiChat } from "react-icons/bi";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { Button, PageTitle, Text } from "../components";
-import { useAppColorMode, useChatUser, useNoGrid } from "../hooks";
+import { useAppColorMode, useChatUser } from "../hooks";
 
 const ChatsAuthPage = () => {
   const { accentColor, concAccentColor } = useAppColorMode();
   const chat = useChatUser();
   const navigate = useNavigate();
-  useNoGrid();
 
   if (chat.user) return <Navigate to="/chats" />;
 

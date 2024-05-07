@@ -9,7 +9,7 @@ import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils/paginate";
 import { MediaQuery, StatusBadge, StatusBadgesList } from "../components/order";
 import { Status } from "../hooks/useStatus";
-import { useNoGrid, useOrders, useTimestamp } from "../hooks";
+import { useOrders, useTimestamp } from "../hooks";
 import auth from "../services/auth";
 import Table from "../components/common/table/Table";
 import Tr from "../components/common/table/Tr";
@@ -22,7 +22,6 @@ const MyOrdersPage = () => {
   const { ordersLoading, orders } = useOrders(`${user?._id}`);
   const { getDate } = useTimestamp();
   const navigate = useNavigate();
-  useNoGrid();
 
   const handleStatusSelect = (status: Status) => {
     setSelectedStatus(status);

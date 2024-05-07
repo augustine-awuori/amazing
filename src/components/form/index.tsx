@@ -4,7 +4,6 @@ import { Box, BoxProps, Flex } from "@chakra-ui/react";
 import { FormHandleSubmit } from "../../hooks/useForm";
 import { getLastWord } from "../../utils/format";
 import { Modal, Text } from "../";
-import { useNoGrid } from "../../hooks";
 import ErrorMessage from "./ErrorMessage";
 
 interface Props extends BoxProps {
@@ -27,7 +26,6 @@ const Form = ({
   ...otherProps
 }: Props) => {
   const [showExplanation, setExplanation] = useState(false);
-  useNoGrid();
 
   const handleModalVisibility = () => setExplanation(!showExplanation);
 

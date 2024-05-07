@@ -20,7 +20,6 @@ import {
   useCurrentUser,
   useListing,
   useListings,
-  useNoGrid,
   useProducts,
   useReload,
   useShops,
@@ -55,7 +54,6 @@ const ListingDetailsPage = () => {
   const isTheAuthor = useCurrentUser(userId);
   const { isLoading: loadingShops } = useShops();
   const { addProduct } = useProducts(undefined);
-  useNoGrid();
 
   useEffect(() => {
     request();

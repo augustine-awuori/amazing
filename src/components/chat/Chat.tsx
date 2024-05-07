@@ -17,7 +17,6 @@ import {
   useAppColorMode,
   useChatUser,
   useChatDetails,
-  useNoGrid,
   useRealTimeData,
 } from "../../hooks";
 import chatDb, {
@@ -48,8 +47,6 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const user = useChatUser().user as ChatUser;
   const navigate = useNavigate();
-  useNoGrid();
-
   const isBigScreen = useBreakpointValue({ md: false, lg: true });
 
   useEffect(() => {

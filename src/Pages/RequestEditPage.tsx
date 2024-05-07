@@ -7,7 +7,7 @@ import { DataError } from "../services/client";
 import { Form, FormField, SubmitButton } from "../components/form";
 import { Request, populate } from "../hooks/useRequest";
 import { requestSchema, RequestFormData } from "../data/schemas";
-import { useCategories, useForm, useNoGrid, useRequests } from "../hooks";
+import { useCategories, useForm, useRequests } from "../hooks";
 import { authApi, requests as requestsApi } from "../services";
 import auth from '../services/auth';
 import notificationsService from "../services/pushNotifications";
@@ -20,7 +20,6 @@ const RequestEditPage = () => {
   const { categories: categories } = useCategories();
   const { addRequest } = useRequests();
   const navigate = useNavigate();
-  useNoGrid();
 
   const createRequest = async (info: RequestFormData) => {
     setLoading(true);

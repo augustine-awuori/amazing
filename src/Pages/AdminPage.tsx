@@ -11,7 +11,7 @@ import {
 } from "../components";
 import { paginate } from "../utils/paginate";
 import { Shop } from "../hooks/useShop";
-import { useNoGrid, useShops } from "../hooks";
+import { useShops } from "../hooks";
 import { User as UserType } from "../hooks/useUser";
 import auth from "../services/auth";
 import ShopAdminItem from "../components/ShopAdminItem";
@@ -26,7 +26,6 @@ const AdminPage = () => {
   const [shopsModalOpen, setShopsModalVisibility] = useState(false);
   const [pageSize] = useState(4);
   const [query, setQuery] = useState("");
-  useNoGrid();
 
   const paginatedUsers = paginate<UserType>(users, usersCurrentPage, pageSize);
   const paginatedShops = paginate<Shop>(shops, shopsCurrentPage, pageSize);

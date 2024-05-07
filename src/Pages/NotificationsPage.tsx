@@ -2,14 +2,14 @@ import { useState } from "react";
 import { Box } from "@chakra-ui/react";
 
 import { Heading, Text } from "../components";
-import { useNoGrid, useNotifications } from "../hooks";
+import { useNotifications } from "../hooks";
 import NotificationComp from "../components/Notification";
 import TextSwitch from "../components/common/TextSwitch";
 
 const NotificationsPage = () => {
   const { notifications } = useNotifications();
   const [filterIndex, setFilterIndex] = useState(0);
-  useNoGrid();
+ 
   const filters = ["All", "Unread"];
 
   const filtered =

@@ -6,7 +6,7 @@ import { z } from "zod";
 
 import { Form, FormField, SubmitButton } from "../components/form";
 import { PageTitle } from "../components";
-import { useChatUser, useForm, useNoGrid } from "../hooks";
+import { useChatUser, useForm } from "../hooks";
 import { Navigator, OrSeparator } from "../components/auth";
 import auth from "../services/auth";
 import chatDb from "../db/chat";
@@ -25,7 +25,6 @@ const ChatsLoginPage = () => {
   const { errors, handleSubmit, register } = useForm(schema);
   const navigate = useNavigate();
   const chat = useChatUser();
-  useNoGrid();
 
   const navigateToChats = () => navigate("/chats");
 

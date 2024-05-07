@@ -15,7 +15,6 @@ import {
   useAppColorMode,
   useCart,
   useCurrentUser,
-  useNoGrid,
   useOrders,
   useProducts,
   useReload,
@@ -38,7 +37,6 @@ const deleteActions = [
 ];
 
 const ProductDetailsPage = () => {
-  useNoGrid();
   const cart = useCart();
   const navigate = useNavigate();
   const { accentColor, concAccentColor } = useAppColorMode();

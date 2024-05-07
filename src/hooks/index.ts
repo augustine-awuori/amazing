@@ -10,7 +10,6 @@ export { default as useForm } from "./useForm";
 export { default as useImages } from "./useImages";
 export { default as useListing } from "./useListing";
 export { default as useListings } from "./useListings";
-export { default as useNoGrid } from "./useNoGrid";
 export { default as useNotifications } from "./useNotifications";
 export { default as useOrder } from "./useOrder";
 export { default as useOrders } from "./useOrders";

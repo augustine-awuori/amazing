@@ -1,11 +1,9 @@
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
 
 import { Chat, ChatList } from "../components/chat";
-import { useNoGrid } from "../hooks";
 
 const ChatsPage = () => {
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
-  useNoGrid();
 
   if (isSmallScreen)
     return (

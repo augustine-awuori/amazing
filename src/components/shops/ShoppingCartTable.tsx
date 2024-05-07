@@ -3,14 +3,13 @@ import { Tbody, Td, Tfoot, Tr } from "@chakra-ui/react";
 
 import { Button, Heading, Modal, Text } from "..";
 import { Thead } from "../common";
-import { useCart, useNoGrid } from "../../hooks";
+import { useCart } from "../../hooks";
 import Table from "../common/table/Table";
 
 const CartTable = () => {
   const [modalOpen, setModalVisibility] = useState(false);
   const [productId, setProductId] = useState("");
   const cart = useCart();
-  useNoGrid();
 
   const handleRemoval = () => {
     setModalVisibility(false);
