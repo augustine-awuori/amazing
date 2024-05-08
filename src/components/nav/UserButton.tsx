@@ -36,7 +36,7 @@ const UserButton = ({ user }: Props) => {
   useEffect(() => {
     initAuthControls();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?._id, isDarkMode]);
+  }, [user?._id, isDarkMode, controls.length]);
 
   const { name, avatar }: MediaQueryUser = user || empty.user;
 
@@ -49,9 +49,10 @@ const UserButton = ({ user }: Props) => {
       rightIcon: <Badge borderRadius="full">{count}</Badge>,
     };
 
-    const computed = auth.getCurrentUser()
-      ? funcs.insertAtIndex<Item>(controls, 1, notificationItem)
-      : getControls(user, isDarkMode);
+    const prevControls = getControls(user, isDarkMode);
+    const computed = user?._id
+      ? funcs.insertAtIndex<Item>(prevControls, 1, notificationItem)
+      : prevControls;
     setControls(computed);
   }
 
