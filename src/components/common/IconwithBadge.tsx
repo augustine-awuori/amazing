@@ -7,15 +7,11 @@ interface Props extends BoxProps {
   showBadge?: boolean;
 }
 
-const IconwithBadge = ({ Icon, showBadge, ...otherProps }: Props) => {
+const IconWithBadge = ({ Icon, showBadge, ...otherProps }: Props) => {
   const { accentColor } = useAppColorMode();
 
   return (
-    <Box
-      display={{ lg: "block", md: "none", base: "none" }}
-      pos="relative"
-      {...otherProps}
-    >
+    <Box pos="relative" {...otherProps}>
       <IconButton
         aria-label="notification-bell"
         borderRadius="full"
@@ -38,4 +34,4 @@ const IconwithBadge = ({ Icon, showBadge, ...otherProps }: Props) => {
   );
 };
 
-export default IconwithBadge;
+export default IconWithBadge;

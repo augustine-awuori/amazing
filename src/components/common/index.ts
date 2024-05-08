@@ -8,7 +8,7 @@ export { default as ColorSwitchMode } from "./ColorSwitchMode";
 export { default as DatePicker } from "./DatePicker";
 export { default as DismissableInfo } from "./DismissableInfo";
 export { default as GridAsideList } from "./GridAsideList";
-export { default as IconwithBadge } from "./IconwithBadge";
+export { default as IconWithBadge } from "./IconwithBadge";
 export { default as ImageInputList } from "./ImageInputList";
 export { default as ImagePicker } from "./ImagePicker";
 export { default as ImageSlider } from "./ImageSlider";

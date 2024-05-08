@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
-import { Badge, IconButton } from "@chakra-ui/react";
+import { Badge, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { BiBell } from "react-icons/bi";
 
-import { Avatar, MenuContent, Modal } from "../../components/common";
+import {
+  Avatar,
+  IconWithBadge,
+  MenuContent,
+  Modal,
+} from "../../components/common";
 import { empty, funcs } from "../../utils";
 import { getControls } from "../../data/userControls";
 import { Item } from "../../components/common/Selector";
@@ -22,6 +27,11 @@ const UserButton = ({ user }: Props) => {
   const { count } = useNotifications();
   const { isDarkMode, toggleColorMode } = useAppColorMode();
   const navigate = useNavigate();
+  const showNotificationBadge = useBreakpointValue({
+    base: true,
+    md: true,
+    lg: false,
+  });
 
   useEffect(() => {
     initAuthControls();
@@ -83,7 +93,12 @@ const UserButton = ({ user }: Props) => {
         onSecondaryClick={handleModalClose}
       />
       <MenuContent
-        Button={<UserAvatar />}
+        Button={
+          <IconWithBadge
+            Icon={<UserAvatar />}
+            showBadge={showNotificationBadge}
+          />
+        }
         data={controls}
         onSelectItem={handleSelection}
       />

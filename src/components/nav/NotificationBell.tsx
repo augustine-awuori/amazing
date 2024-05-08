@@ -1,7 +1,7 @@
 import { BiBell } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
-import { IconwithBadge } from "../common";
+import { IconWithBadge } from "../common";
 import auth from "../../services/auth";
 
 const NotificationBell = () => {
@@ -10,7 +10,8 @@ const NotificationBell = () => {
   if (!auth.getCurrentUser()) return null;
 
   return (
-    <IconwithBadge
+    <IconWithBadge
+      display={{ lg: "block", md: "none", base: "none" }}
       Icon={<BiBell />}
       onClick={() => navigate("/notifications")}
       showBadge
