@@ -17,7 +17,6 @@ const IconWithBadge = ({ Icon, showBadge, ...otherProps }: Props) => {
         borderRadius="full"
         size="sm"
         icon={Icon}
-        mr={3}
       />
       {showBadge && (
         <Box
@@ -25,7 +24,7 @@ const IconWithBadge = ({ Icon, showBadge, ...otherProps }: Props) => {
           borderRadius="50%"
           height="8px"
           pos="absolute"
-          right={13}
+          right={-0.3}
           top={0}
           width="8px"
         />

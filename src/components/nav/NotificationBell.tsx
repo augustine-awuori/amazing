@@ -15,6 +15,7 @@ const NotificationBell = () => {
       Icon={<BiBell />}
       onClick={() => navigate("/notifications")}
       showBadge
+      mr={3}
     />
   );
 };
