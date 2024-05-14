@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 
 import { fontFamily } from "../../data/typography";
+import { NavItem } from "../../data/navItems";
 import DesktopSubNav from "../../components/nav/DesktopSub";
 
 const Settings = () => {
@@ -15,12 +16,16 @@ const Settings = () => {
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const popoverContentBgColor = useColorModeValue("white", "gray.800");
 
-  const items = [
-    { label: "Edit Shop", href: "", children: [{ label: "Edit your shop" }] },
+  const items: NavItem[] = [
+    {
+      label: "Edit Shop",
+      href: "",
+      children: [{ label: "Edit your shop", href: "" }],
+    },
     {
       label: "Delete Shop",
       href: "",
-      children: [{ label: "Delete your shop" }],
+      children: [{ label: "Delete your shop", href: "" }],
     },
   ];
 
