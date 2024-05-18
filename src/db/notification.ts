@@ -64,13 +64,13 @@ const sendNotification = async ({
 export const sendNotifications = async ({
   body,
   title,
-  tokens = {},
+  tokens,
 }: {
   tokens: { [token: string]: string } | undefined;
   title: string;
   body: string;
 }): Promise<void> => {
-  Object.keys(tokens).forEach(
+  Object.keys(tokens || {}).forEach(
     async (token) => await sendNotification({ token, body, title })
   );
 };
