@@ -9,8 +9,6 @@ import { Request, populate } from "../hooks/useRequest";
 import { requestSchema, RequestFormData } from "../data/schemas";
 import { useCategories, useForm, useRequests } from "../hooks";
 import { authApi, requests as requestsApi } from "../services";
-import auth from '../services/auth';
-import notificationsService from "../services/pushNotifications";
 import Select from "../components/common/Select";
 
 const RequestEditPage = () => {
@@ -41,11 +39,7 @@ const RequestEditPage = () => {
 
     addRequest(data as Request);
     toast("Request created successfully!");
-    await notificationsService.notifyAll({
-      body: `Someone is asking if you have a ${info.title}`,
-      title: "Amazing Requests",
-      image: auth.getCurrentUser()?.avatar || ''
-    });
+
     reset();
     navigate("/");
   };

@@ -16,6 +16,7 @@
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.2.0",
     "apisauce": "^3.0.1",
+    "axios": "^1.6.8",
     "dayjs": "^1.11.9",
     "firebase": "^10.7.2",
     "framer-motion": "^10.16.0",

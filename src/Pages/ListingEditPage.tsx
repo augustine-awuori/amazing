@@ -11,7 +11,6 @@ import { useForm, useImages, useListings } from "../hooks";
 import auth from "../services/auth";
 import CategorySelect from "../components/listings/category/Select";
 import ImageInputList from "../components/common/ImageInputList";
-import notificationsService from "../services/pushNotifications";
 import service from "../services/listings";
 import storage from "../db/image";
 
@@ -46,11 +45,6 @@ const ListingEditPage = () => {
     const { data, ok, problem } = await createListing(info);
     if (!ok) return setError((data as DataError)?.error || problem);
     addListing(data as Listing);
-    await notificationsService.notifyAll({
-      title: "Amazing Listings",
-      body: "Check out the new posted listing, you might just need it",
-      image: (data as Listing).images[0],
-    });
 
     toast.success("Listing created successfully");
     reset();

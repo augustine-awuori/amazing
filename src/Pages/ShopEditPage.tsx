@@ -17,7 +17,6 @@ import auth from "../services/auth";
 import ShopTypesSelector, {
   ShopTypes,
 } from "../components/shops/TypesSelector";
-import notificationsService from "../services/pushNotifications";
 import storage from "../db/image";
 
 const MAX_IMAGES = 1;
@@ -55,11 +54,6 @@ const ShopEditPage = () => {
 
     const { data, error: resError, ok } = await createShop(info);
     if (!ok) return setError(resError);
-    await notificationsService.notifyAll({
-      body: "Oh! Visit the new online shop",
-      title: "Amazing Shop",
-      image: (data as Shop).image
-    });
 
     removeAllImages();
     reset();

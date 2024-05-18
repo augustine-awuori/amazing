@@ -3,6 +3,7 @@ import jwtDecode from "jwt-decode";
 import { ChatUser, UserInfo } from "../db/chat";
 import { User } from "../hooks/useUser";
 import client from "./client";
+import usersService from "./users";
 
 const chatTokenKey = "chat-token";
 const tokenKey = "token";
@@ -41,6 +42,9 @@ const getCurrentUser = () => {
   }
 };
 
+const getUserFullDetails = async (userId: string) =>
+  await usersService.getUser(userId);
+
 const setChatUser = (user: ChatUser | UserInfo) =>
   localStorage.setItem(chatTokenKey, JSON.stringify(user));
 
@@ -56,6 +60,7 @@ export default {
   getChatUser,
   getCurrentUser,
   getJwt,
+  getUserFullDetails,
   login,
   loginWithJwt,
   logout,

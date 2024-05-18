@@ -24,6 +24,7 @@ export interface User {
   isVerified: boolean;
   name: string;
   otherAccounts: OtherAccounts;
+  pushTokens?: { [token: string]: string };
   timestamp: number;
   username: string;
 }

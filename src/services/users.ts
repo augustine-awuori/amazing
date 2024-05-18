@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 
 import { NewUserData } from "../Pages/RegisterPage";
-import { UpdatableUserInfo } from "../hooks/useUser";
 import authApi from "./auth";
 import client, { DataError } from "./client";
 
@@ -13,8 +12,7 @@ const getUser = (userId: string) => client.get(`${endpoint}/${userId}`);
 
 const getUsers = () => client.get(`${endpoint}`);
 
-const updateUserInfo = (userInfo: UpdatableUserInfo) =>
-  client.patch(endpoint, userInfo);
+const updateUserInfo = (userInfo: object) => client.patch(endpoint, userInfo);
 
 const updateChatId = (email: string, googleId: string) =>
   client.patch(`${endpoint}/chatIds`, {
