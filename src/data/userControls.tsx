@@ -1,5 +1,4 @@
-import { AiFillEdit, AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
-import { MoonIcon, QuestionIcon, SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { FaShieldAlt, FaUser, FaUserCheck } from "react-icons/fa";
 
 import { addObjectAtIndex } from "../utils/format";
@@ -20,28 +19,8 @@ export function getControls(
           label: user.name,
           route: `/profile/${user._id}`,
         },
-        {
-          _id: "",
-          icon: <AiOutlineLogout />,
-          label: "Sign Out",
-          route: "/logout",
-          rightIcon: <QuestionIcon />,
-        },
       ]
-    : [
-        {
-          _id: "",
-          icon: <AiOutlineLogin />,
-          label: "Sign In",
-          route: "/login",
-        },
-        {
-          _id: "",
-          icon: <AiFillEdit />,
-          label: "Sign Up",
-          route: "/register",
-        },
-      ];
+    : [];
 
   const final = [
     ...controls,

@@ -20,8 +20,6 @@ import {
   ListingDetailsPage,
   ListingEditPage,
   ListingsPage,
-  LoginPage,
-  LogoutPage,
   MyOrderPage,
   MyOrdersPage,
   MyShopsPage,
@@ -32,7 +30,6 @@ import {
   ProfileListingsPage,
   ProfilePage,
   ProfileRequestsPage,
-  RegisterPage,
   RequestEditPage,
   RequestsPage,
   ShopEditPage,
@@ -255,22 +252,10 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
                                                     }
                                                   />
                                                   <Route
-                                                    path="login"
-                                                    element={<LoginPage />}
-                                                  />
-                                                  <Route
-                                                    path="logout"
-                                                    element={<LogoutPage />}
-                                                  />
-                                                  <Route
                                                     path="notifications"
                                                     element={
                                                       <NotificationsPage />
                                                     }
-                                                  />
-                                                  <Route
-                                                    path="register"
-                                                    element={<RegisterPage />}
                                                   />
                                                   <Route
                                                     path="profile/:userId/edit"

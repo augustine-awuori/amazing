@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaUserPlus } from "react-icons/fa";
 import { Badge, IconButton, useBreakpointValue } from "@chakra-ui/react";
-import { BiBell } from "react-icons/bi";
+import { BiBell, BiUser } from "react-icons/bi";
+import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
+import { BsGoogle } from "react-icons/bs";
 
 import {
   Avatar,
@@ -10,18 +12,18 @@ import {
   MenuContent,
   Modal,
 } from "../../components/common";
-import { empty, funcs } from "../../utils";
+import { empty } from "../../utils";
 import { getControls } from "../../data/userControls";
 import { Item } from "../../components/common/Selector";
 import { MediaQueryUser } from "../../components/common/MediaQuery";
-import { useAppColorMode, useNotifications } from "../../hooks";
-import auth from "../../services/auth";
+import { useAppColorMode, useGoogleUser, useNotifications } from "../../hooks";
 
 interface Props {
   user: MediaQueryUser | null | undefined;
 }
 
 const UserButton = ({ user }: Props) => {
+  const { combinedUser, googleUser, userSignIn, userSignOut } = useGoogleUser();
   const [controls, setControls] = useState<Item[]>([]);
   const [showLogoutPrompt, setShowLogoutPrompt] = useState(false);
   const { count } = useNotifications();
@@ -36,9 +38,13 @@ const UserButton = ({ user }: Props) => {
   useEffect(() => {
     initAuthControls();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user?._id, isDarkMode, controls.length]);
+  }, [user?._id, isDarkMode, controls.length, googleUser]);
 
   const { name, avatar }: MediaQueryUser = user || empty.user;
+
+  const handleViewProfile = async () => {
+    if (user) navigate(`/profile/${user._id}`);
+  };
 
   function initAuthControls() {
     const notificationItem: Item = {
@@ -49,24 +55,55 @@ const UserButton = ({ user }: Props) => {
       rightIcon: <Badge borderRadius="full">{count}</Badge>,
     };
 
-    const prevControls = getControls(user, isDarkMode);
-    const computed = user?._id
-      ? funcs.insertAtIndex<Item>(prevControls, 1, notificationItem)
-      : prevControls;
-    setControls(computed);
+    const signOutItem: Item = {
+      _id: "",
+      label: "Sign Out",
+      icon: <AiOutlineLogout />,
+      onClick: () => setShowLogoutPrompt(true),
+    };
+
+    const signInItem: Item = {
+      _id: "",
+      label: "Google In",
+      icon: <AiOutlineLogin />,
+      rightIcon: <BsGoogle />,
+      onClick: () => userSignIn(),
+    };
+
+    const controls =
+      user || googleUser
+        ? [
+            {
+              _id: combinedUser._id,
+              label: combinedUser.name,
+              onClick: () => handleViewProfile(),
+              icon: <BiUser />,
+            },
+            notificationItem,
+            signOutItem,
+          ]
+        : [signInItem];
+
+    setControls([...controls, ...getControls(user, isDarkMode)]);
   }
 
-  const handleSelection = (item: Item) => {
-    //TODO: Encapsulate this route to a single file
-    if (item.route === "/logout") return setShowLogoutPrompt(true);
+  const handleSelection = ({ route, onClick }: Item) => {
+    if (route) return navigate(route);
 
-    item.route ? navigate(item.route) : toggleColorMode();
+    if (onClick) return onClick();
+
+    toggleColorMode();
+  };
+
+  const handleLogout = () => {
+    userSignOut();
+    setShowLogoutPrompt(false);
   };
 
   const handleModalClose = () => setShowLogoutPrompt(false);
 
   const UserAvatar = () => {
-    if (!name)
+    if (!name && !googleUser)
       return (
         <IconButton
           size="sm"
@@ -76,21 +113,25 @@ const UserButton = ({ user }: Props) => {
         />
       );
 
-    return <Avatar name={name} size={{ base: "xs", md: "sm" }} src={avatar} />;
+    return (
+      <Avatar
+        name={name || googleUser?.displayName || ""}
+        size="sm"
+        src={avatar || googleUser?.photoURL || ""}
+      />
+    );
   };
 
   return (
     <>
       <Modal
-        content={`Are you sure you want to sign out? \nPlease remember your username "${
-          auth.getCurrentUser()?.username
-        }" Use it to login in next time, without the @ sign`}
+        content={`Are you sure you want to sign out?`}
         isOpen={showLogoutPrompt}
         onModalClose={handleModalClose}
         title="Signing Out ..."
         primaryBtnLabel="I'm Sure"
         secondaryBtnLabel="Not Now"
-        onPrimaryClick={() => navigate("/logout")}
+        onPrimaryClick={handleLogout}
         onSecondaryClick={handleModalClose}
       />
       <MenuContent

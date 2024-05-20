@@ -7,6 +7,7 @@ export { default as useCurrentUser } from "./useCurrentUser";
 export { default as useData } from "./useData";
 export { default as useEvents } from "./useEvents";
 export { default as useForm } from "./useForm";
+export { default as useGoogleUser } from "./useGoogleUser";
 export { default as useImages } from "./useImages";
 export { default as useListing } from "./useListing";
 export { default as useListings } from "./useListings";

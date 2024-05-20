@@ -13,7 +13,7 @@ const SelectorMenuList = ({ data, onSelectItem }: MenuListProps) => (
   <MenuList>
     {data.map((item, index) => (
       <MenuItem
-        key={item._id + index}
+        key={index}
         fontFamily={fontFamily}
         onClick={() => onSelectItem(item)}
       >

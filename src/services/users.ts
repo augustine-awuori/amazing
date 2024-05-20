@@ -1,12 +1,12 @@
 import { toast } from "react-toastify";
 
-import { NewUserData } from "../Pages/RegisterPage";
 import authApi from "./auth";
 import client, { DataError } from "./client";
 
 export const endpoint = "/users";
 
-const register = (info: NewUserData) => client.post(endpoint, info);
+const register = (info: { name: string; email: string; avatar?: string }) =>
+  client.post(endpoint, info);
 
 const getUser = (userId: string) => client.get(`${endpoint}/${userId}`);
 
