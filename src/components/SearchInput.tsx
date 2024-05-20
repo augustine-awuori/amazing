@@ -56,7 +56,6 @@ const SearchInput = ({
         borderRadius="30px"
         fontFamily={fontFamily}
         transition="border-radius 0.3s"
-        onTextChangeText={handleChange}
         _placeholder={{ color: "white" }}
         placeholder={`  ${placeholder}`}
         onChange={handleChange}

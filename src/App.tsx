@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 import { CartProducts } from "./contexts/CartContext";
-import { saveMessagingToken } from "./db/notification";
 import { NavBar, Routes } from "./components";
 import { User } from "./hooks/useUser";
 import auth from "./services/auth";
@@ -20,7 +19,6 @@ function App() {
 
   const initInfo = async () => {
     setUser(auth.getCurrentUser());
-    await saveMessagingToken();
   };
 
   return (
