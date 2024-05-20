@@ -3,12 +3,12 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 import { CartProducts } from "./contexts/CartContext";
 import { NavBar, Routes } from "./components";
-import { useGoogleUser } from "./hooks";
+// import { useGoogleUser } from "./hooks";
 import { User } from "./hooks/useUser";
 import auth from "./services/auth";
 
 function App() {
-  const { saveGoogleUser } = useGoogleUser();
+  // const { saveGoogleUser } = useGoogleUser();
   const [user, setUser] = useState<User | null>();
   const [cartProducts, setCartProducts] = useState<CartProducts>({
     count: 0,
@@ -22,7 +22,7 @@ function App() {
 
   const initInfo = async () => {
     setUser(auth.getCurrentUser());
-    saveGoogleUser();
+    // saveGoogleUser();
   };
 
   return (
