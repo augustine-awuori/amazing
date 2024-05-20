@@ -23,6 +23,7 @@ import {
   useNotifications,
   useProfileUser,
 } from "../../hooks";
+import auth from "../../services/auth";
 
 interface Props {
   user: MediaQueryUser | null | undefined;
@@ -118,6 +119,7 @@ const UserButton = ({ user }: Props) => {
       toast.info("Add your google account to avoid losing your information");
       return await userSignIn();
     }
+    auth.logout();
     userSignOut();
     setShowLogoutPrompt(false);
   };
