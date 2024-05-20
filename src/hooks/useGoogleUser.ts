@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { signInWithRedirect, signOut, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -12,6 +13,11 @@ export const userSignIn = () =>
 const useGoogleUser = () => {
   const [googleUser] = useAuthState(config.auth);
   const user = authApi.getCurrentUser();
+
+  useEffect(() => {
+    saveGoogleUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [googleUser, user?._id]);
 
   const combinedUser = {
     _id: user?._id || "",
