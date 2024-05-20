@@ -19,6 +19,7 @@ export interface User {
   _id: string;
   aboutMe?: string;
   avatar: string;
+  email?: string;
   chatIds?: { [email: string]: string };
   isAdmin: boolean;
   isVerified: boolean;

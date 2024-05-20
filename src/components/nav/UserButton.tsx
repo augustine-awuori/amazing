@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { FaUserPlus } from "react-icons/fa";
 import { Badge, IconButton, useBreakpointValue } from "@chakra-ui/react";
 import { BiBell, BiUser } from "react-icons/bi";
@@ -16,7 +17,12 @@ import { empty } from "../../utils";
 import { getControls } from "../../data/userControls";
 import { Item } from "../../components/common/Selector";
 import { MediaQueryUser } from "../../components/common/MediaQuery";
-import { useAppColorMode, useGoogleUser, useNotifications } from "../../hooks";
+import {
+  useAppColorMode,
+  useGoogleUser,
+  useNotifications,
+  useProfileUser,
+} from "../../hooks";
 
 interface Props {
   user: MediaQueryUser | null | undefined;
@@ -24,6 +30,7 @@ interface Props {
 
 const UserButton = ({ user }: Props) => {
   const { combinedUser, googleUser, userSignIn, userSignOut } = useGoogleUser();
+  const { profileUser } = useProfileUser();
   const [controls, setControls] = useState<Item[]>([]);
   const [showLogoutPrompt, setShowLogoutPrompt] = useState(false);
   const { count } = useNotifications();
@@ -43,7 +50,7 @@ const UserButton = ({ user }: Props) => {
   const { name, avatar }: MediaQueryUser = user || empty.user;
 
   const handleViewProfile = async () => {
-    if (user) navigate(`/profile/${user._id}`);
+    if (user) navigate(`/profile/${profileUser?._id || user._id}`);
   };
 
   function initAuthControls() {
@@ -70,7 +77,7 @@ const UserButton = ({ user }: Props) => {
       onClick: () => userSignIn(),
     };
 
-    const controls =
+    let controls =
       user || googleUser
         ? [
             {
@@ -84,6 +91,17 @@ const UserButton = ({ user }: Props) => {
           ]
         : [signInItem];
 
+    if (!googleUser && user)
+      controls = [
+        ...controls,
+        {
+          _id: "",
+          label: "Enable Fast Login",
+          icon: <BsGoogle />,
+          onClick: () => userSignIn(),
+        },
+      ];
+
     setControls([...controls, ...getControls(user, isDarkMode)]);
   }
 
@@ -95,7 +113,11 @@ const UserButton = ({ user }: Props) => {
     toggleColorMode();
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    if (!googleUser) {
+      toast.info("Add your google account to avoid losing your information");
+      return await userSignIn();
+    }
     userSignOut();
     setShowLogoutPrompt(false);
   };

@@ -1,8 +1,8 @@
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { FaShieldAlt, FaUser, FaUserCheck } from "react-icons/fa";
+import { FaShieldAlt, FaUserCheck } from "react-icons/fa";
 
 import { addObjectAtIndex } from "../utils/format";
-import { Avatar, ColorSwitchMode } from "../components";
+import { ColorSwitchMode } from "../components";
 import { Item } from "../components/common/Selector";
 import { MediaQueryUser } from "../components/common/MediaQuery";
 
@@ -10,20 +10,7 @@ export function getControls(
   user: MediaQueryUser | null | undefined,
   isDarkMode: boolean
 ): Item[] {
-  const controls: Item[] = user?._id
-    ? [
-        {
-          _id: "",
-          icon: <FaUser />,
-          rightIcon: <Avatar name={user.name} size="xs" src={user.avatar} />,
-          label: user.name,
-          route: `/profile/${user._id}`,
-        },
-      ]
-    : [];
-
-  const final = [
-    ...controls,
+  const controls = [
     {
       _id: "",
       icon: isDarkMode ? <MoonIcon /> : <SunIcon />,
@@ -40,5 +27,7 @@ export function getControls(
     rightIcon: <FaUserCheck />,
   };
 
-  return user?.isAdmin ? addObjectAtIndex<Item>(final, 1, adminControl) : final;
+  return user?.isAdmin
+    ? addObjectAtIndex<Item>(controls, 1, adminControl)
+    : controls;
 }
