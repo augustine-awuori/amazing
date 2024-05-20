@@ -41,7 +41,7 @@ const useOrder = () => {
   const getOrderedProducts = (products: OrderProducts): OrderedProduct[] => {
     const output: OrderedProduct[] = [];
 
-    Object.entries(products).forEach(async ([id, quantity]) => {
+    Object.entries(products || {}).forEach(async ([id, quantity]) => {
       const { ok, data } = await getProduct(id);
 
       if (ok) output.push({ ...(data as Product), quantity });

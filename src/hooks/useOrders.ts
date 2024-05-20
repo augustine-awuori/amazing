@@ -108,7 +108,7 @@ const useOrders = (targetUrl?: string) => {
   };
 
   const makeShopsOrders = async (message: string) => {
-    for (const [, products] of Object.entries(getShopsProducts()))
+    for (const [, products] of Object.entries(getShopsProducts() || {}))
       makeShopOrder(products, message);
 
     if (success) {

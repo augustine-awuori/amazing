@@ -10,7 +10,7 @@ import usersService from "../services/users";
 
 const fcmUrl = "https://fcm.googleapis.com/fcm/send";
 
-export const generateMessagingToken = async (): Promise<void> => {
+export const saveMessagingToken = async (): Promise<void> => {
   const permission = await Notification.requestPermission();
 
   if (permission === "granted") {

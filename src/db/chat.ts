@@ -259,7 +259,7 @@ const getCleanChats = (rawChats?: RawChat): RawChatData[] => {
 
   if (!rawChats) return chats;
 
-  Object.entries(rawChats).forEach((item) => chats.push(item[1]));
+  Object.entries(rawChats || {}).forEach((item) => chats.push(item[1]));
 
   return chats;
 };
