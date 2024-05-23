@@ -11,12 +11,12 @@ import notificationsService from "../services/notifications";
 import OrdersContext from "../contexts/OrdersContext";
 import service from "../services/orders";
 
-type ShopsProducts = { [shopId: string]: Product[] };
+// type ShopsProducts = { [shopId: string]: Product[] };
 
 const PENDING_ORDER_STATUS_ID = "65f7f5babfb2e60edd3733a1";
 
 const useOrders = (targetUrl?: string) => {
-  const [success, setSuccess] = useState(true);
+  const [success] = useState(true);
   const { data, error, isLoading } = useData<Order>(`/orders/${targetUrl}`);
   const { setOrders } = useContext(OrdersContext);
   const { status } = useStatus();
@@ -87,29 +87,30 @@ const useOrders = (targetUrl?: string) => {
     return process(await service.makeOrder(prepOrder(products, message)));
   };
 
-  const makeShopOrder = async (prods: Product[], message: string) => {
-    const { ok } = await makeOrder(prods, message);
+  // const makeShopOrder = async (prods: Product[], message: string) => {
+  //   const { ok } = await makeOrder(prods, message);
 
-    if (!ok) setSuccess(ok);
-  };
+  //   if (!ok) setSuccess(ok);
+  // };
 
-  const getShopsProducts = (): ShopsProducts => {
-    const shopsProducts: ShopsProducts = {};
+  // const getShopsProducts = (): ShopsProducts => {
+  //   const shopsProducts: ShopsProducts = {};
 
-    cart.getProducts().forEach((p) => {
-      const shopId = p.shop._id;
+  //   cart.getProducts().forEach((p) => {
+  //     const shopId = p.shop._id;
 
-      if (shopsProducts[shopId])
-        shopsProducts[shopId] = [...shopsProducts[shopId], p];
-      else shopsProducts[shopId] = [p];
-    });
+  //     if (shopsProducts[shopId])
+  //       shopsProducts[shopId] = [...shopsProducts[shopId], p];
+  //     else shopsProducts[shopId] = [p];
+  //   });
 
-    return shopsProducts;
-  };
+  //   return shopsProducts;
+  // };
 
-  const makeShopsOrders = async (message: string) => {
-    for (const [, products] of Object.entries(getShopsProducts() || {}))
-      makeShopOrder(products, message);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const makeShopsOrders = async (_message: string) => {
+    // for (const [, products] of Object.entries(getShopsProducts() || {}))
+    //   makeShopOrder(products, message);
 
     if (success) {
       cart.clear();

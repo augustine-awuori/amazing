@@ -5,7 +5,7 @@ import { Shop } from "./useShop";
 import { Status } from "./useStatus";
 import { User } from "./useUser";
 import OrderContext from "../contexts/OrderContext";
-import useProducts, { Product } from "./useProducts";
+import { Product } from "./useProducts";
 
 export interface OrderProducts {
   [productId: string]: number;
@@ -35,17 +35,18 @@ export interface OrderedProduct extends Product {
 }
 
 const useOrder = () => {
-  const { getProduct } = useProducts();
+  // const { getProduct } = useProducts();
   const context = useContext(OrderContext);
 
-  const getOrderedProducts = (products: OrderProducts): OrderedProduct[] => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const getOrderedProducts = (_products: OrderProducts): OrderedProduct[] => {
     const output: OrderedProduct[] = [];
 
-    Object.entries(products || {}).forEach(async ([id, quantity]) => {
-      const { ok, data } = await getProduct(id);
+    // Object.entries(products || {}).forEach(async ([id, quantity]) => {
+    //   const { ok, data } = await getProduct(id);
 
-      if (ok) output.push({ ...(data as Product), quantity });
-    });
+    //   if (ok) output.push({ ...(data as Product), quantity });
+    // });
 
     return output;
   };
