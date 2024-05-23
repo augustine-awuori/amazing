@@ -12,8 +12,7 @@ import { prepShopTypes } from "../utils/funcs";
 import { Shop } from "../hooks/useShop";
 import { ShopFormData, shopSchema } from "../data/schemas";
 import { ProductType } from "../hooks/useProductTypes";
-import { useForm, useImages, useShops } from "../hooks";
-import auth from "../services/auth";
+import { useForm, useImages, useShops, useUser } from "../hooks";
 import ShopTypesSelector, {
   ShopTypes,
 } from "../components/shops/TypesSelector";
@@ -28,7 +27,7 @@ const ShopEditPage = () => {
   const { errors, handleSubmit, register, reset } = useForm(shopSchema);
   const { images, imagesCount, removeAllImages } = useImages(MAX_IMAGES);
   const shops = useShops();
-  const user = auth.getCurrentUser();
+  const user = useUser();
   const navigate = useNavigate();
 
   const createShop = async (info: ShopFormData) => {

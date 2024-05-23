@@ -18,8 +18,8 @@ import {
   useCurrentUser,
   useEvents,
   useTimestamp,
+  useUser,
 } from "../hooks";
-import auth from "../services/auth";
 
 interface Props {
   event?: CreatedEvent;
@@ -33,7 +33,7 @@ const EventDetails = ({ event }: Props) => {
   const [showTurnOut, setShowTurnOut] = useState(false);
   const helper = useEvents();
   const isTheAuthor = useCurrentUser(event?.author._id);
-  const currentUser = auth.getCurrentUser();
+  const currentUser = useUser();
 
   if (!event)
     return (

@@ -5,8 +5,7 @@ import { FaPaperPlane } from "react-icons/fa";
 import { z } from "zod";
 
 import { Button, Modal } from "../components";
-import { useCart, useForm, useOrders } from "../hooks";
-import auth from "../services/auth";
+import { useCart, useForm, useOrders, useUser } from "../hooks";
 import CartTable from "../components/shops/ShoppingCartTable";
 import DismissableInfo from "../components/common/DismissableInfo";
 import MessageField from "../components/form/TextAreaField";
@@ -26,6 +25,7 @@ const ShoppingCartPage = () => {
   const cart = useCart();
   const helper = useOrders();
   const navigate = useNavigate();
+  const currentUser = useUser();
 
   const content = takingMessage ? (
     <MessageField
@@ -50,7 +50,7 @@ const ShoppingCartPage = () => {
   };
 
   const handleOrderPlacement = () =>
-    auth.getCurrentUser() ? setShowModal(true) : setAuthModal(true);
+    currentUser ? setShowModal(true) : setAuthModal(true);
 
   return (
     <Box pt="4rem" maxW="700px" mx="auto">

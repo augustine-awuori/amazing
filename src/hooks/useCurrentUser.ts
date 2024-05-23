@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 
-import auth from "../services/auth";
+import useUser from "./useUser";
 
 const useCurrentUser = (userId: string | undefined) => {
   const [isTheUser, setUser] = useState(false);
-  const currentUser = auth.getCurrentUser();
+  const currentUser = useUser();
 
   useEffect(() => {
     if (userId) setUser(userId === currentUser?._id);

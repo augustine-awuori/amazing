@@ -2,12 +2,13 @@ import { BiBell } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 
 import { IconWithBadge } from "../common";
-import auth from "../../services/auth";
+import { useUser } from "../../hooks";
 
 const NotificationBell = () => {
   const navigate = useNavigate();
+  const currentUser = useUser();
 
-  if (!auth.getCurrentUser()) return null;
+  if (!currentUser) return null;
 
   return (
     <IconWithBadge

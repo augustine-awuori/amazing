@@ -28,8 +28,13 @@ import { ListingsPage, RequestsPage, OrdersDashPage } from ".";
 import { SearchInput, ShopsGrid, SideBar, Text } from "../components";
 import { ShopSelectors } from "../components/listings";
 import { SideBarItem } from "../components/SideBar";
-import { useCart, useCategories, useProducts, useShops } from "../hooks";
-import auth from "../services/auth";
+import {
+  useCart,
+  useCategories,
+  useProducts,
+  useShops,
+  useUser,
+} from "../hooks";
 import SideCart from "../components/products/CartPreview";
 import ShopsProductsGrid from "../components/shops/product/Grid";
 import ShowSelector from "../components/shops/ShowSelector";
@@ -74,6 +79,7 @@ const ShopsPage = () => {
   const showCategories =
     selectedSideItem.toLowerCase() === "requests" ||
     selectedSideItem.toLowerCase() === "listings";
+  const currentUser = useUser();
 
   useEffect(() => {
     setContent(renderContent());
@@ -253,7 +259,7 @@ const ShopsPage = () => {
       : toast.info("Plese select a shop or create a new one");
 
   const handleProductCreation = () =>
-    auth.getCurrentUser() ? setSelectShop(true) : setAuthRequest(true);
+    currentUser ? setSelectShop(true) : setAuthRequest(true);
 
   const handleItemCreation = () => {
     if (selectedSideItem === "Products") return handleProductCreation();

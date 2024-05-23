@@ -18,8 +18,8 @@ import {
   useOrders,
   useProducts,
   useReload,
+  useUser,
 } from "../hooks";
-import auth from "../services/auth";
 import service from "../services/products";
 
 interface InfoProps {
@@ -51,6 +51,7 @@ const ProductDetailsPage = () => {
   const [selectedImage, setSelectedImage] = useState(
     product?.images?.[0] || ""
   );
+  const currentUser = useUser();
 
   useEffect(() => {
     request();
@@ -211,7 +212,7 @@ const ProductDetailsPage = () => {
             </Flex>
           </Flex>
           <Divider mt={2} />
-          {isSeller || auth.getCurrentUser()?.isAdmin ? (
+          {isSeller || currentUser?.isAdmin ? (
             <MenuContent
               Button={
                 <Button

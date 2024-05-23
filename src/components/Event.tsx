@@ -5,7 +5,7 @@ import { GoLocation } from "react-icons/go";
 import { BookmarkIcon, Image, Text } from "./";
 import { CreatedEvent } from "../services/events";
 import { useAppColorMode, useTimestamp } from "../hooks";
-import auth from "../services/auth";
+import useUser from "../hooks/useUser";
 
 export interface EventProps {
   _id: string;
@@ -40,7 +40,7 @@ const Event = ({
 }: Props) => {
   const { formatTimestamp } = useTimestamp();
   const { isDarkMode, accentColor } = useAppColorMode();
-  const currentUser = auth.getCurrentUser();
+  const currentUser = useUser();
 
   const handleBookmarking = () => {
     onMarkChange(_id);

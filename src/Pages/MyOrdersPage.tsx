@@ -9,8 +9,7 @@ import { Order } from "../hooks/useOrder";
 import { paginate } from "../utils/paginate";
 import { MediaQuery, StatusBadge, StatusBadgesList } from "../components/order";
 import { Status } from "../hooks/useStatus";
-import { useOrders, useTimestamp } from "../hooks";
-import auth from "../services/auth";
+import { useOrders, useTimestamp, useUser } from "../hooks";
 import Table from "../components/common/table/Table";
 import Tr from "../components/common/table/Tr";
 
@@ -18,7 +17,7 @@ const MyOrdersPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(4);
   const [selectedStatus, setSelectedStatus] = useState<Status>(empty.status);
-  const user = auth.getCurrentUser();
+  const user = useUser();
   const { ordersLoading, orders } = useOrders(`${user?._id}`);
   const { getDate } = useTimestamp();
   const navigate = useNavigate();

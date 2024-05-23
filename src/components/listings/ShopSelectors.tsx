@@ -5,8 +5,7 @@ import { AiOutlineWarning } from "react-icons/ai";
 import { SearchInput, Text } from "../../components";
 import { ShopSelector } from ".";
 import { Shop } from "../../hooks/useShop";
-import { useShops } from "../../hooks";
-import auth from "../../services/auth";
+import { useShops, useUser } from "../../hooks";
 
 interface Props {
   onDoneShopSelect: () => void;
@@ -22,7 +21,7 @@ const ShopSelectors = ({
   const { shops: allShops, isLoading } = useShops();
   const [query, setQuery] = useState("");
 
-  const user = auth.getCurrentUser();
+  const user = useUser();
 
   const shops: Shop[] = user?.isAdmin
     ? allShops

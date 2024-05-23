@@ -2,7 +2,7 @@
 // import { getToken } from "firebase/messaging";
 
 // import { appBaseUrl } from "../services/client";
-// import { User } from "../hooks/useUser";
+// import useUser, { User } from "../hooks/useUser";
 // import auth from "../services/auth";
 // import config from "./config";
 // import logger from "../utils/logger";
@@ -24,7 +24,7 @@
 // };
 
 // async function saveUserPushNotificationToken(token: string): Promise<void> {
-//   const userId = auth.getCurrentUser()?._id;
+//   const userId = currentUser?._id;
 //   if (!userId) return;
 
 //   const user = await auth.getUserFullDetails(userId);

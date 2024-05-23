@@ -5,8 +5,7 @@ import { z } from "zod";
 
 import { Button, Heading, Modal, Text } from "..";
 import { DeleteIcon } from "../icons";
-import { useCart, useForm, useOrders } from "../../hooks";
-import auth from "../../services/auth";
+import { useCart, useForm, useOrders, useUser } from "../../hooks";
 import CartItem from "./SideCartItem";
 import MessageField from "../form/TextAreaField";
 
@@ -23,6 +22,7 @@ const SideCart = () => {
   const helper = useOrders();
   const cart = useCart();
   const navigate = useNavigate();
+  const currentUser = useUser();
 
   const content = takingMessage ? (
     <MessageField
@@ -36,7 +36,7 @@ const SideCart = () => {
   );
 
   const handleOrderPlacement = () =>
-    auth.getCurrentUser() ? setShowModal(true) : setAuthModal(true);
+    currentUser ? setShowModal(true) : setAuthModal(true);
 
   const closeModal = () => setShowModal(false);
 

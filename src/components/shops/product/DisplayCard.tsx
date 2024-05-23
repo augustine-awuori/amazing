@@ -21,8 +21,8 @@ import {
   useCart,
   useCurrentUser,
   useProducts,
+  useUser,
 } from "../../../hooks";
-import auth from "../../../services/auth";
 import ImageUpdater from "./ImageUpdater";
 import ProductDetails from "./Details";
 
@@ -44,7 +44,7 @@ const DisplayCard = ({ product, onEdit }: Props) => {
   const navigate = useNavigate();
   const cart = useCart();
   const userIsTheSeller = useCurrentUser(shop.author);
-  const userIsAdmin = auth.getCurrentUser()?.isAdmin;
+  const userIsAdmin = useUser()?.isAdmin;
   const userIsAuthorised = userIsTheSeller || userIsAdmin;
   const isBigScreen = useBreakpointValue({ sm: false, md: true });
   const isAdded = cart.hasProduct(_id);

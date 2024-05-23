@@ -8,8 +8,7 @@ import { paginate } from "../utils/paginate";
 import { Pagination, Thead } from "../components/common";
 import { Status } from "../hooks/useStatus";
 import { MediaQuery, StatusBadge, StatusBadgesList } from "../components/order";
-import { useOrders, useTimestamp } from "../hooks";
-import auth from "../services/auth";
+import { useOrders, useTimestamp, useUser } from "../hooks";
 import Table from "../components/common/table/Table";
 import Tr from "../components/common/table/Tr";
 import useOrder, { Order } from "../hooks/useOrder";
@@ -22,6 +21,7 @@ const OrdersPage = () => {
   const navigate = useNavigate();
   const time = useTimestamp();
   const helper = useOrder();
+  const currentUser = useUser();
 
   const handleStatusSelect = (status: Status) => {
     setCurrentPage(1);
@@ -43,7 +43,7 @@ const OrdersPage = () => {
     ? `"${selectedStatus.label.toLowerCase()}"`
     : "";
 
-  if (!auth.getCurrentUser()) return <Navigate to="/login" />;
+  if (!currentUser) return <Navigate to="/login" />;
 
   return (
     <Box pt="4.5rem" px={10}>

@@ -3,12 +3,11 @@ import { Navigate, useNavigate } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
 import { Heading, ShopsGrid, Text } from "../components";
-import { useData } from "../hooks";
-import auth from "../services/auth";
+import { useData, useUser } from "../hooks";
 import useShop, { Shop } from "../hooks/useShop";
 
 const MyShopsPage = () => {
-  const user = auth.getCurrentUser();
+  const user = useUser();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(6);
   const { data: shops, error, isLoading } = useData<Shop>(`shops/${user?._id}`);

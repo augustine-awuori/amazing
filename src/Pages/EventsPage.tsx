@@ -24,8 +24,7 @@ import {
 } from "../components";
 import { CardSkeletons } from "../components/card";
 import { CreatedEvent } from "../services/events";
-import { useAppColorMode, useEvents } from "../hooks";
-import auth from "../services/auth";
+import { useAppColorMode, useEvents, useUser } from "../hooks";
 import funcs from "../utils/funcs";
 import PostersPage from "./PostersPage";
 import ThreeGridPage from "./ThreeGridPage";
@@ -53,7 +52,7 @@ const EventsPage = () => {
   const [createEvent, setCreateEvent] = useState(false);
   const [createPoster, setCreatePoster] = useState(false);
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const currentUser = auth.getCurrentUser();
+  const currentUser = useUser();
 
   useEffect(() => {
     setContent(renderContent());
@@ -182,7 +181,7 @@ const EventsPage = () => {
 
   const handleItemCreation = () => {
     onClose?.();
-    if (!auth.getCurrentUser())
+    if (!currentUser)
       return toast.info(`Please login to create ${selectedItem}`);
 
     if (selectedItem === "Events") handleEventCreation();

@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { toast } from "react-toastify";
 
 import { DataError } from "../services/client";
-import service from "../services/users";
+import { usersApi } from "../services";
+import { UserContext } from "../contexts";
+import useGoogleUser from "./useGoogleUser";
 
 export interface OtherAccounts {
   instagram?: string;
@@ -36,15 +38,33 @@ export interface UpdatableUserInfo extends OtherAccounts {
 }
 
 const useUser = (userId?: string) => {
-  const [user, setUser] = useState<CompleteUser | undefined>();
+  const { googleUser } = useGoogleUser();
+  const { setUser, user } = useContext(UserContext);
 
   useEffect(() => {
     initUser();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId]);
+  }, [userId, googleUser?.uid]);
 
   async function initUser() {
-    if (!userId) return;
+    if (!userId) {
+      if (googleUser) {
+        const { ok, data } = await usersApi.register({
+          email: googleUser.email || "",
+          name: googleUser.displayName || "",
+          avatar: googleUser.photoURL || "",
+        });
+
+        if (ok) setUser(data as CompleteUser);
+      }
+      return;
+    }
+
+    if (googleUser && !user?.email)
+      await usersApi.updateUserInfo({
+        email: googleUser?.email,
+        avatar: googleUser?.photoURL,
+      });
 
     const { data, ok } = await getCompleteUserDetails(userId);
     if (ok) return setUser(data as CompleteUser);
@@ -54,7 +74,7 @@ const useUser = (userId?: string) => {
   }
 
   async function getCompleteUserDetails(userId: string) {
-    return await service.getUser(userId);
+    return await usersApi.getUser(userId);
   }
 
   return user;

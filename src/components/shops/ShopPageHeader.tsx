@@ -20,7 +20,6 @@ import {
   useShop,
   useShops,
 } from "../../hooks";
-import auth from "../../services/auth";
 import Button from "./ShopHeaderButton";
 import userService from "../../services/users";
 import useUser from "../../hooks/useUser";
@@ -48,6 +47,7 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
   const helper = useShops();
   const navigate = useNavigate();
   const isSmallScreen = useBreakpointValue({ base: true, md: false });
+  const currentUser = useUser();
 
   const settings: Setting[] = [
     {
@@ -81,7 +81,7 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
     if (ids.length > 1) return setChatsModal(true);
     const chatId = ids[0];
 
-    if (!auth.getCurrentUser()?.chatIds) return handleChatSignUp();
+    if (!currentUser?.chatIds) return handleChatSignUp();
 
     setChat({
       chatId,
@@ -180,7 +180,7 @@ const ShopPageHeader = ({ onAddProduct, productsCount, shopName }: Props) => {
         {shopName + "'s"} Products ({productsCount})
       </Heading>
       <Flex align="center">
-        {(isTheAuthor || auth.getCurrentUser()?.isAdmin) && (
+        {(isTheAuthor || currentUser?.isAdmin) && (
           <Box whiteSpace="nowrap">
             <SettingsSelector
               data={settings}

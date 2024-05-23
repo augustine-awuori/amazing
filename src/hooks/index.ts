@@ -28,4 +28,5 @@ export { default as useShop } from "./useShop";
 export { default as useShops } from "./useShops";
 export { default as useStatus } from "./useStatus";
 export { default as useTimestamp } from "./useTimestamp";
+export { default as useUser } from "./useUser";
 export { default as useWhatsAppRedirect } from "./useWhatsAppRedirect";

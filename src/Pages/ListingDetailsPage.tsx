@@ -24,11 +24,11 @@ import {
   useReload,
   useShops,
   useTimestamp,
+  useUser,
 } from "../hooks";
 import { Listing } from "../hooks/useListing";
 import { Product } from "../hooks/useProducts";
 import { ShopSelectors } from "../components/listings";
-import auth from "../services/auth";
 import ListingUpdateForm from "../components/forms/ListingUpdateForm";
 import service from "../services/listings";
 
@@ -53,7 +53,8 @@ const ListingDetailsPage = () => {
   const userId = info.author._id;
   const isTheAuthor = useCurrentUser(userId);
   const { isLoading: loadingShops } = useShops();
-  const { addProduct } = useProducts(undefined);
+  const { addProduct } = useProducts();
+  const currentUser = useUser();
 
   useEffect(() => {
     request();
@@ -224,7 +225,7 @@ const ListingDetailsPage = () => {
             Edit Listing
           </Button>
         )}
-        {(auth.getCurrentUser()?.isAdmin || isTheAuthor) && (
+        {(currentUser?.isAdmin || isTheAuthor) && (
           <Button
             w="100%"
             backgroundColor="green.500"

@@ -6,8 +6,7 @@ import { toast } from "react-toastify";
 import { DataError, Response } from "../services/client";
 import { NewOrder, OrderProducts, Order } from "./useOrder";
 import { Product } from "../hooks/useProducts";
-import { useCart, useData, useStatus } from ".";
-import auth from "../services/auth";
+import { useCart, useData, useStatus, useUser } from ".";
 import notificationsService from "../services/notifications";
 import OrdersContext from "../contexts/OrdersContext";
 import service from "../services/orders";
@@ -23,6 +22,7 @@ const useOrders = (targetUrl?: string) => {
   const { status } = useStatus();
   const cart = useCart();
   const navigate = useNavigate();
+  const currentUser = useUser();
 
   useEffect(() => {
     if (!error) setOrders(data);
@@ -57,7 +57,7 @@ const useOrders = (targetUrl?: string) => {
       toast.success("Order placed successfully!");
       notificationsService.create({
         title: "Amazing Mart",
-        description: `${auth.getCurrentUser()?.name} has placed an order`,
+        description: `${currentUser?.name} has placed an order`,
         to: (data as Order).shop.author._id,
       });
     } else toast.error((data as DataError)?.error || problem);

@@ -11,9 +11,8 @@ import useUser from "./useUser";
 
 const useChatUser = () => {
   const [googleUser] = useAuthState(config.auth);
-
   const navigate = useNavigate();
-  const dbUser = useUser(auth.getCurrentUser()?._id);
+  const dbUser = useUser();
 
   useEffect(() => {
     updateChatUser();

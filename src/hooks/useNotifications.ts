@@ -3,13 +3,12 @@ import { toast } from "react-toastify";
 
 import { Notification } from "../components/Notification";
 import { NotificationsContext } from "../contexts";
-import auth from "../services/auth";
 import notificationsService from "../services/notifications";
+import useUser from "./useUser";
 
 const useNotifications = () => {
   const { notifications, setNotifications } = useContext(NotificationsContext);
-
-  const user = auth.getCurrentUser();
+  const user = useUser();
 
   useEffect(() => {
     init();

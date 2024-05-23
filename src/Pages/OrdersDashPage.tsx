@@ -5,9 +5,9 @@ import { toast } from "react-toastify";
 
 import { Grid, Heading, Image, Text } from "../components";
 import { Card } from "../components/card";
+import { useUser } from "../hooks";
 import incomingOrderImage from "../assets/incoming-orders.jpg";
 import outgoingOrderImage from "../assets/outgoing-orders.jpeg";
-import auth from "../services/auth";
 
 interface OrderType {
   description: string;
@@ -36,9 +36,10 @@ const orderTypes: OrderType[] = [
 
 const OrdersDashPage = () => {
   const navigate = useNavigate();
+  const currentUser = useUser();
 
   const handleNavigation = (route: string) => {
-    if (!auth.getCurrentUser()) {
+    if (!currentUser) {
       toast.info("Login to see your orders");
       return navigate("/login");
     }

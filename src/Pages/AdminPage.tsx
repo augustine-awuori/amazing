@@ -12,8 +12,7 @@ import {
 import { paginate } from "../utils/paginate";
 import { Shop } from "../hooks/useShop";
 import { useShops } from "../hooks";
-import { User as UserType } from "../hooks/useUser";
-import auth from "../services/auth";
+import useUser, { User as UserType } from "../hooks/useUser";
 import ShopAdminItem from "../components/ShopAdminItem";
 import useUsers from "../hooks/useUsers";
 
@@ -26,11 +25,12 @@ const AdminPage = () => {
   const [shopsModalOpen, setShopsModalVisibility] = useState(false);
   const [pageSize] = useState(4);
   const [query, setQuery] = useState("");
+  const currentUser = useUser();
 
   const paginatedUsers = paginate<UserType>(users, usersCurrentPage, pageSize);
   const paginatedShops = paginate<Shop>(shops, shopsCurrentPage, pageSize);
 
-  if (!auth.getCurrentUser()?.isAdmin) return <Navigate to="/" />;
+  if (!currentUser?.isAdmin) return <Navigate to="/" />;
 
   const title = usersModalOpen ? "App Users" : "App Shops";
 
