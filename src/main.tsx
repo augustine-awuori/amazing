@@ -5,8 +5,8 @@ import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import App from "./App.tsx";
-import theme from "./theme.ts";
+import App from "./App";
+import theme from "./theme";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <StrictMode>
