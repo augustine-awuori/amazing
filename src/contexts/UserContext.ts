@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 import { User } from "../hooks/useUser";
 
-interface UserContextValue {
+export interface UserContextValue {
   user: User | undefined;
   setUser: (user: User) => void;
 }

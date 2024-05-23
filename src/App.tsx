@@ -3,7 +3,6 @@ import { Box, Grid, GridItem } from "@chakra-ui/react";
 
 import { CartProducts } from "./contexts/CartContext";
 import { NavBar, Routes } from "./components";
-import { UserContext } from "./contexts";
 import useUser, { User } from "./hooks/useUser";
 
 function App() {
@@ -32,12 +31,12 @@ function App() {
         <NavBar user={user} cartCount={cartProducts.count} />
       </GridItem>
       <Box pt={{ base: "3.5rem", md: "2.1rem" }}>
-        <UserContext.Provider value={{ user, setUser }}>
-          <Routes
-            cartProducts={cartProducts}
-            setCartProducts={setCartProducts}
-          />
-        </UserContext.Provider>
+        <Routes
+          cartProducts={cartProducts}
+          setCartProducts={setCartProducts}
+          setUser={setUser}
+          user={user}
+        />
       </Box>
     </Grid>
   );

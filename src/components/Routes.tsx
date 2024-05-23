@@ -60,6 +60,7 @@ import {
   ShopContext,
   ShopsContext,
   StatusContext,
+  UserContext,
 } from "../contexts";
 import { Chat } from "../components/chat";
 import { CheckScreenWidth, RedirectRoot } from "../navigation";
@@ -68,10 +69,13 @@ import { Notification } from "./Notification";
 import { Poster } from "../Pages/PostersPage";
 import { Product } from "../hooks/useProducts";
 import { Status } from "../hooks/useStatus";
+import { UserContextValue } from "../contexts/UserContext";
 import CartContext, { Cart } from "../contexts/CartContext";
 import ChatContext, { ChatDetails } from "../contexts/ChatContext";
 
-function AppRoutes({ cartProducts, setCartProducts }: Cart) {
+interface Props extends Cart, UserContextValue {}
+
+function AppRoutes({ cartProducts, setCartProducts, user, setUser }: Props) {
   const [bagProducts, setBagProducts] = useState<Product[]>([]);
   const [bags, setBags] = useState<ShopProduct[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -101,245 +105,259 @@ function AppRoutes({ cartProducts, setCartProducts }: Cart) {
   };
 
   return (
-    <NotificationsContext.Provider value={{ notifications, setNotifications }}>
-      <ListingsContext.Provider value={{ listings, setListings }}>
-        <ListingContext.Provider value={{ listing, setListing }}>
-          <ProfileListingsContext.Provider
-            value={{ profileListings, setProfileListings }}
-          >
-            <RequestsContext.Provider value={{ requests, setRequests }}>
-              <RequestContext.Provider value={{ request, setRequest }}>
-                <ProfileUserContext.Provider
-                  value={{ profileUser, setProfileUser }}
-                >
-                  <ProfileRequestsContext.Provider
-                    value={{ profileRequests, setProfileRequests }}
+    <UserContext.Provider value={{ user, setUser }}>
+      <NotificationsContext.Provider
+        value={{ notifications, setNotifications }}
+      >
+        <ListingsContext.Provider value={{ listings, setListings }}>
+          <ListingContext.Provider value={{ listing, setListing }}>
+            <ProfileListingsContext.Provider
+              value={{ profileListings, setProfileListings }}
+            >
+              <RequestsContext.Provider value={{ requests, setRequests }}>
+                <RequestContext.Provider value={{ request, setRequest }}>
+                  <ProfileUserContext.Provider
+                    value={{ profileUser, setProfileUser }}
                   >
-                    <CategoriesContext.Provider
-                      value={{ categories, setCategories }}
+                    <ProfileRequestsContext.Provider
+                      value={{ profileRequests, setProfileRequests }}
                     >
-                      <CartContext.Provider
-                        value={{
-                          cartProducts,
-                          setCartProducts,
-                        }}
+                      <CategoriesContext.Provider
+                        value={{ categories, setCategories }}
                       >
-                        <EventsContext.Provider value={{ events, setEvents }}>
-                          <PostersContext.Provider
-                            value={{ posters, setPosters }}
-                          >
-                            <ShopsContext.Provider value={{ shops, setShops }}>
-                              <ShopContext.Provider value={{ shop, setShop }}>
-                                <BagsContext.Provider value={{ bags, setBags }}>
-                                  <BagContext.Provider
-                                    value={{
-                                      bag: {
-                                        products: bagProducts,
-                                        ids: productsIds,
-                                      },
-                                      setBag: handleBag,
-                                    }}
+                        <CartContext.Provider
+                          value={{
+                            cartProducts,
+                            setCartProducts,
+                          }}
+                        >
+                          <EventsContext.Provider value={{ events, setEvents }}>
+                            <PostersContext.Provider
+                              value={{ posters, setPosters }}
+                            >
+                              <ShopsContext.Provider
+                                value={{ shops, setShops }}
+                              >
+                                <ShopContext.Provider value={{ shop, setShop }}>
+                                  <BagsContext.Provider
+                                    value={{ bags, setBags }}
                                   >
-                                    <ImagesContext.Provider
-                                      value={{ images, setImages }}
+                                    <BagContext.Provider
+                                      value={{
+                                        bag: {
+                                          products: bagProducts,
+                                          ids: productsIds,
+                                        },
+                                        setBag: handleBag,
+                                      }}
                                     >
-                                      <ProductsContext.Provider
-                                        value={{ products, setProducts }}
+                                      <ImagesContext.Provider
+                                        value={{ images, setImages }}
                                       >
-                                        <OrdersContext.Provider
-                                          value={{ orders, setOrders }}
+                                        <ProductsContext.Provider
+                                          value={{ products, setProducts }}
                                         >
-                                          <OrderContext.Provider
-                                            value={{ order, setOrder }}
+                                          <OrdersContext.Provider
+                                            value={{ orders, setOrders }}
                                           >
-                                            <StatusContext.Provider
-                                              value={{ setStatus, status }}
+                                            <OrderContext.Provider
+                                              value={{ order, setOrder }}
                                             >
-                                              <ChatContext.Provider
-                                                value={{ setChat, chat }}
+                                              <StatusContext.Provider
+                                                value={{ setStatus, status }}
                                               >
-                                                <Routes>
-                                                  <Route
-                                                    path="/admin"
-                                                    element={<AdminPage />}
-                                                  />
-                                                  <Route
-                                                    path="/events"
-                                                    element={
-                                                      <CheckScreenWidth
-                                                        Component={
-                                                          <EventsPage />
-                                                        }
-                                                      />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="listings/:listingId"
-                                                    element={
-                                                      <ListingDetailsPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="listings/new"
-                                                    element={
-                                                      <ListingEditPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="/listings"
-                                                    element={
-                                                      <CheckScreenWidth
-                                                        Component={
-                                                          <ListingsPage />
-                                                        }
-                                                      />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="requests/new"
-                                                    element={
-                                                      <RequestEditPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="requests"
-                                                    element={<RequestsPage />}
-                                                  />
-                                                  <Route
-                                                    path="/shops/orders"
-                                                    element={<MyShopsPage />}
-                                                  />
-                                                  <Route
-                                                    path="/shops/orders/:shopId"
-                                                    element={<ShopOrders />}
-                                                  />
-                                                  <Route
-                                                    path="/shops/orders/:shopId/:orderId"
-                                                    element={<ShopOrderPage />}
-                                                  />
-                                                  <Route
-                                                    path="/shops/orders/my/:orderId"
-                                                    element={<MyOrderPage />}
-                                                  />
-                                                  <Route
-                                                    path="/shops/orders/my"
-                                                    element={<MyOrdersPage />}
-                                                  />
-                                                  <Route
-                                                    path="about-app"
-                                                    element={<AboutAppPage />}
-                                                  />
-                                                  <Route
-                                                    path="chats"
-                                                    element={<ChatsPage />}
-                                                  />
-                                                  <Route
-                                                    path="chats/:chatId"
-                                                    element={<Chat />}
-                                                  />
-                                                  <Route
-                                                    path="chats/auth"
-                                                    element={<ChatsAuthPage />}
-                                                  />
-                                                  <Route
-                                                    path="chats/auth/login"
-                                                    element={<ChatsLoginPage />}
-                                                  />
-                                                  <Route
-                                                    path="chats/auth/register"
-                                                    element={
-                                                      <ChatsRegisterPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="notifications"
-                                                    element={
-                                                      <NotificationsPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="profile/:userId/edit"
-                                                    element={
-                                                      <ProfileEditPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="profile/:userId/listings"
-                                                    element={
-                                                      <ProfileListingsPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="/profile/:userId/requests"
-                                                    element={
-                                                      <ProfileRequestsPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="/profile/:userId"
-                                                    element={<ProfilePage />}
-                                                  />
-                                                  <Route
-                                                    path="/shops/new"
-                                                    element={<ShopEditPage />}
-                                                  />
-                                                  <Route
-                                                    path="/shops/shopping-cart"
-                                                    element={
-                                                      <ShoppingCartPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="/shops/:shopId/:productId"
-                                                    element={
-                                                      <ProductDetailsPage />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    path="/shops/:shopId"
-                                                    element={<ShopPage />}
-                                                  />
-                                                  <Route
-                                                    path="/shops"
-                                                    element={
-                                                      <CheckScreenWidth
-                                                        Component={
-                                                          <ShopsPage />
-                                                        }
-                                                      />
-                                                    }
-                                                  />
-                                                  <Route
-                                                    index
-                                                    element={<RedirectRoot />}
-                                                  />
-                                                  <Route
-                                                    path="*"
-                                                    element={<NotFoundPage />}
-                                                  />
-                                                </Routes>
-                                              </ChatContext.Provider>
-                                            </StatusContext.Provider>
-                                          </OrderContext.Provider>
-                                        </OrdersContext.Provider>
-                                      </ProductsContext.Provider>
-                                    </ImagesContext.Provider>
-                                  </BagContext.Provider>
-                                </BagsContext.Provider>
-                              </ShopContext.Provider>
-                            </ShopsContext.Provider>
-                          </PostersContext.Provider>
-                        </EventsContext.Provider>
-                      </CartContext.Provider>
-                    </CategoriesContext.Provider>
-                  </ProfileRequestsContext.Provider>
-                </ProfileUserContext.Provider>
-              </RequestContext.Provider>
-            </RequestsContext.Provider>
-          </ProfileListingsContext.Provider>
-        </ListingContext.Provider>
-      </ListingsContext.Provider>
-    </NotificationsContext.Provider>
+                                                <ChatContext.Provider
+                                                  value={{ setChat, chat }}
+                                                >
+                                                  <Routes>
+                                                    <Route
+                                                      path="/admin"
+                                                      element={<AdminPage />}
+                                                    />
+                                                    <Route
+                                                      path="/events"
+                                                      element={
+                                                        <CheckScreenWidth
+                                                          Component={
+                                                            <EventsPage />
+                                                          }
+                                                        />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="listings/:listingId"
+                                                      element={
+                                                        <ListingDetailsPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="listings/new"
+                                                      element={
+                                                        <ListingEditPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="/listings"
+                                                      element={
+                                                        <CheckScreenWidth
+                                                          Component={
+                                                            <ListingsPage />
+                                                          }
+                                                        />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="requests/new"
+                                                      element={
+                                                        <RequestEditPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="requests"
+                                                      element={<RequestsPage />}
+                                                    />
+                                                    <Route
+                                                      path="/shops/orders"
+                                                      element={<MyShopsPage />}
+                                                    />
+                                                    <Route
+                                                      path="/shops/orders/:shopId"
+                                                      element={<ShopOrders />}
+                                                    />
+                                                    <Route
+                                                      path="/shops/orders/:shopId/:orderId"
+                                                      element={
+                                                        <ShopOrderPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="/shops/orders/my/:orderId"
+                                                      element={<MyOrderPage />}
+                                                    />
+                                                    <Route
+                                                      path="/shops/orders/my"
+                                                      element={<MyOrdersPage />}
+                                                    />
+                                                    <Route
+                                                      path="about-app"
+                                                      element={<AboutAppPage />}
+                                                    />
+                                                    <Route
+                                                      path="chats"
+                                                      element={<ChatsPage />}
+                                                    />
+                                                    <Route
+                                                      path="chats/:chatId"
+                                                      element={<Chat />}
+                                                    />
+                                                    <Route
+                                                      path="chats/auth"
+                                                      element={
+                                                        <ChatsAuthPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="chats/auth/login"
+                                                      element={
+                                                        <ChatsLoginPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="chats/auth/register"
+                                                      element={
+                                                        <ChatsRegisterPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="notifications"
+                                                      element={
+                                                        <NotificationsPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="profile/:userId/edit"
+                                                      element={
+                                                        <ProfileEditPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="profile/:userId/listings"
+                                                      element={
+                                                        <ProfileListingsPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="/profile/:userId/requests"
+                                                      element={
+                                                        <ProfileRequestsPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="/profile/:userId"
+                                                      element={<ProfilePage />}
+                                                    />
+                                                    <Route
+                                                      path="/shops/new"
+                                                      element={<ShopEditPage />}
+                                                    />
+                                                    <Route
+                                                      path="/shops/shopping-cart"
+                                                      element={
+                                                        <ShoppingCartPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="/shops/:shopId/:productId"
+                                                      element={
+                                                        <ProductDetailsPage />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      path="/shops/:shopId"
+                                                      element={<ShopPage />}
+                                                    />
+                                                    <Route
+                                                      path="/shops"
+                                                      element={
+                                                        <CheckScreenWidth
+                                                          Component={
+                                                            <ShopsPage />
+                                                          }
+                                                        />
+                                                      }
+                                                    />
+                                                    <Route
+                                                      index
+                                                      element={<RedirectRoot />}
+                                                    />
+                                                    <Route
+                                                      path="*"
+                                                      element={<NotFoundPage />}
+                                                    />
+                                                  </Routes>
+                                                </ChatContext.Provider>
+                                              </StatusContext.Provider>
+                                            </OrderContext.Provider>
+                                          </OrdersContext.Provider>
+                                        </ProductsContext.Provider>
+                                      </ImagesContext.Provider>
+                                    </BagContext.Provider>
+                                  </BagsContext.Provider>
+                                </ShopContext.Provider>
+                              </ShopsContext.Provider>
+                            </PostersContext.Provider>
+                          </EventsContext.Provider>
+                        </CartContext.Provider>
+                      </CategoriesContext.Provider>
+                    </ProfileRequestsContext.Provider>
+                  </ProfileUserContext.Provider>
+                </RequestContext.Provider>
+              </RequestsContext.Provider>
+            </ProfileListingsContext.Provider>
+          </ListingContext.Provider>
+        </ListingsContext.Provider>
+      </NotificationsContext.Provider>
+    </UserContext.Provider>
   );
 }
 
