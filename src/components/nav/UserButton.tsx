@@ -122,6 +122,7 @@ const UserButton = ({ user }: Props) => {
     auth.logout();
     userSignOut();
     setShowLogoutPrompt(false);
+    window.location.href = "/";
   };
 
   const handleModalClose = () => setShowLogoutPrompt(false);
