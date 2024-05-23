@@ -16,7 +16,7 @@ import {
   BiReceipt,
   BiShoppingBag,
 } from "react-icons/bi";
-import { AiFillEdit, AiOutlineLogin } from "react-icons/ai";
+import { AiOutlineLogin } from "react-icons/ai";
 
 import { BadgeItem } from "../components/common/Badge";
 import { BadgesList, Modal } from "../components/common";
@@ -35,6 +35,7 @@ import {
   useShops,
   useUser,
 } from "../hooks";
+import { userSignIn } from "../hooks/useGoogleUser";
 import SideCart from "../components/products/CartPreview";
 import ShopsProductsGrid from "../components/shops/product/Grid";
 import ShowSelector from "../components/shops/ShowSelector";
@@ -292,12 +293,9 @@ const ShopsPage = () => {
         isOpen={authRequested}
         onModalClose={() => setAuthRequest(false)}
         title="You're not logged in"
-        primaryBtnLabel="Sign In"
+        primaryBtnLabel="Google In"
         PrimaryLeftIcon={<AiOutlineLogin />}
-        secondaryBtnLabel="Sign Up"
-        SecondaryLeftIcon={<AiFillEdit />}
-        onPrimaryClick={() => navigate("/login")}
-        onSecondaryClick={() => navigate("/register")}
+        onPrimaryClick={() => userSignIn()}
       />
       <Modal
         content={
